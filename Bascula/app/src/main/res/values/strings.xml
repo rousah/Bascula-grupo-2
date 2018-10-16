@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Bascula</string>
+    <string name="inicio">Inicio</string>
+    <string name="action_settings">Settings</string>
+    <string name="preferencias">Preferencias</string>
+    <string name="datos">Datos</string>
+    <string name="acercade">Acerca de...</string>
+</resources>
