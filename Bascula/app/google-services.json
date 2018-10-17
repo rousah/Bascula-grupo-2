@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "52614008757",
+    "firebase_url": "https://bascula-35e49.firebaseio.com",
+    "project_id": "bascula-35e49",
+    "storage_bucket": "bascula-35e49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52614008757:android:2f1ce44976d5c0fd",
+        "android_client_info": {
+          "package_name": "com.example.rousah.bascula"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52614008757-ak8osqiqcmmt80lajipju05mpvlaodvv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rousah.bascula",
+            "certificate_hash": "37677c5da9c27bdae17a59320ac9f617647a21ee"
+          }
+        },
+        {
+          "client_id": "52614008757-0tcoekp3212npie54gh6mvit3df2p0vh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQNGPb0YRNHTvTozi4HNXmy-u7OjksSYs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52614008757-0tcoekp3212npie54gh6mvit3df2p0vh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
