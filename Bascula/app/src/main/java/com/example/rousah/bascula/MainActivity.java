@@ -1,5 +1,6 @@
 package com.example.rousah.bascula;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -83,10 +84,25 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            lanzarPreferencias(null);
+            return true;
+        }
+        if (id == R.id.acercaDe) {
+            lanzarAcercaDe(null);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void lanzarAcercaDe(View view){
+        Intent i = new Intent(this, AcercaDeActivity.class);
+        startActivity(i);
+    }
+
+    public void lanzarPreferencias(View view){
+        Intent i = new Intent(this, PreferenciasActivity.class);
+        startActivity(i);
     }
 
     /**
@@ -143,4 +159,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+
 }
