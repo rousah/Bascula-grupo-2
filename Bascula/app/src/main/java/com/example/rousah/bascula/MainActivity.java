@@ -132,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     Tab3 tab3 = new Tab3();
                     return tab3;
+                case 3:
+                    Tab4 tab4 = new Tab4();
+                    return tab4;
 
                     default:
                         return null;
@@ -141,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
@@ -154,13 +157,13 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     return getString(R.string.preferencias);
 
+                case 3:
+                    return "cuarto";
+
                 default:
                     return null;
             }
         }
     }
-
-
-
 
 }
