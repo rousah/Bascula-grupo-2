@@ -1,5 +1,6 @@
 package com.example.rousah.bascula;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -83,15 +84,98 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            lanzarPreferencias(null);
+            return true;
+        }
+        if (id == R.id.acercaDe) {
+            lanzarAcercaDe(null);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    public void lanzarAcercaDe(View view){
+        Intent i = new Intent(this, AcercaDeActivity.class);
+        startActivity(i);
+    }
+
+    public void lanzarPreferencias(View view){
+        Intent i = new Intent(this, PreferenciasActivity.class);
+        startActivity(i);
+    }
+
+
+    //  BORJA
+    /*
+     * Function introduced as part of the remote user administration
+     *
+     * ????????????????????????????????
+     * It is not completed yet. some information that shall be passed between activities are not properly set.
+     * ????????????????????????????????
+     *
+     * Its main purpose is to be part of the confirmation whether the administrator actually aims
+     * to delete the remote user.
+     */
+    public void lanzaCheck(View view) {
+
+        // View of interest in the activity_main layout
+        TextView fieldTextView = (TextView) findViewById(R.id.usuario);
+
+        // *** Borja ***
+        /*
+        Preparing to trigger VerificarActivity sending a data/value message
+        */
+        // Intent for the communication with VerificarActivity class
+        Intent intent = new Intent (this, RemoveRemoteCheckActivity.class);
+
+        // Storage of information as data/value into the intent
+         intent.putExtra("usuario", fieldTextView.getText().toString());
+
+        // Start activity of communication
+        startActivityForResult(intent, 123);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
+        // startActivity(intent);
+
+    }
+
+
+    //  BORJA
+    /*
+     * Function introduced as part of the remote user administration
+     *
+     * ????????????????????????????????
+     * It is not completed yet. some information shall be managet properly in the layout.
+     * ????????????????????????????????
+     *
+     * Its main purpose is to be part of to receive the acceptace or the rejection of the removal of the remote user
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);  // recommended by www.youtube.com/watch?v=OHyPQ4tpBuc
+        if (requestCode == 123 && resultCode == RESULT_OK) {
+            String resultado = (String) data.getExtras().getString("resultado");
+
+            // View of interest in the activity_main layout
+            // TextView fieldTextView = (TextView) findViewById(R.id.textView);
+            // fieldTextView.setText("Resultado: " + resultado);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * A placeholder fragment containing a simple view.
      */
+
 
 
     /**
@@ -116,6 +200,9 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     Tab3 tab3 = new Tab3();
                     return tab3;
+                case 3:
+                    Tab4 tab4 = new Tab4();
+                    return tab4;
 
                     default:
                         return null;
@@ -125,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
@@ -138,9 +225,13 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     return getString(R.string.preferencias);
 
+                case 3:
+                    return "cuarto";
+
                 default:
                     return null;
             }
         }
     }
+
 }
