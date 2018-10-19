@@ -37,6 +37,7 @@
                 android:text="Sus datos más recientes:"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:typeface="normal"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout"
                 tools:layout_constraintLeft_creator="1"
@@ -106,39 +107,48 @@
                     android:textSize="24sp" />
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/rounded"
+                android:orientation="vertical"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="7dp"
-                android:background="@drawable/rounded"
-                android:orientation="horizontal"
                 android:padding="15dp">
 
-                <TextView
-                    android:id="@+id/imctexto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="IMC:"
-                    android:textColor="#ffffff"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/imcvalor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:text="20.2"
-                    android:textColor="#ffffff"
-                    android:textSize="24sp" />
+                    <TextView
+                        android:id="@+id/imctexto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="IMC:"
+                        android:textColor="#ffffff"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/imcvalor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="20.2"
+                        android:textColor="#ffffff"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <TextView
+
+        <TextView
                 android:id="@+id/section2_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
