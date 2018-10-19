@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent (this, RemoveRemoteCheckActivity.class);
 
         // Storage of information as data/value into the intent
-         intent.putExtra("usuario", fieldTextView.getText().toString());
+        intent.putExtra("usuario", fieldTextView.getText().toString());
 
         // Start activity of communication
         startActivityForResult(intent, 123);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted

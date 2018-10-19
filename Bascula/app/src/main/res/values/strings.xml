@@ -5,7 +5,7 @@
     <string name="preferencias">Preferencias</string>
     <string name="datos">Datos</string>
     <string name="acercade">Acerca de...</string>
-
     <string name="aceptar">Aceptar</string>
     <string name="rechazar">Rechazar</string>
+    <string name="compartir">Compartir</string>
 </resources>

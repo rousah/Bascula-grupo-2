@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     <LinearLayout
         android:id="@+id/remoteSubscribercontainer"
@@ -18,7 +35,9 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
-            android:text="Selecciona uno de tus usuarios remotos o new" />
+            android:text="Selecciona uno de tus usuarios remotos o nuevo"
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +53,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:text="New" />
+                android:text="Nuevo"
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/spinner1"
@@ -52,11 +73,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
-            android:text="Dirección de correos electrònica" />
+            android:text="Dirección de correo electrónico"
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/Register"
-            style="@style/FirebaseUI.Button.AccountChooser.GitHubButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -64,18 +86,20 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="Subscribe" />
+            android:text="Suscribir" />
 
         <Button
             android:id="@+id/UnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="10dp"
-            android:background="@android:color/holo_red_light"
+            android:layout_marginLeft="34dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginRight="34dp"
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/boton_cancelar"
             android:onClick="lanzaCheck"
-            android:text="Remove" />
+            android:text="Borrar"
+            android:textColor="#ffffff" />
     </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
