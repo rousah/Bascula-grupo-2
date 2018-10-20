@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--   BORJA
+VERSION: V 1.0.1
+DESCRIPTION:
+One non-exisitn buttonstyle prevented the compilation.
+The buttonstyle attribute has been removed
+-->
+<!--   BORJA
 VERSION: V 1.0.0
 DESCRIPTION: Initial
 -->
@@ -53,7 +59,6 @@ DESCRIPTION: Initial
 
         <Button
             android:id="@+id/reseleccionar"
-            style="@style/buttonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"

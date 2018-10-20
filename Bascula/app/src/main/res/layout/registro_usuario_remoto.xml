@@ -4,6 +4,12 @@
 VERSION: V 1.0.0
 DESCRIPTION: Initial
 -->
+<!--   BORJA
+VERSION: V 1.0.1
+DESCRIPTION:
+Missing android:layout_height made to crash the application as soon thehe addition of a new user
+was initiated
+-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
@@ -24,6 +30,7 @@ DESCRIPTION: Initial
         <TextView
             android:id="@+id/Nombre_text_id"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="bottom|start"
             android:text="@string/nombredospuntos"
@@ -32,12 +39,14 @@ DESCRIPTION: Initial
         <EditText
             android:id="@+id/Nombre_edit_id"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:autofillHints=""
             android:ems="10"
             android:gravity="center_vertical|start"
             android:hint="@string/nombre"
             android:inputType="textPersonName"
+            android:text="@string/nombre"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             tools:targetApi="o" />
@@ -45,6 +54,7 @@ DESCRIPTION: Initial
         <TextView
             android:id="@+id/apellidos_text_id"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="bottom|start"
             android:text="@string/apellidos"
@@ -53,6 +63,7 @@ DESCRIPTION: Initial
         <EditText
             android:id="@+id/Apellidos_edit_id"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:autofillHints=""
             android:ems="10"
@@ -66,6 +77,7 @@ DESCRIPTION: Initial
         <TextView
             android:id="@+id/email_id"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="bottom|start"
             android:text="@string/correo_electr_nico"
@@ -74,6 +86,7 @@ DESCRIPTION: Initial
         <EditText
             android:id="@+id/email_edit_id"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:ems="10"
             android:gravity="center_horizontal|start"
