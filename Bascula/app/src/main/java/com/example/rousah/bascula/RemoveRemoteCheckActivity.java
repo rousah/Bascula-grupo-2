@@ -1,3 +1,10 @@
+//  BORJA
+/*
+VERSION: V 1.0.0
+DESCRIPTION:
+Initial
+ */
+
 package com.example.rousah.bascula;
 
 import android.app.Activity;
@@ -8,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class RemoveRemoteCheckActivity extends Activity {
-    private TextView mEdit;
+
     private Button aceptar;
     private Button rechazar;
 
@@ -17,31 +24,32 @@ public class RemoveRemoteCheckActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.remove_remote_check_activity);
 
+        Intent intent =  getIntent();
+        String usuarioremoto = intent.getStringExtra("usuarioremoto");
 
-        Bundle receivedData = getIntent().getExtras();
-        String nombre = receivedData.getString("nombre");
+        TextView fieldTextView = (TextView) findViewById(R.id.confirmacion);
 
-        TextView fieldTextView = (TextView) findViewById(R.id.textView2);
+        fieldTextView.setText(usuarioremoto );
 
-        fieldTextView.setText("Estas seguro que quieres borrar a\n" + nombre );
+        final Intent intent2 = new Intent(this, DoneActivity.class);
 
         aceptar = (Button) findViewById(R.id.aceptar);
         aceptar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("resultado", "Aceptado");
-                setResult(RESULT_OK, intent);
+                startActivity(intent2);
                 finish();
+
             }
         });
+
+        final Intent intent3 = new Intent(this, MainActivity.class);
 
         rechazar = (Button) findViewById(R.id.rechazar);
         rechazar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("resultado", "Rechazado");
-                setResult(RESULT_OK, intent);
+                startActivity(intent3);
                 finish();
+
             }
         });
     }

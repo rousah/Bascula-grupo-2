@@ -55,7 +55,7 @@
                 android:id="@+id/tabItem4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/compartir" />
+                android:text="tabbbbb" />
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>

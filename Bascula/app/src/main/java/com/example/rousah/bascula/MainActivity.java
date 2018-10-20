@@ -1,3 +1,16 @@
+// ROSA, BORJA
+/*
+VERSION: V 2.0.0
+DESCRIPTION:
+The graphic part of the remote administration has been introduced.
+ */
+
+/*
+VERSION: V 1.0.0
+DESCRIPTION:
+Initial
+ */
+
 package com.example.rousah.bascula;
 
 import android.content.Intent;
@@ -12,15 +25,25 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    // BORJA
+    /*
+    Introduced with the purpose to have a database for the remote users
+     */
+    public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -119,22 +142,15 @@ public class MainActivity extends AppCompatActivity {
      */
     public void lanzaCheck(View view) {
 
-        // View of interest in the activity_main layout
         TextView fieldTextView = (TextView) findViewById(R.id.usuario);
 
-        // *** Borja ***
-        /*
-        Preparing to trigger VerificarActivity sending a data/value message
-        */
-        // Intent for the communication with VerificarActivity class
         Intent intent = new Intent (this, RemoveRemoteCheckActivity.class);
 
         // Storage of information as data/value into the intent
-        intent.putExtra("usuario", fieldTextView.getText().toString());
+         intent.putExtra("usuario", fieldTextView.getText().toString());
 
         // Start activity of communication
         startActivityForResult(intent, 123);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
-        // startActivity(intent);
 
     }
 
@@ -159,9 +175,50 @@ public class MainActivity extends AppCompatActivity {
             // TextView fieldTextView = (TextView) findViewById(R.id.textView);
             // fieldTextView.setText("Resultado: " + resultado);
         }
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String usuario = (String) data.getExtras().getString("usuarioremoto");
+            // String email = (String) data.getExtras().getString("email");
+
+            Intent intent = new Intent(this, RemoveRemoteCheckActivity.class);
+            intent.putExtra("usuarioremoto", usuario);
+            // startActivity(intent);
+            startActivityForResult(intent, 2);
+            finish();
+        }
+
     }
 
 
+
+    //  BORJA
+    /*
+     * Function introduced as part of the remote user administration. It will trigger the
+     * Removal of remote users
+     */
+    public void lanzarEliminacionUsuariosRemotos(View view) {
+
+
+        Intent intent = new Intent (this, UsuariosRemotosActivity.class);
+
+        // Start activity of communication
+        startActivity(intent);
+    }
+
+    //  BORJA
+    /*
+     * Function introduced as part of the remote user administration. It will trigger the
+     * Removal of remote users
+     */
+    public void lanzarRegistroUsuariosRemotos(View view) {
+
+
+        Intent intent_b = new Intent (this, RegistroUsuarioRemotoActivity.class);
+
+        // Start activity of communication
+        startActivity(intent_b);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
+
+    }
 
 
 
