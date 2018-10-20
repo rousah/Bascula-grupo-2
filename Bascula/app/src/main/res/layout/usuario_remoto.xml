@@ -51,13 +51,9 @@ DESCRIPTION: Initial
                 android:textSize="20dp" />
 
 
-
-
-
         <Button
             android:id="@+id/reseleccionar"
-            android:background="@drawable/rounded"
-
+            style="@style/buttonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -69,9 +65,6 @@ DESCRIPTION: Initial
             android:text="Si NO es el usuario que querias,\nReseleccionalo aquí" />
 
 
-
-
-
         <Button
             android:id="@+id/eliminar"
             android:layout_width="match_parent"
@@ -80,7 +73,6 @@ DESCRIPTION: Initial
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
-            android:background="@android:color/holo_red_light"
             android:text="Eliminar" />
     </LinearLayout>
 </LinearLayout>
