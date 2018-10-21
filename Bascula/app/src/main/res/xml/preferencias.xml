@@ -5,6 +5,7 @@
 
     <CheckBoxPreference
         android:key="musica"
+
         android:title="Checkbox"
         android:summary="Checkbox provisional"/>
     <ListPreference
@@ -16,6 +17,7 @@
         android:defaultValue="1"/>
     <EditTextPreference
         android:key="fragmentos"
+
         android:title="Número de personas usando la bascula"
         android:summary=""
         android:inputType="number"

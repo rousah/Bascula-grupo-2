@@ -23,6 +23,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--
+          BORJA
+          Introduced in order to implement remote user administration
+          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        -->
+        <activity
+            android:name=".RemoveRemoteCheckActivity">
+        </activity>
+
+        <activity
+            android:name=".UsuariosRemotosActivity"
+            android:label="Usuarios Remotos">
+        </activity>
+
+        <activity
+            android:name=".UsuarioRemotoActivity"
+            android:label="Usuario Remoto">
+        </activity>
+
+        <activity
+            android:name=".DoneActivity"
+            android:label="Hecho">
+        </activity>
+
+        <activity
+            android:name=".RegistroUsuarioRemotoActivity"
+            android:label="Registro Usuario Remoto">
+        </activity>
+        <!--
+            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            BORJA
+            Introduction ends here
+        -->
+
     </application>
 
 </manifest>

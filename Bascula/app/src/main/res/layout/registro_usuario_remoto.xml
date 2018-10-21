@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--   BORJA
+VERSION: V 1.0.0
+DESCRIPTION: Initial
+-->
+<!--   BORJA
+VERSION: V 1.0.1
+DESCRIPTION:
+Missing android:layout_height made to crash the application as soon thehe addition of a new user
+was initiated
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingTop="20dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/Nombre_text_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|start"
+            android:text="@string/nombredospuntos"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/Nombre_edit_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:autofillHints=""
+            android:ems="10"
+            android:gravity="center_vertical|start"
+            android:hint="@string/nombre"
+            android:inputType="textPersonName"
+            android:text="@string/nombre"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/apellidos_text_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|start"
+            android:text="@string/apellidos"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/Apellidos_edit_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:autofillHints=""
+            android:ems="10"
+            android:gravity="center_vertical|start"
+            android:hint="@string/apellido_1_apellido_2"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/email_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|start"
+            android:text="@string/correo_electr_nico"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/email_edit_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:ems="10"
+            android:gravity="center_horizontal|start"
+            android:hint="@string/email_domain_com"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:textSize="18sp"
+            tools:targetApi="o" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/guardar_id"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:text="@string/guardar_datos" />
+
+</LinearLayout>

@@ -36,7 +36,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity_2 extends AppCompatActivity {
 
     // BORJA
     /*
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Añada más datos", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -128,6 +128,107 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+
+    //  BORJA
+    /*
+     * Function introduced as part of the remote user administration
+     *
+     * ????????????????????????????????
+     * It is not completed yet. some information that shall be passed between activities are not properly set.
+     * ????????????????????????????????
+     *
+     * Its main purpose is to be part of the confirmation whether the administrator actually aims
+     * to delete the remote user.
+     */
+    public void lanzaCheck(View view) {
+
+        TextView fieldTextView = (TextView) findViewById(R.id.usuario);
+
+        Intent intent = new Intent (this, RemoveRemoteCheckActivity.class);
+
+        // Storage of information as data/value into the intent
+         intent.putExtra("usuario", fieldTextView.getText().toString());
+
+        // Start activity of communication
+        startActivityForResult(intent, 123);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
+
+    }
+
+
+    //  BORJA
+    /*
+     * Function introduced as part of the remote user administration
+     *
+     * ????????????????????????????????
+     * It is not completed yet. some information shall be managet properly in the layout.
+     * ????????????????????????????????
+     *
+     * Its main purpose is to be part of to receive the acceptace or the rejection of the removal of the remote user
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);  // recommended by www.youtube.com/watch?v=OHyPQ4tpBuc
+        if (requestCode == 123 && resultCode == RESULT_OK) {
+            String resultado = (String) data.getExtras().getString("resultado");
+
+            // View of interest in the activity_main layout
+            // TextView fieldTextView = (TextView) findViewById(R.id.textView);
+            // fieldTextView.setText("Resultado: " + resultado);
+        }
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String usuario = (String) data.getExtras().getString("usuarioremoto");
+            // String email = (String) data.getExtras().getString("email");
+
+            Intent intent = new Intent(this, RemoveRemoteCheckActivity.class);
+            intent.putExtra("usuarioremoto", usuario);
+            // startActivity(intent);
+            startActivityForResult(intent, 2);
+            finish();
+        }
+
+    }
+
+
+
+    //  BORJA
+    /*
+     * Function introduced as part of the remote user administration. It will trigger the
+     * Removal of remote users
+     */
+    public void lanzarEliminacionUsuariosRemotos(View view) {
+
+
+        Intent intent = new Intent (this, UsuariosRemotosActivity.class);
+
+        // Start activity of communication
+        startActivity(intent);
+    }
+
+    //  BORJA
+    /*
+     * Function introduced as part of the remote user administration. It will trigger the
+     * Removal of remote users
+     */
+    public void lanzarRegistroUsuariosRemotos(View view) {
+
+
+        Intent intent_b = new Intent (this, RegistroUsuarioRemotoActivity.class);
+
+        // Start activity of communication
+        startActivity(intent_b);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
+
+    }
+
+
+
+
+
+
+
+
+
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -154,7 +255,9 @@ public class MainActivity extends AppCompatActivity {
                     Tab2 tab2 = new Tab2();
                     return tab2;
                 case 2:
-
+                    Tab3 tab3 = new Tab3();
+                    return tab3;
+                case 3:
                     Tab4 tab4 = new Tab4();
                     return tab4;
 
@@ -177,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return getString(R.string.datos);
                 case 2:
-                    return "Compartir";
+                    return getString(R.string.preferencias);
 
                 case 3:
                     return "cuarto";
