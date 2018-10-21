@@ -46,10 +46,11 @@
                 android:text="@string/datos" />
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tabItem3"
+                android:id="@+id/tabItem4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/preferencias" />
+                android:text="@string/compartir"/>
+
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem4"
@@ -72,6 +73,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/plus" />
 
 </android.support.design.widget.CoordinatorLayout>

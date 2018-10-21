@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/TextView01"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Este programa ha sido desarrollado como ejemplo en el curso de
-Android para demostrar cómo se pueden lanzar nuevas actividades desde la actividad principal.">
-</TextView>
+    android:layout_margin="10dp"
+    android:text="Esta es una versión preliminar de la app Bascula desarrollada por el equipo 2 de la UPV del campus de Gandía."></TextView>
