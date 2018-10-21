@@ -3,4 +3,5 @@
     android:id="@+id/TextView01"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:text="Esta es una versión preliminar de la app Bascula desarrollada por el equipo 2 de la UPV del campus de Gandía."></TextView>
