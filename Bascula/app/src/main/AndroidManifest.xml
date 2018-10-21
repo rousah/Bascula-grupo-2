@@ -25,10 +25,10 @@
         </activity>
 
         <!--
-          BORJA
-          Introduced in order to implement remote user administration
-          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        -->
+      BORJA
+      Introduced in order to implement remote user administration
+      >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    -->
         <activity
             android:name=".RemoveRemoteCheckActivity">
         </activity>
@@ -61,3 +61,5 @@
     </application>
 
 </manifest>
+
+
