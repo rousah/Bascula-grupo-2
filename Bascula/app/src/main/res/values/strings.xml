@@ -17,6 +17,6 @@
     <string name="email_domain_com">email@domain.com</string>
     <string name="nombredospuntos">Nombre:</string>
     <string name="suscribe_a_un_nuevo_usuario_remoto">Suscribe a un nuevo usuario remoto</string>
-    <string name="selecciona_un_usuario_remoto_a_neliminar">Selecciona un usuario remoto A eliminar</string>
+    <string name="selecciona_un_usuario_remoto_a_neliminar">Elimina un usuario remoto</string>
     <string name="compartir">Compartir</string>
 </resources>

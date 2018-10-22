@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return getString(R.string.datos);
                 case 2:
-                    return "Compartir";
+                    return "Administrar";
                 default:
                     return null;
             }
