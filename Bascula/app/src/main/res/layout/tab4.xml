@@ -12,7 +12,6 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/rounded"
             android:gravity="center"
             android:onClick="lanzarRegistroUsuariosRemotos"
             android:text="@string/suscribe_a_un_nuevo_usuario_remoto" />
@@ -25,7 +24,6 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/rounded"
             android:onClick="lanzarEliminacionUsuariosRemotos"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
