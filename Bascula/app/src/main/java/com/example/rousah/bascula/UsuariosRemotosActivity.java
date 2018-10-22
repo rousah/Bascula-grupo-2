@@ -40,8 +40,5 @@ public class UsuariosRemotosActivity extends ListActivity {
         // Start activity of communication
         startActivity(intent);
          finish();
-
-
-
     }
 }

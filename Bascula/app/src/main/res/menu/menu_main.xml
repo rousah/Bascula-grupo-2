@@ -2,12 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/ tools"
     tools:context=".MainActivity">
-    <item android:id="@+id/action_settings"
-        android:title="Preferencias"
+<item android:id="@+id/action_settings"
+    android:title="Preferencias"
     android:icon="@android:drawable/ic_menu_preferences"
     android:orderInCategory="100"
     app:showAsAction="never"/>
-    <item android:title="Acerca de..."
-        android:id="@+id/acercaDe"
-        android:icon="@android:drawable/ic_menu_info_details"/>
-</menu>
+<item android:title="Acerca de..."
+android:id="@+id/acercaDe"
+android:icon="@android:drawable/ic_menu_info_details"/>
+    </menu>
