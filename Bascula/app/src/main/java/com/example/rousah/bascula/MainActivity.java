@@ -36,6 +36,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
     // BORJA
@@ -118,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.perfil) {
             lanzarPerfil(null);
             return true;
+        }
+
+        if (id == R.id.log_out) {
+            FirebaseAuth.getInstance().signOut(); //End user session
+            startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
