@@ -115,6 +115,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.perfil) {
+            lanzarPerfil(null);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -125,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void lanzarPreferencias(View view){
         Intent i = new Intent(this, PreferenciasActivity.class);
+        startActivity(i);
+    }
+
+    public void lanzarPerfil(View view){
+        Intent i = new Intent(this, PerfilActivity.class);
         startActivity(i);
     }
 
@@ -197,8 +207,6 @@ public class MainActivity extends AppCompatActivity {
      * Removal of remote users
      */
     public void lanzarEliminacionUsuariosRemotos(View view) {
-
-
         Intent intent = new Intent (this, UsuariosRemotosActivity.class);
 
         // Start activity of communication
@@ -212,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void lanzarRegistroUsuariosRemotos(View view) {
 
-
         Intent intent_b = new Intent (this, RegistroUsuarioRemotoActivity.class);
 
         // Start activity of communication
@@ -220,25 +227,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
-
-
-
-
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-
-
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -257,8 +245,6 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     Tab4 tab4 = new Tab4();
                     return tab4;
-
-
 
                     default:
                         return null;
