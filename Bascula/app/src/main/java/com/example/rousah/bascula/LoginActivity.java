@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
+import static com.example.rousah.bascula.Usuarios.guardarUsuario;
+
 public class LoginActivity  extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
 
@@ -26,6 +28,7 @@ public class LoginActivity  extends AppCompatActivity {
     private void login() {
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
         if (usuario != null) {
+            guardarUsuario(usuario);
             Toast.makeText(this, "inicia sesión: " +
                     usuario.getDisplayName() + " - " + usuario.getEmail() + " - " +
                     usuario.getProviders().get(0), Toast.LENGTH_LONG).show();

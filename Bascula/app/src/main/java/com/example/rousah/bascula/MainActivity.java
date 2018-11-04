@@ -146,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-
     //  BORJA
     /*
      * Function introduced as part of the remote user administration
