@@ -34,22 +34,32 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:text="Nombre:"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="14sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/nombre"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/nombre_editable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:visibility="visible" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -100,36 +110,42 @@
                     android:inputType="phone" />
             </LinearLayout>
 
+            <Button
+                android:id="@+id/editar_perfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:onClick="editarUsuario"
+                android:text="Editar" />
+
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/guardarCancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="bottom|end"
-            android:orientation="vertical">
+            android:layout_gravity="bottom|end"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/cancel"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom|end"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="Cancelar"
+                android:visibility="gone"/>
 
-                <Button
-                    android:id="@+id/cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:text="Cancelar" />
+            <Button
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="Guardar"
+                android:visibility="gone"/>
 
-                <Button
-                    android:id="@+id/save"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:text="Guardar" />
-            </LinearLayout>
 
         </LinearLayout>
 
