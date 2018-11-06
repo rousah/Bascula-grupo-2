@@ -18,27 +18,66 @@ public final class R {
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
      * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
+     * <p>Must be one of the following constant values.</p>
+     * <table>
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+     * <tr><td>icon_only</td><td>2</td><td></td></tr>
+     * <tr><td>standard</td><td>0</td><td></td></tr>
+     * <tr><td>wide</td><td>1</td><td></td></tr>
+     * </table>
      */
-    public static final int coordinatorLayoutStyle=0x7f010001;
+    public static final int buttonSize=0x7f010001;
+    /**
+     * <p>May be a boolean value, such as "<code>true</code>" or
+     * "<code>false</code>".
+     */
+    public static final int circleCrop=0x7f010002;
+    /**
+     * <p>May be a reference to another resource, in the form
+     * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
+     * attribute in the form
+     * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
+     * <p>Must be one of the following constant values.</p>
+     * <table>
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+     * <tr><td>auto</td><td>2</td><td></td></tr>
+     * <tr><td>dark</td><td>0</td><td></td></tr>
+     * <tr><td>light</td><td>1</td><td></td></tr>
+     * </table>
+     */
+    public static final int colorScheme=0x7f010003;
     /**
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
      * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
      */
-    public static final int font=0x7f010002;
+    public static final int coordinatorLayoutStyle=0x7f010004;
+    /**
+     * <p>May be a reference to another resource, in the form
+     * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
+     * attribute in the form
+     * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
+     */
+    public static final int font=0x7f010005;
     /**
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      */
-    public static final int fontProviderAuthority=0x7f010003;
+    public static final int fontProviderAuthority=0x7f010006;
     /**
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
      * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
      */
-    public static final int fontProviderCerts=0x7f010004;
+    public static final int fontProviderCerts=0x7f010007;
     /**
      * <p>Must be one of the following constant values.</p>
      * <table>
@@ -50,7 +89,7 @@ public final class R {
      * <tr><td>blocking</td><td>0</td><td></td></tr>
      * </table>
      */
-    public static final int fontProviderFetchStrategy=0x7f010005;
+    public static final int fontProviderFetchStrategy=0x7f010008;
     /**
      * <p>May be an integer value, such as "<code>100</code>".
      * <p>Must be one of the following constant values.</p>
@@ -62,17 +101,17 @@ public final class R {
      * <tr><td>forever</td><td>ffffffff</td><td></td></tr>
      * </table>
      */
-    public static final int fontProviderFetchTimeout=0x7f010006;
+    public static final int fontProviderFetchTimeout=0x7f010009;
     /**
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      */
-    public static final int fontProviderPackage=0x7f010007;
+    public static final int fontProviderPackage=0x7f01000a;
     /**
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      */
-    public static final int fontProviderQuery=0x7f010008;
+    public static final int fontProviderQuery=0x7f01000b;
     /**
      * <p>Must be one of the following constant values.</p>
      * <table>
@@ -84,30 +123,47 @@ public final class R {
      * <tr><td>normal</td><td>0</td><td></td></tr>
      * </table>
      */
-    public static final int fontStyle=0x7f010009;
+    public static final int fontStyle=0x7f01000c;
     /**
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      */
-    public static final int fontVariationSettings=0x7f01000a;
+    public static final int fontVariationSettings=0x7f01000d;
     /**
      * <p>May be an integer value, such as "<code>100</code>".
      */
-    public static final int fontWeight=0x7f01000b;
+    public static final int fontWeight=0x7f01000e;
+    /**
+     * <p>May be a floating point value, such as "<code>1.2</code>".
+     */
+    public static final int imageAspectRatio=0x7f01000f;
+    /**
+     * <p>Must be one of the following constant values.</p>
+     * <table>
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+     * <tr><td>adjust_height</td><td>2</td><td></td></tr>
+     * <tr><td>adjust_width</td><td>1</td><td></td></tr>
+     * <tr><td>none</td><td>0</td><td></td></tr>
+     * </table>
+     */
+    public static final int imageAspectRatioAdjust=0x7f010010;
     /**
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
      * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
      */
-    public static final int keylines=0x7f01000c;
+    public static final int keylines=0x7f010011;
     /**
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
      * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
      */
-    public static final int layout_anchor=0x7f01000d;
+    public static final int layout_anchor=0x7f010012;
     /**
      * <p>Must be one or more (separated by '|') of the following constant values.</p>
      * <table>
@@ -131,12 +187,12 @@ public final class R {
      * <tr><td>top</td><td>30</td><td></td></tr>
      * </table>
      */
-    public static final int layout_anchorGravity=0x7f01000e;
+    public static final int layout_anchorGravity=0x7f010013;
     /**
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      */
-    public static final int layout_behavior=0x7f01000f;
+    public static final int layout_behavior=0x7f010014;
     /**
      * <p>Must be one or more (separated by '|') of the following constant values.</p>
      * <table>
@@ -154,7 +210,7 @@ public final class R {
      * <tr><td>top</td><td>30</td><td></td></tr>
      * </table>
      */
-    public static final int layout_dodgeInsetEdges=0x7f010010;
+    public static final int layout_dodgeInsetEdges=0x7f010015;
     /**
      * <p>Must be one of the following constant values.</p>
      * <table>
@@ -171,11 +227,20 @@ public final class R {
      * <tr><td>top</td><td>30</td><td></td></tr>
      * </table>
      */
-    public static final int layout_insetEdge=0x7f010011;
+    public static final int layout_insetEdge=0x7f010016;
     /**
      * <p>May be an integer value, such as "<code>100</code>".
      */
-    public static final int layout_keyline=0x7f010012;
+    public static final int layout_keyline=0x7f010017;
+    /**
+     * <p>May be a reference to another resource, in the form
+     * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
+     * attribute in the form
+     * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
+     * <p>May be a string value, using '\\;' to escape characters such as
+     * '\\n' or '\\uxxxx' for a unicode character;
+     */
+    public static final int scopeUris=0x7f010018;
     /**
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
@@ -185,20 +250,31 @@ public final class R {
      * "<code>#<i>argb</i></code>", "<code>#<i>rrggbb</i></code>", or
      * "<code>#<i>aarrggbb</i></code>".
      */
-    public static final int statusBarBackground=0x7f010013;
+    public static final int statusBarBackground=0x7f010019;
     /**
      * <p>May be an integer value, such as "<code>100</code>".
      */
-    public static final int ttcIndex=0x7f010014;
+    public static final int ttcIndex=0x7f01001a;
   }
   public static final class color {
-    public static final int notification_action_color_filter=0x7f020000;
-    public static final int notification_icon_bg_color=0x7f020001;
-    public static final int notification_material_background_media_default_color=0x7f020002;
-    public static final int primary_text_default_material_dark=0x7f020003;
-    public static final int ripple_material_light=0x7f020004;
-    public static final int secondary_text_default_material_dark=0x7f020005;
-    public static final int secondary_text_default_material_light=0x7f020006;
+    public static final int common_google_signin_btn_text_dark=0x7f020000;
+    public static final int common_google_signin_btn_text_dark_default=0x7f020001;
+    public static final int common_google_signin_btn_text_dark_disabled=0x7f020002;
+    public static final int common_google_signin_btn_text_dark_focused=0x7f020003;
+    public static final int common_google_signin_btn_text_dark_pressed=0x7f020004;
+    public static final int common_google_signin_btn_text_light=0x7f020005;
+    public static final int common_google_signin_btn_text_light_default=0x7f020006;
+    public static final int common_google_signin_btn_text_light_disabled=0x7f020007;
+    public static final int common_google_signin_btn_text_light_focused=0x7f020008;
+    public static final int common_google_signin_btn_text_light_pressed=0x7f020009;
+    public static final int common_google_signin_btn_tint=0x7f02000a;
+    public static final int notification_action_color_filter=0x7f02000b;
+    public static final int notification_icon_bg_color=0x7f02000c;
+    public static final int notification_material_background_media_default_color=0x7f02000d;
+    public static final int primary_text_default_material_dark=0x7f02000e;
+    public static final int ripple_material_light=0x7f02000f;
+    public static final int secondary_text_default_material_dark=0x7f020010;
+    public static final int secondary_text_default_material_light=0x7f020011;
   }
   public static final class dimen {
     public static final int compat_button_inset_horizontal_material=0x7f030000;
@@ -229,18 +305,39 @@ public final class R {
     public static final int subtitle_shadow_radius=0x7f030019;
   }
   public static final class drawable {
-    public static final int notification_action_background=0x7f040000;
-    public static final int notification_bg=0x7f040001;
-    public static final int notification_bg_low=0x7f040002;
-    public static final int notification_bg_low_normal=0x7f040003;
-    public static final int notification_bg_low_pressed=0x7f040004;
-    public static final int notification_bg_normal=0x7f040005;
-    public static final int notification_bg_normal_pressed=0x7f040006;
-    public static final int notification_icon_background=0x7f040007;
-    public static final int notification_template_icon_bg=0x7f040008;
-    public static final int notification_template_icon_low_bg=0x7f040009;
-    public static final int notification_tile_bg=0x7f04000a;
-    public static final int notify_panel_notification_icon_bg=0x7f04000b;
+    public static final int common_full_open_on_phone=0x7f040000;
+    public static final int common_google_signin_btn_icon_dark=0x7f040001;
+    public static final int common_google_signin_btn_icon_dark_focused=0x7f040002;
+    public static final int common_google_signin_btn_icon_dark_normal=0x7f040003;
+    public static final int common_google_signin_btn_icon_dark_normal_background=0x7f040004;
+    public static final int common_google_signin_btn_icon_disabled=0x7f040005;
+    public static final int common_google_signin_btn_icon_light=0x7f040006;
+    public static final int common_google_signin_btn_icon_light_focused=0x7f040007;
+    public static final int common_google_signin_btn_icon_light_normal=0x7f040008;
+    public static final int common_google_signin_btn_icon_light_normal_background=0x7f040009;
+    public static final int common_google_signin_btn_text_dark=0x7f04000a;
+    public static final int common_google_signin_btn_text_dark_focused=0x7f04000b;
+    public static final int common_google_signin_btn_text_dark_normal=0x7f04000c;
+    public static final int common_google_signin_btn_text_dark_normal_background=0x7f04000d;
+    public static final int common_google_signin_btn_text_disabled=0x7f04000e;
+    public static final int common_google_signin_btn_text_light=0x7f04000f;
+    public static final int common_google_signin_btn_text_light_focused=0x7f040010;
+    public static final int common_google_signin_btn_text_light_normal=0x7f040011;
+    public static final int common_google_signin_btn_text_light_normal_background=0x7f040012;
+    public static final int googleg_disabled_color_18=0x7f040013;
+    public static final int googleg_standard_color_18=0x7f040014;
+    public static final int notification_action_background=0x7f040015;
+    public static final int notification_bg=0x7f040016;
+    public static final int notification_bg_low=0x7f040017;
+    public static final int notification_bg_low_normal=0x7f040018;
+    public static final int notification_bg_low_pressed=0x7f040019;
+    public static final int notification_bg_normal=0x7f04001a;
+    public static final int notification_bg_normal_pressed=0x7f04001b;
+    public static final int notification_icon_background=0x7f04001c;
+    public static final int notification_template_icon_bg=0x7f04001d;
+    public static final int notification_template_icon_low_bg=0x7f04001e;
+    public static final int notification_tile_bg=0x7f04001f;
+    public static final int notify_panel_notification_icon_bg=0x7f040020;
   }
   public static final class id {
     public static final int action0=0x7f050000;
@@ -249,53 +346,62 @@ public final class R {
     public static final int action_image=0x7f050003;
     public static final int action_text=0x7f050004;
     public static final int actions=0x7f050005;
-    public static final int all=0x7f050006;
-    public static final int async=0x7f050007;
-    public static final int blocking=0x7f050008;
-    public static final int bottom=0x7f050009;
-    public static final int cancel_action=0x7f05000a;
-    public static final int center=0x7f05000b;
-    public static final int center_horizontal=0x7f05000c;
-    public static final int center_vertical=0x7f05000d;
-    public static final int chronometer=0x7f05000e;
-    public static final int clip_horizontal=0x7f05000f;
-    public static final int clip_vertical=0x7f050010;
-    public static final int end=0x7f050011;
-    public static final int end_padder=0x7f050012;
-    public static final int fill=0x7f050013;
-    public static final int fill_horizontal=0x7f050014;
-    public static final int fill_vertical=0x7f050015;
-    public static final int forever=0x7f050016;
-    public static final int icon=0x7f050017;
-    public static final int icon_group=0x7f050018;
-    public static final int info=0x7f050019;
-    public static final int italic=0x7f05001a;
-    public static final int left=0x7f05001b;
-    public static final int line1=0x7f05001c;
-    public static final int line3=0x7f05001d;
-    public static final int media_actions=0x7f05001e;
-    public static final int none=0x7f05001f;
-    public static final int normal=0x7f050020;
-    public static final int notification_background=0x7f050021;
-    public static final int notification_main_column=0x7f050022;
-    public static final int notification_main_column_container=0x7f050023;
-    public static final int right=0x7f050024;
-    public static final int right_icon=0x7f050025;
-    public static final int right_side=0x7f050026;
-    public static final int start=0x7f050027;
-    public static final int status_bar_latest_event_content=0x7f050028;
-    public static final int tag_transition_group=0x7f050029;
-    public static final int tag_unhandled_key_event_manager=0x7f05002a;
-    public static final int tag_unhandled_key_listeners=0x7f05002b;
-    public static final int text=0x7f05002c;
-    public static final int text2=0x7f05002d;
-    public static final int time=0x7f05002e;
-    public static final int title=0x7f05002f;
-    public static final int top=0x7f050030;
+    public static final int adjust_height=0x7f050006;
+    public static final int adjust_width=0x7f050007;
+    public static final int all=0x7f050008;
+    public static final int async=0x7f050009;
+    public static final int auto=0x7f05000a;
+    public static final int blocking=0x7f05000b;
+    public static final int bottom=0x7f05000c;
+    public static final int cancel_action=0x7f05000d;
+    public static final int center=0x7f05000e;
+    public static final int center_horizontal=0x7f05000f;
+    public static final int center_vertical=0x7f050010;
+    public static final int chronometer=0x7f050011;
+    public static final int clip_horizontal=0x7f050012;
+    public static final int clip_vertical=0x7f050013;
+    public static final int dark=0x7f050014;
+    public static final int end=0x7f050015;
+    public static final int end_padder=0x7f050016;
+    public static final int fill=0x7f050017;
+    public static final int fill_horizontal=0x7f050018;
+    public static final int fill_vertical=0x7f050019;
+    public static final int forever=0x7f05001a;
+    public static final int icon=0x7f05001b;
+    public static final int icon_group=0x7f05001c;
+    public static final int icon_only=0x7f05001d;
+    public static final int info=0x7f05001e;
+    public static final int italic=0x7f05001f;
+    public static final int left=0x7f050020;
+    public static final int light=0x7f050021;
+    public static final int line1=0x7f050022;
+    public static final int line3=0x7f050023;
+    public static final int media_actions=0x7f050024;
+    public static final int none=0x7f050025;
+    public static final int normal=0x7f050026;
+    public static final int notification_background=0x7f050027;
+    public static final int notification_main_column=0x7f050028;
+    public static final int notification_main_column_container=0x7f050029;
+    public static final int right=0x7f05002a;
+    public static final int right_icon=0x7f05002b;
+    public static final int right_side=0x7f05002c;
+    public static final int standard=0x7f05002d;
+    public static final int start=0x7f05002e;
+    public static final int status_bar_latest_event_content=0x7f05002f;
+    public static final int tag_transition_group=0x7f050030;
+    public static final int tag_unhandled_key_event_manager=0x7f050031;
+    public static final int tag_unhandled_key_listeners=0x7f050032;
+    public static final int text=0x7f050033;
+    public static final int text2=0x7f050034;
+    public static final int time=0x7f050035;
+    public static final int title=0x7f050036;
+    public static final int top=0x7f050037;
+    public static final int wide=0x7f050038;
   }
   public static final class integer {
     public static final int cancel_button_image_alpha=0x7f060000;
-    public static final int status_bar_notification_info_maxnum=0x7f060001;
+    public static final int google_play_services_version=0x7f060001;
+    public static final int status_bar_notification_info_maxnum=0x7f060002;
   }
   public static final class layout {
     public static final int notification_action=0x7f070000;
@@ -316,7 +422,33 @@ public final class R {
   }
   public static final class string {
     public static final int app_name=0x7f080000;
-    public static final int status_bar_notification_info_overflow=0x7f080001;
+    public static final int common_google_play_services_enable_button=0x7f080001;
+    public static final int common_google_play_services_enable_text=0x7f080002;
+    public static final int common_google_play_services_enable_title=0x7f080003;
+    public static final int common_google_play_services_install_button=0x7f080004;
+    public static final int common_google_play_services_install_text=0x7f080005;
+    public static final int common_google_play_services_install_title=0x7f080006;
+    public static final int common_google_play_services_notification_channel_name=0x7f080007;
+    public static final int common_google_play_services_notification_ticker=0x7f080008;
+    public static final int common_google_play_services_unknown_issue=0x7f080009;
+    public static final int common_google_play_services_unsupported_text=0x7f08000a;
+    public static final int common_google_play_services_update_button=0x7f08000b;
+    public static final int common_google_play_services_update_text=0x7f08000c;
+    public static final int common_google_play_services_update_title=0x7f08000d;
+    public static final int common_google_play_services_updating_text=0x7f08000e;
+    public static final int common_google_play_services_wear_update_text=0x7f08000f;
+    public static final int common_open_on_phone=0x7f080010;
+    public static final int common_signin_button_text=0x7f080011;
+    public static final int common_signin_button_text_long=0x7f080012;
+    public static final int default_web_client_id=0x7f080013;
+    public static final int firebase_database_url=0x7f080014;
+    public static final int gcm_defaultSenderId=0x7f080015;
+    public static final int google_api_key=0x7f080016;
+    public static final int google_app_id=0x7f080017;
+    public static final int google_crash_reporting_api_key=0x7f080018;
+    public static final int google_storage_bucket=0x7f080019;
+    public static final int project_id=0x7f08001a;
+    public static final int status_bar_notification_info_overflow=0x7f08001b;
   }
   public static final class style {
     public static final int TextAppearance_Compat_Notification=0x7f090000;
@@ -395,7 +527,7 @@ public final class R {
      * @see #CoordinatorLayout_statusBarBackground
      */
     public static final int[] CoordinatorLayout={
-        0x7f01000c, 0x7f010013
+        0x7f010011, 0x7f010019
       };
     /**
      * <p>This symbol is the offset where the {@link com.equipodos.raspberry.R.attr#keylines}
@@ -448,8 +580,8 @@ public final class R {
      * @see #CoordinatorLayout_Layout_layout_keyline
      */
     public static final int[] CoordinatorLayout_Layout={
-        0x010100b3, 0x7f01000d, 0x7f01000e, 0x7f01000f, 
-        0x7f010010, 0x7f010011, 0x7f010012
+        0x010100b3, 0x7f010012, 0x7f010013, 0x7f010014, 
+        0x7f010015, 0x7f010016, 0x7f010017
       };
     /**
      * <p>This symbol is the offset where the {@link android.R.attr#layout_gravity}
@@ -607,8 +739,8 @@ public final class R {
      * @see #FontFamily_fontProviderQuery
      */
     public static final int[] FontFamily={
-        0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 
-        0x7f010007, 0x7f010008
+        0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 
+        0x7f01000a, 0x7f01000b
       };
     /**
      * <p>This symbol is the offset where the {@link com.equipodos.raspberry.R.attr#fontProviderAuthority}
@@ -717,8 +849,8 @@ public final class R {
      */
     public static final int[] FontFamilyFont={
         0x01010532, 0x01010533, 0x0101053f, 0x0101056f, 
-        0x01010570, 0x7f010002, 0x7f010009, 0x7f01000a, 
-        0x7f01000b, 0x7f010014
+        0x01010570, 0x7f010005, 0x7f01000c, 0x7f01000d, 
+        0x7f01000e, 0x7f01001a
       };
     /**
      * <p>This symbol is the offset where the {@link android.R.attr#font}
@@ -1058,5 +1190,136 @@ public final class R {
      * @attr name android:offset
      */
     public static final int GradientColorItem_android_offset=1;
+    /**
+     * Attributes that can be used with a LoadingImageView.
+     * <p>Includes the following attributes:</p>
+     * <table>
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <tr><th>Attribute</th><th>Description</th></tr>
+     * <tr><td><code>{@link #LoadingImageView_circleCrop com.equipodos.raspberry:circleCrop}</code></td><td></td></tr>
+     * <tr><td><code>{@link #LoadingImageView_imageAspectRatio com.equipodos.raspberry:imageAspectRatio}</code></td><td></td></tr>
+     * <tr><td><code>{@link #LoadingImageView_imageAspectRatioAdjust com.equipodos.raspberry:imageAspectRatioAdjust}</code></td><td></td></tr>
+     * </table>
+     * @see #LoadingImageView_circleCrop
+     * @see #LoadingImageView_imageAspectRatio
+     * @see #LoadingImageView_imageAspectRatioAdjust
+     */
+    public static final int[] LoadingImageView={
+        0x7f010002, 0x7f01000f, 0x7f010010
+      };
+    /**
+     * <p>This symbol is the offset where the {@link com.equipodos.raspberry.R.attr#circleCrop}
+     * attribute's value can be found in the {@link #LoadingImageView} array.
+     *
+     * <p>May be a boolean value, such as "<code>true</code>" or
+     * "<code>false</code>".
+     *
+     * @attr name com.equipodos.raspberry:circleCrop
+     */
+    public static final int LoadingImageView_circleCrop=0;
+    /**
+     * <p>This symbol is the offset where the {@link com.equipodos.raspberry.R.attr#imageAspectRatio}
+     * attribute's value can be found in the {@link #LoadingImageView} array.
+     *
+     * <p>May be a floating point value, such as "<code>1.2</code>".
+     *
+     * @attr name com.equipodos.raspberry:imageAspectRatio
+     */
+    public static final int LoadingImageView_imageAspectRatio=1;
+    /**
+     * <p>This symbol is the offset where the {@link com.equipodos.raspberry.R.attr#imageAspectRatioAdjust}
+     * attribute's value can be found in the {@link #LoadingImageView} array.
+     *
+     * <p>Must be one of the following constant values.</p>
+     * <table>
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+     * <tr><td>adjust_height</td><td>2</td><td></td></tr>
+     * <tr><td>adjust_width</td><td>1</td><td></td></tr>
+     * <tr><td>none</td><td>0</td><td></td></tr>
+     * </table>
+     *
+     * @attr name com.equipodos.raspberry:imageAspectRatioAdjust
+     */
+    public static final int LoadingImageView_imageAspectRatioAdjust=2;
+    /**
+     * Attributes that can be used with a SignInButton.
+     * <p>Includes the following attributes:</p>
+     * <table>
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <tr><th>Attribute</th><th>Description</th></tr>
+     * <tr><td><code>{@link #SignInButton_buttonSize com.equipodos.raspberry:buttonSize}</code></td><td></td></tr>
+     * <tr><td><code>{@link #SignInButton_colorScheme com.equipodos.raspberry:colorScheme}</code></td><td></td></tr>
+     * <tr><td><code>{@link #SignInButton_scopeUris com.equipodos.raspberry:scopeUris}</code></td><td></td></tr>
+     * </table>
+     * @see #SignInButton_buttonSize
+     * @see #SignInButton_colorScheme
+     * @see #SignInButton_scopeUris
+     */
+    public static final int[] SignInButton={
+        0x7f010001, 0x7f010003, 0x7f010018
+      };
+    /**
+     * <p>This symbol is the offset where the {@link com.equipodos.raspberry.R.attr#buttonSize}
+     * attribute's value can be found in the {@link #SignInButton} array.
+     *
+     * <p>May be a reference to another resource, in the form
+     * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
+     * attribute in the form
+     * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
+     * <p>Must be one of the following constant values.</p>
+     * <table>
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+     * <tr><td>icon_only</td><td>2</td><td></td></tr>
+     * <tr><td>standard</td><td>0</td><td></td></tr>
+     * <tr><td>wide</td><td>1</td><td></td></tr>
+     * </table>
+     *
+     * @attr name com.equipodos.raspberry:buttonSize
+     */
+    public static final int SignInButton_buttonSize=0;
+    /**
+     * <p>This symbol is the offset where the {@link com.equipodos.raspberry.R.attr#colorScheme}
+     * attribute's value can be found in the {@link #SignInButton} array.
+     *
+     * <p>May be a reference to another resource, in the form
+     * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
+     * attribute in the form
+     * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
+     * <p>Must be one of the following constant values.</p>
+     * <table>
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <colgroup align="left" />
+     * <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+     * <tr><td>auto</td><td>2</td><td></td></tr>
+     * <tr><td>dark</td><td>0</td><td></td></tr>
+     * <tr><td>light</td><td>1</td><td></td></tr>
+     * </table>
+     *
+     * @attr name com.equipodos.raspberry:colorScheme
+     */
+    public static final int SignInButton_colorScheme=1;
+    /**
+     * <p>This symbol is the offset where the {@link com.equipodos.raspberry.R.attr#scopeUris}
+     * attribute's value can be found in the {@link #SignInButton} array.
+     *
+     * <p>May be a reference to another resource, in the form
+     * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
+     * attribute in the form
+     * "<code>?[<i>package</i>:]<i>type</i>/<i>name</i></code>".
+     * <p>May be a string value, using '\\;' to escape characters such as
+     * '\\n' or '\\uxxxx' for a unicode character;
+     *
+     * @attr name com.equipodos.raspberry:scopeUris
+     */
+    public static final int SignInButton_scopeUris=2;
   }
 }

@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.things.pio.Gpio;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -27,6 +30,13 @@ public class MainActivity extends Activity {
         }
         String s = uart.leer();
         Log.d(TAG, "Recibido de Arduino: "+s);
+
+       /* FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> datos = new HashMap<>();
+        datos.put("dato_1", "hola mundo");
+        datos.put("dato_2", 35);
+        db.collection("coleccion").document("documento").set(datos);*/
+
     }
 
 
