@@ -34,31 +34,34 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textonombre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
+                    android:baselineAligned="false"
                     android:text="Nombre:"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/nombre"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
+                    android:baselineAligned="false"
                     android:ems="10"
-                    android:visibility="gone" />
+                    android:text="_nombre_" />
 
                 <EditText
                     android:id="@+id/nombre_editable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:ems="10"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -134,8 +137,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:onClick="cancelarEditar"
                 android:text="Cancelar"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/save"

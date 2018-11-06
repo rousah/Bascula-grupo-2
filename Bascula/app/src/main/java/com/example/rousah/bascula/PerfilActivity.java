@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.w3c.dom.Text;
+
 public class PerfilActivity extends Activity {
 
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
@@ -24,7 +26,7 @@ public class PerfilActivity extends Activity {
 
     }
 
-    public void editarUsuario(View view) {
+   public void editarUsuario(View view) {
         view.setVisibility(View.GONE);
 
         Button guardar = findViewById(R.id.save);
@@ -41,7 +43,11 @@ public class PerfilActivity extends Activity {
     }
 
     void mostrarDatos(final FirebaseUser usuario) {
+        EditText nombreEditable = findViewById(R.id.nombre_editable);
+        nombreEditable.setVisibility(View.INVISIBLE);
+
         TextView nombre = findViewById(R.id.nombre);
+        nombre.setVisibility(View.VISIBLE);
         nombre.setText(usuario.getDisplayName());
 
         EditText email = findViewById(R.id.email);
@@ -49,6 +55,12 @@ public class PerfilActivity extends Activity {
 
         EditText numero = findViewById(R.id.telefono);
         numero.setText(usuario.getPhoneNumber());
+    }
+
+    public void cancelarEditar (View view) {
+        setContentView(R.layout.perfil);
+
+        mostrarDatos(usuario);
     }
 
 
