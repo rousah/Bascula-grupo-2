@@ -2,7 +2,6 @@
 #include "AsyncUDP.h"
 #include <TimeLib.h>
 #include <ArduinoJson.h>
-#include <Ultrasonic.h>
 #include <SR04.h>
 #define TRIG_PIN 2
 #define ECHO_PIN 4
@@ -58,7 +57,7 @@ void leerInfrarrojos() {
     Serial.println("Nada");
     }
   
-  }
+}
 
 void setup()
 {
@@ -158,7 +157,7 @@ void loop()
           
   envio.printTo(texto);         //paso del objeto "envio" a texto para transmitirlo
     
-  udp.broadcastTo(texto,1234);  //se emvía por el puerto 1234 el JSON 
+  udp.broadcastTo(texto,1234);  //se envía por el puerto 1234 el JSON 
                                       //como texto
 
   leerInfrarrojos();
