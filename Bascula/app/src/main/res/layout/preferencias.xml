@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:key="preferencias_principal">
+
+    <CheckBoxPreference
+        android:key="musica"
+        android:summary="Checkbox provisional"
+        android:title="Checkbox" />
+
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/tiposGraficos"
+        android:entryValues="@array/tiposGraficosValores"
+        android:key="graficos"
+        android:summary="Se escoge la unidad de medida"
+        android:title="Unidades de medida" />
+
+    <EditTextPreference
+        android:defaultValue="3"
+        android:inputType="number"
+        android:key="fragmentos"
+        android:summary=""
+        android:title="Número de personas usando la bascula" />
+</PreferenceScreen>

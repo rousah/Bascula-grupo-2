@@ -5,4 +5,18 @@
     <string name="preferencias">Preferencias</string>
     <string name="datos">Datos</string>
     <string name="acercade">Acerca de...</string>
+
+    <string name="aceptar">Aceptar</string>
+    <string name="rechazar">Rechazar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos:</string>
+    <string name="apellido_1_apellido_2">Apellido_1 Apellido_2</string>
+    <string name="correo_electr_nico">Correo Electrónico:</string>
+    <string name="guardar_datos">Guardar Datos</string>
+    <string name="email_domain_com">email@domain.com</string>
+    <string name="nombredospuntos">Nombre:</string>
+    <string name="suscribe_a_un_nuevo_usuario_remoto">Suscribe a un nuevo usuario remoto</string>
+    <string name="selecciona_un_usuario_remoto_a_neliminar">Elimina un usuario remoto</string>
+    <string name="compartir">Compartir</string>
 </resources>
