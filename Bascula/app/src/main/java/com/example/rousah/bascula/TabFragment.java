@@ -80,12 +80,11 @@ public class TabFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "STARK";
+                    return "Inicio";
                 case 1 :
-                    return "LANNISTER";
+                    return "Datos";
                 case 2:
-                    return "BARATHEON";
-
+                    return "Administrar";
             }
             return null;
         }
