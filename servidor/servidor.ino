@@ -3,6 +3,12 @@
 #include "WiFi.h"
 #include "AsyncUDP.h"
 #include <ArduinoJson.h>
+#include <SR04.h>
+#define TRIG_PIN 2
+#define ECHO_PIN 4
+// --- Escucha del ultrasonido ---
+SR04 sr04 = SR04(ECHO_PIN,TRIG_PIN);
+long a;
 
 const char * ssid = "EQUIPO_2";
 const char * password = "HoLaMuNDo";
@@ -15,6 +21,52 @@ int hora;
 boolean rec=0;
 
 AsyncUDP udp;
+
+
+/*CALCULAR ALTURA*/
+/**
+función que recibe la distancia y calcula basandose en la altura a la que
+está el sensor restandole la distancia que hay del sensor a la cabeza
+(distancia recogida por el sensor con la función "sr04.Distance()")
+una vez obtenida esa altura se hace la transformación a metros
+*/
+float calcularAltura(int d)
+{
+  //altura de la báscula
+  // en cm
+  float altBasc = 200;
+  //altura de la persona
+  // en cm
+  float altPers = altBasc - d;
+  
+  altPers = altPers/100;
+
+  return altPers;
+}
+
+/**
+ * Función que lee la distancia, hace la función de calcularAltura, y dependiendo 
+ * de el resultado de calcular altura, devolvera la altura.
+ */
+ float devolverAltura(){
+        a = sr04.Distance();
+        
+       if(calcularAltura(a) <= 0 && calcularAltura(a) > 2.00)
+       {
+         //Serial.print("2.00");
+         //Serial.println(" m");
+         
+         //envio["Altura"]= 2.00;
+         return 2.00;
+       }
+       else
+       {
+         //Serial.print(calcularAltura(a));
+         //Serial.println(" m");
+         //envio["Altura"]= calcularAltura(a);
+          return calcularAltura(a);
+       }
+ }
 
 // Función para limpiar la pantalla M5
 void LCD_Clear()
