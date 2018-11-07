@@ -82,7 +82,7 @@ public class TabFragment extends Fragment {
                 case 0 :
                     return "Inicio";
                 case 1 :
-                    return "Calendario";
+                    return "Datos";
                 case 2:
                     return "Administrar";
             }
