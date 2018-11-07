@@ -37,6 +37,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:17.0.2'
     implementation 'com.google.firebase:firebase-database:16.0.4'
 
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

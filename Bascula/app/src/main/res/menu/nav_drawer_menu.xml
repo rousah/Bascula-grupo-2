@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <group
+        android:id="@+id/group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inicio"
+            android:title="Inicio"/>
+        <item
+            android:id="@+id/nav_segundo_fragment"
+            android:title="Segundo Fragment"/>
+        <item
+            android:id="@+id/nav_tercer_fragment"
+            android:title="Tercer Fragment"/>
+    </group>
 </menu>
