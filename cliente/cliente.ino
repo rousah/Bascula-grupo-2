@@ -9,6 +9,11 @@
 SR04 sr04 = SR04(ECHO_PIN,TRIG_PIN);
 long a;
 
+// --- Escucha del infrarrojo ---
+int ledPin = 5;  // LED en el Pin 5 del Arduino
+int pirPin = 21; // Input para HC-S501
+int pirValue; // Para guardar el valor del pirPin
+
 const char * ssid = "EQUIPO_2";
 const char * password = "HoLaMuNDo";
 
@@ -40,6 +45,20 @@ float calcularAltura(int d)
   return altPers;
 }
 
+void leerInfrarrojos() {
+
+  if(digitalRead(pirPin)== HIGH) {
+   Serial.println("Detectado movimiento por el sensor pir");
+   digitalWrite(ledPin, HIGH);
+   delay(1000);
+   digitalWrite(ledPin, LOW);
+  }
+  else {
+    Serial.println("Nada");
+    }
+  
+}
+
 void setup()
 {
     Serial.begin(115200);
@@ -67,6 +86,10 @@ if(udp.listen(1234)) {
         });
 
     }
+
+    pinMode(ledPin, OUTPUT);
+  pinMode(pirPin, INPUT);
+  digitalWrite(ledPin, LOW);
 }
 
 
@@ -134,7 +157,9 @@ void loop()
           
   envio.printTo(texto);         //paso del objeto "envio" a texto para transmitirlo
     
-  udp.broadcastTo(texto,1234);  //se emvía por el puerto 1234 el JSON 
+  udp.broadcastTo(texto,1234);  //se envía por el puerto 1234 el JSON 
                                       //como texto
+
+  leerInfrarrojos();
   delay(5000);
 }
