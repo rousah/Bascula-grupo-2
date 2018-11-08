@@ -17,17 +17,19 @@
         />
 
     <TextView
+        android:id="@+id/nombreNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="Alguien"
-        android:id="@+id/nombreNav"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textColor="#ffffff" />
 
     <TextView
+        android:id="@+id/emailNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="alguine@gmail.com"
-        android:id="@+id/emailNav"/>
+        android:textColor="#ffffff" />
 </LinearLayout>
