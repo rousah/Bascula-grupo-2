@@ -6,8 +6,9 @@
 #include "soc/rtc.h"; //Libreria para poder bajar la frecuencia
 #include <SR04.h>
 // Para el ultrasonido PINES
-#define TRIG_PIN 2
-#define ECHO_PIN 5
+#define TRIG_PIN 21
+#define ECHO_PIN 22
+
 
 // Para la báscula PINES
 #define DOUT  2
@@ -119,10 +120,12 @@ void style(){
 }
 
 
-/**
+/** FUNCIÓN PARA EL PESO
+ *  
  * Función llamada en el setup que configura la bascula, es decir, 
  * destara la báscula al iniciar el M5Stack, una vez iniciado solo 
  * hace falta pesarse.
+ * 
  */
 void configBasc(){
   
@@ -131,7 +134,7 @@ void configBasc(){
     Serial.println(balanza.read());
     Serial.println("No ponga ningun  objeto sobre la balanza");
     Serial.println("Destarando...");
-    balanza.set_scale(24670); //La escala por defecto es 1
+    balanza.set_scale(24000); //La escala por defecto es 1
     balanza.tare(20);  //El peso actual es considerado Tara.
     Serial.println("LISTO!!");
     
@@ -182,9 +185,10 @@ void loop()
     LCD_Clear();
     DrawMenu();
     style();
-    //M5.Lcd.print("PESO: ");
-    //M5.Lcd.println(valorPeso);
-    //Serial.println(balanza.get_units(20),3);
+    // Definimos el JSON a enviar
+    /*StaticJsonBuffer<300> bufferJson; //definición del buffer para almacenar el objero JSON, 200 máximo
+    JsonObject& recibo = bufferJson.parseObject("Hola android"); //paso de texto a formato JSON
+    recibo.printTo(Serial);       //envio por el puerto serie el objeto "recibido"*/
     M5.Lcd.print(balanza.get_units(20),3);
     M5.Lcd.println(" Kg");
 
@@ -214,8 +218,11 @@ void loop()
     }
     
    }
-   /*if (rec){
-    LCD_Clear();
+
+
+  /*
+   if (rec){
+    //LCD_Clear();
     //DrawMenu();
     // Posición del cursor de nuevo en 0,0 
     M5.Lcd.setCursor(0, 0);

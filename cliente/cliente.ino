@@ -64,7 +64,7 @@ if(udp.listen(1234)) {
 
     }
 
-    pinMode(ledPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
   pinMode(pirPin, INPUT);
   digitalWrite(ledPin, LOW);
 }
