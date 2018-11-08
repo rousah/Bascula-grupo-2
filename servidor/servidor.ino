@@ -85,7 +85,10 @@ void LCD_Clear()
   M5.Lcd.setTextColor(WHITE);
   M5.Lcd.setTextSize(1);
 }
-// Menú para M5Stack
+/**
+ * Está función dibuja las opciones que contiene cada botón, da
+ * un aspecto a la pantalla del M5Stack
+ */
 void DrawMenu()
 {
   M5.Lcd.setTextSize(2);
@@ -105,14 +108,22 @@ void DrawMenu()
   
 }
 
-// Estilo, formato de la información
+/**
+ * Esta función contiene el estilo de las letras, el tamaño, y la posición
+ */
 void style(){
 
     M5.Lcd.setCursor(50, 90);
     M5.Lcd.setTextSize(4);
     M5.Lcd.setTextColor(WHITE);
 }
-// Configuración para la bascula
+
+
+/**
+ * Función llamada en el setup que configura la bascula, es decir, 
+ * destara la báscula al iniciar el M5Stack, una vez iniciado solo 
+ * hace falta pesarse.
+ */
 void configBasc(){
   
     rtc_clk_cpu_freq_set(RTC_CPU_FREQ_80M); //bajo la frecuencia a 80MHz
