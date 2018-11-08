@@ -59,7 +59,7 @@ import com.squareup.picasso.Picasso;
 
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener {
 
     //private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -388,8 +388,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_inicio:
                 fragment = new TabFragment();
                 break;
-            case R.id.nav_segundo_fragment:
-                //fragment = new ();
+            case R.id.nav_perfil:
+                fragment = new PerfilFragment();
                 break;
             case R.id.nav_tercer_fragment:
                 //fragment = new TabTercero();
@@ -428,6 +428,12 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //do something here
+    }
+
     //--------------Drawer--------------------
 
 

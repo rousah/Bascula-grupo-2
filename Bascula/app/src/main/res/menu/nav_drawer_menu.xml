@@ -7,8 +7,8 @@
             android:id="@+id/nav_inicio"
             android:title="Inicio"/>
         <item
-            android:id="@+id/nav_segundo_fragment"
-            android:title="Segundo Fragment"/>
+            android:id="@+id/nav_perfil"
+            android:title="Perfil"/>
         <item
             android:id="@+id/nav_tercer_fragment"
             android:title="Tercer Fragment"/>
