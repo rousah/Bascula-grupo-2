@@ -126,6 +126,7 @@ void configBasc(){
     
 }
 
+
 // Configuración de la conexión WIFI
 void configWifi(){
     WiFi.mode(WIFI_STA);
@@ -172,6 +173,8 @@ void loop()
     style();
     //M5.Lcd.print("PESO: ");
     //M5.Lcd.println(valorPeso);
+    //Serial.println(balanza.get_units(20),3);
+    M5.Lcd.print(balanza.get_units(20),3);
     M5.Lcd.println(" Kg");
 
    }
