@@ -13,6 +13,9 @@ import java.util.Map;
 
 public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
+    private String fecha;
+    private String peso;
+    private String altura;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +34,11 @@ public class MainActivity extends Activity {
         String s = uart.leer();
         Log.d(TAG, "Recibido de Arduino: "+s);
 
-       /* FirebaseFirestore db = FirebaseFirestore.getInstance();
+        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> datos = new HashMap<>();
-        datos.put("dato_1", "hola mundo");
-        datos.put("dato_2", 35);
-        db.collection("coleccion").document("documento").set(datos);*/
+        datos.put(peso, altura);
+        db.collection("medicion").document("id"+fecha).set(datos);*/
+
 
     }
 

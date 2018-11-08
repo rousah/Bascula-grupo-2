@@ -1,6 +1,7 @@
 package com.equipodos.raspberry;
 
-public class mediciones {
+public class Mediciones {
+
 
 
 }

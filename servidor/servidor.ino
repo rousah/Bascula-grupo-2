@@ -6,8 +6,8 @@
 #include "soc/rtc.h"; //Libreria para poder bajar la frecuencia
 #include <SR04.h>
 // Para el ultrasonido PINES
-#define TRIG_PIN 21
-#define ECHO_PIN 22
+#define TRIG_PIN 22
+#define ECHO_PIN 21
 
 
 // Para la báscula PINES
@@ -61,7 +61,7 @@ float calcularAltura(int d)
  float devolverAltura(){
         a = sr04.Distance();
         
-       if(calcularAltura(a) <= 0 && calcularAltura(a) > 2.00)
+       if(calcularAltura(a) <= 0 | calcularAltura(a) > 2.00)
        {
          //Serial.print("2.00");
          //Serial.println(" m");
@@ -218,6 +218,19 @@ void loop()
     }
     
    }
+
+   if (Serial.available() > 0) {
+     char command = (char) Serial.read();
+     switch (command) {
+     case 'H':
+     Serial.println("Hola Mundo");
+     break;
+     case 'D':
+     Serial.println("Datos");
+     break;
+     }
+   }
+   Serial.flush();
 
 
   /*
