@@ -81,6 +81,11 @@ public class PerfilFragment extends Fragment {
         TextView nombre = view.findViewById(R.id.nombrePerfil);
         nombre.setText(usuario.getDisplayName());
 
+        TextView email = view.findViewById(R.id.emailPerfil);
+        email.setText(usuario.getEmail());
+
+        TextView telefono = view.findViewById(R.id.telefonoPerfil);
+        telefono.setText(usuario.getPhoneNumber());
         // Inflate the layout for this fragment
         return view;
     }

@@ -71,22 +71,34 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:id="@+id/textoEmail"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
+                    android:baselineAligned="false"
                     android:text="Email:"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="14sp" />
 
+                <TextView
+                    android:id="@+id/emailPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:baselineAligned="false"
+                    android:ems="10"
+                    android:text="_email_" />
+
                 <EditText
-                    android:id="@+id/email"
-                    android:layout_width="0dp"
+                    android:id="@+id/email_editable"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:ems="10"
-                    android:inputType="textEmailAddress" />
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -95,32 +107,37 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:id="@+id/textoTelefono"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:text="Teléfono:"
+                    android:baselineAligned="false"
+                    android:text="Telefono:"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="14sp" />
 
+                <TextView
+                    android:id="@+id/telefonoPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:baselineAligned="false"
+                    android:ems="10"
+                    android:text="_telefono_" />
+
                 <EditText
-                    android:id="@+id/telefono"
-                    android:layout_width="0dp"
+                    android:id="@+id/telefono_editable"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:ems="10"
-                    android:inputType="phone" />
+                    android:visibility="gone" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/editar_perfil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:onClick="editarUsuario"
-                android:text="Editar" />
+
 
         </LinearLayout>
 
