@@ -1,12 +1,19 @@
 #include <M5Stack.h>
-
 #include "WiFi.h"
 #include "AsyncUDP.h"
 #include <ArduinoJson.h>
+#include <HX711.h>
+#include "soc/rtc.h"; //Libreria para poder bajar la frecuencia
 #include <SR04.h>
+// Para el ultrasonido PINES
 #define TRIG_PIN 2
 #define ECHO_PIN 5
 
+// Para la báscula PINES
+#define DOUT  2
+#define CLK  5
+// Función de la bascula
+HX711 balanza(DOUT, CLK);
 
 // --- Escucha del ultrasonido ---
 SR04 sr04 = SR04(ECHO_PIN,TRIG_PIN);
@@ -105,34 +112,52 @@ void style(){
     M5.Lcd.setTextSize(4);
     M5.Lcd.setTextColor(WHITE);
 }
+// Configuración para la bascula
+void configBasc(){
+  
+    rtc_clk_cpu_freq_set(RTC_CPU_FREQ_80M); //bajo la frecuencia a 80MHz
+    Serial.print("Lectura del valor del ADC:  ");
+    Serial.println(balanza.read());
+    Serial.println("No ponga ningun  objeto sobre la balanza");
+    Serial.println("Destarando...");
+    balanza.set_scale(24670); //La escala por defecto es 1
+    balanza.tare(20);  //El peso actual es considerado Tara.
+    Serial.println("LISTO!!");
+    
+}
 
+// Configuración de la conexión WIFI
+void configWifi(){
+    WiFi.mode(WIFI_STA);
+      WiFi.begin(ssid, password);
+      if (WiFi.waitForConnectResult() != WL_CONNECTED) {
+          M5.Lcd.printf("WiFi Failed");
+          Serial.println("WiFi Failed");
+          while(1) {
+              delay(1000);
+          }
+      }
+      if(udp.listen(1234)) {
+          M5.Lcd.print("UDP Listening on IP: ");
+          M5.Lcd.println(WiFi.localIP());
+          Serial.print("UDP Listening on IP: ");
+          Serial.println(WiFi.localIP());
+          udp.onPacket([](AsyncUDPPacket packet) {
+  
+              int i=300;
+              while (i--) {*(texto+i)=*(packet.data()+i);}
+              rec=1;      //recepcion de un mensaje
+  
+          });
+      }
+}
 // Configuración
 void setup()
 {
     M5.begin();
     Serial.begin(115200);
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
-    if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-        M5.Lcd.printf("WiFi Failed");
-        Serial.println("WiFi Failed");
-        while(1) {
-            delay(1000);
-        }
-    }
-    if(udp.listen(1234)) {
-        M5.Lcd.print("UDP Listening on IP: ");
-        M5.Lcd.println(WiFi.localIP());
-        Serial.print("UDP Listening on IP: ");
-        Serial.println(WiFi.localIP());
-        udp.onPacket([](AsyncUDPPacket packet) {
-
-            int i=300;
-            while (i--) {*(texto+i)=*(packet.data()+i);}
-            rec=1;      //recepcion de un mensaje
-
-        });
-    }
+    configWifi();
+    configBasc();
 }
 
 void loop()
@@ -145,7 +170,7 @@ void loop()
     LCD_Clear();
     DrawMenu();
     style();
-    M5.Lcd.print("PESO: ");
+    //M5.Lcd.print("PESO: ");
     //M5.Lcd.println(valorPeso);
     M5.Lcd.println(" Kg");
 
@@ -155,7 +180,7 @@ void loop()
     LCD_Clear();
     DrawMenu();
     style();
-    M5.Lcd.print("ALTURA: ");
+    //M5.Lcd.print("ALTURA: ");
     M5.Lcd.println(devolverAltura());
     M5.Lcd.println(" m");
 
