@@ -5,7 +5,7 @@
 #include <ArduinoJson.h>
 #include <SR04.h>
 #define TRIG_PIN 2
-#define ECHO_PIN 4
+#define ECHO_PIN 5
 
 
 // --- Escucha del ultrasonido ---
@@ -101,7 +101,7 @@ void DrawMenu()
 // Estilo, formato de la información
 void style(){
 
-    M5.Lcd.setCursor(70, 90);
+    M5.Lcd.setCursor(50, 90);
     M5.Lcd.setTextSize(4);
     M5.Lcd.setTextColor(WHITE);
 }
@@ -156,7 +156,7 @@ void loop()
     DrawMenu();
     style();
     M5.Lcd.print("ALTURA: ");
-    //M5.Lcd.println(valorAltura);
+    M5.Lcd.println(devolverAltura());
     M5.Lcd.println(" m");
 
    }
