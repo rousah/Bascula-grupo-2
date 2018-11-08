@@ -15,6 +15,12 @@ package com.example.rousah.bascula;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -31,6 +37,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,10 +45,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
+
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,12 +69,15 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
     //--------------Drawer--------------------
+    View headerLayout;
+    int SELECT_PICTURE_CONSTANT = 0;
 
     // BORJA
     /*
     Introduced with the purpose to have a database for the remote users
      */
     public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
+    FirebaseUser usuario;
 
 
     /**
@@ -126,6 +145,11 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setCheckedItem(R.id.nav_inicio);
         setTitle("Inicio");
         //--------------Drawer--------------------
+
+
+        headerLayout = navigationView.getHeaderView(0); // 0-index header
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
+        mostrarUsuarioNavDrawer(usuario);
     }
 
 
@@ -407,5 +431,24 @@ public class MainActivity extends AppCompatActivity {
     //--------------Drawer--------------------
 
 
+    //--------------Nav Usuario----------------
+
+    void mostrarUsuarioNavDrawer(FirebaseUser usuario) {
+        TextView nombre = headerLayout.findViewById(R.id.nombreNav);
+        nombre.setText(usuario.getDisplayName());
+
+        TextView email = headerLayout.findViewById(R.id.emailNav);
+        email.setText(usuario.getEmail());
+
+        final ImageView imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
+        String proveedor = usuario.getProviders().get(0);
+        //checkea si el proveedor es de google por si se logea con un email
+        if(proveedor.equals("google.com")) {
+            String uri = usuario.getPhotoUrl().toString();
+            //carga la foto y usa transform para hacerla circular
+            Picasso.with(getBaseContext()).load(uri).transform(new CircleTransform()).into(imagenPerfil);
+            System.out.println("dentro de getPhoto");
+        }
+    }
 
 }
