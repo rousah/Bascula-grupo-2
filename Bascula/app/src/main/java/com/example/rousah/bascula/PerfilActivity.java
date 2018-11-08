@@ -22,11 +22,11 @@ public class PerfilActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.perfil);
 
-        mostrarDatos(usuario);
+       // mostrarDatos(usuario);
 
     }
 
-   public void editarUsuario(View view) {
+  /* public void editarUsuario(View view) {
         view.setVisibility(View.GONE);
 
         Button guardar = findViewById(R.id.save);
@@ -62,6 +62,8 @@ public class PerfilActivity extends Activity {
 
         mostrarDatos(usuario);
     }
+
+    */
 
 
 }

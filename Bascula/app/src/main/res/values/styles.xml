@@ -51,7 +51,6 @@
 
 
     <!--Estilo LogIn-->
-
     <style name="LoginTheme" parent="FirebaseUI">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

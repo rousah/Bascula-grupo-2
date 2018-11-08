@@ -4,9 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 /**
@@ -28,6 +33,11 @@ public class PerfilFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+
+
+    FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -63,8 +73,16 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        final View view = inflater.inflate(R.layout.perfil, container, false);
+        final FragmentActivity fragmentActivity = getActivity();
+
+        TextView nombre = view.findViewById(R.id.nombrePerfil);
+        nombre.setText(usuario.getDisplayName());
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.perfil, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
