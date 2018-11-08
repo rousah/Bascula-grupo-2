@@ -431,8 +431,8 @@ public class MainActivity extends AppCompatActivity {
     //--------------Drawer--------------------
 
 
-    //--------------Nav Usuario----------------
 
+    //--------------Nav Header----------------
     void mostrarUsuarioNavDrawer(FirebaseUser usuario) {
         TextView nombre = headerLayout.findViewById(R.id.nombreNav);
         nombre.setText(usuario.getDisplayName());
@@ -449,6 +449,12 @@ public class MainActivity extends AppCompatActivity {
             Picasso.with(getBaseContext()).load(uri).transform(new CircleTransform()).into(imagenPerfil);
             System.out.println("dentro de getPhoto");
         }
+        //por si se logea con email y no tiene foto asignada
+        else {
+            imagenPerfil.setImageDrawable(getDrawable(R.drawable.ic_account_circle_black_55dp));
+        }
     }
+    //--------------Nav Header----------------
+
 
 }
