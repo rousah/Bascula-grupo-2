@@ -6,6 +6,8 @@
 #include <SR04.h>
 #define TRIG_PIN 2
 #define ECHO_PIN 4
+
+
 // --- Escucha del ultrasonido ---
 SR04 sr04 = SR04(ECHO_PIN,TRIG_PIN);
 long a;
@@ -95,6 +97,16 @@ void DrawMenu()
   
   
 }
+
+// Estilo, formato de la información
+void style(){
+
+    M5.Lcd.setCursor(70, 90);
+    M5.Lcd.setTextSize(4);
+    M5.Lcd.setTextColor(WHITE);
+}
+
+// Configuración
 void setup()
 {
     M5.begin();
@@ -126,16 +138,49 @@ void setup()
 void loop()
 {
    //LCD_Clear();
+   DrawMenu();
 
-   
-   
-   if (rec){
+  // Botón A devolvera lo que el usuario pesa
+   if(M5.BtnA.wasPressed()){
     LCD_Clear();
     DrawMenu();
+    style();
+    M5.Lcd.print("PESO: ");
+    //M5.Lcd.println(valorPeso);
+    M5.Lcd.println(" Kg");
+
+   }
+  // Botón B devolvera lo que el usuario mide
+   if(M5.BtnB.wasPressed()){
+    LCD_Clear();
+    DrawMenu();
+    style();
+    M5.Lcd.print("ALTURA: ");
+    //M5.Lcd.println(valorAltura);
+    M5.Lcd.println(" m");
+
+   }
+  // Botón C devolvera si hay o no conección a la red
+  // para saber si los demás sensores pueden enviar al M5Stack
+   if(M5.BtnC.wasPressed()){
+    LCD_Clear();
+    DrawMenu();
+    if(WiFi.localIP()){
+      style();
+      M5.Lcd.print("CONECTADO");
+    }else
+    {
+      style();
+      M5.Lcd.print("DESCONECTADO");
+    }
+    
+   }
+   /*if (rec){
+    LCD_Clear();
+    //DrawMenu();
     // Posición del cursor de nuevo en 0,0 
     M5.Lcd.setCursor(0, 0);
-    
-    
+
     rec=0;
     udp.broadcastTo("Recibido",1234); //Confirmación
     udp.broadcastTo(texto,1234);      //reenvía lo recibido
@@ -155,7 +200,9 @@ void loop()
     // int segundo=recibo["Segundo"];  //extraigo el dato "Segundo" del objeto "recibido" y lo almaceno en la variable "segundo" 
     //Serial.println(segundo);      //envio por el puerto serie la variable segundo
     
-  }
-  delay(5000);
+  }*/
+
   
+  //delay(5000);
+  M5.update();
 }
