@@ -203,7 +203,10 @@ void loop()
     M5.Lcd.print(devolverAltura());
     M5.Lcd.println(" m");
     
-   }
+    // Envía a la UART, para que muestre en LOGCAT
+    Serial.print("M");
+    
+  }
   // Botón B devolvera lo que el usuario mide
    if(M5.BtnB.wasPressed()){
     LCD_Clear();
@@ -211,7 +214,7 @@ void loop()
     style();
     M5.Lcd.setCursor(10, 90);
     M5.Lcd.print("SUBIENDO DATOS...");
-    // Envía a la UART
+    // Envía a la UART, recoge para subir los datos recogidos actualmente
     Serial.print("S");
     
     /**   
@@ -268,7 +271,7 @@ void loop()
          
         StaticJsonBuffer<300> jsonBufferRecv; //definición del buffer para almacenar el objero JSON, 200 máximo
         JsonObject& bascula = jsonBufferRecv.createObject(); //paso de texto a formato JSON
-        bascula["ID"] = "2018-11-09";
+        bascula["ID"] = "2018-11-09_3:32:00";
         bascula["Peso"] = balanza.get_units(20);
         bascula["Altura"] = devolverAltura();
         bascula.printTo(Serial);       //envio por el puerto serie el objeto "recibido"         

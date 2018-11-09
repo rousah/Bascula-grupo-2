@@ -22,6 +22,8 @@ public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String leido;
     private String s;
+   // private FirebaseFirestore db = FirebaseFirestore.getInstance();
+   // private Map<String, Object> datos = new HashMap<>();
     private JSONObject obj;
     private JSONArray array;
     private String peso;
@@ -44,11 +46,26 @@ public class MainActivity extends Activity {
         }
 
 
+
         while(true){
             //
             leido = uart.leer();
 
             switch (leido) {
+                // Muestra en el logcat
+                case "M":
+                    uart.escribir("2");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Log.w(TAG, "Error en sleep()", e);
+                    }
+                    s = uart.leer();
+
+                    Log.d(TAG, "Datos recogidos: ");
+                    Log.d(TAG, s);
+                    break;
+                // Sube los datos a firestore
                 case "S":
 
                     uart.escribir("2");
@@ -59,10 +76,11 @@ public class MainActivity extends Activity {
                     }
                     s = uart.leer();
 
-                    Log.d(TAG, "Subiendo datos...");
+                    Log.d(TAG, "Datos recogidos: ");
                     Log.d(TAG, s);
 
-                    /*try {
+
+                    try {
                         obj = new JSONObject(s);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -75,26 +93,26 @@ public class MainActivity extends Activity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    */
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Log.w(TAG, "Error en sleep()", e);
+                    }
 
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
                     Map<String, Object> datos = new HashMap<>();
-                    datos.put("Peso", 2);
-                    datos.put("Altura", 2);
+                    datos.put("Peso", peso);
+                    datos.put("Altura", altura);
 
-                    db.collection("medicion").document("1").set(datos);
+                    db.collection("coleccion").document(fecha).set(datos);
 
-
-                    // si se suben los datos
-                    //if(){
-                    //uart.escribir("OK");
-                    //}
-
-
+                    Log.d(TAG, "Subiendo datos...");
 
                     break;
-            }
 
+            }
 
         }
 
