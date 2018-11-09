@@ -96,11 +96,11 @@ void DrawMenu()
   
   M5.Lcd.setTextColor(RED);
   M5.Lcd.setCursor(44,215);
-  M5.Lcd.printf("PESO");
+  M5.Lcd.printf("DATOS");
   
   M5.Lcd.setTextColor(GREEN);
   M5.Lcd.setCursor(126,215);
-  M5.Lcd.printf("ALTURA");
+  M5.Lcd.printf("SUBIR");
   
   M5.Lcd.setTextColor(BLUE);  
   M5.Lcd.setCursor(240,215);
@@ -115,11 +115,19 @@ void DrawMenu()
 void style(){
 
     M5.Lcd.setCursor(50, 90);
-    M5.Lcd.setTextSize(4);
+    M5.Lcd.setTextSize(3);
     M5.Lcd.setTextColor(WHITE);
 }
 
+/**
+ * Esta función contiene el estilo de las letras, el tamaño, y la posición
+ */
+void styleData(){
 
+    M5.Lcd.setCursor(50, 50);
+    M5.Lcd.setTextSize(3);
+    M5.Lcd.setTextColor(WHITE);
+}
 /** FUNCIÓN PARA EL PESO
  *  
  * Función llamada en el setup que configura la bascula, es decir, 
@@ -180,34 +188,34 @@ void loop()
    //LCD_Clear();
    DrawMenu();
 
-  // Botón A devolvera lo que el usuario pesa
+  // Botón A devolvera lo que el usuario pesa y mide
    if(M5.BtnA.wasPressed()){
     LCD_Clear();
     DrawMenu();
-    style();
-    // Definimos el JSON a enviar
-    /*StaticJsonBuffer<300> bufferJson; //definición del buffer para almacenar el objero JSON, 200 máximo
-    JsonObject& recibo = bufferJson.parseObject("Hola android"); //paso de texto a formato JSON
-    recibo.printTo(Serial);       //envio por el puerto serie el objeto "recibido"*/
+    styleData();
+
     M5.Lcd.print(balanza.get_units(20),3);
     M5.Lcd.println(" Kg");
 
-    Serial.print(balanza.get_units(20),3);
-    Serial.println(" Kg");
-
+    M5.Lcd.print(devolverAltura());
+    M5.Lcd.println(" m");
+    
    }
   // Botón B devolvera lo que el usuario mide
    if(M5.BtnB.wasPressed()){
     LCD_Clear();
     DrawMenu();
     style();
-
-    M5.Lcd.print(devolverAltura());
-    M5.Lcd.println(" m");
-
-    Serial.print(devolverAltura());
-    Serial.println(" m");
-
+    
+    M5.Lcd.print("SUBIENDO LOS DATOS...");
+    Serial.println("SUBIENDO LOS DATOS...");
+    Serial.print("S");
+    
+    /**   
+     *    Sí se han guardado los datos, avisar con un mensaje
+     *    M5.Lcd.print("¡GUARDADO!");
+     */
+    
    }
   // Botón C devolvera si hay o no conección a la red
   // para saber si los demás sensores pueden enviar al M5Stack
@@ -225,28 +233,37 @@ void loop()
     
    }
 
+   
+   /**
+    * Conversación con la RaspBerry por UART
+    */
    if (Serial.available() > 0) {
      char command = (char) Serial.read();
-     //char m5command = M5.BtnA.wasPressed();
+    
      switch (command) {
-     case '1':
-         if(WiFi.localIP()){
-            Serial.print("CONECTADO");
-         }else
-         {
-            Serial.print("DESCONECTADO");
-         }
+      // Al comenzar Android Things envia 1 para ver si el M5 está conectado con
+      // con los demás dispositivos en la red
+       case '1':
+           if(WiFi.localIP()){
+              Serial.print("CONECTADO");
+           }else
+           {
+              Serial.print("DESCONECTADO");
+           }
      break;
-     case '2':
+       /**
+        * Entonces, si presionamos el botón de enviar los datos por UART, Android things nos 
+        * enviara el número 2, por lo que luego M5 enviará los datos actuales
+        */
+       case '2':
          
-         StaticJsonBuffer<300> jsonBufferRecv; //definición del buffer para almacenar el objero JSON, 200 máximo
-         JsonObject& bascula = jsonBufferRecv.createObject(); //paso de texto a formato JSON
-         bascula["Peso"] = balanza.get_units(20);
-         bascula["Altura"] = devolverAltura();
-         bascula.printTo(Serial);       //envio por el puerto serie el objeto "recibido"
-         
-         
-     break;
+        StaticJsonBuffer<300> jsonBufferRecv; //definición del buffer para almacenar el objero JSON, 200 máximo
+        JsonObject& bascula = jsonBufferRecv.createObject(); //paso de texto a formato JSON
+        bascula["Peso"] = balanza.get_units(20);
+        bascula["Altura"] = devolverAltura();
+        bascula.printTo(Serial);       //envio por el puerto serie el objeto "recibido"         
+        break;
+               
      }
    }
    Serial.flush();
@@ -281,6 +298,7 @@ void loop()
   }*/
 
   
-  //delay(5000);
+  
   M5.update();
+  delay(5000);
 }
