@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:baselineAligned="false"
                     android:text="Nombre:"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:baselineAligned="false"
                     android:ems="10"
                     android:text="_nombre_" />
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:baselineAligned="false"
                     android:text="Email:"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -87,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:baselineAligned="false"
                     android:ems="10"
                     android:text="_email_" />
@@ -107,35 +107,53 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textoTelefono"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:baselineAligned="false"
-                    android:text="Telefono:"
+                    android:text="Sexo:"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/telefonoPerfil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:baselineAligned="false"
-                    android:ems="10"
-                    android:text="_telefono_" />
+                    android:text="Mujer"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-                <EditText
-                    android:id="@+id/telefono_editable"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
                     android:layout_weight="2"
-                    android:ems="10"
-                    android:visibility="gone" />
+                    android:baselineAligned="false"
+                    android:text="Fecha nacimiento:"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:baselineAligned="false"
+                    android:text="28/09/1999"
+                    android:textSize="14sp" />
             </LinearLayout>
+
+
 
 
 
