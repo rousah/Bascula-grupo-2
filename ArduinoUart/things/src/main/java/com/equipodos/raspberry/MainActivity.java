@@ -6,14 +6,27 @@ import android.util.Log;
 
 import com.google.android.things.pio.Gpio;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.protobuf.Timestamp;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
-
+    private String leido;
+    private String s;
+    private JSONObject obj;
+    private JSONArray array;
+    private String peso;
+    private String altura;
+    private String fecha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,39 +35,72 @@ public class MainActivity extends Activity {
 
         Log.i(TAG, "Lista de UART disponibles: " + ArduinoUart.disponibles());
         ArduinoUart uart = new ArduinoUart("UART0", 115200);
-        // Primero comprobamos que el M5Stack esté conectado para recibir los datos
-        // que las ESP32 le envien
-        Log.d(TAG, "Hay conexión?");
-        Log.d(TAG, "Mandado a Arduino: 1");
-        // Mandando 1 comprueba la conexión
-        uart.escribir("1");
+
+
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Log.w(TAG, "Error en sleep()", e);
         }
-        String s1 = uart.leer();
-        Log.d(TAG, "Recibido de Arduino: "+s1);
 
-        // En caso de estar CONECTADO le enviará al M5, un 2 para que le devuelva
-        // los datos recogidos tanto de la báscula como de los ESP32
 
-        switch (s1){
-            case "CONECTADO":
-                uart.escribir("2");
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    Log.w(TAG, "Error en sleep()", e);
-                }
-                String s2 = uart.leer();
-                Log.d(TAG, "Recibido de Arduino: "+s2);
-                break;
+        while(true){
+            //
+            leido = uart.leer();
+
+            switch (leido) {
+                case "S":
+
+                    uart.escribir("2");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Log.w(TAG, "Error en sleep()", e);
+                    }
+                    s = uart.leer();
+
+                    Log.d(TAG, "Subiendo datos...");
+                    Log.d(TAG, s);
+
+                    /*try {
+                        obj = new JSONObject(s);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        peso = obj.getString("Peso");
+                        altura = obj.getString("Altura");
+                        fecha = obj.getString("ID");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    */
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    Map<String, Object> datos = new HashMap<>();
+                    datos.put("Peso", 2);
+                    datos.put("Altura", 2);
+
+                    db.collection("medicion").document("1").set(datos);
+
+
+                    // si se suben los datos
+                    //if(){
+                    //uart.escribir("OK");
+                    //}
+
+
+
+                    break;
+            }
+
+
         }
-        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Map<String, Object> datos = new HashMap<>();
-        datos.put(peso, altura);
-        db.collection("medicion").document("id"+fecha).set(datos);*/
+
+
+
+
 
 
     }

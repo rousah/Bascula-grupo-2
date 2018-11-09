@@ -95,11 +95,11 @@ void DrawMenu()
   M5.Lcd.setTextSize(2);
   
   M5.Lcd.setTextColor(RED);
-  M5.Lcd.setCursor(44,215);
+  M5.Lcd.setCursor(40,215);
   M5.Lcd.printf("DATOS");
   
   M5.Lcd.setTextColor(GREEN);
-  M5.Lcd.setCursor(126,215);
+  M5.Lcd.setCursor(135,215);
   M5.Lcd.printf("SUBIR");
   
   M5.Lcd.setTextColor(BLUE);  
@@ -194,9 +194,12 @@ void loop()
     DrawMenu();
     styleData();
 
+    M5.Lcd.print("Peso: ");
     M5.Lcd.print(balanza.get_units(20),3);
     M5.Lcd.println(" Kg");
 
+    M5.Lcd.setCursor(50, 80);
+    M5.Lcd.print("Alt:  ");
     M5.Lcd.print(devolverAltura());
     M5.Lcd.println(" m");
     
@@ -206,9 +209,9 @@ void loop()
     LCD_Clear();
     DrawMenu();
     style();
-    
-    M5.Lcd.print("SUBIENDO LOS DATOS...");
-    Serial.println("SUBIENDO LOS DATOS...");
+    M5.Lcd.setCursor(10, 90);
+    M5.Lcd.print("SUBIENDO DATOS...");
+    // Envía a la UART
     Serial.print("S");
     
     /**   
@@ -216,21 +219,27 @@ void loop()
      *    M5.Lcd.print("¡GUARDADO!");
      */
     
+    
    }
   // Botón C devolvera si hay o no conección a la red
   // para saber si los demás sensores pueden enviar al M5Stack
    if(M5.BtnC.wasPressed()){
     LCD_Clear();
     DrawMenu();
+    style();
+    M5.Lcd.setCursor(75, 90);
     if(WiFi.localIP()){
-      style();
+      //style();
+      
       M5.Lcd.print("CONECTADO");
     }else
     {
-      style();
+      //style();
       M5.Lcd.print("DESCONECTADO");
     }
-    
+    M5.Lcd.setCursor(90, 10);
+    M5.Lcd.setTextSize(1);
+    M5.Lcd.print("Versión: 1.0");
    }
 
    
@@ -243,14 +252,14 @@ void loop()
      switch (command) {
       // Al comenzar Android Things envia 1 para ver si el M5 está conectado con
       // con los demás dispositivos en la red
-       case '1':
+      case '1':
            if(WiFi.localIP()){
               Serial.print("CONECTADO");
            }else
            {
               Serial.print("DESCONECTADO");
            }
-     break;
+       break;
        /**
         * Entonces, si presionamos el botón de enviar los datos por UART, Android things nos 
         * enviara el número 2, por lo que luego M5 enviará los datos actuales
@@ -259,11 +268,11 @@ void loop()
          
         StaticJsonBuffer<300> jsonBufferRecv; //definición del buffer para almacenar el objero JSON, 200 máximo
         JsonObject& bascula = jsonBufferRecv.createObject(); //paso de texto a formato JSON
+        bascula["ID"] = "2018-11-09";
         bascula["Peso"] = balanza.get_units(20);
         bascula["Altura"] = devolverAltura();
         bascula.printTo(Serial);       //envio por el puerto serie el objeto "recibido"         
-        break;
-               
+       break;
      }
    }
    Serial.flush();
@@ -300,5 +309,5 @@ void loop()
   
   
   M5.update();
-  delay(5000);
+  //delay(5000);
 }
