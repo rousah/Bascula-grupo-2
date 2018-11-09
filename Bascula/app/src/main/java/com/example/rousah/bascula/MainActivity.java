@@ -189,11 +189,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             return true;
         }
 
-        if (id == R.id.perfil) {
-            lanzarPerfil(null);
-            return true;
-        }
-
         if (id == R.id.log_out) {
             FirebaseAuth.getInstance().signOut(); //End user session
             startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
