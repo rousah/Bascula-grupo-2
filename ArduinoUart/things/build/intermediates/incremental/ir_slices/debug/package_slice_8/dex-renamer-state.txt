@@ -1,4 +1,4 @@
-#Fri Nov 09 00:56:43 CET 2018
+#Fri Nov 09 01:38:24 CET 2018
 base.0=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\27
 path.0=classes.dex
 renamed.0=classes.dex

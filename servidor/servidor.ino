@@ -190,8 +190,10 @@ void loop()
     JsonObject& recibo = bufferJson.parseObject("Hola android"); //paso de texto a formato JSON
     recibo.printTo(Serial);       //envio por el puerto serie el objeto "recibido"*/
     M5.Lcd.print(balanza.get_units(20),3);
-    Serial.print("Datos");
     M5.Lcd.println(" Kg");
+
+    Serial.print(balanza.get_units(20),3);
+    Serial.println(" Kg");
 
    }
   // Botón B devolvera lo que el usuario mide
@@ -199,10 +201,12 @@ void loop()
     LCD_Clear();
     DrawMenu();
     style();
-    //M5.Lcd.print("ALTURA: ");
-    M5.Lcd.println(devolverAltura());
-    Serial.print(devolverAltura());
+
+    M5.Lcd.print(devolverAltura());
     M5.Lcd.println(" m");
+
+    Serial.print(devolverAltura());
+    Serial.println(" m");
 
    }
   // Botón C devolvera si hay o no conección a la red
@@ -223,13 +227,25 @@ void loop()
 
    if (Serial.available() > 0) {
      char command = (char) Serial.read();
-     char m5command = M5.BtnA.wasPressed();
+     //char m5command = M5.BtnA.wasPressed();
      switch (command) {
-     case "Hay coneccion?":
-     Serial.println("Hola Mundo");
+     case '1':
+         if(WiFi.localIP()){
+            Serial.print("CONECTADO");
+         }else
+         {
+            Serial.print("DESCONECTADO");
+         }
      break;
-     case "Dame los datos":
-     Serial.println("Datos");
+     case '2':
+         
+         StaticJsonBuffer<300> jsonBufferRecv; //definición del buffer para almacenar el objero JSON, 200 máximo
+         JsonObject& bascula = jsonBufferRecv.createObject(); //paso de texto a formato JSON
+         bascula["Peso"] = balanza.get_units(20);
+         bascula["Altura"] = devolverAltura();
+         bascula.printTo(Serial);       //envio por el puerto serie el objeto "recibido"
+         
+         
      break;
      }
    }
