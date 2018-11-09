@@ -27,7 +27,16 @@
 
         <CalendarView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></CalendarView>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
+    <Button
+        android:text="Ver Datos"
+        android:id="@+id/botonVerDatosDia"
+        android:layout_width="200dp"
+        android:textSize="15dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center">
+    </Button>
 </LinearLayout>

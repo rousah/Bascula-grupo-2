@@ -58,6 +58,8 @@
             Introduction ends here
         -->
 
+        <activity android:name=".DatosDiaCalendario"></activity>
+
     </application>
 
 </manifest>
