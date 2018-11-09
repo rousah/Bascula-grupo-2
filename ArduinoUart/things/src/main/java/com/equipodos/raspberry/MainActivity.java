@@ -13,9 +13,7 @@ import java.util.Map;
 
 public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private String fecha;
-    private String peso;
-    private String altura;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +22,32 @@ public class MainActivity extends Activity {
 
         Log.i(TAG, "Lista de UART disponibles: " + ArduinoUart.disponibles());
         ArduinoUart uart = new ArduinoUart("UART0", 115200);
-        Log.d(TAG, "Mandado a Arduino: D");
-        uart.escribir("D");
+        Log.d(TAG, "Hay conexión?");
+        Log.d(TAG, "Mandado a Arduino: 1");
+        uart.escribir("1");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             Log.w(TAG, "Error en sleep()", e);
         }
-        String s = uart.leer();
-        Log.d(TAG, "Recibido de Arduino: "+s);
+        String s1 = uart.leer();
+        Log.d(TAG, "Recibido de Arduino: "+s1);
 
+        if(s1 == "CONECTADO"){
+            uart.escribir("2");
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                Log.w(TAG, "Error en sleep()", e);
+            }
+            String s2 = uart.leer();
+            Log.d(TAG, "Recibido de Arduino: "+s2);
+        }else{
+            String s3 = uart.leer();
+            Log.d(TAG, "Recibido de Arduino: "+s3);
+        }
+
+        //Log.d(TAG, s);
         /*FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> datos = new HashMap<>();
         datos.put(peso, altura);

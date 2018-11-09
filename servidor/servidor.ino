@@ -190,6 +190,7 @@ void loop()
     JsonObject& recibo = bufferJson.parseObject("Hola android"); //paso de texto a formato JSON
     recibo.printTo(Serial);       //envio por el puerto serie el objeto "recibido"*/
     M5.Lcd.print(balanza.get_units(20),3);
+    Serial.print("Datos");
     M5.Lcd.println(" Kg");
 
    }
@@ -200,6 +201,7 @@ void loop()
     style();
     //M5.Lcd.print("ALTURA: ");
     M5.Lcd.println(devolverAltura());
+    Serial.print(devolverAltura());
     M5.Lcd.println(" m");
 
    }
@@ -221,11 +223,12 @@ void loop()
 
    if (Serial.available() > 0) {
      char command = (char) Serial.read();
+     char m5command = M5.BtnA.wasPressed();
      switch (command) {
-     case 'H':
+     case "Hay coneccion?":
      Serial.println("Hola Mundo");
      break;
-     case 'D':
+     case "Dame los datos":
      Serial.println("Datos");
      break;
      }
