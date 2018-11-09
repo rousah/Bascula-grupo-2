@@ -2,9 +2,13 @@ package com.equipodos.raspberry;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.things.pio.Gpio;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.protobuf.Timestamp;
@@ -22,8 +26,8 @@ public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String leido;
     private String s;
-   // private FirebaseFirestore db = FirebaseFirestore.getInstance();
-   // private Map<String, Object> datos = new HashMap<>();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Map<String, Object> datos = new HashMap<>();
     private JSONObject obj;
     private JSONArray array;
     private String peso;
@@ -100,14 +104,9 @@ public class MainActivity extends Activity {
                         Log.w(TAG, "Error en sleep()", e);
                     }
 
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                    Map<String, Object> datos = new HashMap<>();
-                    datos.put("Peso", peso);
-                    datos.put("Altura", altura);
 
-                    db.collection("coleccion").document(fecha).set(datos);
-
+                    
                     Log.d(TAG, "Subiendo datos...");
 
                     break;
@@ -123,7 +122,12 @@ public class MainActivity extends Activity {
 
     }
 
+    public void guardarFirestore(FirebaseFirestore db, String c, String d, String n, String v ){
 
+        datos.put(n, v);
+        db.collection(c).document(d).set(datos);
+
+    }
 
     @Override
     protected void onDestroy() {
