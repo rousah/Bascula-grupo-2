@@ -12,11 +12,6 @@
         android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="200"
         app:showAsAction="ifRoom"/>
-    <item android:title="@string/perfil"
-        android:id="@+id/perfil"
-        android:icon="@drawable/ic_account_circle_white_24dp"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/log_out"
         android:icon="@drawable/ic_log_out"
