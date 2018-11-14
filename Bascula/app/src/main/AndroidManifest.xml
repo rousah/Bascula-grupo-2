@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rousah.bascula">
 
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +16,8 @@
             android:label="Preferencias ..."/>
         <activity android:name=".AcercaDeActivity"
             android:label="Acerca de ..."/>
+        <activity android:name=".PerfilActivity"
+            android:label="Perfil"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -57,6 +63,8 @@
             BORJA
             Introduction ends here
         -->
+
+        <activity android:name=".DatosDiaCalendario"></activity>
 
     </application>
 

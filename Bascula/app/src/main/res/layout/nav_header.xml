@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="@drawable/headerbg"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:id="@+id/imagenNav"
+        android:src="@drawable/ic_account_circle_white_24dp"
+        />
+
+    <TextView
+        android:id="@+id/nombreNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:text="Alguien"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/emailNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:text="alguine@gmail.com"
+        android:textColor="#ffffff" />
+</LinearLayout>

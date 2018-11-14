@@ -266,7 +266,17 @@
 
         </LinearLayout>
 
+        <Button android:text="Previous"
+            android:id="@+id/botonVolverCalendario"
+            android:layout_width="250dp"
+            android:textSize="18px"
+            android:layout_height="55dp"
+            android:layout_gravity="center">
+        </Button>
+
     </android.support.v4.widget.NestedScrollView>
 
 
 </android.support.constraint.ConstraintLayout>
+
+
