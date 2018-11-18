@@ -2,13 +2,23 @@
 #include "AsyncUDP.h"
 #include <TimeLib.h>
 #include <ArduinoJson.h>
-
+#include <DHT.h>
 
 // --- Escucha del infrarrojo ---
 int ledPin = 5;  // LED en el Pin 5 del Arduino
 int pirPin = 21; // Input para HC-S501
 int pirValue; // Para guardar el valor del pirPin
 
+
+// --- Escucha del sensor hum temp ---
+// Definimos el pin digital donde se conecta el sensor DHT
+#define DHTPIN 25
+// Dependiendo del tipo de sensor
+#define DHTTYPE DHT11
+// Inicializamos el sensor DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+// --- Info Router ---
 const char * ssid = "EQUIPO_2";
 const char * password = "HoLaMuNDo";
 
@@ -21,6 +31,10 @@ StaticJsonBuffer<300> jsonBuffer;                 //tamaño maximo de los datos
 JsonObject& envio = jsonBuffer.createObject();    //creación del objeto "envio"
 
 
+// --- Para los tiempos distintos ---
+unsigned long previousMillis = 0;        // guardará cuándo se lee los sensores
+const long interval = 5000;           // intervalo de cuándo se leerán los sensores
+
 
 void leerInfrarrojos() {
 
@@ -29,11 +43,40 @@ void leerInfrarrojos() {
    digitalWrite(ledPin, HIGH);
    delay(1000);
    digitalWrite(ledPin, LOW);
+  }  
+}
+
+void leerHumTemp() {
+
+  // Leemos la humedad relativa
+  float h = dht.readHumidity();
+  // Leemos la temperatura en grados centígrados (por defecto)
+  float t = dht.readTemperature();
+  // Leemos la temperatura en grados Fahrenheit
+  float f = dht.readTemperature(true);
+
+  // Comprobamos si ha habido algún error en la lectura
+  if (isnan(h) || isnan(t) || isnan(f)) {
+    Serial.println("Error obteniendo los datos del sensor DHT11");
+    return;
   }
-  else {
-    Serial.println("Nada");
-    }
-  
+
+  // Calcular el índice de calor (sensación térmica)
+  //en Fahrenheit
+  float hif = dht.computeHeatIndex(f, h);
+  //en grados centígrados
+  float hic = dht.computeHeatIndex(t, h, false);
+
+  Serial.print("Humedad: ");
+  Serial.print(h);
+  Serial.println(" %");
+  Serial.print("Temperatura: ");
+  Serial.print(t);
+  Serial.println(" *C");
+  Serial.print("Índice de calor: ");
+  Serial.print(hic);
+  Serial.println(" *C");
+    
 }
 
 void setup()
@@ -51,7 +94,7 @@ void setup()
         }
     }
 
-if(udp.listen(1234)) {
+    if (udp.listen(1234)) {
         Serial.print("UDP Listening on IP: ");
         Serial.println(WiFi.localIP());
         
@@ -61,12 +104,15 @@ if(udp.listen(1234)) {
             Serial.println();
 
         });
-
     }
 
-  pinMode(ledPin, OUTPUT);
-  pinMode(pirPin, INPUT);
-  digitalWrite(ledPin, LOW);
+    pinMode(ledPin, OUTPUT);
+    pinMode(pirPin, INPUT);
+    digitalWrite(ledPin, LOW);
+    
+    // Comenzamos el sensor DHT
+    dht.begin();
+  
 }
 
 
@@ -83,6 +129,15 @@ void loop()
   envio["Date"] = date;
   envio["Time"] = timeNow;
 
+  
+  unsigned long currentMillis = millis();
+  // Se hace únicamente cuando pase el intervalo
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+    leerHumTemp();
+  }
+  
+  //Se hace continuamente 
   leerInfrarrojos();
-  delay(5000);
+  
 }
