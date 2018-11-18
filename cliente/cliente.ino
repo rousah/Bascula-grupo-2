@@ -41,9 +41,11 @@ void leerInfrarrojos() {
   if(digitalRead(pirPin)== HIGH) {
    Serial.println("Detectado movimiento por el sensor pir");
    digitalWrite(ledPin, HIGH);
-   delay(1000);
-   digitalWrite(ledPin, LOW);
-  }  
+   delay(500);
+  }
+  else {
+  digitalWrite(ledPin, LOW);  
+  }
 }
 
 void leerHumTemp() {
