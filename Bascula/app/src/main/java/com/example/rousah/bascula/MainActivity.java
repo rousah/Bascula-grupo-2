@@ -39,7 +39,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener {
 
     //private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     private ActionBarDrawerToggle drawerToggle;
     //--------------Drawer--------------------
     View headerLayout;
-    int SELECT_PICTURE_CONSTANT = 0;
 
     // BORJA
     /*
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frameContent,new TabFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_inicio);
-        setTitle("Inicio");
+        setTitle("Mediciones");
         //--------------Drawer--------------------
 
 
@@ -184,11 +183,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
     public void lanzarPreferencias(View view){
         Intent i = new Intent(this, PreferenciasActivity.class);
-        startActivity(i);
-    }
-
-    public void lanzarPerfil(View view){
-        Intent i = new Intent(this, PerfilActivity.class);
         startActivity(i);
     }
 
@@ -365,8 +359,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             case R.id.nav_perfil:
                 fragment = new PerfilFragment();
                 break;
-            case R.id.nav_tercer_fragment:
-                //fragment = new TabTercero();
+            case R.id.nav_casa:
+                fragment = new CasaFragment();
                 break;
         }
         return fragment;
