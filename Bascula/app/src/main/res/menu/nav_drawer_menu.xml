@@ -17,5 +17,10 @@
             android:id="@+id/nav_perfil"
             android:icon="@drawable/ic_round_account_circle_24px"
             android:title="Perfil" />
+        <item
+            android:id="@+id/log_out"
+            android:icon="@drawable/ic_log_out"
+            android:title="Cerrar sesión"
+            />
     </group>
 </menu>

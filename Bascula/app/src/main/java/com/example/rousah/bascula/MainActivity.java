@@ -39,6 +39,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+
+
 public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener {
 
     //private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -167,12 +169,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             return true;
         }
 
-        if (id == R.id.log_out) {
-            FirebaseAuth.getInstance().signOut(); //End user session
-            startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
-            finish();
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -273,51 +269,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         startActivity(intent_b);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
 
     }
-    /*
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
 
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    Tab1 tab1 = new Tab1();
-                    return tab1;
-                case 1:
-                    Tab2 tab2 = new Tab2();
-                    return tab2;
-                case 2:
-                    Tab4 tab4 = new Tab4();
-                    return tab4;
-
-                    default:
-                        return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.inicio);
-                case 1:
-                    return getString(R.string.datos);
-                case 2:
-                    return "Administrar";
-                default:
-                    return null;
-            }
-        }
-    }*/
     //--------------Drawer--------------------
     void initializeStuff(){
         drawerLayout =(DrawerLayout) findViewById(R.id.drawerLayout);
@@ -336,12 +289,17 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                         //replace the current fragment with the new fragment.
                         Fragment selectedFragment = selectDrawerItem(menuItem);
                         FragmentManager fragmentManager = getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.frameContent, selectedFragment).commit();
-                        // the current menu item is highlighted in navigation tray.
-                        navigationView.setCheckedItem(menuItem.getItemId());
-                        setTitle(menuItem.getTitle());
-                        //close the drawer when user selects a nav item.
-                        drawerLayout.closeDrawers();
+                        if (selectedFragment == null ) {
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
+                        }
+                        else {
+                            fragmentManager.beginTransaction().replace(R.id.frameContent, selectedFragment).commit();
+                            // the current menu item is highlighted in navigation tray.
+                            navigationView.setCheckedItem(menuItem.getItemId());
+                            setTitle(menuItem.getTitle());
+                            //close the drawer when user selects a nav item.
+                            drawerLayout.closeDrawers();
+                        }
                         return true;
                     }
                 });
@@ -361,6 +319,12 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                 break;
             case R.id.nav_casa:
                 fragment = new CasaFragment();
+                break;
+            case R.id.log_out:
+                FirebaseAuth.getInstance().signOut(); //End user session
+                startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
+                MainActivity.this.finish();
+               // fragment = new TabFragment();
                 break;
         }
         return fragment;
