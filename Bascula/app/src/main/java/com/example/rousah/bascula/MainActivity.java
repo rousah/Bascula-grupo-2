@@ -187,10 +187,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         startActivity(i);
     }
 
-    public void lanzarPerfil(View view){
-        Intent i = new Intent(this, PerfilActivity.class);
-        startActivity(i);
-    }
 
     //  BORJA
     /*

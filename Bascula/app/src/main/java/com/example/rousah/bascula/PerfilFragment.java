@@ -98,7 +98,8 @@ public class PerfilFragment extends Fragment {
         }
         //por si se logea con email y no tiene foto asignada
         else {
-            imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+         //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+            Picasso.with(getActivity().getBaseContext()).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
         }
 
         // Inflate the layout for this fragment

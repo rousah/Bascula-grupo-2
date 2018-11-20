@@ -25,9 +25,11 @@
 
         <ImageView
             android:id="@+id/fotoPerfil"
-            android:layout_width="match_parent"
+            android:layout_width="125dp"
             android:layout_height="125dp"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
+            android:background="@drawable/border_imagen_perfil"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
