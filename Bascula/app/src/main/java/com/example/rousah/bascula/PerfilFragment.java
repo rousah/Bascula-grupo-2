@@ -5,13 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -83,6 +86,20 @@ public class PerfilFragment extends Fragment {
 
         TextView email = view.findViewById(R.id.emailPerfil);
         email.setText(usuario.getEmail());
+
+        final ImageView imagenPerfil = view.findViewById(R.id.fotoPerfil);
+        String proveedor = usuario.getProviders().get(0);
+        //checkea si el proveedor es de google por si se logea con un email
+        if(proveedor.equals("google.com")) {
+            String uri = usuario.getPhotoUrl().toString();
+            //carga la foto y usa transform para hacerla circular
+            Picasso.with(getActivity().getBaseContext()).load(uri).transform(new CircleTransform()).into(imagenPerfil);
+            System.out.println("dentro de getPhoto");
+        }
+        //por si se logea con email y no tiene foto asignada
+        else {
+            imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+        }
 
         // Inflate the layout for this fragment
         return view;

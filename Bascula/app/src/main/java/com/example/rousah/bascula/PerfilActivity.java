@@ -12,6 +12,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.w3c.dom.Text;
+import com.squareup.picasso.Picasso;
+
 
 public class PerfilActivity extends Activity {
 
