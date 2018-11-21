@@ -5,12 +5,22 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_inicio"
-            android:title="Inicio"/>
+            android:icon="@drawable/ic_round_accessibility_24px"
+            android:title="Mediciones" />
+
+        <item
+            android:id="@+id/nav_casa"
+            android:icon="@drawable/ic_round_home_24px"
+            android:title="Casa" />
+
         <item
             android:id="@+id/nav_perfil"
-            android:title="Perfil"/>
+            android:icon="@drawable/ic_round_account_circle_24px"
+            android:title="Perfil" />
         <item
-            android:id="@+id/nav_tercer_fragment"
-            android:title="Tercer Fragment"/>
+            android:id="@+id/log_out"
+            android:icon="@drawable/ic_log_out"
+            android:title="Cerrar sesión"
+            />
     </group>
 </menu>
