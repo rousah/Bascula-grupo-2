@@ -65,7 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="6"
-                        android:src="@drawable/ic_thermometer" />
+                        app:srcCompat="@drawable/ic_thermometer" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -156,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="6"
-                    android:src="@drawable/ic_water" />
+                    app:srcCompat="@drawable/ic_water" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -180,6 +180,99 @@
                     android:text="70 %"
                     android:textColor="#ffffff"
                     android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/rounded"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+
+                <ImageView
+                    android:id="@+id/puerta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:foregroundGravity="center_vertical"
+                    app:srcCompat="@drawable/ic_closed_door_with_border_silhouette" />
+
+                <TextView
+                    android:id="@+id/textpuerta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical|start"
+                    android:text="Puerta:"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textinfopuerta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="4"
+                    android:foregroundGravity="center_vertical"
+                    android:gravity="center_vertical|end"
+                    android:text="Abierta"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/rounded"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+
+                <ImageView
+                    android:id="@+id/luzicono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:foregroundGravity="center_vertical"
+                    app:srcCompat="@drawable/ic_bulb" />
+
+                <TextView
+                    android:id="@+id/luztexto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical|start"
+                    android:text="Luces:"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/switchluces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="4"
+                    android:foregroundGravity="center_vertical"
+                    android:textColor="#ffffff"
+                    android:textOff="Apagadas"
+                    android:textOn="Encedidas" />
             </LinearLayout>
 
 
