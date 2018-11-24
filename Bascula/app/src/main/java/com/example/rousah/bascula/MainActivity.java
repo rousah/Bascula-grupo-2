@@ -50,7 +50,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
@@ -60,7 +63,7 @@ import static com.example.comun.Mqtt.broker;
 import static com.firebase.ui.auth.AuthUI.TAG;
 
 
-public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, MqttCallback {
 
     //--------------Drawer--------------------
     private DrawerLayout drawerLayout;
@@ -125,9 +128,22 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         try {
             Log.i(Mqtt.TAG, "Conectando al broker " + broker);
             client = new MqttClient(broker, clientId, new MemoryPersistence());
-            client.connect();
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setCleanSession(true);
+            connOpts.setKeepAliveInterval(60);
+            connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
+                    qos, false);
+            client.connect(connOpts);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al conectar.", e);
+        }
+
+        try {
+            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"POWER");
+            client.subscribe(topicRoot+"POWER", qos);
+            client.setCallback(this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
     }
 
@@ -177,42 +193,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         Intent i = new Intent(this, PreferenciasActivity.class);
         startActivity(i);
     }
-    //  BORJA
-    /*
-     * Function introduced as part of the remote user administration
-     *
-     * ????????????????????????????????
-     * It is not completed yet. some information that shall be passed between activities are not properly set.
-     * ????????????????????????????????
-     *
-     * Its main purpose is to be part of the confirmation whether the administrator actually aims
-     * to delete the remote user.
-     */
-    public void lanzaCheck(View view) {
 
-        TextView fieldTextView = (TextView) findViewById(R.id.usuario);
-
-        Intent intent = new Intent (this, RemoveRemoteCheckActivity.class);
-
-        // Storage of information as data/value into the intent
-         intent.putExtra("usuario", fieldTextView.getText().toString());
-
-        // Start activity of communication
-        startActivityForResult(intent, 123);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
-
-    }
-
-
-    //  BORJA
-    /*
-     * Function introduced as part of the remote user administration
-     *
-     * ????????????????????????????????
-     * It is not completed yet. some information shall be managet properly in the layout.
-     * ????????????????????????????????
-     *
-     * Its main purpose is to be part of to receive the acceptace or the rejection of the removal of the remote user
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);  // recommended by www.youtube.com/watch?v=OHyPQ4tpBuc
@@ -391,17 +372,19 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
 
 
+
+    //---------------MQTT------------------------
     public void botonLuces (View view) {
         try {
-            Log.i(TAG, "Publicando mensaje: " + "hola");
-            MqttMessage message = new MqttMessage("hola".getBytes());
+            Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
+            MqttMessage message = new MqttMessage("TOGGLE".getBytes());
             message.setQos(qos);
             message.setRetained(false);
-            client.publish(topicRoot+"saludo", message);
+            client.publish(topicRoot+"cmnd/POWER", message);
         } catch (MqttException e) {
             Log.e(TAG, "Error al publicar.", e);
         }
-        Snackbar.make(view, "Publicando en MQTT", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        Snackbar.make(view, "Publicando en MQTT by rous", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     @Override public void onDestroy() {
@@ -414,5 +397,28 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         super.onDestroy();
     }
 
+    @Override
+    public void connectionLost(Throwable cause) {
+        Log.d(TAG, "Conexión perdida");
+    }
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        final String payload = new String(message.getPayload());
+        Log.d(TAG, "Recibiendo: " + topic + "->" + payload);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView a = findViewById(R.id.textViewSonoff);
+                a.setText(payload);
+            }
+        });
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+        Log.d(TAG, "Entrega completa");
+    }
+    //---------------MQTT------------------------
 
 }
