@@ -9,10 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.example.comun.Mqtt;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
@@ -32,7 +37,7 @@ import static com.firebase.ui.auth.AuthUI.TAG;
  * Use the {@link CasaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CasaFragment extends Fragment {
+public class CasaFragment extends Fragment implements MqttCallback {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -40,21 +45,18 @@ public class CasaFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    public Switch luces;
+
     private OnFragmentInteractionListener mListener;
+
+    //----------------MQTT---------------------
+    MqttClient client;
+    //----------------MQTT---------------------
 
     public CasaFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CasaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CasaFragment newInstance(String param1, String param2) {
         CasaFragment fragment = new CasaFragment();
         Bundle args = new Bundle();
@@ -71,13 +73,52 @@ public class CasaFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        //---------------MQTT---------------------
+        try {
+            Log.i(Mqtt.TAG, "Conectando al broker " + broker);
+            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setCleanSession(true);
+            connOpts.setKeepAliveInterval(60);
+            connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
+                    qos, false);
+            client.connect(connOpts);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al conectar.", e);
+        }
+
+        try {
+            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"POWER");
+            client.subscribe(topicRoot+"POWER", qos);
+            client.setCallback(this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+        //---------------MQTT---------------------
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.casa, container, false);
+        luces = view.findViewById(R.id.switchluces);
+        luces.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.w("switch: ", "pruebas");
+                try {
+                    Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
+                    MqttMessage message = new MqttMessage("TOGGLE".getBytes());
+                    message.setQos(qos);
+                    message.setRetained(false);
+                    client.publish(topicRoot+"cmnd/POWER", message);
+                }
+                catch (MqttException e) {
+                    Log.e(TAG, "Error al publicar.", e);
+                }
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.casa, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,16 +145,21 @@ public class CasaFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void connectionLost(Throwable cause) {
+
+    }
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

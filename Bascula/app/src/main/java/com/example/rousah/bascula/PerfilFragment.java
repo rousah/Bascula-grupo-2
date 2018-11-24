@@ -90,7 +90,6 @@ public class PerfilFragment extends Fragment {
 
 
         final View view = inflater.inflate(R.layout.perfil, container, false);
-        final FragmentActivity fragmentActivity = getActivity();
 
         TextView nombre = view.findViewById(R.id.nombrePerfil);
         nombre.setText(usuario.getDisplayName());

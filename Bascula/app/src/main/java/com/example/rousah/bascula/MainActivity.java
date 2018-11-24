@@ -35,7 +35,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.comun.Mqtt;
@@ -145,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
+        //---------------MQTT---------------------
     }
 
 
@@ -269,6 +272,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                             startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
                         }
                         else {
+                            Log.w("Fragment seleccionado", selectedFragment.toString());
                             fragmentManager.beginTransaction().replace(R.id.frameContent, selectedFragment).commit();
                             // the current menu item is highlighted in navigation tray.
                             navigationView.setCheckedItem(menuItem.getItemId());
@@ -385,6 +389,19 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             Log.e(TAG, "Error al publicar.", e);
         }
         Snackbar.make(view, "Publicando en MQTT by rous", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+    }
+
+    public void toggleSonoff () {
+        try {
+            Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
+            MqttMessage message = new MqttMessage("TOGGLE".getBytes());
+            message.setQos(qos);
+            message.setRetained(false);
+            client.publish(topicRoot+"cmnd/POWER", message);
+            }
+            catch (MqttException e) {
+            Log.e(TAG, "Error al publicar.", e);
+            }
     }
 
     @Override public void onDestroy() {
