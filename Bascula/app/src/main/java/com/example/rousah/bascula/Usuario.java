@@ -4,6 +4,8 @@ public class Usuario {
     private String nombre;
     private String correo;
     private long inicioSesion;
+    private String fechaNac;
+    private String telefono;
 
     public Usuario () {}
 
@@ -22,6 +24,22 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getFechaNac() {
+        return fechaNac;
+    }
+
+    public void setFechaNac(String fechaNac) {
+        this.fechaNac = fechaNac;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getCorreo() {
