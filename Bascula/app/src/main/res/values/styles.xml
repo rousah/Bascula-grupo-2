@@ -49,6 +49,7 @@
         <item name="android:textSize">10pt</item>
     </style>
 
+
     <!--Estilo LogIn-->
     <style name="LoginTheme" parent="FirebaseUI">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -70,5 +71,6 @@
     </style>
 
     <!--Estilo LogIn-->
+
 
 </resources>
