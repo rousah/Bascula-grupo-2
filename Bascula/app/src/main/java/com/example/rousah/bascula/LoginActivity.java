@@ -43,7 +43,7 @@ public class LoginActivity  extends AppCompatActivity {
                             new AuthUI.IdpConfig.GoogleBuilder().build())) //<<<<<<<<<<<<<
                     .setIsSmartLockEnabled(false)
                     .setTheme(R.style.LoginTheme)
-                    .setLogo(R.drawable.icon)
+                    .setLogo(R.drawable.logo_login)
                     .build(), RC_SIGN_IN);
         }
     }
