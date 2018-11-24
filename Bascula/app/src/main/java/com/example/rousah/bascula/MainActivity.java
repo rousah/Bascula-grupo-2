@@ -38,6 +38,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.comun.Mqtt;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +50,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import static com.example.comun.Mqtt.*;
+
+import static com.example.comun.Mqtt.broker;
+import static com.firebase.ui.auth.AuthUI.TAG;
 
 
 public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener {
@@ -65,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     FirebaseUser usuario;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    //----------------MQTT---------------------
+    MqttClient client;
+    //----------------MQTT---------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +121,14 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
         mostrarUsuarioNavDrawer(usuario);
 
+        //---------------MQTT---------------------
+        try {
+            Log.i(Mqtt.TAG, "Conectando al broker " + broker);
+            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            client.connect();
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al conectar.", e);
+        }
     }
 
 
@@ -367,6 +388,31 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         }
     }
     //--------------Nav Header----------------
+
+
+
+    public void botonLuces (View view) {
+        try {
+            Log.i(TAG, "Publicando mensaje: " + "hola");
+            MqttMessage message = new MqttMessage("hola".getBytes());
+            message.setQos(qos);
+            message.setRetained(false);
+            client.publish(topicRoot+"saludo", message);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al publicar.", e);
+        }
+        Snackbar.make(view, "Publicando en MQTT", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+    }
+
+    @Override public void onDestroy() {
+        try {
+            Log.i(TAG, "Desconectado");
+            client.disconnect();
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al desconectar.", e);
+        }
+        super.onDestroy();
+    }
 
 
 }

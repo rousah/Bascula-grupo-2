@@ -3,10 +3,25 @@ package com.example.rousah.bascula;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.comun.Mqtt;
+
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+import static com.example.comun.Mqtt.broker;
+import static com.example.comun.Mqtt.clientId;
+import static com.example.comun.Mqtt.qos;
+import static com.example.comun.Mqtt.topicRoot;
+import static com.firebase.ui.auth.AuthUI.TAG;
 
 
 /**
@@ -18,12 +33,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class CasaFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
