@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.comun.Mqtt;
 
@@ -105,15 +106,33 @@ public class CasaFragment extends Fragment implements MqttCallback {
         luces.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.w("switch: ", "pruebas");
-                try {
-                    Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
-                    MqttMessage message = new MqttMessage("TOGGLE".getBytes());
-                    message.setQos(qos);
-                    message.setRetained(false);
-                    client.publish(topicRoot+"cmnd/POWER", message);
+                if (isChecked) {
+                    try {
+                        Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
+                        MqttMessage message = new MqttMessage("TOGGLE".getBytes());
+                        message.setQos(qos);
+                        message.setRetained(false);
+                        client.publish(topicRoot + "cmnd/POWER", message);
+                        Toast.makeText(getContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                    } catch (MqttException e) {
+                        luces.setChecked(false);
+                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Error", e);
+                    }
                 }
-                catch (MqttException e) {
-                    Log.e(TAG, "Error al publicar.", e);
+                if (!isChecked) {
+                    try {
+                        Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
+                        MqttMessage message = new MqttMessage("TOGGLE".getBytes());
+                        message.setQos(qos);
+                        message.setRetained(false);
+                        client.publish(topicRoot + "cmnd/POWER", message);
+                        Toast.makeText(getContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                    } catch (MqttException e) {
+                        luces.setChecked(true);
+                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Error", e);
+                    }
                 }
             }
         });
