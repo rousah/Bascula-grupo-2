@@ -16,12 +16,13 @@
             android:label="Preferencias ..."/>
         <activity android:name=".AcercaDeActivity"
             android:label="Acerca de ..."/>
-        <activity android:name=".PerfilActivity"
-            android:label="Perfil"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".CrearPerfil">
         </activity>
         <activity android:name=".LoginActivity">
             <intent-filter>

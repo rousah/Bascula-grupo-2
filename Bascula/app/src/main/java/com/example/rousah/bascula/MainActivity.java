@@ -13,56 +13,45 @@ Initial
 
 package com.example.rousah.bascula;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
-import android.provider.MediaStore;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.util.Log;
-import android.util.LruCache;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
-import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener {
 
-    //private SectionsPagerAdapter mSectionsPagerAdapter;
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener {
 
     //--------------Drawer--------------------
     private DrawerLayout drawerLayout;
@@ -71,50 +60,18 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     private ActionBarDrawerToggle drawerToggle;
     //--------------Drawer--------------------
     View headerLayout;
-    int SELECT_PICTURE_CONSTANT = 0;
 
-    // BORJA
-    /*
-    Introduced with the purpose to have a database for the remote users
-     */
     public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
     FirebaseUser usuario;
 
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    //private ViewPager mViewPager; //Ha causado error?
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
+
         setContentView(R.layout.activity_main);
-        /*
- origin/perfil
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-        */
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -143,17 +100,15 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frameContent,new TabFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_inicio);
-        setTitle("Inicio");
+        setTitle("Mediciones");
         //--------------Drawer--------------------
 
 
         headerLayout = navigationView.getHeaderView(0); // 0-index header
-        usuario = FirebaseAuth.getInstance().getCurrentUser();
+
         mostrarUsuarioNavDrawer(usuario);
+
     }
-
-
-
 
 
     @Override
@@ -189,12 +144,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             return true;
         }
 
-        if (id == R.id.log_out) {
-            FirebaseAuth.getInstance().signOut(); //End user session
-            startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
-            finish();
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -207,12 +156,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         Intent i = new Intent(this, PreferenciasActivity.class);
         startActivity(i);
     }
-
-    public void lanzarPerfil(View view){
-        Intent i = new Intent(this, PerfilActivity.class);
-        startActivity(i);
-    }
-
     //  BORJA
     /*
      * Function introduced as part of the remote user administration
@@ -300,51 +243,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         startActivity(intent_b);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
 
     }
-    /*
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
 
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    Tab1 tab1 = new Tab1();
-                    return tab1;
-                case 1:
-                    Tab2 tab2 = new Tab2();
-                    return tab2;
-                case 2:
-                    Tab4 tab4 = new Tab4();
-                    return tab4;
-
-                    default:
-                        return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.inicio);
-                case 1:
-                    return getString(R.string.datos);
-                case 2:
-                    return "Administrar";
-                default:
-                    return null;
-            }
-        }
-    }*/
     //--------------Drawer--------------------
     void initializeStuff(){
         drawerLayout =(DrawerLayout) findViewById(R.id.drawerLayout);
@@ -363,12 +263,17 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                         //replace the current fragment with the new fragment.
                         Fragment selectedFragment = selectDrawerItem(menuItem);
                         FragmentManager fragmentManager = getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.frameContent, selectedFragment).commit();
-                        // the current menu item is highlighted in navigation tray.
-                        navigationView.setCheckedItem(menuItem.getItemId());
-                        setTitle(menuItem.getTitle());
-                        //close the drawer when user selects a nav item.
-                        drawerLayout.closeDrawers();
+                        if (selectedFragment == null ) {
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
+                        }
+                        else {
+                            fragmentManager.beginTransaction().replace(R.id.frameContent, selectedFragment).commit();
+                            // the current menu item is highlighted in navigation tray.
+                            navigationView.setCheckedItem(menuItem.getItemId());
+                            setTitle(menuItem.getTitle());
+                            //close the drawer when user selects a nav item.
+                            drawerLayout.closeDrawers();
+                        }
                         return true;
                     }
                 });
@@ -386,8 +291,14 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             case R.id.nav_perfil:
                 fragment = new PerfilFragment();
                 break;
-            case R.id.nav_tercer_fragment:
-                //fragment = new TabTercero();
+            case R.id.nav_casa:
+                fragment = new CasaFragment();
+                break;
+            case R.id.log_out:
+                FirebaseAuth.getInstance().signOut(); //End user session
+                startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
+                MainActivity.this.finish();
+               // fragment = new TabFragment();
                 break;
         }
         return fragment;

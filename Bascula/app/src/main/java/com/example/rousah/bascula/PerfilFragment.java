@@ -3,15 +3,28 @@ package com.example.rousah.bascula;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.res.ResourcesCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
+import static com.example.rousah.bascula.Usuarios.guardarUsuario;
 
 
 /**
@@ -37,6 +50,7 @@ public class PerfilFragment extends Fragment {
 
 
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     public PerfilFragment() {
@@ -84,6 +98,47 @@ public class PerfilFragment extends Fragment {
         TextView email = view.findViewById(R.id.emailPerfil);
         email.setText(usuario.getEmail());
 
+        final ImageView imagenPerfil = view.findViewById(R.id.fotoPerfil);
+        String proveedor = usuario.getProviders().get(0);
+        //checkea si el proveedor es de google por si se logea con un email
+        if(proveedor.equals("google.com")) {
+            String uri = usuario.getPhotoUrl().toString();
+            //carga la foto y usa transform para hacerla circular
+            Picasso.with(getActivity().getBaseContext()).load(uri).transform(new CircleTransform()).into(imagenPerfil);
+            System.out.println("dentro de getPhoto");
+        }
+        //por si se logea con email y no tiene foto asignada
+        else {
+         //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+            Picasso.with(getActivity().getBaseContext()).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
+        }
+
+        db.collection("usuarios").document(usuario.getUid()).get().addOnCompleteListener(
+                new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task){
+                        if (task.isSuccessful()) {
+
+                            TextView telefono = view.findViewById(R.id.telefono);
+                            telefono.setText(task.getResult().getString("telefono"));
+
+                            TextView sexo = view.findViewById(R.id.textoSexo);
+                            /*sexo.setText(task.getResult().getString("sexo"));*/
+                           if (task.getResult().getString("sexo").equals("masculino")) {
+                                sexo.setText("Masculino");
+                            }
+                            if (task.getResult().getString("sexo").equals("femenino")) {
+                                sexo.setText("Femenino");
+                            }
+
+                            TextView fechaNacimiento = view.findViewById(R.id.textoFecha);
+                            fechaNacimiento.setText(task.getResult().getString("fechaNac"));
+
+                        } else {
+                            Log.e("Firestore", "Error al leer", task.getException());
+                        }
+                    }
+                });
         // Inflate the layout for this fragment
         return view;
     }
