@@ -252,7 +252,6 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="2"
                         android:baselineAligned="false"
-                        android:orientation="horizontal"
                         android:textSize="14sp">
 
 
