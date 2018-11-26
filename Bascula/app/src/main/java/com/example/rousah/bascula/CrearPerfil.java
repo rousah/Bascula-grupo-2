@@ -48,11 +48,6 @@ public class CrearPerfil extends AppCompatActivity {
     private RadioGroup radioGroup;
     private RadioButton radioButtonSelected;
     int selectedId;
-    private static final int MAX_WIDTH = 1024;
-    private static final int MAX_HEIGHT = 768;
-
-    int size = (int) Math.ceil(Math.sqrt(MAX_WIDTH * MAX_HEIGHT));
-
 
     Calendar myCalendar = Calendar.getInstance();
 
@@ -71,15 +66,15 @@ public class CrearPerfil extends AppCompatActivity {
 
         final ImageView imagenPerfil = findViewById(R.id.fotoCrearPerfil);
         String proveedor = usuario.getProviders().get(0);
+        Log.d("FOTO GOOGLE", usuario.getPhotoUrl().toString());
         //checkea si el proveedor es de google por si se logea con un email
         if(proveedor.equals("google.com")) {
             String uri = usuario.getPhotoUrl().toString();
-            //carga la foto y usa transform para hacerla circular
+            //Para cargar la foto en mejor calidad
+            uri = uri.replace("/s96-c/","/s300-c/");
+            //Usa transform para hacerla circular
             Picasso.with(this).load(uri)
-                    //.transform(new BitmapTransform(MAX_WIDTH, MAX_HEIGHT))
                     .transform(new CircleTransform())
-                    .resize(200, 200)
-                    .centerInside()
                     .into(imagenPerfil);
             System.out.println("dentro de getPhoto");
         }
