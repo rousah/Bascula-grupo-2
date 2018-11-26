@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.things.pio.Gpio;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends Activity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = "MATTHEW/GTI";
     private String leido;
     private String s;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -39,7 +41,40 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
 
-        Log.i(TAG, "Lista de UART disponibles: " + ArduinoUart.disponibles());
+
+         FirebaseFirestore db = FirebaseFirestore.getInstance();
+ //       Map<String, Object> datos = new HashMap<>();
+        datos.put("peso", 53);
+        datos.put("altura", 1.67);
+        Log.w(TAG, "BUSCANDO");
+
+
+        db.collection("medicion").document("Adios").set(datos)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.w(TAG, "FUCIONA");
+
+                    }
+                })
+                .addOnCompleteListener(
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.w(TAG, task.toString());
+                    }
+
+                }).addOnFailureListener(
+                new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, e.toString());
+
+                    }
+                }
+        );
+
+/*        Log.i(TAG, "Lista de UART disponibles: " + ArduinoUart.disponibles());
         ArduinoUart uart = new ArduinoUart("UART0", 115200);
 
 
@@ -48,7 +83,6 @@ public class MainActivity extends Activity {
         } catch (InterruptedException e) {
             Log.w(TAG, "Error en sleep()", e);
         }
-
 
 
         while(true){
@@ -105,7 +139,7 @@ public class MainActivity extends Activity {
                     }
 
 
-
+                    //guardarFirestore(db, "mediciones", fecha, "peso", peso);
                     
                     Log.d(TAG, "Subiendo datos...");
 
@@ -118,7 +152,7 @@ public class MainActivity extends Activity {
 
 
 
-
+*/
 
     }
 
