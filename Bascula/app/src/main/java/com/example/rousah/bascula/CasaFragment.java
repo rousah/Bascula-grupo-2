@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.comun.Mqtt;
@@ -45,6 +46,7 @@ public class CasaFragment extends Fragment implements MqttCallback {
 
     private String mParam1;
     private String mParam2;
+    private View view;
 
     public Switch luces;
 
@@ -101,15 +103,22 @@ public class CasaFragment extends Fragment implements MqttCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.casa, container, false);
+        view = inflater.inflate(R.layout.casa, container, false);
         luces = view.findViewById(R.id.switchluces);
-        luces.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        // AQUI PONER CODIGO PARA LEER EL ESTADO MAS RECIENTE DEL SONOFF
+        // Y CAMBIAR EL ESTADO DEL SWITCH LUCES ACORDE CON EL ESTADO DEL
+        // SONOFF
+
+
+        // Este código crea un bucle discoteca encendiendo y apagando el sonoff sin parar
+       /* luces.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.w("switch: ", "pruebas");
                 if (isChecked) {
                     try {
-                        Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
-                        MqttMessage message = new MqttMessage("TOGGLE".getBytes());
+                        Log.i(Mqtt.TAG, "Publicando mensaje: " + "encender sonoff");
+                        MqttMessage message = new MqttMessage("ON".getBytes());
                         message.setQos(qos);
                         message.setRetained(false);
                         client.publish(topicRoot + "cmnd/POWER", message);
@@ -122,8 +131,43 @@ public class CasaFragment extends Fragment implements MqttCallback {
                 }
                 if (!isChecked) {
                     try {
-                        Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
-                        MqttMessage message = new MqttMessage("TOGGLE".getBytes());
+                        Log.i(Mqtt.TAG, "Publicando mensaje: " + "apagar sonoff");
+                        MqttMessage message = new MqttMessage("OFF".getBytes());
+                        message.setQos(qos);
+                        message.setRetained(false);
+                        client.publish(topicRoot + "cmnd/POWER", message);
+                        Toast.makeText(getContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                    } catch (MqttException e) {
+                        luces.setChecked(true);
+                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Error", e);
+                    }
+                }
+            }
+        }); */
+
+        //---------------MQTT---------------------
+        luces.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (luces.isChecked()) {
+                    try {
+                        Log.i(Mqtt.TAG, "Publicando mensaje: " + "encender sonoff");
+                        MqttMessage message = new MqttMessage("ON".getBytes());
+                        message.setQos(qos);
+                        message.setRetained(false);
+                        client.publish(topicRoot + "cmnd/POWER", message);
+                        Toast.makeText(getContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                    } catch (MqttException e) {
+                        luces.setChecked(false);
+                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Error", e);
+                    }
+                }
+                if (!luces.isChecked()) {
+                    try {
+                        Log.i(Mqtt.TAG, "Publicando mensaje: " + "apagar sonoff");
+                        MqttMessage message = new MqttMessage("OFF".getBytes());
                         message.setQos(qos);
                         message.setRetained(false);
                         client.publish(topicRoot + "cmnd/POWER", message);
@@ -136,15 +180,10 @@ public class CasaFragment extends Fragment implements MqttCallback {
                 }
             }
         });
+        //---------------MQTT---------------------
+
         // Inflate the layout for this fragment
         return view;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -166,17 +205,49 @@ public class CasaFragment extends Fragment implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable cause) {
-
+        Log.d("Internet: ", cause.getMessage());
+        String estado = (MainActivity)getActivity())
+        Log.d("internet", );
+        while (!((MainActivity)getActivity()).isNetworkAvailable()) {
+            Log.d(TAG, "Reintentando conexión MQTT");
+            try {
+                Log.i(Mqtt.TAG, "Conectando al broker " + broker);
+                client = new MqttClient(broker, clientId, new MemoryPersistence());
+                MqttConnectOptions connOpts = new MqttConnectOptions();
+                connOpts.setCleanSession(true);
+                connOpts.setKeepAliveInterval(60);
+                connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
+                        qos, false);
+                client.connect(connOpts);
+            } catch (MqttException e) {
+                Log.e(Mqtt.TAG, "Error al conectar.", e);
+            }
+        }
     }
 
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
-
+        final String payload = new String(message.getPayload());
+        Log.d(TAG, "Recibiendo: " + topic + "->" + payload);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                luces = view.findViewById(R.id.switchluces);
+                if (payload.contains("ON")) {
+                    luces.setChecked(true);
+                    Toast.makeText(getContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                }
+                if (payload.contains("OFF")) {
+                    luces.setChecked(false);
+                    Toast.makeText(getContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
-
+        Log.d("ajjaajjaja", token.toString());
     }
 
     public interface OnFragmentInteractionListener {

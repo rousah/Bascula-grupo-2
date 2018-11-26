@@ -16,6 +16,8 @@ package com.example.rousah.bascula;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -39,6 +41,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.comun.Mqtt;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -367,9 +370,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             Picasso.with(getBaseContext()).load(uri).transform(new CircleTransform()).into(imagenPerfil);
             System.out.println("dentro de getPhoto");
         }
-        //por si se logea con email y no tiene foto asignada
         else {
-            imagenPerfil.setImageDrawable(getDrawable(R.drawable.ic_account_circle_black_55dp));
+            Picasso.with(this).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
         }
     }
     //--------------Nav Header----------------
@@ -391,19 +393,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         Snackbar.make(view, "Publicando en MQTT by rous", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
-    public void toggleSonoff () {
-        try {
-            Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
-            MqttMessage message = new MqttMessage("TOGGLE".getBytes());
-            message.setQos(qos);
-            message.setRetained(false);
-            client.publish(topicRoot+"cmnd/POWER", message);
-            }
-            catch (MqttException e) {
-            Log.e(TAG, "Error al publicar.", e);
-            }
-    }
-
     @Override public void onDestroy() {
         try {
             Log.i(TAG, "Desconectado");
@@ -416,7 +405,21 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
     @Override
     public void connectionLost(Throwable cause) {
-        Log.d(TAG, "Conexión perdida");
+        while (!isNetworkAvailable()) {
+            Log.d(TAG, "Reintentando conexión MQTT");
+            try {
+                Log.i(Mqtt.TAG, "Conectando al broker " + broker);
+                client = new MqttClient(broker, clientId, new MemoryPersistence());
+                MqttConnectOptions connOpts = new MqttConnectOptions();
+                connOpts.setCleanSession(true);
+                connOpts.setKeepAliveInterval(60);
+                connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
+                        qos, false);
+                client.connect(connOpts);
+            } catch (MqttException e) {
+                Log.e(Mqtt.TAG, "Error al conectar.", e);
+            }
+        }
     }
 
     @Override
@@ -426,8 +429,15 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                TextView a = findViewById(R.id.textViewSonoff);
-                a.setText(payload);
+                Switch luces = findViewById(R.id.switchluces);
+                if (payload.contains("ON")) {
+                    luces.setChecked(true);
+                    Toast.makeText(getBaseContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                }
+                if (payload.contains("OFF")) {
+                    luces.setChecked(false);
+                    Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -437,5 +447,16 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         Log.d(TAG, "Entrega completa");
     }
     //---------------MQTT------------------------
+
+
+
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        Log.d("internet", activeNetworkInfo.toString());
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
 }
