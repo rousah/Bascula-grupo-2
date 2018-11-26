@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.support.annotation.NonNull;
@@ -29,6 +31,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -45,6 +48,11 @@ public class CrearPerfil extends AppCompatActivity {
     private RadioGroup radioGroup;
     private RadioButton radioButtonSelected;
     int selectedId;
+    private static final int MAX_WIDTH = 1024;
+    private static final int MAX_HEIGHT = 768;
+
+    int size = (int) Math.ceil(Math.sqrt(MAX_WIDTH * MAX_HEIGHT));
+
 
     Calendar myCalendar = Calendar.getInstance();
 
@@ -67,7 +75,12 @@ public class CrearPerfil extends AppCompatActivity {
         if(proveedor.equals("google.com")) {
             String uri = usuario.getPhotoUrl().toString();
             //carga la foto y usa transform para hacerla circular
-            Picasso.with(this).load(uri).transform(new CircleTransform()).into(imagenPerfil);
+            Picasso.with(this).load(uri)
+                    //.transform(new BitmapTransform(MAX_WIDTH, MAX_HEIGHT))
+                    .transform(new CircleTransform())
+                    .resize(200, 200)
+                    .centerInside()
+                    .into(imagenPerfil);
             System.out.println("dentro de getPhoto");
         }
         //por si se logea con email y no tiene foto asignada
