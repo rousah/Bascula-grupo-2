@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,18 +14,27 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class TabSegundo extends Fragment {
     View view;
+    String fecha;
+    String userUid;
     CalendarView calendarView;
-
+    FirebaseUser usuario;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
+        userUid = usuario.getUid();
 
     }
     @Override
@@ -48,11 +58,12 @@ public class TabSegundo extends Fragment {
              */
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
-                String fecha = String.valueOf(dayOfMonth)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
+
+                fecha = String.valueOf(dayOfMonth)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
 
                 Toast.makeText(getApplicationContext(), ""+fecha, 0).show();// TODO Auto-generated method stub
 
-                lanzarLista(fecha);
+                lanzarLista();
             }
         });
 
@@ -69,12 +80,31 @@ public class TabSegundo extends Fragment {
     }
 
     /**
-     * Lanzar RecyclerView de los días
+     * Lanzar RecyclerView de los datos del día
      *
      */
-    public void lanzarLista(String f)
+    public void lanzarLista()
     {
-        Log.w("Fecha", f);
+
+        Log.w("USUARIO:", userUid);
+        Log.w("Fecha", fecha);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("usuarios").document(String.valueOf(userUid)).collection("mediciones").document(fecha).get()
+                .addOnCompleteListener(
+                        new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task){
+                                if (task.isSuccessful()) {
+                                    //String peso = task.getResult().getString("dato_1");
+                                    //String altura = task.getResult().getString("altura");
+                                    //Log.w("Firestore", "Peso:" + peso + " Altura:" + altura);
+                                    Log.w("Firestore", "Peso:" + task.getResult().getString("peso"));
+                                } else {
+                                    Log.e("Firestore", "Error al leer", task.getException());
+                                }
+                            }
+                        });
         Intent i = new Intent(getContext(), DatosDiaCalendario.class);
         startActivity(i);
     }
