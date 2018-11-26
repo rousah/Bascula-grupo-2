@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -82,9 +83,7 @@ public class PerfilFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
-            Editar.
-        }
+            }
     }
 
     @Override
@@ -94,6 +93,13 @@ public class PerfilFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.perfil, container, false);
         final FragmentActivity fragmentActivity = getActivity();
+
+        Button editar = view.findViewById(R.id.editar);
+        editar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                lanzarEditar();
+            }
+        });
 
         TextView nombre = view.findViewById(R.id.nombrePerfil);
         nombre.setText(usuario.getDisplayName());
@@ -170,7 +176,7 @@ public class PerfilFragment extends Fragment {
         mListener = null;
     }
 
-    public void pulsarEditar(View view){
+    public void lanzarEditar(){
         Intent i = new Intent(getContext(), CrearPerfil.class);
         startActivity(i);
     }
