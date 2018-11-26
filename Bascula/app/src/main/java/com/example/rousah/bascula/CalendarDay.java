@@ -1,24 +1,23 @@
 package com.example.rousah.bascula;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
+import android.telecom.Call;
+import android.util.Log;
 
-public class DatosDiaCalendario extends Activity {
+import java.util.ArrayList;
 
+public class CalendarDay extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
 
-    public void onCreate(Bundle savedInstanceState) {
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.datos_un_dia_cal);
-
         mRecyclerView = findViewById(R.id.recycler_view_measurement);
 
         /**
@@ -48,16 +47,17 @@ public class DatosDiaCalendario extends Activity {
         mAdapter = new MyAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        /*Button next = (Button) findViewById(R.id.volverAlCalendario);
-        next.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-
-        });*/
-
-
     }
+
+    /* @Override
+    public void onResponse(Call<ArrayList<MyAdapter>> call, Response<ArrayList<MyAdapter>> response)
+    {
+        if(response.isSuccesful())
+        {
+            ArrayList<MyAdapter> myAdapter = response.body();
+            Log.d("onResponse myAdapter", "Size of myAdapter => " + myAdapter.size());
+            mAdapter.setDataSet(myAdapter);
+        }
+    }*/
+
 }

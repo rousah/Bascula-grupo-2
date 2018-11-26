@@ -13,12 +13,15 @@ Initial
 
 package com.example.rousah.bascula;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -30,11 +33,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     private ActionBarDrawerToggle drawerToggle;
     //--------------Drawer--------------------
     View headerLayout;
+    // -------------RecyclerView--------------
+    private RecyclerView mRecyclerView;
+    private MyAdapter mAdapter;
 
     public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
     FirebaseUser usuario;
@@ -345,6 +353,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
 
     //--------------Nav Header----------------
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     void mostrarUsuarioNavDrawer(FirebaseUser usuario) {
         TextView nombre = headerLayout.findViewById(R.id.nombreNav);
         nombre.setText(usuario.getDisplayName());

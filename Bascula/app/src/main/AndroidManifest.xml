@@ -31,11 +31,6 @@
             </intent-filter>
         </activity>
 
-        <!--
-      BORJA
-      Introduced in order to implement remote user administration
-      >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    -->
         <activity
             android:name=".RemoveRemoteCheckActivity">
         </activity>
@@ -59,11 +54,6 @@
             android:name=".RegistroUsuarioRemotoActivity"
             android:label="Registro Usuario Remoto">
         </activity>
-        <!--
-            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            BORJA
-            Introduction ends here
-        -->
 
         <activity android:name=".DatosDiaCalendario"></activity>
 

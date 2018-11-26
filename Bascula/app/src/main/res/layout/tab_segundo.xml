@@ -8,17 +8,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity$PlaceholderFragment">
 
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="135dp"
-        android:layout_marginTop="48dp"
-        android:text="Elige un dia"
-        android:textAlignment="center"
-        android:textColor="#000"
-        android:textSize="23sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,17 +15,10 @@
 
 
         <CalendarView
+            android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"/>
-    </LinearLayout>
 
-    <Button
-        android:text="Ver Datos"
-        android:id="@+id/botonVerDatosDia"
-        android:layout_width="200dp"
-        android:textSize="15dp"
-        android:layout_height="55dp"
-        android:layout_gravity="center">
-    </Button>
+    </LinearLayout>
 </LinearLayout>
