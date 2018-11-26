@@ -1,6 +1,7 @@
 package com.example.rousah.bascula;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -165,6 +166,12 @@ public class PerfilFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void pulsarEditar(View view){
+        Intent i = new Intent(this, CrearPerfil.);
+        startActivity(i);
+
     }
 
     /**
