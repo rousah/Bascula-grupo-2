@@ -250,7 +250,7 @@
                 android:paddingTop="32px">
 
                 <Button
-                    android:id="@+id/Editar"
+                    android:id="@+id/editar"
                     android:layout_width="96dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"

@@ -82,6 +82,8 @@ public class PerfilFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            Editar.
         }
     }
 
@@ -169,9 +171,8 @@ public class PerfilFragment extends Fragment {
     }
 
     public void pulsarEditar(View view){
-        Intent i = new Intent(this, CrearPerfil.);
+        Intent i = new Intent(getContext(), CrearPerfil.class);
         startActivity(i);
-
     }
 
     /**
