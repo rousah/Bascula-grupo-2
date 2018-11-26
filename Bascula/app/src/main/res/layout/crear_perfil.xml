@@ -42,13 +42,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="4"
+                android:layout_weight="6"
                 android:gravity="top|start"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_perfil"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -57,7 +60,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:padding="3dp"
-                        app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+                        app:srcCompat="@drawable/ic_account_circle_white_24dp" />
 
                     <TextView
                         android:id="@+id/textonombre"
@@ -68,8 +71,8 @@
                         android:layout_weight="3"
                         android:baselineAligned="false"
                         android:text="Nombre:"
-                        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                        android:textSize="14sp"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -81,7 +84,9 @@
                         android:layout_weight="2"
                         android:baselineAligned="false"
                         android:ems="10"
-                        android:text="_nombre_" />
+                        android:text="_nombre_"
+                        android:textColor="#ffffff"
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/nombre_editable"
@@ -95,7 +100,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_perfil"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -104,6 +112,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:padding="4dp"
+                        android:tint="#ffffff"
                         app:srcCompat="@drawable/ic_round_email_24px" />
 
                     <TextView
@@ -115,8 +124,8 @@
                         android:layout_weight="3"
                         android:baselineAligned="false"
                         android:text="Email:"
-                        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                        android:textSize="14sp"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -128,7 +137,9 @@
                         android:layout_weight="2"
                         android:baselineAligned="false"
                         android:ems="10"
-                        android:text="_email_" />
+                        android:text="_email_"
+                        android:textColor="#ffffff"
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/email_editable"
@@ -141,7 +152,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_perfil"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -152,6 +166,7 @@
                         android:adjustViewBounds="false"
                         android:cropToPadding="true"
                         android:padding="5dp"
+                        android:tint="#ffffff"
                         app:srcCompat="@drawable/ic_round_calendar_today_24px" />
 
                     <TextView
@@ -162,8 +177,8 @@
                         android:layout_weight="3"
                         android:baselineAligned="false"
                         android:text="Fecha nacimiento:"
-                        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                        android:textSize="14sp"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -174,17 +189,21 @@
                         android:layout_weight="2"
                         android:baselineAligned="false"
                         android:cursorVisible="false"
-                        android:inputType="none"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:inputType="none"
                         android:onClick="seleccionaFecha"
                         android:text="dd/mm/yy"
-                        android:textSize="14sp" />
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_perfil"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -195,6 +214,7 @@
                         android:adjustViewBounds="false"
                         android:cropToPadding="true"
                         android:padding="5dp"
+                        android:tint="#ffffff"
                         app:srcCompat="@drawable/ic_round_local_phone_24px" />
 
                     <TextView
@@ -205,8 +225,8 @@
                         android:layout_weight="3"
                         android:baselineAligned="false"
                         android:text="Telefono:"
-                        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                        android:textSize="14sp"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -217,12 +237,16 @@
                         android:layout_weight="2"
                         android:baselineAligned="false"
                         android:inputType="phone"
-                        android:textSize="14sp" />
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_perfil"
                     android:orientation="horizontal">
 
 
@@ -231,6 +255,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="4"
+                        android:tint="#ffffff"
                         app:srcCompat="@drawable/ic_gender_male_female" />
 
                     <TextView
@@ -241,8 +266,8 @@
                         android:layout_weight="3"
                         android:baselineAligned="false"
                         android:text="Sexo:"
-                        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                        android:textSize="14sp"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <RadioGroup
@@ -252,7 +277,6 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="2"
                         android:baselineAligned="false"
-                        android:orientation="horizontal"
                         android:textSize="14sp">
 
 
@@ -262,7 +286,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:tag="masculino"
-                            android:text="Masculino" />
+                            android:text="Masculino"
+                            android:textColor="#ffffff"
+                            android:textSize="16dp" />
 
                         <RadioButton
                             android:id="@+id/radioButtonFem"
@@ -270,32 +296,32 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:tag="femenino"
-                            android:text="Femenino" />
+                            android:text="Femenino"
+                            android:textColor="#ffffff"
+                            android:textSize="16dp" />
 
                     </RadioGroup>
 
                 </LinearLayout>
-
-
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/guardarCancelar"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:gravity="bottom|right"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/save"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
                     android:onClick="guardar"
                     app:srcCompat="@drawable/ic_round_keyboard_arrow_right_50px" />
-
             </LinearLayout>
+
 
         </LinearLayout>
 
