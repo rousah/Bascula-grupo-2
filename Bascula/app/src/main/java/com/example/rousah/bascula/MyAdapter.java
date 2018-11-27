@@ -64,7 +64,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         CardView cv = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.dato_dia_cal, parent, false);
 
-        
+
         // Aquí podemos definir tamaños, márgenes, paddings
         // ...
 

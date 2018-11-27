@@ -26,12 +26,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class TabSegundo extends Fragment {
-    View view;
+    private View view;
     private String TAG = "MATTHEW/GTI";
-    String fecha;
-    String userUid;
-    CalendarView calendarView;
-    FirebaseUser usuario;
+    private String fecha;
+    private String userUid;
+    private CalendarView calendarView;
+    private FirebaseUser usuario;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -121,6 +121,8 @@ public class TabSegundo extends Fragment {
                                     Log.w(TAG, "Peso:" + peso);
                                     Log.w(TAG, "Altura:" + altura);
 
+
+
                                 } else {
                                     Log.e(TAG, "Error al leer", task.getException());
                                 }
@@ -134,6 +136,7 @@ public class TabSegundo extends Fragment {
                             }
                         }
                 );
+
         Intent i = new Intent(getContext(), DatosDiaCalendario.class);
         startActivity(i);
     }

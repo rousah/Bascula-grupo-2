@@ -7,11 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class DatosDiaCalendario extends Activity {
 
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
+    private TextView valorPeso;
+    private TextView valorAltura;
 
     public void onCreate(Bundle savedInstanceState) {
 
