@@ -1,5 +1,6 @@
 package com.example.rousah.bascula;
 
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,8 +37,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      */
     // Este es nuestro constructor (puede variar según lo que queremos mostrar)
     public MyAdapter() {
-        mDataSet = new ArrayList<String>();
 
+        mDataSet = new ArrayList<String>();
+        mDataSet.add("Elemento 1");
     }
 
     public void setDataSet(ArrayList<String> DataSet) {

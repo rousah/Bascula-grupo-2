@@ -89,8 +89,8 @@ public class TabSegundo extends Fragment {
     public void lanzarLista(String f, String Uid)
     {
 
-        Log.w(TAG,"Usuario: "+Uid);
-        Log.w(TAG,"Fecha: "+f);
+        //Log.w(TAG,"Usuario: "+Uid);
+        //Log.w(TAG,"Fecha: "+f);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("usuarios").document(String.valueOf(Uid)).collection("mediciones").document(f).get()
@@ -114,13 +114,20 @@ public class TabSegundo extends Fragment {
                         new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task){
+                                // definimos el intent
+                                Intent i = new Intent(getContext(), DatosDiaCalendario.class);
                                 if (task.isSuccessful()) {
                                     String peso = task.getResult().getString("peso");
                                     String altura = task.getResult().getString("altura");
                                     //
                                     Log.w(TAG, "Peso:" + peso);
                                     Log.w(TAG, "Altura:" + altura);
-
+                                    /**
+                                     * Le mandamos a la clase MyAdapter estos datos, con un intent
+                                     * y un Bundle que los recoja
+                                     */
+                                    i.putExtra("peso", peso);
+                                    startActivity(i);
                                 } else {
                                     Log.e(TAG, "Error al leer", task.getException());
                                 }
@@ -135,8 +142,7 @@ public class TabSegundo extends Fragment {
                         }
                 );
 
-        Intent i = new Intent(getContext(), DatosDiaCalendario.class);
-        startActivity(i);
+
     }
 
 }
