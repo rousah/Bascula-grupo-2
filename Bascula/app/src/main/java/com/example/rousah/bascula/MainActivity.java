@@ -13,71 +13,65 @@ Initial
 
 package com.example.rousah.bascula;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
+import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
-    // BORJA
-    /*
-    Introduced with the purpose to have a database for the remote users
-     */
+
+
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener {
+
+    //--------------Drawer--------------------
+    private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle drawerToggle;
+    //--------------Drawer--------------------
+    View headerLayout;
+
     public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
+    FirebaseUser usuario;
 
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
+
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +80,33 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
+
+
         });
+        //--------------Drawer--------------------
+        initializeStuff();
+
+        // since, NoActionBar was defined in theme, we set toolbar as our action bar.
+        setSupportActionBar(toolbar);
+
+        //this basically defines on click on each menu item.
+        setUpNavigationView(navigationView);
+
+        //This is for the Hamburger icon.
+        drawerToggle = setupDrawerToggle();
+        drawerLayout.addDrawerListener(drawerToggle);
+
+        //Inflate the first fragment,this is like home fragment before user selects anything.
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frameContent,new TabFragment()).commit();
+        navigationView.setCheckedItem(R.id.nav_inicio);
+        setTitle("Mediciones");
+        //--------------Drawer--------------------
+
+
+        headerLayout = navigationView.getHeaderView(0); // 0-index header
+
+        mostrarUsuarioNavDrawer(usuario);
 
     }
 
@@ -98,8 +118,17 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This makes sure that the action bar home button that is the toggle button, opens or closes the drawer when tapped.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -127,8 +156,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, PreferenciasActivity.class);
         startActivity(i);
     }
-
-
     //  BORJA
     /*
      * Function introduced as part of the remote user administration
@@ -197,8 +224,6 @@ public class MainActivity extends AppCompatActivity {
      * Removal of remote users
      */
     public void lanzarEliminacionUsuariosRemotos(View view) {
-
-
         Intent intent = new Intent (this, UsuariosRemotosActivity.class);
 
         // Start activity of communication
@@ -212,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void lanzarRegistroUsuariosRemotos(View view) {
 
-
         Intent intent_b = new Intent (this, RegistroUsuarioRemotoActivity.class);
 
         // Start activity of communication
@@ -221,69 +245,128 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //--------------Drawer--------------------
+    void initializeStuff(){
+        drawerLayout =(DrawerLayout) findViewById(R.id.drawerLayout);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        navigationView = (NavigationView) findViewById(R.id.navigationDrawer);
+    }
 
+    /**
+     * Inflate the fragment according to item clicked in navigation drawer.
+     */
+    private void setUpNavigationView(final NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        //replace the current fragment with the new fragment.
+                        Fragment selectedFragment = selectDrawerItem(menuItem);
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        if (selectedFragment == null ) {
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
+                        }
+                        else {
+                            fragmentManager.beginTransaction().replace(R.id.frameContent, selectedFragment).commit();
+                            // the current menu item is highlighted in navigation tray.
+                            navigationView.setCheckedItem(menuItem.getItemId());
+                            setTitle(menuItem.getTitle());
+                            //close the drawer when user selects a nav item.
+                            drawerLayout.closeDrawers();
+                        }
+                        return true;
+                    }
+                });
+    }
 
+    /**
+     * This method returns the fragment according to navigation item selected.
+     */
+    public Fragment selectDrawerItem(MenuItem menuItem){
+        Fragment fragment = null;
+        switch(menuItem.getItemId()) {
+            case R.id.nav_inicio:
+                fragment = new TabFragment();
+                break;
+            case R.id.nav_perfil:
+                fragment = new PerfilFragment();
+                break;
+            case R.id.nav_casa:
+                fragment = new CasaFragment();
+                break;
+            case R.id.log_out:
+                FirebaseAuth.getInstance().signOut(); //End user session
+                startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
+                MainActivity.this.finish();
+               // fragment = new TabFragment();
+                break;
+        }
+        return fragment;
+    }
 
-
-
+    /**
+     * This is to setup our Toggle icon. The strings R.string.drawer_open and R.string.drawer close, are for accessibility (generally audio for visually impaired)
+     * use only. It is now showed on the screen. While the remaining parameters are required initialize the toggle.
+     */
+    private ActionBarDrawerToggle setupDrawerToggle() {
+        return new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.drawer_open,R.string.drawer_close);
+    }
 
 
 
     /**
-     * A placeholder fragment containing a simple view.
+     * This synchronizes the drawer icon that rotates when the drawer is swiped left or right.
+     * Called inside onPostCreate so that it can synchronize the animation again when the Activity is restored.
      */
 
-
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
 
     /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
+     * This is to handle generally orientation changes of your device. It is mandatory to include
+     * android:configChanges="keyboardHidden|orientation|screenSize" in your activity tag of the manifest for this to work.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //do something here
+    }
+
+    //--------------Drawer--------------------
+
+
+
+    //--------------Nav Header----------------
+    void mostrarUsuarioNavDrawer(FirebaseUser usuario) {
+        TextView nombre = headerLayout.findViewById(R.id.nombreNav);
+        nombre.setText(usuario.getDisplayName());
+
+        TextView email = headerLayout.findViewById(R.id.emailNav);
+        email.setText(usuario.getEmail());
+
+        final ImageView imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
+        String proveedor = usuario.getProviders().get(0);
+        //checkea si el proveedor es de google por si se logea con un email
+        if(proveedor.equals("google.com")) {
+            String uri = usuario.getPhotoUrl().toString();
+            //carga la foto y usa transform para hacerla circular
+            Picasso.with(getBaseContext()).load(uri).transform(new CircleTransform()).into(imagenPerfil);
+            System.out.println("dentro de getPhoto");
         }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    Tab1 tab1 = new Tab1();
-                    return tab1;
-                case 1:
-                    Tab2 tab2 = new Tab2();
-                    return tab2;
-                case 2:
-                    Tab4 tab4 = new Tab4();
-                    return tab4;
-
-
-
-                    default:
-                        return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.inicio);
-                case 1:
-                    return getString(R.string.datos);
-                case 2:
-                    return "Administrar";
-                default:
-                    return null;
-            }
+        //por si se logea con email y no tiene foto asignada
+        else {
+            imagenPerfil.setImageDrawable(getDrawable(R.drawable.ic_account_circle_black_55dp));
         }
     }
+    //--------------Nav Header----------------
+
 
 }

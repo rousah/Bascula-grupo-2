@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".CasaFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/section_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginRight="20dp"
+                android:text="Estado actual:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:typeface="normal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintTop_creator="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/rounded"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        app:srcCompat="@drawable/ic_thermometer" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView5"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="Temperatura:"
+                                android:textColor="#ffffff"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:gravity="center_vertical|end"
+                                android:text="22 ºC"
+                                android:textColor="#ffffff"
+                                android:textSize="24sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:gravity="bottom"
+                                android:text="Sensación térmica:"
+                                android:textColor="#ffffff"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="2"
+                                android:gravity="center_vertical|end"
+                                android:text="22.5 ºC"
+                                android:textColor="#ffffff"
+                                android:textSize="24sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/rounded"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6"
+                    app:srcCompat="@drawable/ic_water" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:text="Humedad:"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical|end"
+                    android:text="70 %"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/rounded"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+
+                <ImageView
+                    android:id="@+id/puerta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:foregroundGravity="center_vertical"
+                    app:srcCompat="@drawable/ic_closed_door_with_border_silhouette" />
+
+                <TextView
+                    android:id="@+id/textpuerta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical|start"
+                    android:text="Puerta:"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textinfopuerta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="4"
+                    android:foregroundGravity="center_vertical"
+                    android:gravity="center_vertical|end"
+                    android:text="Abierta"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/rounded"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+
+                <ImageView
+                    android:id="@+id/luzicono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:foregroundGravity="center_vertical"
+                    app:srcCompat="@drawable/ic_bulb" />
+
+                <TextView
+                    android:id="@+id/luztexto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical|start"
+                    android:text="Luces:"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/switchluces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="4"
+                    android:foregroundGravity="center_vertical"
+                    android:textColor="#ffffff"
+                    android:textOff="Apagadas"
+                    android:textOn="Encedidas" />
+            </LinearLayout>
+
+            <com.db.chart.view.LineChartView xmlns:chart="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/linechart"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="10dp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>
