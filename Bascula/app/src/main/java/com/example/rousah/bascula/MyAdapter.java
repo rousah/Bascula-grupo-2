@@ -22,11 +22,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // en este ejemplo cada elemento consta solo de un título
         public CardView cv;
-        public TextView t1;
+        public TextView tPeso;
         public ViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
-            t1 = (TextView)itemView.findViewById(R.id.textView);
+            tPeso = (TextView)itemView.findViewById(R.id.valorPeso);
         }
     }
 
@@ -37,9 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Este es nuestro constructor (puede variar según lo que queremos mostrar)
     public MyAdapter() {
         mDataSet = new ArrayList<String>();
-        /*mDataSet.add("Elemento 1");
-        mDataSet.add("Elemento 2");
-        mDataSet.add("Elemento 3");*/
+
     }
 
     public void setDataSet(ArrayList<String> DataSet) {
@@ -83,7 +81,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - obtenemos un elemento del dataset según su posición
         // - reemplazamos el contenido de los views según tales datos
-        holder.t1.setText(mDataSet.get(position));
+        holder.tPeso.setText(mDataSet.get(position));
 
     }
 

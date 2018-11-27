@@ -121,8 +121,6 @@ public class TabSegundo extends Fragment {
                                     Log.w(TAG, "Peso:" + peso);
                                     Log.w(TAG, "Altura:" + altura);
 
-
-
                                 } else {
                                     Log.e(TAG, "Error al leer", task.getException());
                                 }
