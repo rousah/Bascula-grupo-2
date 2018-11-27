@@ -1,6 +1,7 @@
 package com.example.rousah.bascula;
 
-import android.os.Bundle;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<Double> mDataSet;
     private ArrayList<String> mTitleSet;
-    private ArrayList<ImageView> mImageSet;
+    private ArrayList<Integer> mImageSet;
     private String TAG = "EQUIPO2/GTI";
 
     /**
@@ -30,11 +33,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public CardView cv;
         public TextView t1;
         public TextView t2;
+        public ImageView i1;
         public ViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
             t1 = (TextView)itemView.findViewById(R.id.titulo);
             t2 = (TextView)itemView.findViewById(R.id.valor);
+            i1 = (ImageView)itemView.findViewById(R.id.imagen);
         }
     }
 
@@ -47,11 +52,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         mDataSet = new ArrayList<Double>();
         mTitleSet = new ArrayList<String>();
-        mImageSet = new ArrayList<ImageView>();
+        mImageSet = new ArrayList<Integer>();
 
-        
+        mImageSet.add(R.drawable.scale_bathroom);
+        Log.d(TAG, String.valueOf(mImageSet.get(0)));
         mTitleSet.add("Peso:");
         mDataSet.add(data.get(0));
+        mImageSet.add(R.drawable.ruler);
         mTitleSet.add("Altura:");
         mDataSet.add(data.get(1));
 
@@ -86,7 +93,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         ViewHolder vh = new ViewHolder(cv);
         return vh;
     }
-
+    @Override public int getItemViewType(int position) {
+        return position;
+    }
     /**
      * Este método reemplaza el contenido de cada view, para cada
      * elemento de la lista (nótese el argumento position)
@@ -94,12 +103,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      * @param holder
      * @param position
      */
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - obtenemos un elemento del dataset según su posición
         // - reemplazamos el contenido de los views según tales datos
         holder.t1.setText((CharSequence) mTitleSet.get(position));
         holder.t2.setText(String.valueOf(mDataSet.get(position)));
+        holder.i1.setImageResource(mImageSet.get(position));
 
     }
 

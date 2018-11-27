@@ -17,11 +17,19 @@
         card_view:cardUseCompatPadding="true"
         card_view:contentPadding="25dp">
 
+    <ImageView
+        android:id="@+id/imagen"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:adjustViewBounds="true"
+        android:visibility="visible" />
+
     <TextView
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="75dp"
+        android:paddingStart="75dp"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -31,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="200dp"
+        android:paddingStart="200dp"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="normal" />
