@@ -3,6 +3,29 @@
 #include <TimeLib.h>
 #include <ArduinoJson.h>
 #include <DHT.h>
+#include <WiFi.h>
+#include <MQTT.h>
+
+
+// ---------------- MQTT -------------------------
+
+// --- Sensor de Gas Pines ---
+const int MQ_PIN = 36;
+const int MQ_DELAY = 2000;
+
+int medidaGasRaw;
+int medidaGasVoltios;
+int controladorAlertaGas = 0;
+// ------------------
+
+const char broker[] = "iot.eclipse.org";
+
+WiFiClient net;
+MQTTClient client;
+
+// ------------------------------------------------
+
+
 
 // --- Escucha del infrarrojo ---
 int ledPin = 5;  // LED en el Pin 5 del Arduino
@@ -81,8 +104,45 @@ void leerHumTemp() {
     
 }
 
+
+// ----------- MQTT --------------
+
+
+void connect() {
+  Serial.print("checking wifi...");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(1000);
+  }
+
+  Serial.print("\nconnecting...");
+  while (!client.connect("lens_wPVhV9y2ni29xc4vAAmHU6VFAIW", "try", "try")) {
+    Serial.print(".");
+    delay(1000);
+  }
+
+  Serial.println("\nconnected!");
+
+  client.subscribe("equipo2/bascula/#");
+  // client.unsubscribe("equipo2/bascula/#");
+}
+
+void messageReceived(String &topic, String &payload) {
+  Serial.println("incoming: " + topic + " - " + payload);
+}
+
+// ---------------------------------
+
 void setup()
 {
+
+  // Iniciar conexión con eclipse para MQTT.
+  client.begin(broker, net);  
+  client.onMessage(messageReceived);
+  // ------
+
+
+  
     Serial.begin(115200);
     // Cambiar cada vez que se tenga que subir
     setTime (20, 45, 0, 21, 10, 2018); //hora minuto segundo dia mes año
@@ -114,12 +174,36 @@ void setup()
     
     // Comenzamos el sensor DHT
     dht.begin();
-  
+
+
+  connect(); // <-- Iniciar conexión con eclipse.
 }
 
 
 void loop()
 {
+
+
+  // ----- Alerta Sensor de Gas -----
+
+  leerSensorGas();    // Lectura del sensor.
+  medidaGasVoltios = calcularValorVoltiosGas();   // Calcula los datos a Voltios.
+
+
+  // * Registra si ha ocurrido una alerta, y manda un único mensaje de alerta. *
+  if((medidaGasVoltios >= 2) && (controladorAlertaGas == 0)){
+      client.publish("equipo2/bascula/alarma", "¡¡¡ALERTA SENSOR DE GAS!!!: ");
+      controladorAlertaGas = 1;
+    } 
+  if((medidaGasVoltios <= 1) && (controladorAlertaGas == 1)){
+      controladorAlertaGas = 0;         // Se resetea la alerta de gas para que pueda saltar otra vez.
+    }
+
+    
+
+
+  // --------------------------------
+  
   AsyncUDP udp;
   StaticJsonBuffer<300> jsonBuffer;                 //tamaño maximo de los datos
   JsonObject& envio = jsonBuffer.createObject();    //creación del objeto "envio"
@@ -141,5 +225,19 @@ void loop()
   
   //Se hace continuamente 
   leerInfrarrojos();
+
+
+ // ----- MQTT -----
+client.loop();
+  delay(10);  // <- fixes some issues with WiFi stability
+
+  
+  
+  if (!client.connected()) {
+    connect();
+  }
+
+  // ----------------
+  
   
 }

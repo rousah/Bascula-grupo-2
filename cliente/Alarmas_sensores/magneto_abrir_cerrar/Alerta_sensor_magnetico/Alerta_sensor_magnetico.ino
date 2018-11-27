@@ -2,7 +2,9 @@
 #include <MQTT.h>
 
 
-uint8_t PinGPIO = 2;
+const int pinMagnetico = 26;
+int cambiaEstado=0;
+unsigned long lastMillis = 0;
 
 
 // ----------------- Conexión con eclipse ---------------------------
@@ -59,7 +61,6 @@ void setup() {
 // -----------------------------------------------------------------
   
   
-  pinMode(PinGPIO, INPUT);
 }
 
 
@@ -70,21 +71,29 @@ void loop() {
     client.loop();
   delay(10);  // <- fixes some issues with WiFi stability
 
+ int value = digitalRead(pinMagnetico);
   
   
   if (!client.connected()) {
     connect();
   }
 
-  Serial.println(touchRead(PinGPIO));
-
-  if(touchRead(PinGPIO) == 1){
-  client.publish("equipo2/bascula/alarma", "PUERTA ABIERTA :D");
+  if (millis() - lastMillis > 1000) {
+      lastMillis = millis();
+if (value == LOW) {   
+  if(cambiaEstado==0){
+      Serial.println("puerta cerrada");
+      client.publish("equipo2/bascula/alarma_magnetico", "CERRADA");
+      cambiaEstado=1;
   } 
-
-  if(touchRead(PinGPIO) == 0){
-  client.publish("equipo2/bascula/alarma", "PUERTA CERRADA :C");
-  } 
+} else {
+  if(cambiaEstado==1){
+    Serial.println("puerta abierta");
+    client.publish("equipo2/bascula/alarma_magnetico", "ABIERTA");
+    cambiaEstado=0;
+  }
+}
+    }
   
   delay(500);
 }
@@ -93,8 +102,8 @@ void loop() {
 // ------------- Funciones alarma sensor magneto -------------------
 
 
-bool touchRead(int pin) {
-  bool toca = digitalRead(pin);
+bool touchRead(int pinMagnetico) {
+  bool toca = digitalRead(pinMagnetico);
   if (toca) {
     return true;
     }
