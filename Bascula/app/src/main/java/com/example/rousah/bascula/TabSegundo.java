@@ -66,18 +66,9 @@ public class TabSegundo extends Fragment {
 
                 Toast.makeText(getApplicationContext(), ""+fecha, 0).show();// TODO Auto-generated method stub
 
-                lanzarLista(fecha, userUid);
+                lanzarListaDeDatos(fecha, userUid);
             }
         });
-
-       /* Button button = view.findViewById(R.id.button3);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                lanzarLista();
-            }
-        });*/
-
 
         return view;
     }
@@ -86,7 +77,7 @@ public class TabSegundo extends Fragment {
      * Lanzar RecyclerView de los datos del día
      *
      */
-    public void lanzarLista(String f, String Uid)
+    public void lanzarListaDeDatos(final String f, String Uid)
     {
 
         //Log.w(TAG,"Usuario: "+Uid);
@@ -112,6 +103,7 @@ public class TabSegundo extends Fragment {
                 )
                 .addOnCompleteListener(
                         new OnCompleteListener<DocumentSnapshot>() {
+                            @SuppressLint({"RestrictedApi", "WrongConstant"})
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task){
                                 // definimos el intent
@@ -129,6 +121,7 @@ public class TabSegundo extends Fragment {
                                     i.putExtra("peso", peso);
                                     startActivity(i);
                                 } else {
+                                    Toast.makeText(getApplicationContext(), "No hay datos.", 0).show();// TODO Auto-generated method stub
                                     Log.e(TAG, "Error al leer", task.getException());
                                 }
                             }

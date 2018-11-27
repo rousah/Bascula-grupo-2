@@ -55,7 +55,8 @@
             android:label="Registro Usuario Remoto">
         </activity>
 
-        <activity android:name=".DatosDiaCalendario"></activity>
+        <activity android:name=".DatosDiaCalendario">
+        </activity>
 
     </application>
 
