@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
     private String peso;
     private String altura;
     private String fecha;
+    private ArduinoUart uart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
 
-         FirebaseFirestore db = FirebaseFirestore.getInstance();
+  /*       FirebaseFirestore db = FirebaseFirestore.getInstance();
  //       Map<String, Object> datos = new HashMap<>();
         datos.put("peso", 53);
         datos.put("altura", 1.67);
@@ -74,8 +75,12 @@ public class MainActivity extends Activity {
                 }
         );
 
-/*        Log.i(TAG, "Lista de UART disponibles: " + ArduinoUart.disponibles());
-        ArduinoUart uart = new ArduinoUart("UART0", 115200);
+        */
+
+        Log.i(TAG, "Lista de UART disponibles: " + ArduinoUart.disponibles());
+        uart = new ArduinoUart("UART0", 115200);
+
+
 
 
         try {
@@ -85,74 +90,12 @@ public class MainActivity extends Activity {
         }
 
 
-        while(true){
-            //
-            leido = uart.leer();
-
-            switch (leido) {
-                // Muestra en el logcat
-                case "M":
-                    uart.escribir("2");
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        Log.w(TAG, "Error en sleep()", e);
-                    }
-                    s = uart.leer();
-
-                    Log.d(TAG, "Datos recogidos: ");
-                    Log.d(TAG, s);
-                    break;
-                // Sube los datos a firestore
-                case "S":
-
-                    uart.escribir("2");
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        Log.w(TAG, "Error en sleep()", e);
-                    }
-                    s = uart.leer();
-
-                    Log.d(TAG, "Datos recogidos: ");
-                    Log.d(TAG, s);
-
-
-                    try {
-                        obj = new JSONObject(s);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        peso = obj.getString("Peso");
-                        altura = obj.getString("Altura");
-                        fecha = obj.getString("ID");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        Log.w(TAG, "Error en sleep()", e);
-                    }
-
-
-                    //guardarFirestore(db, "mediciones", fecha, "peso", peso);
-                    
-                    Log.d(TAG, "Subiendo datos...");
-
-                    break;
-
-            }
-
+        try {
+            uart.boton();
+        } catch (IOException e) {
+            Log.w(TAG, "Unable to access UART device", e);
         }
 
-
-
-
-*/
 
     }
 
@@ -163,9 +106,71 @@ public class MainActivity extends Activity {
 
     }
 
+    public void recibidoUart (String leido) {
+        Log.d(TAG, "llegado recibido");
+        switch (leido) {
+            // Muestra en el logcat
+            case "M":
+                uart.escribir("2");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Log.w(TAG, "Error en sleep()", e);
+                }
+                s = uart.leer();
+
+                Log.d(TAG, "Datos recogidos: ");
+                Log.d(TAG, s);
+                break;
+            // Sube los datos a firestore
+            case "S":
+
+                uart.escribir("2");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Log.w(TAG, "Error en sleep()", e);
+                }
+                s = uart.leer();
+
+                Log.d(TAG, "Datos recogidos: ");
+                Log.d(TAG, s);
+
+
+                try {
+                    obj = new JSONObject(s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    peso = obj.getString("Peso");
+                    altura = obj.getString("Altura");
+                    fecha = obj.getString("ID");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Log.w(TAG, "Error en sleep()", e);
+                }
+
+
+                guardarFirestore(db, "mediciones", fecha, "peso", peso);
+
+                Log.d(TAG, "Subiendo datos...");
+
+                break;
+
+        }
+        }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+
 
 }
