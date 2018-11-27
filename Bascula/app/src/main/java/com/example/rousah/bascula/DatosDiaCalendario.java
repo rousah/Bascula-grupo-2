@@ -40,7 +40,7 @@ public class DatosDiaCalendario extends Activity {
         mRecyclerView.setLayoutManager(layoutManager);
 
         /**
-         * Asociamos el RacyclerView con un adapter, este
+         * Asociamos el RecyclerView con un adapter, este
          * renderiza la información que tenemos.
          *
          * El adapter está configurado en la clase MyAdapter

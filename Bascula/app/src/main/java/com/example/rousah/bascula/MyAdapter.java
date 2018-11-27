@@ -37,22 +37,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Este es nuestro constructor (puede variar según lo que queremos mostrar)
     public MyAdapter() {
         mDataSet = new ArrayList<String>();
-        mDataSet.add("Elemento 1");
+        /*mDataSet.add("Elemento 1");
         mDataSet.add("Elemento 2");
-        mDataSet.add("Elemento 3");
+        mDataSet.add("Elemento 3");*/
     }
 
     public void setDataSet(ArrayList<String> DataSet) {
         mDataSet = DataSet;
         notifyDataSetChanged();
     }
-
-
-    // El layout manager invoca este método
-    // para renderizar cada elemento del RecyclerView
-    // infla el layout archivo.xml (layout que le digamos)
-    // que representa a nuestros elementos y devuelve una instancia
-    // de la clase ViewHolder que antes definimos
 
     /**
      * El layout manager invoca este método para renderizar
@@ -71,6 +64,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         CardView cv = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.dato_dia_cal, parent, false);
 
+        
         // Aquí podemos definir tamaños, márgenes, paddings
         // ...
 

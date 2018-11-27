@@ -15,6 +15,8 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +27,7 @@ import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class TabSegundo extends Fragment {
     View view;
+    private String TAG = "MATTHEW/GTI";
     String fecha;
     String userUid;
     CalendarView calendarView;
@@ -58,12 +61,12 @@ public class TabSegundo extends Fragment {
              */
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
-
+                month = month+1;
                 fecha = String.valueOf(dayOfMonth)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
 
                 Toast.makeText(getApplicationContext(), ""+fecha, 0).show();// TODO Auto-generated method stub
 
-                lanzarLista();
+                lanzarLista(fecha, userUid);
             }
         });
 
@@ -83,28 +86,54 @@ public class TabSegundo extends Fragment {
      * Lanzar RecyclerView de los datos del día
      *
      */
-    public void lanzarLista()
+    public void lanzarLista(String f, String Uid)
     {
 
-        Log.w("USUARIO:", userUid);
-        Log.w("Fecha", fecha);
+        Log.w(TAG,"Usuario: "+Uid);
+        Log.w(TAG,"Fecha: "+f);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("usuarios").document(String.valueOf(userUid)).collection("mediciones").document(fecha).get()
+        db.collection("usuarios").document(String.valueOf(Uid)).collection("mediciones").document(f).get()
+                .addOnSuccessListener(
+                        new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                Log.w(TAG, "Se han recogido los datos.");
+                            }
+                        }
+                )
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, e);
+                            }
+                        }
+                )
                 .addOnCompleteListener(
                         new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task){
                                 if (task.isSuccessful()) {
-                                    //String peso = task.getResult().getString("dato_1");
-                                    //String altura = task.getResult().getString("altura");
-                                    //Log.w("Firestore", "Peso:" + peso + " Altura:" + altura);
-                                    Log.w("Firestore", "Peso:" + task.getResult().getString("peso"));
+                                    String peso = task.getResult().getString("peso");
+                                    String altura = task.getResult().getString("altura");
+                                    //
+                                    Log.w(TAG, "Peso:" + peso);
+                                    Log.w(TAG, "Altura:" + altura);
+
                                 } else {
-                                    Log.e("Firestore", "Error al leer", task.getException());
+                                    Log.e(TAG, "Error al leer", task.getException());
                                 }
                             }
-                        });
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, e);
+                            }
+                        }
+                );
         Intent i = new Intent(getContext(), DatosDiaCalendario.class);
         startActivity(i);
     }
