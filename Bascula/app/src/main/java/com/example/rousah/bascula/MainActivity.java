@@ -51,7 +51,7 @@ import com.squareup.picasso.Picasso;
 
 
 
-public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener {
 
     //--------------Drawer--------------------
     private DrawerLayout drawerLayout;
@@ -293,6 +293,9 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                 break;
             case R.id.nav_casa:
                 fragment = new CasaFragment();
+                break;
+            case R.id.nav_tratamientos:
+                fragment = new TratamientosFragment();
                 break;
             case R.id.log_out:
                 FirebaseAuth.getInstance().signOut(); //End user session
