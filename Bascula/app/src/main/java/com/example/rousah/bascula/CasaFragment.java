@@ -1,12 +1,25 @@
 package com.example.rousah.bascula;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
+
+import com.db.chart.animation.Animation;
+import com.db.chart.model.LineSet;
+import com.db.chart.model.Point;
+import com.db.chart.view.LineChartView;
+
+import java.text.DecimalFormat;
+
+import static android.view.KeyCharacterMap.FULL;
 
 
 /**
@@ -28,6 +41,9 @@ public class CasaFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private LineChartView grafica;
+    private Runnable mBaseAction;
 
     public CasaFragment() {
         // Required empty public constructor
@@ -63,8 +79,37 @@ public class CasaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.casa, container, false);
+
+        String[] labels = new String[2];
+        labels[0] = "12:00";
+        labels[1] = "13:00";
+        float[] values = new float[2];
+        values[0] = 20.0f;
+        values[1] = 30.0f;
+
+        LineSet dataset = new LineSet(labels, values);
+        dataset.addPoint(new Point("14:00", 40.0f));
+
+        dataset.setColor(Color.parseColor("#399699"))
+                .setDotsColor(Color.parseColor("#ff869b"))
+                .setThickness(4)
+                .setDashed(new float[]{10f, 10f});
+
+        DecimalFormat formato = new DecimalFormat();
+        formato.applyPattern("#0.00");
+
+        grafica = view.findViewById(R.id.linechart);
+        grafica.addData(dataset);
+        grafica.setAxisColor(Color.parseColor("#399699"))
+                .setTypeface(Typeface.createFromAsset(getContext().getAssets(), "OpenSans-Semibold.ttf"))
+                .setLabelsFormat(formato);
+
+        grafica.show();
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.casa, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,4 +150,5 @@ public class CasaFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
