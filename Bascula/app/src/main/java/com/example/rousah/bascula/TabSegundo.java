@@ -64,7 +64,7 @@ public class TabSegundo extends Fragment {
                 month = month+1;
                 fecha = String.valueOf(dayOfMonth)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
 
-                Toast.makeText(getApplicationContext(), ""+fecha, 0).show();// TODO Auto-generated method stub
+                //Toast.makeText(getApplicationContext(), ""+fecha, 0).show();// TODO Auto-generated method stub
 
                 lanzarListaDeDatos(fecha, userUid);
             }
@@ -95,6 +95,7 @@ public class TabSegundo extends Fragment {
                 )
                 .addOnFailureListener(
                         new OnFailureListener() {
+                            @SuppressLint("RestrictedApi")
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Log.w(TAG, e);
@@ -109,19 +110,39 @@ public class TabSegundo extends Fragment {
                                 // definimos el intent
                                 Intent i = new Intent(getContext(), DatosDiaCalendario.class);
                                 if (task.isSuccessful()) {
-                                    String peso = task.getResult().getString("peso");
-                                    String altura = task.getResult().getString("altura");
-                                    //
-                                    Log.w(TAG, "Peso:" + peso);
-                                    Log.w(TAG, "Altura:" + altura);
+                                    Double peso = task.getResult().getDouble("peso");
+                                    Double altura = task.getResult().getDouble("altura");
+
                                     /**
-                                     * Le mandamos a la clase MyAdapter estos datos, con un intent
-                                     * y un Bundle que los recoja
+                                     *
+                                     * Sí los datos recogidos son igual a null saldrá un TOAST
+                                     * advirtiendo de que ese día no contiene datos.
+                                     *
+                                     * Sí los datos recogidos no son null saldrá un TOAST
+                                     * advirtiendo del día seleccionado, y visualizará los datos
+                                     * recogidos.
+                                     *
                                      */
-                                    i.putExtra("peso", peso);
-                                    startActivity(i);
+                                    if(peso == null)
+                                    {
+                                        Toast.makeText(getApplicationContext(), "No hay datos.", 0).show();// TODO Auto-generated method stub
+
+                                    }
+                                    else
+                                    {
+                                        Log.w(TAG, "Peso:" + peso);
+                                        Log.w(TAG, "Altura:" + altura);
+                                        /**
+                                         * Le mandamos a la clase MyAdapter estos datos, con un intent
+                                         * y un Bundle que los recoja
+                                         */
+                                        i.putExtra("peso", peso);
+                                        i.putExtra("altura", altura);
+                                        startActivity(i);
+                                    }
+                                    //
+
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "No hay datos.", 0).show();// TODO Auto-generated method stub
                                     Log.e(TAG, "Error al leer", task.getException());
                                 }
                             }

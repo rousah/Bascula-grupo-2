@@ -3,15 +3,20 @@ package com.example.rousah.bascula;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private ArrayList<String> mDataSet;
+    private ArrayList<Double> mDataSet;
+    private ArrayList<String> mTitleSet;
+    private ArrayList<ImageView> mImageSet;
+    private String TAG = "EQUIPO2/GTI";
 
     /**
      * El ViewHolder obtiene referencias de los componentes visuales para
@@ -23,11 +28,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // en este ejemplo cada elemento consta solo de un título
         public CardView cv;
-        public TextView tPeso;
+        public TextView t1;
+        public TextView t2;
         public ViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
-            tPeso = (TextView)itemView.findViewById(R.id.valorPeso);
+            t1 = (TextView)itemView.findViewById(R.id.titulo);
+            t2 = (TextView)itemView.findViewById(R.id.valor);
         }
     }
 
@@ -36,13 +43,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      *
      */
     // Este es nuestro constructor (puede variar según lo que queremos mostrar)
-    public MyAdapter() {
+    public MyAdapter(ArrayList<Double> data) {
 
-        mDataSet = new ArrayList<String>();
-        mDataSet.add("Elemento 1");
+        mDataSet = new ArrayList<Double>();
+        mTitleSet = new ArrayList<String>();
+        mImageSet = new ArrayList<ImageView>();
+
+        
+        mTitleSet.add("Peso:");
+        mDataSet.add(data.get(0));
+        mTitleSet.add("Altura:");
+        mDataSet.add(data.get(1));
+
     }
 
-    public void setDataSet(ArrayList<String> DataSet) {
+    public void setDataSet(ArrayList<Double> DataSet) {
         mDataSet = DataSet;
         notifyDataSetChanged();
     }
@@ -83,7 +98,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - obtenemos un elemento del dataset según su posición
         // - reemplazamos el contenido de los views según tales datos
-        holder.tPeso.setText(mDataSet.get(position));
+        holder.t1.setText((CharSequence) mTitleSet.get(position));
+        holder.t2.setText(String.valueOf(mDataSet.get(position)));
 
     }
 

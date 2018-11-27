@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class DatosDiaCalendario extends Activity {
 
@@ -19,7 +22,7 @@ public class DatosDiaCalendario extends Activity {
     private MyAdapter mAdapter;
     private TextView valorPeso;
     private TextView valorAltura;
-
+    private String TAG = "EQUIPO2/GTI";
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -27,6 +30,23 @@ public class DatosDiaCalendario extends Activity {
         setContentView(R.layout.datos_un_dia_cal);
 
         mRecyclerView = findViewById(R.id.recycler_view_measurement);
+
+        /**
+         * Recogemos los datos de la clase TabSegundo
+         * @params peso, altura
+         */
+        Bundle extras = getIntent().getExtras();
+
+        Double p = extras.getDouble("peso");
+        Double a = extras.getDouble("altura");
+
+        ArrayList<Double> listaDatos = new ArrayList<Double>();
+        listaDatos.add(0, p);
+        listaDatos.add(1, a);
+
+
+
+        //Log.w(TAG, "peso"+s);
 
         /**
          * Usar esta línea para mejorar el rendimiento si
@@ -52,7 +72,7 @@ public class DatosDiaCalendario extends Activity {
          *
          * El adapter está configurado en la clase MyAdapter
          */
-        mAdapter = new MyAdapter();
+        mAdapter = new MyAdapter(listaDatos);
         mRecyclerView.setAdapter(mAdapter);
 
         /*Button next = (Button) findViewById(R.id.volverAlCalendario);
