@@ -71,7 +71,7 @@ void loop() {
     client.loop();
   delay(10);  // <- fixes some issues with WiFi stability
 
- int value = digitalRead(pinMagnetico);
+ int valorMagnetico = digitalRead(pinMagnetico);
   
   
   if (!client.connected()) {
@@ -80,7 +80,7 @@ void loop() {
 
   if (millis() - lastMillis > 1000) {
       lastMillis = millis();
-if (value == LOW) {   
+if (valorMagnetico == LOW) {   
   if(cambiaEstado==0){
       Serial.println("puerta cerrada");
       client.publish("equipo2/bascula/alarma_magnetico", "CERRADA");
