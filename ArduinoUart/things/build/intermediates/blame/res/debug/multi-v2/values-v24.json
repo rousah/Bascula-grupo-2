@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
+            "outputFile": "/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Matthew\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\90bb127b866f5188c3b453c26a6ceabd\\res\\values-v24\\values-v24.xml",
+                    "source": "/Users/rousah/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/2eb954e7b398cc4d3a8f425f91c5ea09/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
