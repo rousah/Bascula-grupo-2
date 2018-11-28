@@ -1,7 +1,6 @@
 package com.example.rousah.bascula;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
@@ -30,7 +28,6 @@ public class TabSegundo extends Fragment {
     private String TAG = "MATTHEW/GTI";
     private String fecha;
     private String userUid;
-    private CalendarView calendarView;
     private FirebaseUser usuario;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,6 +109,7 @@ public class TabSegundo extends Fragment {
                                 if (task.isSuccessful()) {
                                     Double peso = task.getResult().getDouble("peso");
                                     Double altura = task.getResult().getDouble("altura");
+                                    Double imc = task.getResult().getDouble("imc");
 
                                     /**
                                      *
@@ -132,12 +130,14 @@ public class TabSegundo extends Fragment {
                                     {
                                         Log.w(TAG, "Peso:" + peso);
                                         Log.w(TAG, "Altura:" + altura);
+                                        Log.w(TAG, "IMC: "+imc);
                                         /**
                                          * Le mandamos a la clase MyAdapter estos datos, con un intent
                                          * y un Bundle que los recoja
                                          */
                                         i.putExtra("peso", peso);
                                         i.putExtra("altura", altura);
+                                        i.putExtra("imc", imc);
                                         startActivity(i);
                                     }
                                     //

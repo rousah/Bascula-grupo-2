@@ -11,7 +11,7 @@
     android:id="@+id/cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardBackgroundColor="@color/ic_launcher_background"
+    card_view:cardBackgroundColor="@color/colorPrimaryDark"
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="true"
@@ -39,10 +39,10 @@
         android:id="@+id/valor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="200dp"
+        android:paddingLeft="190dp"
         android:paddingStart="200dp"
         android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="normal" />
 
 </android.support.v7.widget.CardView>

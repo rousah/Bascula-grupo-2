@@ -1,17 +1,9 @@
 package com.example.rousah.bascula;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -39,10 +31,11 @@ public class DatosDiaCalendario extends Activity {
 
         Double p = extras.getDouble("peso");
         Double a = extras.getDouble("altura");
-
+        Double i = extras.getDouble("imc");
         ArrayList<Double> listaDatos = new ArrayList<Double>();
         listaDatos.add(0, p);
         listaDatos.add(1, a);
+        listaDatos.add(2, i);
 
 
 

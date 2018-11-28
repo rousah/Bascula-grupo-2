@@ -1,24 +1,21 @@
 package com.example.rousah.bascula;
 
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<Double> mDataSet;
+    private ArrayList<String> mUnidadesSet;
     private ArrayList<String> mTitleSet;
     private ArrayList<Integer> mImageSet;
+
     private String TAG = "EQUIPO2/GTI";
 
     /**
@@ -51,16 +48,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter(ArrayList<Double> data) {
 
         mDataSet = new ArrayList<Double>();
+        mUnidadesSet = new ArrayList<String>();
         mTitleSet = new ArrayList<String>();
         mImageSet = new ArrayList<Integer>();
 
         mImageSet.add(R.drawable.scale_bathroom);
-        Log.d(TAG, String.valueOf(mImageSet.get(0)));
         mTitleSet.add("Peso:");
         mDataSet.add(data.get(0));
+        mUnidadesSet.add("Kg");
         mImageSet.add(R.drawable.ruler);
         mTitleSet.add("Altura:");
         mDataSet.add(data.get(1));
+        mUnidadesSet.add("m");
+        mImageSet.add(R.drawable.ic_scale_balance);
+        mTitleSet.add("IMC:");
+        mDataSet.add(data.get(2));
+        mUnidadesSet.add("Kg/cm^2");
 
     }
 
@@ -109,7 +112,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - obtenemos un elemento del dataset según su posición
         // - reemplazamos el contenido de los views según tales datos
         holder.t1.setText((CharSequence) mTitleSet.get(position));
-        holder.t2.setText(String.valueOf(mDataSet.get(position)));
+        holder.t2.setText(String.valueOf(mDataSet.get(position))+" "+mUnidadesSet.get(position));
         holder.i1.setImageResource(mImageSet.get(position));
 
     }
