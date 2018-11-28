@@ -64,8 +64,6 @@ public class CrearPerfil extends AppCompatActivity {
     EditText fecha;
 
     //variables necesarias para guardar la imagen en firebase
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private Uri filePath;
     private static final int SOLICITUD_PERMISO_GALERIA = 5;
     private ImageView imagenPerfil;
@@ -86,10 +84,11 @@ public class CrearPerfil extends AppCompatActivity {
         email.setText(usuario.getEmail());
 
         elegirImagen = (Button) findViewById(R.id.elegirButton);
-        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         imagenPerfil = findViewById(R.id.fotoCrearPerfil);
 
+
+        //miramos si tiene la imagen
         comprobarImagen();
 
         fecha = findViewById(R.id.fechaNac);
@@ -133,8 +132,11 @@ public class CrearPerfil extends AppCompatActivity {
 
     //comprueba si el user tiene imagen en storage, si no la tiene comprueba en google, si no pondra una por defecto
     private void comprobarImagen(){
+        //variables: imagen en Storage, uid del user actual y el proveedor de google
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         proveedor = usuario.getProviders().get(0);
-        //checkea si el proveedor es de google por si se logea con un email
+
         if(storageReference.child("usuarios/"+uid+"/imagenUsuario.jpg") != null){
             storageReference.child("usuarios/"+uid+"/imagenUsuario.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
@@ -169,6 +171,7 @@ public class CrearPerfil extends AppCompatActivity {
     }
 
     private void guardarImagen() {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
         if(filePath != null)
         {
