@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -12,8 +11,6 @@ public class DatosDiaCalendario extends Activity {
 
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
-    private TextView valorPeso;
-    private TextView valorAltura;
     private String TAG = "EQUIPO2/GTI";
     public void onCreate(Bundle savedInstanceState) {
 
@@ -28,10 +25,11 @@ public class DatosDiaCalendario extends Activity {
          * @params peso, altura
          */
         Bundle extras = getIntent().getExtras();
-
         Double p = extras.getDouble("peso");
         Double a = extras.getDouble("altura");
         Double i = extras.getDouble("imc");
+
+        // Llenamos una lista que pasamos al Adapter
         ArrayList<Double> listaDatos = new ArrayList<Double>();
         listaDatos.add(0, p);
         listaDatos.add(1, a);
@@ -67,6 +65,7 @@ public class DatosDiaCalendario extends Activity {
          */
         mAdapter = new MyAdapter(listaDatos);
         mRecyclerView.setAdapter(mAdapter);
+
 
         /*Button next = (Button) findViewById(R.id.volverAlCalendario);
         next.setOnClickListener(new View.OnClickListener() {

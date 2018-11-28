@@ -1,6 +1,7 @@
 package com.example.rousah.bascula;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -63,18 +64,27 @@ public class TabSegundo extends Fragment {
 
                 //Toast.makeText(getApplicationContext(), ""+fecha, 0).show();// TODO Auto-generated method stub
 
-                lanzarListaDeDatos(fecha, userUid);
+                lanzarListaDeDatosDeUnDia(fecha, userUid);
             }
         });
 
         return view;
     }
 
+    public Dialog onCreateDialog(Bundle savedInstanceState)
+    {
+        Dialog dialog = new Dialog(getActivity());
+        return dialog;
+    }
+
     /**
      * Lanzar RecyclerView de los datos del día
      *
+     * Busca los datos del día seleccionado.
+     * Peso, altura, IMC...
+     *
      */
-    public void lanzarListaDeDatos(final String f, String Uid)
+    public void lanzarListaDeDatosDeUnDia(final String f, String Uid)
     {
 
         //Log.w(TAG,"Usuario: "+Uid);
@@ -158,5 +168,6 @@ public class TabSegundo extends Fragment {
 
 
     }
+
 
 }
