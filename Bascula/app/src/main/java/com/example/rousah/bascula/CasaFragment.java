@@ -6,16 +6,25 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
+import android.widget.TextView;
 
 import com.db.chart.animation.Animation;
 import com.db.chart.model.LineSet;
 import com.db.chart.model.Point;
 import com.db.chart.view.LineChartView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
 
@@ -35,6 +44,9 @@ public class CasaFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -80,6 +92,27 @@ public class CasaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.casa, container, false);
+
+        db.collection("usuarios").document(usuario.getUid()).get().addOnCompleteListener(
+                new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task){
+                        if (task.isSuccessful()) {
+
+                            TextView temp = view.findViewById(R.id.temp);
+                            temp.setText(task.getResult().getDouble("temperatura").toString() + "ºC");
+
+                            TextView hum = view.findViewById(R.id.hum);
+                            hum.setText(task.getResult().getDouble("temperatura").toString() + "%");
+
+                            TextView termi = view.findViewById(R.id.termi);
+                            termi.setText(task.getResult().getDouble("sensaciontermica").toString() + "ºC");
+
+                        } else {
+                            Log.e("Firestore", "Error al leer", task.getException());
+                        }
+                    }
+                });
 
         String[] labels = new String[2];
         labels[0] = "12:00";
