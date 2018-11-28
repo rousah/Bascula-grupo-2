@@ -65,12 +65,14 @@ public class CrearPerfil extends AppCompatActivity {
 
     //variables necesarias para guardar la imagen en firebase
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReference();
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private Uri filePath;
     private static final int SOLICITUD_PERMISO_GALERIA = 5;
     private ImageView imagenPerfil;
-    private Button cambiarImagen;
+    private Button elegirImagen;
     private String uid;
+
+    private Uri uriStorage;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,30 +85,16 @@ public class CrearPerfil extends AppCompatActivity {
         TextView email = findViewById(R.id.emailCrearPerfil);
         email.setText(usuario.getEmail());
 
-        cambiarImagen = (Button) findViewById(R.id.cambiarButton);
+        elegirImagen = (Button) findViewById(R.id.elegirButton);
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         imagenPerfil = findViewById(R.id.fotoCrearPerfil);
-        proveedor = usuario.getProviders().get(0);
-        //checkea si el proveedor es de google por si se logea con un email
-        if(proveedor.equals("google.com")) {
-            Log.d("FOTO GOOGLE", usuario.getPhotoUrl().toString());
-            String uri = usuario.getPhotoUrl().toString();
-            //Para cargar la foto en mejor calidad
-            uri = uri.replace("/s96-c/","/s300-c/");
-            //Usa transform para hacerla circular
-            Picasso.with(this).load(uri)
-                    .transform(new CircleTransform())
-                    .into(imagenPerfil);
-            System.out.println("dentro de getPhoto");
-        }
-        //por si se logea con email y no tiene foto asignada
-        else {
-            //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
-            Picasso.with(this).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
-        }
+
+        comprobarImagen();
+
         fecha = findViewById(R.id.fechaNac);
-        cambiarImagen.setOnClickListener(new View.OnClickListener() {
+
+        elegirImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 escogerImagen();
@@ -143,6 +131,43 @@ public class CrearPerfil extends AppCompatActivity {
         }
     }
 
+    //comprueba si el user tiene imagen en storage, si no la tiene comprueba en google, si no pondra una por defecto
+    private void comprobarImagen(){
+        proveedor = usuario.getProviders().get(0);
+        //checkea si el proveedor es de google por si se logea con un email
+        if(storageReference.child("usuarios/"+uid+"/imagenUsuario.jpg") != null){
+            storageReference.child("usuarios/"+uid+"/imagenUsuario.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    //Toast.makeText(CrearPerfil.this, uri.toString(), Toast.LENGTH_LONG).show();
+                    Picasso.with(CrearPerfil.this).load(uri.toString())
+                            .transform(new CircleTransform())
+                            .into(imagenPerfil);
+                    System.out.println("dentro de getPhoto");
+                }
+            });
+        }else if(proveedor.equals("google.com")) {
+            Log.d("FOTO GOOGLE", usuario.getPhotoUrl().toString());
+            String uri2 = usuario.getPhotoUrl().toString();
+            //Para cargar la foto en mejor calidad
+            uri2 = uri2.replace("/s96-c/","/s300-c/");
+            //Usa transform para hacerla circular
+            Picasso.with(this).load(uri2)
+                    .transform(new CircleTransform())
+                    .into(imagenPerfil);
+            Toast.makeText(CrearPerfil.this, "Tu imagen es de google", Toast.LENGTH_LONG).show();
+
+            System.out.println("dentro de getPhoto");
+        }
+        //por si se logea con email y no tiene foto asignada
+        else {
+            //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+            Picasso.with(this).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
+            Toast.makeText(CrearPerfil.this, "No tienes imagen", Toast.LENGTH_LONG).show();
+
+        }
+    }
+
     private void guardarImagen() {
 
         if(filePath != null)
@@ -151,8 +176,8 @@ public class CrearPerfil extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("usuarios/"+uid+"/imagenUsuario.jpg");
-            ref.putFile(filePath)
+            StorageReference dataRef = storageReference.child("usuarios/"+uid+"/imagenUsuario.jpg");
+            dataRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
