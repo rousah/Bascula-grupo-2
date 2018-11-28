@@ -100,14 +100,13 @@ public class CasaFragment extends Fragment {
                         if (task.isSuccessful()) {
 
                             TextView temp = view.findViewById(R.id.temp);
-                            temp.setText(task.getResult().getDouble("temperatura").toString() + "ºC");
+                            temp.setText(task.getResult().getDouble("temperatura").toString() + " ºC");
 
                             TextView hum = view.findViewById(R.id.hum);
-                            hum.setText(task.getResult().getDouble("temperatura").toString() + "%");
+                            hum.setText(task.getResult().getDouble("temperatura").toString() + " %");
 
                             TextView termi = view.findViewById(R.id.termi);
-                            termi.setText(task.getResult().getDouble("sensaciontermica").toString() + "ºC");
-
+                            termi.setText(task.getResult().getDouble("sensaciontermica").toString() + " ºC");
                         } else {
                             Log.e("Firestore", "Error al leer", task.getException());
                         }
