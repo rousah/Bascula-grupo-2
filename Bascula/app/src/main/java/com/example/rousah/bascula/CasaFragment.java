@@ -206,8 +206,8 @@ public class CasaFragment extends Fragment implements MqttCallback {
     @Override
     public void connectionLost(Throwable cause) {
         Log.d("Internet: ", cause.getMessage());
-        String estado = (MainActivity)getActivity())
-        Log.d("internet", );
+        MainActivity estado = (MainActivity)getActivity();
+        Log.d("internet", cause.getMessage());
         while (!((MainActivity)getActivity()).isNetworkAvailable()) {
             Log.d(TAG, "Reintentando conexión MQTT");
             try {
