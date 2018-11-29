@@ -424,13 +424,15 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             @Override
             public void run() {
                 Switch luces = findViewById(R.id.switchluces);
-                if (payload.contains("ON")) {
-                    luces.setChecked(true);
-                    Toast.makeText(getBaseContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
-                }
-                if (payload.contains("OFF")) {
-                    luces.setChecked(false);
-                    Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                if (luces != null) {
+                    if (payload.contains("ON")) {
+                        luces.setChecked(true);
+                        Toast.makeText(getBaseContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                    }
+                    if (payload.contains("OFF")) {
+                        luces.setChecked(false);
+                        Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
