@@ -146,13 +146,10 @@ public class CrearPerfil extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 //POR SI ALGUIEN TIENE ALGUNA DUDA DE CUAL ES LA URL DE DESCARGA ES EL PUTO URI. BUENAS NOCHES.
-                Toast.makeText(CrearPerfil.this, uri.toString(), Toast.LENGTH_LONG).show();
                 Picasso.with(CrearPerfil.this).load(uri.toString()).resize(168, 168).centerCrop()
                         .transform(new CircleTransform())
                         .into(imagenPerfil);
                 System.out.println("dentro de getPhoto");
-                Toast.makeText(CrearPerfil.this, "No googleado", Toast.LENGTH_LONG).show();
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -162,7 +159,6 @@ public class CrearPerfil extends AppCompatActivity {
                     //carga la foto y usa transform para hacerla circular
                     Picasso.with(CrearPerfil.this).load(uri).transform(new CircleTransform()).into(imagenPerfil);
                     System.out.println("dentro de getPhoto");
-                    Toast.makeText(CrearPerfil.this, "Googleado", Toast.LENGTH_LONG).show();
                 } else {
                     //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
                     Picasso.with(CrearPerfil.this).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);

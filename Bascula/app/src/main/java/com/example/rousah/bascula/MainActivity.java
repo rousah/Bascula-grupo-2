@@ -433,8 +433,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                         .transform(new CircleTransform())
                         .into(imagenPerfil);
                 System.out.println("dentro de getPhoto");
-                Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -444,7 +442,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                     //carga la foto y usa transform para hacerla circular
                     Picasso.with(getBaseContext()).load(uri).resize(168, 168).transform(new CircleTransform()).into(imagenPerfil);
                     System.out.println("dentro de getPhoto");
-                    Toast.makeText(getBaseContext(), "Googleado", Toast.LENGTH_LONG).show();
                 } else {
                     //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
                     Picasso.with(getBaseContext()).load(R.drawable.round_account_circle_black_48dp).resize(168, 168).transform(new CircleTransform()).into(imagenPerfil);
