@@ -261,8 +261,7 @@
                     android:layout_width="96dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="Editar"
-                    tools:text="Borrar" />
+                    android:text="Borrar cuenta" />
             </LinearLayout>
 
 

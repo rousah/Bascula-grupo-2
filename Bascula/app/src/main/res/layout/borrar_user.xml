@@ -15,11 +15,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Button"
+        android:text="No"
         app:layout_constraintEnd_toStartOf="@+id/siButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        tools:text="No" />
+        />
 
     <Button
         android:id="@+id/siButton"
@@ -30,11 +30,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Button"
+        android:text="Si"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/noButton"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        tools:text="Si" />
+        />
 
     <TextView
         android:id="@+id/textView8"
@@ -45,10 +45,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="TextView"
+        android:text="¿Está seguro de que quiere eliminar su cuenta?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="¿Está seguro de que quiere eliminar su cuenta?" />
+        />
 
 </android.support.constraint.ConstraintLayout>
