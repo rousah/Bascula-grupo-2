@@ -125,6 +125,7 @@ public class CrearPerfil extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        guardarImagen();
     }
 
     //comprueba si el user tiene imagen en storage, si no la tiene comprueba en google, si no pondra una por defecto
@@ -133,7 +134,6 @@ public class CrearPerfil extends AppCompatActivity {
         usuario = FirebaseAuth.getInstance().getCurrentUser();
         //variables: imagen en Storage, uid del user actual y el proveedor de google
         final String proveedor = usuario.getProviders().get(0);
-
 
         //imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
         final ImageView imagenPerfil = findViewById(R.id.fotoCrearPerfil);
@@ -247,9 +247,7 @@ public class CrearPerfil extends AppCompatActivity {
         Log.w("perfil: tlf", telefono.getText().toString());
         if (telefono.getText().toString().equals("") || fecha.getText().toString().equals("dd/mm/yy") || radioButtonSelected == null) {
             Toast.makeText(CrearPerfil.this, "Complete todos los campos", Toast.LENGTH_LONG).show();
-        }
-        else {
-            guardarImagen();
+        } else {
             selectedId = radioGroup.getCheckedRadioButtonId();
             radioButtonSelected = (RadioButton) findViewById(selectedId);
             Map<String, Object> datos = new HashMap<>();
@@ -276,5 +274,7 @@ public class CrearPerfil extends AppCompatActivity {
                         }
                     });
         }
+        Intent i = new Intent(CrearPerfil.this, MainActivity.class);
+        startActivity(i);
     }
 }

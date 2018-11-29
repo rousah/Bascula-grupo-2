@@ -356,42 +356,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         TextView email = headerLayout.findViewById(R.id.emailNav);
         email.setText(usuario.getEmail());
 
-        //variables: imagen en Storage, uid del user actual y el proveedor de google
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        final String proveedor = usuario.getProviders().get(0);
-
-        //imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
-        final ImageView imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
-
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-
-        storageReference.child("imagenesPerfil/" + uid).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.with(getBaseContext()).load(uri.toString()).resize(168, 168).centerCrop()
-                        .transform(new CircleTransform())
-                        .into(imagenPerfil);
-                System.out.println("dentro de getPhoto");
-                Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                if (proveedor.equals("google.com")) {
-                    final String uri = usuario.getPhotoUrl().toString();
-                    //carga la foto y usa transform para hacerla circular
-                    Picasso.with(getBaseContext()).load(uri).resize(168, 168).transform(new CircleTransform()).into(imagenPerfil);
-                    System.out.println("dentro de getPhoto");
-                    Toast.makeText(getBaseContext(), "Googleado", Toast.LENGTH_LONG).show();
-                } else {
-                    //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
-                    Picasso.with(getBaseContext()).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
-                }
-            }
-        });
-
-
+        comprobarImagen();
         //por si se logea con email y no tiene foto asignada
 
                 /*if(proveedor.equals("google.com") && storageReference.child("usuarios/" + uid + "/imagenUsuario.jpg") == null) {
@@ -434,9 +399,47 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         else {
             imagenPerfil.setImageDrawable(getDrawable(R.drawable.ic_account_circle_black_55dp));
         }*/
-
-
     //--------------Nav Header----------------
+    }
+
+    public void comprobarImagen(){
+        final FirebaseUser usuario;
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
+
+        //variables: imagen en Storage, uid del user actual y el proveedor de google
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String proveedor = usuario.getProviders().get(0);
+
+        //imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
+        final ImageView imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+        storageReference.child("imagenesPerfil/" + uid).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(getBaseContext()).load(uri.toString()).resize(168, 168).centerCrop()
+                        .transform(new CircleTransform())
+                        .into(imagenPerfil);
+                System.out.println("dentro de getPhoto");
+                Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                if (proveedor.equals("google.com")) {
+                    final String uri = usuario.getPhotoUrl().toString();
+                    //carga la foto y usa transform para hacerla circular
+                    Picasso.with(getBaseContext()).load(uri).resize(168, 168).transform(new CircleTransform()).into(imagenPerfil);
+                    System.out.println("dentro de getPhoto");
+                    Toast.makeText(getBaseContext(), "Googleado", Toast.LENGTH_LONG).show();
+                } else {
+                    //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+                    Picasso.with(getBaseContext()).load(R.drawable.round_account_circle_black_48dp).resize(168, 168).transform(new CircleTransform()).into(imagenPerfil);
+                }
+            }
+        });
     }
 
 }
