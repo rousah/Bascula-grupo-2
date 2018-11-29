@@ -247,7 +247,6 @@ public class CasaFragment extends Fragment implements MqttCallback {
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
-        Log.d("ajjaajjaja", token.toString());
     }
 
     public interface OnFragmentInteractionListener {
