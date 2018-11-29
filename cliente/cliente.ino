@@ -3,34 +3,25 @@
 #include <TimeLib.h>
 #include <ArduinoJson.h>
 #include <DHT.h>
-#include <WiFi.h>
-#include <MQTT.h>
-
-
-// ---------------- MQTT -------------------------
-
-// --- Sensor de Gas Pines ---
-const int MQ_PIN = 36;
-const int MQ_DELAY = 2000;
-
-int medidaGasRaw;
-int medidaGasVoltios;
-int controladorAlertaGas = 0;
-// ------------------
-
-const char broker[] = "iot.eclipse.org";
-
-WiFiClient net;
-MQTTClient client;
-
-// ------------------------------------------------
-
+#define BLANCO 0XFFFF
+#define NEGRO 0
+#define ROJO 0xF800
+#define VERDE 0x07E0
+#define AZUL 0x001F
+#include <SPI.h>
+#include <MFRC522.h>
 
 
 // --- Escucha del infrarrojo ---
 int ledPin = 5;  // LED en el Pin 5 del Arduino
 int pirPin = 21; // Input para HC-S501
 int pirValue; // Para guardar el valor del pirPin
+
+// --- Escucha del RFID ---
+#define RST_PIN  2    //Pin 9 para el reset del RC522 no es necesario conctarlo
+#define SS_PIN  21   //Pin 10 para el SS (SDA) del RC522
+MFRC522 mfrc522(SS_PIN, RST_PIN); ///Creamos el objeto para el RC522
+MFRC522::StatusCode status; //variable to get card status
 
 
 // --- Escucha del sensor hum temp ---
@@ -104,46 +95,11 @@ void leerHumTemp() {
     
 }
 
-
-// ----------- MQTT --------------
-
-
-void connect() {
-  Serial.print("checking wifi...");
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print(".");
-    delay(1000);
-  }
-
-  Serial.print("\nconnecting...");
-  while (!client.connect("lens_wPVhV9y2ni29xc4vAAmHU6VFAIW", "try", "try")) {
-    Serial.print(".");
-    delay(1000);
-  }
-
-  Serial.println("\nconnected!");
-
-  client.subscribe("equipo2/bascula/#");
-  // client.unsubscribe("equipo2/bascula/#");
-}
-
-void messageReceived(String &topic, String &payload) {
-  Serial.println("incoming: " + topic + " - " + payload);
-}
-
-// ---------------------------------
-
 void setup()
 {
-
-  // Iniciar conexión con eclipse para MQTT.
-  client.begin(broker, net);  
-  client.onMessage(messageReceived);
-  // ------
-
-
-  
     Serial.begin(115200);
+    SPI.begin();        //Iniciamos el Bus SPI
+    mfrc522.PCD_Init(); // Iniciamos el MFRC522
     // Cambiar cada vez que se tenga que subir
     setTime (20, 45, 0, 21, 10, 2018); //hora minuto segundo dia mes año
       
@@ -174,36 +130,17 @@ void setup()
     
     // Comenzamos el sensor DHT
     dht.begin();
-
-
-  connect(); // <-- Iniciar conexión con eclipse.
+  
 }
+
+byte ActualUID[7]; //almacenará el código del Tag leído
+byte Medicamento1[7]= {0x04, 0x17, 0xC0, 0x5A, 0x51, 0x59, 0x80} ; //código del usuario 1
+byte Medicamento2[7]= {0x04, 0x30, 0xC0, 0x5A, 0x51, 0x59, 0x80} ; //código del usuario 2
+byte Medicamento3[7]= {0x04, 0x1F, 0xC0, 0x5A, 0x51, 0x59, 0x80} ; //código del usuario 2
 
 
 void loop()
 {
-
-
-  // ----- Alerta Sensor de Gas -----
-
-  leerSensorGas();    // Lectura del sensor.
-  medidaGasVoltios = calcularValorVoltiosGas();   // Calcula los datos a Voltios.
-
-
-  // * Registra si ha ocurrido una alerta, y manda un único mensaje de alerta. *
-  if((medidaGasVoltios >= 2) && (controladorAlertaGas == 0)){
-      client.publish("equipo2/bascula/alarma", "¡¡¡ALERTA SENSOR DE GAS!!!: ");
-      controladorAlertaGas = 1;
-    } 
-  if((medidaGasVoltios <= 1) && (controladorAlertaGas == 1)){
-      controladorAlertaGas = 0;         // Se resetea la alerta de gas para que pueda saltar otra vez.
-    }
-
-    
-
-
-  // --------------------------------
-  
   AsyncUDP udp;
   StaticJsonBuffer<300> jsonBuffer;                 //tamaño maximo de los datos
   JsonObject& envio = jsonBuffer.createObject();    //creación del objeto "envio"
@@ -225,19 +162,5 @@ void loop()
   
   //Se hace continuamente 
   leerInfrarrojos();
-
-
- // ----- MQTT -----
-client.loop();
-  delay(10);  // <- fixes some issues with WiFi stability
-
-  
-  
-  if (!client.connected()) {
-    connect();
-  }
-
-  // ----------------
-  
   
 }
