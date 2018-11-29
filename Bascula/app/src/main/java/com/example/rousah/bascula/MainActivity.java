@@ -184,8 +184,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         startActivityForResult(intent, 123);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
 
     }
-
-
     //  BORJA
     /*
      * Function introduced as part of the remote user administration
@@ -343,7 +341,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     public void onFragmentInteraction(Uri uri) {
         //do something here
     }
-
     //--------------Drawer--------------------
 
 

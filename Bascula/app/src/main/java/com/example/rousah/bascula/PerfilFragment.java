@@ -105,6 +105,12 @@ public class PerfilFragment extends Fragment {
                 lanzarEditar();
             }
         });
+        Button borrar = view.findViewById(R.id.borrar);
+        borrar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                lanzarBorrarUser();
+            }
+        });
 
         TextView nombre = view.findViewById(R.id.nombrePerfil);
         nombre.setText(usuario.getDisplayName());
@@ -170,12 +176,17 @@ public class PerfilFragment extends Fragment {
         mListener = null;
     }
 
+    public void lanzarBorrarUser(){
+        Intent i = new Intent(getContext(), BorrarUsuarioActivity.class);
+        startActivity(i);
+    }
+
     public void lanzarEditar(){
         Intent i = new Intent(getContext(), CrearPerfil.class);
         startActivity(i);
     }
 
-    private void comprobarImagen() {
+    public void comprobarImagen() {
         final FirebaseUser usuario;
         usuario = FirebaseAuth.getInstance().getCurrentUser();
 

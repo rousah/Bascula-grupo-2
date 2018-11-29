@@ -254,8 +254,15 @@
                     android:layout_width="96dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:onClick="pulsarEditar"
                     android:text="Editar" />
+
+                <Button
+                    android:id="@+id/borrar"
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Editar"
+                    tools:text="Borrar" />
             </LinearLayout>
 
 
