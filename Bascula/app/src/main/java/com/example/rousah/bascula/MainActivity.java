@@ -35,13 +35,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.comun.Mqtt;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+import static com.example.comun.Mqtt.broker;
+import static com.example.comun.Mqtt.clientId;
+import static com.example.comun.Mqtt.qos;
+import static com.example.comun.Mqtt.topicRoot;
+import static com.firebase.ui.auth.AuthUI.TAG;
 
 
 public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener {
@@ -328,6 +343,75 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         }
     }
     //--------------Nav Header----------------
+
+    //---------------MQTT------------------------
+    public void botonLuces (View view) {
+        try {
+            Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
+            MqttMessage message = new MqttMessage("TOGGLE".getBytes());
+            message.setQos(qos);
+            message.setRetained(false);
+            client.publish(topicRoot+"cmnd/POWER", message);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al publicar.", e);
+        }
+        Snackbar.make(view, "Publicando en MQTT by rous", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+    }
+
+    @Override public void onDestroy() {
+        try {
+            Log.i(TAG, "Desconectado");
+            client.disconnect();
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al desconectar.", e);
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void connectionLost(Throwable cause) {
+        while (!isNetworkAvailable()) {
+            Log.d(TAG, "Reintentando conexión MQTT");
+            try {
+                Log.i(Mqtt.TAG, "Conectando al broker " + broker);
+                client = new MqttClient(broker, clientId, new MemoryPersistence());
+                MqttConnectOptions connOpts = new MqttConnectOptions();
+                connOpts.setCleanSession(true);
+                connOpts.setKeepAliveInterval(60);
+                connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
+                        qos, false);
+                client.connect(connOpts);
+            } catch (MqttException e) {
+                Log.e(Mqtt.TAG, "Error al conectar.", e);
+            }
+        }
+    }
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        final String payload = new String(message.getPayload());
+        Log.d(TAG, "Recibiendo: " + topic + "->" + payload);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Switch luces = findViewById(R.id.switchluces);
+                if (payload.contains("ON")) {
+                    luces.setChecked(true);
+                    Toast.makeText(getBaseContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                }
+                if (payload.contains("OFF")) {
+                    luces.setChecked(false);
+                    Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+        Log.d(TAG, "Entrega completa");
+    }
+    //---------------MQTT------------------------
 
 
     public boolean isNetworkAvailable() {
