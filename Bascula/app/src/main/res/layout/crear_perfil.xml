@@ -326,7 +326,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:onClick="guardar"
-                    android:text="Listo" />
+                    android:text="Guardar" />
 
             </LinearLayout>
 
