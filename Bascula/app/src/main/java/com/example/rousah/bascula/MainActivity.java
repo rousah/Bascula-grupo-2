@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         }
 
         try {
-            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"POWER");
-            client.subscribe(topicRoot+"POWER", qos);
+            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"cmnd/POWER");
+            client.subscribe(topicRoot+"cmnd/POWER", qos);
             client.setCallback(this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
@@ -425,18 +425,22 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         final String payload = new String(message.getPayload());
-        Log.d(TAG, "Recibiendo: " + topic + "->" + payload);
+        Log.d(Mqtt.TAG, "Recibiendo: " + topic + "->" + payload);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Switch luces = findViewById(R.id.switchluces);
-                if (payload.contains("ON")) {
-                    luces.setChecked(true);
-                    Toast.makeText(getBaseContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
-                }
-                if (payload.contains("OFF")) {
-                    luces.setChecked(false);
-                    Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                if (luces != null) {
+                    if (payload.contains("ON")) {
+                        luces.setChecked(true);
+                        Toast.makeText(getApplicationContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                        Log.d(Mqtt.TAG, "encendiendo");
+                    }
+                    if (payload.contains("OFF")) {
+                        luces.setChecked(false);
+                        Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                        Log.d(Mqtt.TAG, "apagando");
+                    }
                 }
             }
         });
