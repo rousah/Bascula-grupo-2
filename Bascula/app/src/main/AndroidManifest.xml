@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
         <activity android:name=".BorrarUsuarioActivity"
-            android:label="Acerca de ..." />
+            android:label="Borrar usuario ..." />
         <activity android:name=".PreferenciasActivity"
             android:label="Preferencias ..."/>
         <activity android:name=".AcercaDeActivity"
