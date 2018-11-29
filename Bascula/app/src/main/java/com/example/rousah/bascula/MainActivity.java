@@ -37,8 +37,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,6 +50,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 
@@ -62,14 +67,14 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     View headerLayout;
 
     public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
-    FirebaseUser usuario;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private ImageView imagenPerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        usuario = FirebaseAuth.getInstance().getCurrentUser();
 
         setContentView(R.layout.activity_main);
 
@@ -105,8 +110,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
 
         headerLayout = navigationView.getHeaderView(0); // 0-index header
-
-        mostrarUsuarioNavDrawer(usuario);
+        mostrarUsuarioNavDrawer();
 
     }
 
@@ -345,15 +349,83 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
 
     //--------------Nav Header----------------
-    void mostrarUsuarioNavDrawer(FirebaseUser usuario) {
+    void mostrarUsuarioNavDrawer() {
+        final FirebaseUser usuario;
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
+
         TextView nombre = headerLayout.findViewById(R.id.nombreNav);
         nombre.setText(usuario.getDisplayName());
 
         TextView email = headerLayout.findViewById(R.id.emailNav);
         email.setText(usuario.getEmail());
 
+        //variables: imagen en Storage, uid del user actual y el proveedor de google
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String proveedor = usuario.getProviders().get(0);
+
+        //imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
         final ImageView imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
-        String proveedor = usuario.getProviders().get(0);
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+        storageReference.child("imagenesPerfil/" + uid).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(getBaseContext()).load(uri.toString()).resize(168, 168).centerCrop()
+                        .transform(new CircleTransform())
+                        .into(imagenPerfil);
+                System.out.println("dentro de getPhoto");
+                Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                if (proveedor.equals("google.com")) {
+                    final String uri = usuario.getPhotoUrl().toString();
+                    //carga la foto y usa transform para hacerla circular
+                    Picasso.with(getBaseContext()).load(uri).resize(168, 168).transform(new CircleTransform()).into(imagenPerfil);
+                    System.out.println("dentro de getPhoto");
+                    Toast.makeText(getBaseContext(), "Googleado", Toast.LENGTH_LONG).show();
+                } else {
+                    //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+                    Picasso.with(getBaseContext()).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
+                }
+            }
+        });
+
+
+        //por si se logea con email y no tiene foto asignada
+
+                /*if(proveedor.equals("google.com") && storageReference.child("usuarios/" + uid + "/imagenUsuario.jpg") == null) {
+            String uri = usuario.getPhotoUrl().toString();
+            //carga la foto y usa transform para hacerla circular
+            Picasso.with(getBaseContext()).load(uri).transform(new CircleTransform()).into(imagenPerfil);
+            System.out.println("dentro de getPhoto");
+            Toast.makeText(getBaseContext(), "Googleado", Toast.LENGTH_LONG).show();
+
+        } else if (storageReference.child("usuarios/" + uid + "/imagenUsuario.jpg") != null) {
+            storageReference.child("usuarios/" + uid + "/imagenUsuario.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    //Toast.makeText(CrearPerfil.this, uri.toString(), Toast.LENGTH_LONG).show();
+                    Picasso.with(getBaseContext()).load(uri.toString()).resize(168, 168).centerCrop()
+                            .transform(new CircleTransform())
+                            .into(imagenPerfil);
+                    System.out.println("dentro de getPhoto");
+                }
+            });
+        }
+        //por si se logea con email y no tiene foto asignada
+        else {
+            //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+            Picasso.with(getBaseContext()).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
+        }*/
+
+
+
+
+        /*String proveedor = usuario.getProviders().get(0);
         //checkea si el proveedor es de google por si se logea con un email
         if(proveedor.equals("google.com")) {
             String uri = usuario.getPhotoUrl().toString();
@@ -364,9 +436,10 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         //por si se logea con email y no tiene foto asignada
         else {
             imagenPerfil.setImageDrawable(getDrawable(R.drawable.ic_account_circle_black_55dp));
-        }
-    }
-    //--------------Nav Header----------------
+        }*/
 
+
+    //--------------Nav Header----------------
+    }
 
 }

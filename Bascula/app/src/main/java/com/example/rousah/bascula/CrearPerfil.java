@@ -102,14 +102,11 @@ public class CrearPerfil extends AppCompatActivity {
     }
 
     private void escogerImagen() {
-        if(proveedor.equals("google.com")) {
-            Toast.makeText(CrearPerfil.this, "No se deben cambiar imagenes de google+", Toast.LENGTH_LONG).show();
-        }else {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), SOLICITUD_PERMISO_GALERIA);
-        }
+        final String proveedor = usuario.getProviders().get(0);
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SOLICITUD_PERMISO_GALERIA);
     }
     //recibimos el request del startActivityfor...
     @Override
@@ -132,46 +129,51 @@ public class CrearPerfil extends AppCompatActivity {
 
     //comprueba si el user tiene imagen en storage, si no la tiene comprueba en google, si no pondra una por defecto
     private void comprobarImagen(){
+        final FirebaseUser usuario;
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
         //variables: imagen en Storage, uid del user actual y el proveedor de google
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        final String proveedor = usuario.getProviders().get(0);
+
+
+        //imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
+        final ImageView imagenPerfil = findViewById(R.id.fotoCrearPerfil);
+
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        proveedor = usuario.getProviders().get(0);
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
-        if(storageReference.child("usuarios/"+uid+"/imagenUsuario.jpg") != null){
-            storageReference.child("usuarios/"+uid+"/imagenUsuario.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    //Toast.makeText(CrearPerfil.this, uri.toString(), Toast.LENGTH_LONG).show();
-                    Picasso.with(CrearPerfil.this).load(uri.toString())
-                            .transform(new CircleTransform())
-                            .into(imagenPerfil);
+
+        storageReference.child("imagenesPerfil/" + uid).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                //POR SI ALGUIEN TIENE ALGUNA DUDA DE CUAL ES LA URL DE DESCARGA ES EL PUTO URI. BUENAS NOCHES.
+                Toast.makeText(CrearPerfil.this, uri.toString(), Toast.LENGTH_LONG).show();
+                Picasso.with(CrearPerfil.this).load(uri.toString()).resize(168, 168).centerCrop()
+                        .transform(new CircleTransform())
+                        .into(imagenPerfil);
+                System.out.println("dentro de getPhoto");
+                Toast.makeText(CrearPerfil.this, "No googleado", Toast.LENGTH_LONG).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                if (proveedor.equals("google.com")) {
+                    final String uri = usuario.getPhotoUrl().toString();
+                    //carga la foto y usa transform para hacerla circular
+                    Picasso.with(CrearPerfil.this).load(uri).transform(new CircleTransform()).into(imagenPerfil);
                     System.out.println("dentro de getPhoto");
+                    Toast.makeText(CrearPerfil.this, "Googleado", Toast.LENGTH_LONG).show();
+                } else {
+                    //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+                    Picasso.with(CrearPerfil.this).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
                 }
-            });
-        }else if(proveedor.equals("google.com")) {
-            Log.d("FOTO GOOGLE", usuario.getPhotoUrl().toString());
-            String uri2 = usuario.getPhotoUrl().toString();
-            //Para cargar la foto en mejor calidad
-            uri2 = uri2.replace("/s96-c/","/s300-c/");
-            //Usa transform para hacerla circular
-            Picasso.with(this).load(uri2)
-                    .transform(new CircleTransform())
-                    .into(imagenPerfil);
-            Toast.makeText(CrearPerfil.this, "Tu imagen es de google", Toast.LENGTH_LONG).show();
-
-            System.out.println("dentro de getPhoto");
-        }
-        //por si se logea con email y no tiene foto asignada
-        else {
-            //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
-            Picasso.with(this).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
-            Toast.makeText(CrearPerfil.this, "No tienes imagen", Toast.LENGTH_LONG).show();
-
-        }
+            }
+        });
     }
 
     private void guardarImagen() {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         if(filePath != null)
         {
@@ -179,7 +181,7 @@ public class CrearPerfil extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference dataRef = storageReference.child("usuarios/"+uid+"/imagenUsuario.jpg");
+            StorageReference dataRef = storageReference.child("imagenesPerfil/" + uid);
             dataRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -227,9 +229,9 @@ public class CrearPerfil extends AppCompatActivity {
     };
 
     public void seleccionaFecha (View view) {
-            new DatePickerDialog(this, date, myCalendar
-                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        new DatePickerDialog(this, date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
 
@@ -259,14 +261,14 @@ public class CrearPerfil extends AppCompatActivity {
             final DocumentReference usuarioActual = db.collection("usuarios").document(usuario.getUid());
             usuarioActual.update(datos)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d("Succes firestore", "DocumentSnapshot added with ID: " + usuarioActual.getId());
-                    final Intent iMain = new Intent(context, MainActivity.class);
-                    startActivity(iMain);
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("Succes firestore", "DocumentSnapshot added with ID: " + usuarioActual.getId());
+                            final Intent iMain = new Intent(context, MainActivity.class);
+                            startActivity(iMain);
 
-                }
-            })
+                        }
+                    })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -276,4 +278,3 @@ public class CrearPerfil extends AppCompatActivity {
         }
     }
 }
-
