@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#399699</color>
-    <color name="colorPrimaryDark">#89CACC</color>
+    <color name="colorPrimaryDark">#89cacc</color>
     <color name="colorAccent">#ff869b</color>
 
     <color name="colorPrimaryLogIn">#673AB7</color>
@@ -9,5 +9,8 @@
     <color name="colorPrimaryLightLogIn">#EDE7F6</color>
     <color name="colorAccentLogIn">#7C4DFF</color>
     <color name="colorSecondaryLogIn">#FFC107</color>
-
+    <color name="negro_semitransparente">#B2000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="verde">#93C294</color>
 </resources>

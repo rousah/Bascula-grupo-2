@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.diogobernardino:williamchart:2.5.0'
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1'
     implementation project(':comun')
+    implementation 'com.github.joaquimley:faboptions:1.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

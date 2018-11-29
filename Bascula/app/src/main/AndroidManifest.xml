@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rousah.bascula">
 
-    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>
+    <!--<uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -34,11 +34,6 @@
             </intent-filter>
         </activity>
 
-        <!--
-      BORJA
-      Introduced in order to implement remote user administration
-      >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    -->
         <activity
             android:name=".RemoveRemoteCheckActivity">
         </activity>
@@ -62,13 +57,9 @@
             android:name=".RegistroUsuarioRemotoActivity"
             android:label="Registro Usuario Remoto">
         </activity>
-        <!--
-            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            BORJA
-            Introduction ends here
-        -->
 
-        <activity android:name=".DatosDiaCalendario"></activity>
+        <activity android:name=".DatosDiaCalendario">
+        </activity>
 
     </application>
 
