@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MAPA Y NOTIFICACION MQTT</string>
+    <string name="dialog_text">¡¡ALERTA FUGA DE GAS!!</string>
+</resources>

@@ -172,14 +172,12 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
                     android:indeterminate="false"
                     android:max="100"
                     android:progress="60"
                     android:progressDrawable="@drawable/custom_progressbar_drawable"
                     android:rotation="180"
                     android:secondaryProgress="0"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -254,7 +252,33 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
+
+
             </android.support.constraint.ConstraintLayout>
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AlertButton"
+                    android:layout_centerInParent="true"
+                    android:text="ALERTA"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AlertTextView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/AlertButton"
+                    android:text="ALERTA DE GAS RECIBIDA"
+                    android:textSize="20sp"
+                    android:visibility="invisible"/>
+            </RelativeLayout>
 
 
         </LinearLayout>

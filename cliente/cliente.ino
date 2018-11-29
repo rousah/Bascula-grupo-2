@@ -7,7 +7,7 @@
 #include <MQTT.h>
 
 
-// ---------------- MQTT -------------------------
+
 
 // --- Sensor de Gas Pines ---
 const int MQ_PIN = 36;
@@ -17,6 +17,8 @@ int medidaGasRaw;
 int medidaGasVoltios;
 int controladorAlertaGas = 0;
 // ------------------
+
+// ---------------- MQTT -------------------------
 
 const char broker[] = "iot.eclipse.org";
 
