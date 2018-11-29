@@ -26,12 +26,15 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 public class TabPrimero extends Fragment {
+
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_primero,null);
+        final View view = inflater.inflate(R.layout.tab_primero,null);
+
 
 
 
@@ -39,14 +42,14 @@ public class TabPrimero extends Fragment {
 
         Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
         int monthDay =calendarNow.get(Calendar.DAY_OF_MONTH);
-        int month = calendarNow.get(Calendar.MONTH);
+        int month = calendarNow.get(Calendar.MONTH) + 1;
         int year = calendarNow.get(Calendar.YEAR);
 
         String fecha = String.valueOf(monthDay)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
-        ultimosDatos(fecha, userUid);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("usuarios").document(String.valueOf(Uid)).collection("mediciones").document(f).get()
+        //--------------datos reales bascula-------------
+        db.collection("usuarios").document(String.valueOf(userUid)).collection("mediciones").document(fecha).get()
                 .addOnSuccessListener(
                         new OnSuccessListener<DocumentSnapshot>() {
                             @Override
@@ -75,7 +78,6 @@ public class TabPrimero extends Fragment {
                                     Double peso = task.getResult().getDouble("peso");
                                     Double altura = task.getResult().getDouble("altura");
                                     Double imc = task.getResult().getDouble("imc");
-
                                     /**
                                      *
                                      * Sí los datos recogidos son igual a null saldrá un TOAST
@@ -89,20 +91,17 @@ public class TabPrimero extends Fragment {
                                     if(peso == null)
                                     {
                                         Toast.makeText(getContext(), "No hay datos.", 0).show();// TODO Auto-generated method stub
-
                                     }
                                     else
                                     {
                                         TextView pesoReal = view.findViewById(R.id.pesoValor);
-                                        pesoReal.setText(task.getResult().getDouble("peso").toString() + "Kg");
+                                        pesoReal.setText(task.getResult().getDouble("peso").toString() + " Kg");
+                                        String hey = task.getResult().getDouble("peso").toString();
                                         TextView alturaReal = view.findViewById(R.id.alturaValor);
-                                        alturaReal.setText(task.getResult().getDouble("temperatura").toString() + "M");
+                                        alturaReal.setText(task.getResult().getDouble("altura").toString() + " M");
                                         TextView imcReal = view.findViewById(R.id.imcValor);
-                                        imcReal.setText(task.getResult().getDouble("sensaciontermica").toString() + "");
-
+                                        imcReal.setText(task.getResult().getDouble("imc").toString());
                                     }
-                                    //
-
                                 } else {
                                     //Log.e(TAG, "Error al leer", task.getException());
                                 }
@@ -116,12 +115,10 @@ public class TabPrimero extends Fragment {
                             }
                         }
                 );
+        //--------------datos reales bascula-------------
 
+        return view;
     }
 
-    //--------------datos reales bascula-------------
-    public void ultimosDatos(final String f, String Uid)
-    {
-    }
-    //--------------datos reales bascula-------------
+
 }
