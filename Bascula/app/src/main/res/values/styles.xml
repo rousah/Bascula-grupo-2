@@ -49,6 +49,10 @@
         <item name="android:textSize">10pt</item>
     </style>
 
+    <!--<style name="Etiquetas">
+        <item name="android:background">@drawable/background_black</item>
+        <item name="android:textColor">@color/white</item>
+    </style>-->
 
     <!--Estilo LogIn-->
     <style name="LoginTheme" parent="FirebaseUI">

@@ -1,10 +1,14 @@
 package com.example.rousah.bascula;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +25,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.joaquimley.faboptions.FabOptions;
 
+import static com.example.rousah.bascula.R.layout.tab_segundo;
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class TabSegundo extends Fragment {
@@ -38,10 +44,18 @@ public class TabSegundo extends Fragment {
         userUid = usuario.getUid();
 
     }
+
+    @SuppressLint({"ResourceAsColor", "ResourceType"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab_segundo, container, false);
+        view = inflater.inflate(tab_segundo, container, false);
+
+        FabOptions fabOptions = view.findViewById(R.id.fab_options);
+        fabOptions.setButtonsMenu(R.menu.menu_filter);
+
+        fabOptions.setBackgroundColor(R.color.colorPrimaryDark);
+        fabOptions.setFabColor(R.color.colorAccent);
 
         /**
          * Recoge el ID del calendario en el que interactuamos
@@ -69,12 +83,6 @@ public class TabSegundo extends Fragment {
         });
 
         return view;
-    }
-
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
-        Dialog dialog = new Dialog(getActivity());
-        return dialog;
     }
 
     /**
@@ -168,6 +176,5 @@ public class TabSegundo extends Fragment {
 
 
     }
-
 
 }
