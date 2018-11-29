@@ -13,6 +13,7 @@ Initial
 
 package com.example.rousah.bascula;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -52,13 +53,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import static com.example.comun.Mqtt.broker;
 import static com.example.comun.Mqtt.clientId;
@@ -121,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
         //Inflate the first fragment,this is like home fragment before user selects anything.
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frameContent,new TabFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frameContent, new TabFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_inicio);
         setTitle("Mediciones");
         //--------------Drawer--------------------

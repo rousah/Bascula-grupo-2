@@ -64,7 +64,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/pesoValor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -86,7 +86,7 @@
                 android:padding="15dp">
 
                 <TextView
-                    android:id="@+id/altura"
+                    android:id="@+id/alturaTexto"
                     android:layout_width="166dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -96,7 +96,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/alturavalor"
+                    android:id="@+id/alturaValor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -128,15 +128,15 @@
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/imcvalor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="20.2"
-                        android:textColor="#ffffff"
-                        android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/imcValor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="20.2"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
             </LinearLayout>
 
 
