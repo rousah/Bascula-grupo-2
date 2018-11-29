@@ -115,12 +115,8 @@ public class ArduinoUart {
                             Log.w(TAG, "Error en sleep()", e);
                         }
 
-                        Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
-                        int monthDay =calendarNow.get(Calendar.DAY_OF_MONTH);
-                        int month = calendarNow.get(Calendar.MONTH);
-                        int year = calendarNow.get(Calendar.YEAR);
 
-                        Log.d(TAG, String.valueOf(monthDay)+"-"+String.valueOf(month)+"-"+String.valueOf(year));
+                        
 
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         datos.put("peso", peso);
