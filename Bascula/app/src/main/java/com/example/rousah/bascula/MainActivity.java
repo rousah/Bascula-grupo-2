@@ -59,6 +59,7 @@ import static com.example.comun.Mqtt.topicRoot;
 import static com.firebase.ui.auth.AuthUI.TAG;
 
 
+
 public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener {
 
     //--------------Drawer--------------------
@@ -73,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     FirebaseUser usuario;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    //----------------MQTT---------------------
+    MqttClient client;
+    //----------------MQTT---------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +120,29 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         headerLayout = navigationView.getHeaderView(0); // 0-index header
 
         mostrarUsuarioNavDrawer(usuario);
+
+        //---------------MQTT---------------------
+        try {
+            Log.i(Mqtt.TAG, "Conectando al broker " + broker);
+            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setCleanSession(true);
+            connOpts.setKeepAliveInterval(60);
+            connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
+                    qos, false);
+            client.connect(connOpts);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al conectar.", e);
+        }
+
+        try {
+            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"POWER");
+            client.subscribe(topicRoot+"POWER", qos);
+            client.setCallback(this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+        //---------------MQTT---------------------
 
     }
 
