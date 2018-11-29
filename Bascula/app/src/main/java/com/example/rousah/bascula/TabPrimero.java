@@ -56,7 +56,6 @@ public class TabPrimero extends Fragment implements MqttCallback {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //---------------MQTT---------------------
         try {
             Log.i(Mqtt.TAG, "Conectando al broker " + broker);
