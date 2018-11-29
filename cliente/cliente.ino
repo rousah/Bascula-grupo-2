@@ -37,7 +37,7 @@ int pirValue; // Para guardar el valor del pirPin
 
 // --- Escucha del sensor hum temp ---
 // Definimos el pin digital donde se conecta el sensor DHT
-#define DHTPIN 25
+#define DHTPIN 5
 // Dependiendo del tipo de sensor
 #define DHTTYPE DHT11
 // Inicializamos el sensor DHT11
@@ -61,9 +61,22 @@ unsigned long previousMillis = 0;        // guardará cuándo se lee los sensore
 const long interval = 5000;           // intervalo de cuándo se leerán los sensores
 
 
+// -------------- Funciones sensor MQ-2 Gases -----------------
+
+// lee el valor en crudo del sensor
+void leerSensorGas() {
+  medidaGasRaw = analogRead(MQ_PIN);
+}
+
+
+int calcularValorVoltiosGas () {
+  return (medidaGasRaw * (5.0 / 4095.0));
+}
+
+// ------------------------------------------------------------
 void leerInfrarrojos() {
 
-  if(digitalRead(pirPin)== HIGH) {
+  if(digitalRead(pirPin)==HIGH) {
    Serial.println("Detectado movimiento por el sensor pir");
    digitalWrite(ledPin, HIGH);
    delay(500);

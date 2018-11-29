@@ -91,8 +91,8 @@ public class CasaFragment extends Fragment implements MqttCallback {
         }
 
         try {
-            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"POWER");
-            client.subscribe(topicRoot+"POWER", qos);
+            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"cmnd/POWER");
+            client.subscribe(topicRoot+"cmnd/POWER", qos);
             client.setCallback(this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);

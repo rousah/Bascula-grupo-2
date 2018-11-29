@@ -105,6 +105,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
 
             private void alertaGas() {
 
+
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
                         builder.setCancelable(true);
@@ -118,6 +119,19 @@ public class TabPrimero extends Fragment implements MqttCallback {
                             }
                         });
                         builder.show();
+
+
+                builder.setCancelable(true);
+                builder.setTitle("ALERTA");
+                builder.setMessage("FUGA DE GAS!!");
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        alertTextView.setVisibility(View.VISIBLE);
+                    }
+                });
+                builder.show();
             }
         });
     }
