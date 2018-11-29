@@ -429,7 +429,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         storageReference.child("imagenesPerfil/" + uid).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Picasso.with(getBaseContext()).load(uri.toString()).resize(168, 168).centerCrop()
+                Picasso.with(getBaseContext()).load(uri.toString()).fit().centerCrop()
                         .transform(new CircleTransform())
                         .into(imagenPerfil);
                 System.out.println("dentro de getPhoto");
