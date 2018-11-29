@@ -20,11 +20,11 @@ HX711 balanza(DOUT, CLK);
 SR04 sr04 = SR04(ECHO_PIN,TRIG_PIN);
 long a;
 
-//const char * ssid = "EQUIPO_2";
-//const char * password = "HoLaMuNDo";
+const char * ssid = "EQUIPO_2";
+const char * password = "HoLaMuNDo";
 
-const char * ssid = "EQUIPO_5";
-const char * password = "Gti2018E5";
+//const char * ssid = "EQUIPO_5";
+//const char * password = "Gti2018E5";
 
 //const char * ssid = "MASMOVIL_2sPj";
 //const char * password = "6QSb3hZgFN22";

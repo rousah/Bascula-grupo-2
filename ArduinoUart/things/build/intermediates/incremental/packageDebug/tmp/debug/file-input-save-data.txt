@@ -1,18 +1,18 @@
 #Internal package file, do not edit.
-#Tue Nov 27 11:03:19 CET 2018
+#Wed Nov 28 23:25:12 CET 2018
 4.path=classes.dex
 8.set=DEX
 6.path=classes.dex
 0.baseType=DIRECTORY
 10.path=classes.dex
 5.baseType=DIRECTORY
-1.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/15
+1.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\11
 8.path=classes.dex
-3.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/19
+3.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\21
 4.set=DEX
-5.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/12
-7.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/13
-9.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/11
+5.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\12
+7.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\14
+9.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\16
 1.baseType=DIRECTORY
 0.set=DEX
 6.baseType=DIRECTORY
@@ -25,16 +25,16 @@
 3.path=classes.dex
 10.set=DEX
 5.path=classes.dex
-0.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/17
+0.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\20
 7.path=classes.dex
 9.path=classes.dex
 6.set=DEX
-2.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/18
-4.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/20
+2.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\13
+4.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\15
 3.baseType=DIRECTORY
-6.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/21
-10.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/14
-8.base=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/16
+6.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\17
+10.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\18
+8.base=C\:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\transforms\\dexMerger\\debug\\19
 2.set=DEX
 8.baseType=DIRECTORY
 9.set=DEX

@@ -5,71 +5,81 @@
     build-mode="COLD"
     density="hdpi"
     format="10"
+    ir-eligibility="COMPATIBLE"
     plugin-version="3.2.1"
-    timestamp="1543335681709"
-    token="-4380539382653669351"
+    timestamp="1543445535930"
+    token="8442060679521317054"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="215" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="49" />
     <task
         name="verifier"
-        duration="0" />
+        duration="13" />
+
+    <artifact
+        location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_8.apk"
+        type="SPLIT" />
 
     <build
         build-mode="FULL"
-        timestamp="1543335208264"
+        timestamp="1543443901696"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/slices/slice_8.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\resources\instant-run\debug\resources-debug.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/slices/slice_2.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\dep\dependencies.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/slices/slice_3.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/slices/slice_4.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/slices/slice_9.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_5.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/slices/slice_6.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/slices/slice_7.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_3.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/slices/slice_0.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/slices/slice_5.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/dep/dependencies.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_7.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/split-apk/debug/slices/slice_1.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_9.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/resources/instant-run/debug/resources-debug.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_8.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/instant-run-apk/debug/things-debug.apk"
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\instant-run-apk\debug\things-debug.apk"
             type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
-        timestamp="1543335681709"
-        verifier="COLD_SWAP_REQUESTED" />
+        ir-eligibility="COMPATIBLE"
+        timestamp="1543445535930"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            type="SPLIT" />
+    </build>
 
 </instant-run>
