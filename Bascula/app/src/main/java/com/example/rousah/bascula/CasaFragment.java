@@ -228,7 +228,7 @@ public class CasaFragment extends Fragment implements MqttCallback {
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         final String payload = new String(message.getPayload());
-        Log.d(TAG, "Recibiendo: " + topic + "->" + payload);
+        Log.d(Mqtt.TAG, "Recibiendo: " + topic + "->" + payload);
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -236,10 +236,12 @@ public class CasaFragment extends Fragment implements MqttCallback {
                 if (payload.contains("ON")) {
                     luces.setChecked(true);
                     Toast.makeText(getContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                    Log.d(Mqtt.TAG, "encendiendo");
                 }
                 if (payload.contains("OFF")) {
                     luces.setChecked(false);
                     Toast.makeText(getContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                    Log.d(Mqtt.TAG, "apagando");
                 }
             }
         });

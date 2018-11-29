@@ -400,7 +400,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     @Override
     public void connectionLost(Throwable cause) {
         while (!isNetworkAvailable()) {
-            Log.d(TAG, "Reintentando conexión MQTT");
+            Log.d("MQTT", "Reintentando conexión MQTT");
             try {
                 Log.i(Mqtt.TAG, "Conectando al broker " + broker);
                 client = new MqttClient(broker, clientId, new MemoryPersistence());
@@ -419,7 +419,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         final String payload = new String(message.getPayload());
-        Log.d(TAG, "Recibiendo: " + topic + "->" + payload);
+        Log.d("MQTT", "Recibiendo: " + topic + "->" + payload);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -438,7 +438,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
-        Log.d(TAG, "Entrega completa");
+        Log.d(Mqtt.TAG, "Entrega completa");
     }
     //---------------MQTT------------------------
 
