@@ -209,6 +209,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         alertTextView.setVisibility(View.VISIBLE);
+                        dialog.cancel();
                     }
                 });
                 builder.show();
