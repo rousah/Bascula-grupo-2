@@ -1,27 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Matthew\\Desktop\\Bascula-grupo-2\\ArduinoUart\\things\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-fr-rCA\\values-fr-rCA.xml",
+            "outputFile": "/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/incremental/mergeDebugResources/merged.dir/values-fr-rCA/values-fr-rCA.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Matthew\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-15.0.1.aar\\e0aba7a1fa4498dd1d544182289b7e5b\\res\\values-fr-rCA\\values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
-                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-                        "startOffsets": "249,353,565,693,800,1030,1161,1308,1446,1700,1810,2026,2160,2379,2584,2683,2773",
-                        "endColumns": "103,211,127,106,229,130,146,137,253,109,215,133,218,204,98,89,108",
-                        "endOffsets": "352,564,692,799,1029,1160,1307,1445,1699,1809,2025,2159,2378,2583,2682,2772,2881"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,213,425,557,668,898,1033,1184,1546,1800,1914,2130,2268,2487,2696,2799,2893",
-                        "endColumns": "107,211,131,110,229,134,150,141,253,113,215,137,218,208,102,93,112",
-                        "endOffsets": "208,420,552,663,893,1028,1179,1321,1795,1909,2125,2263,2482,2691,2794,2888,3001"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Matthew\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\b69f43bb11baad806eb03f6815eb2c38\\res\\values-fr-rCA\\values-fr-rCA.xml",
+                    "source": "/Users/rousah/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/a577174a001d40545bd05d948043ea43/res/values-fr-rCA/values-fr-rCA.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -38,7 +21,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Matthew\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-15.0.1.aar\\043f3f8eec85c089ebb02d12466f41d0\\res\\values-fr-rCA\\values.xml",
+                    "source": "/Users/rousah/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/d2d864173ac6571db6ec6c7ce932437b/res/values-fr-rCA/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "249,353,565,693,800,1030,1161,1308,1446,1700,1810,2026,2160,2379,2584,2683,2773",
+                        "endColumns": "103,211,127,106,229,130,146,137,253,109,215,133,218,204,98,89,108",
+                        "endOffsets": "352,564,692,799,1029,1160,1307,1445,1699,1809,2025,2159,2378,2583,2682,2772,2881"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,213,425,557,668,898,1033,1184,1546,1800,1914,2130,2268,2487,2696,2799,2893",
+                        "endColumns": "107,211,131,110,229,134,150,141,253,113,215,137,218,208,102,93,112",
+                        "endOffsets": "208,420,552,663,893,1028,1179,1321,1795,1909,2125,2263,2482,2691,2794,2888,3001"
+                    }
+                },
+                {
+                    "source": "/Users/rousah/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/6d1b86c3112dd7a01975611d25be7c0d/res/values-fr-rCA/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
