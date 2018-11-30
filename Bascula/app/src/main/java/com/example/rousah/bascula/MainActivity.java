@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             lanzarPreferencias(null);
             return true;
         }
+
         if (id == R.id.acercaDe) {
             lanzarAcercaDe(null);
             return true;
@@ -159,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         Intent i = new Intent(this, AcercaDeActivity.class);
         startActivity(i);
     }
+
 
     public void lanzarPreferencias(View view){
         Intent i = new Intent(this, PreferenciasActivity.class);

@@ -24,8 +24,7 @@
 
     <application
         android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
-        android:debuggable="true"
-        android:testOnly="true" >
+        android:debuggable="true" >
         <uses-library android:name="com.google.android.things" />
 
         <activity android:name="com.equipodos.raspberry.MainActivity" >

@@ -24,6 +24,11 @@
         <activity
             android:name=".CrearPerfil">
         </activity>
+
+        <activity
+            android:name=".SemanalActivity">
+        </activity>
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

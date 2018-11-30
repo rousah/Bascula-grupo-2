@@ -11,10 +11,14 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
@@ -30,6 +34,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.joaquimley.faboptions.FabOptions;
 
+import static com.example.rousah.bascula.R.layout.faboptions_button;
 import static com.example.rousah.bascula.R.layout.tab_segundo;
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
@@ -39,13 +44,14 @@ public class TabSegundo extends Fragment {
     private String fecha;
     private String userUid;
     private FirebaseUser usuario;
-    private Menu menu;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         usuario = FirebaseAuth.getInstance().getCurrentUser();
         userUid = usuario.getUid();
+        setHasOptionsMenu(true);
 
     }
 
@@ -65,6 +71,7 @@ public class TabSegundo extends Fragment {
         fabOptions.setButtonColor(R.id.faboptions_mes, R.color.white);
         fabOptions.setButtonColor(R.id.faboptions_trimestral, R.color.white);
         fabOptions.setButtonColor(R.id.faboptions_anual, R.color.white);
+
 
         /**
          * Recoge el ID del calendario en el que interactuamos
@@ -184,6 +191,47 @@ public class TabSegundo extends Fragment {
                 );
 
 
+    }
+
+    /**
+     * Lanzar recyclerview datos de la semana
+     * visualizando el layout de semana.
+     * @param view
+     */
+    public void lanzarSemanal(View view)
+    {
+        Intent i = new Intent(getContext(), SemanalActivity.class);
+        startActivity(i);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_filter, menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        String message = "You click fragment ";
+
+        if(itemId == R.id.faboptions_seven)
+        {
+            message += "Semanal";
+        }else if(itemId == R.id.faboptions_mes)
+        {
+            message += "Mensual";
+        }else if(itemId == R.id.faboptions_trimestral)
+        {
+            message += "Trimestral";
+        }
+
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setMessage(message);
+        alertDialog.show();
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
