@@ -1,57 +1,74 @@
-// ROSA, BORJA
-/*
-VERSION: V 2.0.0
-DESCRIPTION:
-The graphic part of the remote administration has been introduced.
- */
 
-/*
-VERSION: V 1.0.0
-DESCRIPTION:
-Initial
- */
 
 package com.example.rousah.bascula;
 
+import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.comun.Mqtt;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener {
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
+import static com.example.comun.Mqtt.broker;
+import static com.example.comun.Mqtt.clientId;
+import static com.example.comun.Mqtt.qos;
+import static com.example.comun.Mqtt.topicRoot;
+import static com.firebase.ui.auth.AuthUI.TAG;
+
+
+
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, MqttCallback {
 
     //--------------Drawer--------------------
     private DrawerLayout drawerLayout;
@@ -60,20 +77,29 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     private ActionBarDrawerToggle drawerToggle;
     //--------------Drawer--------------------
     View headerLayout;
+    // -------------RecyclerView--------------
+    private RecyclerView mRecyclerView;
+    private MyAdapter mAdapter;
 
     public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
-    FirebaseUser usuario;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+    //----------------MQTT---------------------
+    MqttClient client;
+    //----------------MQTT---------------------
+
+    private ImageView imagenPerfil;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        usuario = FirebaseAuth.getInstance().getCurrentUser();
 
         setContentView(R.layout.activity_main);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,15 +124,37 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
         //Inflate the first fragment,this is like home fragment before user selects anything.
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frameContent,new TabFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frameContent, new TabFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_inicio);
         setTitle("Mediciones");
         //--------------Drawer--------------------
 
 
         headerLayout = navigationView.getHeaderView(0); // 0-index header
+        mostrarUsuarioNavDrawer();
 
-        mostrarUsuarioNavDrawer(usuario);
+        //---------------MQTT---------------------
+        try {
+            Log.i(Mqtt.TAG, "Conectando al broker " + broker);
+            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setCleanSession(true);
+            connOpts.setKeepAliveInterval(60);
+            connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
+                    qos, false);
+            client.connect(connOpts);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al conectar.", e);
+        }
+
+        try {
+            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"POWER");
+            client.subscribe(topicRoot+"POWER", qos);
+            client.setCallback(this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+        //---------------MQTT---------------------
 
     }
 
@@ -156,42 +204,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         Intent i = new Intent(this, PreferenciasActivity.class);
         startActivity(i);
     }
-    //  BORJA
-    /*
-     * Function introduced as part of the remote user administration
-     *
-     * ????????????????????????????????
-     * It is not completed yet. some information that shall be passed between activities are not properly set.
-     * ????????????????????????????????
-     *
-     * Its main purpose is to be part of the confirmation whether the administrator actually aims
-     * to delete the remote user.
-     */
-    public void lanzaCheck(View view) {
 
-        TextView fieldTextView = (TextView) findViewById(R.id.usuario);
-
-        Intent intent = new Intent (this, RemoveRemoteCheckActivity.class);
-
-        // Storage of information as data/value into the intent
-         intent.putExtra("usuario", fieldTextView.getText().toString());
-
-        // Start activity of communication
-        startActivityForResult(intent, 123);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
-
-    }
-
-
-    //  BORJA
-    /*
-     * Function introduced as part of the remote user administration
-     *
-     * ????????????????????????????????
-     * It is not completed yet. some information shall be managet properly in the layout.
-     * ????????????????????????????????
-     *
-     * Its main purpose is to be part of to receive the acceptace or the rejection of the removal of the remote user
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);  // recommended by www.youtube.com/watch?v=OHyPQ4tpBuc
@@ -294,6 +307,9 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             case R.id.nav_casa:
                 fragment = new CasaFragment();
                 break;
+            case R.id.nav_tratamientos:
+                fragment = new TratamientosFragment();
+                break;
             case R.id.log_out:
                 FirebaseAuth.getInstance().signOut(); //End user session
                 startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
@@ -339,21 +355,52 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     public void onFragmentInteraction(Uri uri) {
         //do something here
     }
-
     //--------------Drawer--------------------
 
 
 
     //--------------Nav Header----------------
-    void mostrarUsuarioNavDrawer(FirebaseUser usuario) {
+    void mostrarUsuarioNavDrawer() {
+        final FirebaseUser usuario;
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
         TextView nombre = headerLayout.findViewById(R.id.nombreNav);
         nombre.setText(usuario.getDisplayName());
 
         TextView email = headerLayout.findViewById(R.id.emailNav);
         email.setText(usuario.getEmail());
 
-        final ImageView imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
-        String proveedor = usuario.getProviders().get(0);
+        comprobarImagen();
+        //por si se logea con email y no tiene foto asignada
+
+                /*if(proveedor.equals("google.com") && storageReference.child("usuarios/" + uid + "/imagenUsuario.jpg") == null) {
+            String uri = usuario.getPhotoUrl().toString();
+            //carga la foto y usa transform para hacerla circular
+            Picasso.with(getBaseContext()).load(uri).transform(new CircleTransform()).into(imagenPerfil);
+            System.out.println("dentro de getPhoto");
+            Toast.makeText(getBaseContext(), "Googleado", Toast.LENGTH_LONG).show();
+
+        } else if (storageReference.child("usuarios/" + uid + "/imagenUsuario.jpg") != null) {
+            storageReference.child("usuarios/" + uid + "/imagenUsuario.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    //Toast.makeText(CrearPerfil.this, uri.toString(), Toast.LENGTH_LONG).show();
+                    Picasso.with(getBaseContext()).load(uri.toString()).resize(168, 168).centerCrop()
+                            .transform(new CircleTransform())
+                            .into(imagenPerfil);
+                    System.out.println("dentro de getPhoto");
+                }
+            });
+        }
+        //por si se logea con email y no tiene foto asignada
+        else {
+            //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+            Picasso.with(getBaseContext()).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
+        }*/
+
+
+
+
+        /*String proveedor = usuario.getProviders().get(0);
         //checkea si el proveedor es de google por si se logea con un email
         if(proveedor.equals("google.com")) {
             String uri = usuario.getPhotoUrl().toString();
@@ -364,9 +411,127 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         //por si se logea con email y no tiene foto asignada
         else {
             imagenPerfil.setImageDrawable(getDrawable(R.drawable.ic_account_circle_black_55dp));
+        }*/
+    //--------------Nav Header----------------
+    }
+
+    public void comprobarImagen(){
+        final FirebaseUser usuario;
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
+
+        //variables: imagen en Storage, uid del user actual y el proveedor de google
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String proveedor = usuario.getProviders().get(0);
+
+        //imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
+        final ImageView imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+        storageReference.child("imagenesPerfil/" + uid).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(getBaseContext()).load(uri.toString()).fit().centerCrop()
+                        .transform(new CircleTransform())
+                        .into(imagenPerfil);
+                System.out.println("dentro de getPhoto");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                if (proveedor.equals("google.com")) {
+                    final String uri = usuario.getPhotoUrl().toString();
+                    //carga la foto y usa transform para hacerla circular
+                    Picasso.with(getBaseContext()).load(uri).resize(168, 168).transform(new CircleTransform()).into(imagenPerfil);
+                    System.out.println("dentro de getPhoto");
+                } else {
+                    //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
+                    Picasso.with(getBaseContext()).load(R.drawable.round_account_circle_black_48dp).resize(168, 168).transform(new CircleTransform()).into(imagenPerfil);
+
+                }
+            }
+        });
+    }
+
+
+    //---------------MQTT------------------------
+    public void botonLuces (View view) {
+        try {
+            Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
+            MqttMessage message = new MqttMessage("TOGGLE".getBytes());
+            message.setQos(qos);
+            message.setRetained(false);
+            client.publish(topicRoot+"cmnd/POWER", message);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al publicar.", e);
+        }
+        Snackbar.make(view, "Publicando en MQTT by rous", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+    }
+
+    @Override public void onDestroy() {
+        try {
+            Log.i(TAG, "Desconectado");
+            client.disconnect();
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al desconectar.", e);
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void connectionLost(Throwable cause) {
+        while (!isNetworkAvailable()) {
+            Log.d("MQTT", "Reintentando conexión MQTT");
+            try {
+                Log.i(Mqtt.TAG, "Conectando al broker " + broker);
+                client = new MqttClient(broker, clientId, new MemoryPersistence());
+                MqttConnectOptions connOpts = new MqttConnectOptions();
+                connOpts.setCleanSession(true);
+                connOpts.setKeepAliveInterval(60);
+                connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
+                        qos, false);
+                client.connect(connOpts);
+            } catch (MqttException e) {
+                Log.e(Mqtt.TAG, "Error al conectar.", e);
+            }
         }
     }
-    //--------------Nav Header----------------
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        final String payload = new String(message.getPayload());
+        Log.d("MQTT", "Recibiendo: " + topic + "->" + payload);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Switch luces = findViewById(R.id.switchluces);
+                if (luces != null) {
+                    if (payload.contains("ON")) {
+                        luces.setChecked(true);
+                        Toast.makeText(getBaseContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                    }
+                    if (payload.contains("OFF")) {
+                        luces.setChecked(false);
+                        Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+        Log.d(Mqtt.TAG, "Entrega completa");
+    }
+    //---------------MQTT------------------------
 
 
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        Log.d("internet", activeNetworkInfo.toString());
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    
 }

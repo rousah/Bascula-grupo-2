@@ -14,6 +14,11 @@
             android:title="Casa" />
 
         <item
+            android:id="@+id/nav_tratamientos"
+            android:icon="@drawable/ic_medical_kit"
+            android:title="Tratamientos" />
+
+        <item
             android:id="@+id/nav_perfil"
             android:icon="@drawable/ic_round_account_circle_24px"
             android:title="Perfil" />
