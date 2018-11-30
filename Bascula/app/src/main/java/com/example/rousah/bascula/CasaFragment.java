@@ -121,7 +121,7 @@ public class CasaFragment extends Fragment implements MqttCallback {
                              Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.casa, container, false);
-
+        luces = view.findViewById(R.id.switchluces);
         db.collection("usuarios").document(usuario.getUid()).get().addOnCompleteListener(
                 new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -132,7 +132,7 @@ public class CasaFragment extends Fragment implements MqttCallback {
                             temp.setText(task.getResult().getDouble("temperatura").toString() + " ºC");
 
                             TextView hum = view.findViewById(R.id.hum);
-                            hum.setText(task.getResult().getDouble("temperatura").toString() + " %");
+                            hum.setText(task.getResult().getDouble("humedad").toString() + " %");
 
                             TextView termi = view.findViewById(R.id.termi);
                             termi.setText(task.getResult().getDouble("sensaciontermica").toString() + " ºC");
@@ -278,7 +278,6 @@ public class CasaFragment extends Fragment implements MqttCallback {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                luces = view.findViewById(R.id.switchluces);
                 if (payload.contains("ON")) {
                     luces.setChecked(true);
                     Toast.makeText(getContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
