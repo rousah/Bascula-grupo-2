@@ -115,12 +115,19 @@ public class ArduinoUart {
                             Log.w(TAG, "Error en sleep()", e);
                         }
 
+                        Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
+                        int monthDay =calendarNow.get(Calendar.DAY_OF_MONTH);
+                        int month = calendarNow.get(Calendar.MONTH);
+                        int year = calendarNow.get(Calendar.YEAR);
+
+                        Log.d(TAG, String.valueOf(monthDay)+"-"+String.valueOf(month)+"-"+String.valueOf(year));
+                        fecha = String.valueOf(monthDay)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
+
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         datos.put("peso", peso);
                         datos.put("altura", altura);
-                        datos.put("randomizer", Math.random());
 
-                        db.collection("mediciones uarto").document(fecha).set(datos)
+                        db.collection("mediciones").document(fecha).set(datos)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

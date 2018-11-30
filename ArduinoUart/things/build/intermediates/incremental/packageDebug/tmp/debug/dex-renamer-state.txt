@@ -1,4 +1,4 @@
-#Fri Nov 30 10:24:36 CET 2018
+#Fri Nov 30 11:00:59 CET 2018
 base.0=/Users/rousah/Documents/GitHub/Bascula-grupo-2/ArduinoUart/things/build/intermediates/transforms/dexMerger/debug/1
 path.1=classes.dex
 renamed.1=classes2.dex
