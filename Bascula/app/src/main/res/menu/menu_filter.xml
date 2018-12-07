@@ -11,13 +11,14 @@
         android:icon="@drawable/ic_mensual"
         android:title="mensual" />
 
+    <item
+        android:id="@+id/faboptions_trimestral"
+        android:icon="@drawable/ic_trimestral"
+        android:title="trimestral" />
 
     <item
         android:id="@+id/faboptions_anual"
         android:icon="@drawable/ic_anual"
         android:title="anual" />
-    <item
-        android:id="@+id/faboptions_trimestral"
-        android:icon="@drawable/ic_trimestral"
-        android:title="trimestral" />
+
 </menu>

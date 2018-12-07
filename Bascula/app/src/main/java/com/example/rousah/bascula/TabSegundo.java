@@ -11,6 +11,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -172,6 +173,7 @@ public class TabSegundo extends Fragment {
                                         i.putExtra("peso", peso);
                                         i.putExtra("altura", altura);
                                         i.putExtra("imc", imc);
+
                                         startActivity(i);
                                     }
                                     //
@@ -210,6 +212,7 @@ public class TabSegundo extends Fragment {
 
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -218,20 +221,18 @@ public class TabSegundo extends Fragment {
 
         if(itemId == R.id.faboptions_seven)
         {
-            message += "Semanal";
+            Toast.makeText(getContext(), "SEMANAL", 0).show();
         }else if(itemId == R.id.faboptions_mes)
         {
-            message += "Mensual";
+
         }else if(itemId == R.id.faboptions_trimestral)
         {
             message += "Trimestral";
         }
 
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setMessage(message);
-        alertDialog.show();
-
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

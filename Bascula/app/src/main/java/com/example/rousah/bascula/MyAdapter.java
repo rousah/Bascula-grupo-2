@@ -1,5 +1,9 @@
 package com.example.rousah.bascula;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -108,7 +112,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      */
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - obtenemos un elemento del dataset según su posición
         // - reemplazamos el contenido de los views según tales datos
         holder.t1.setText((CharSequence) mTitleSet.get(position));
@@ -126,5 +130,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public int getItemCount() {
         return mDataSet.size();
     }
+
 }
 
