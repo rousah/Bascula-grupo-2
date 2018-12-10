@@ -5,6 +5,15 @@
     android:background="@drawable/rect_round_corners_bck"
     android:gravity="center_horizontal">
 
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/value"
+        android:layout_toRightOf="@+id/value"
+        android:src="@drawable/scale_bathroom"
+        android:tint="#ffffff"/>
+
     <TextView
         android:id="@+id/value"
         android:layout_width="wrap_content"
@@ -15,12 +24,4 @@
         android:gravity="center"
         android:textColor="#ffffff"
         android:textSize="16sp"></TextView>
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/value"
-        android:layout_toRightOf="@+id/value"
-        android:src="@drawable/scale"/>
 </RelativeLayout>
