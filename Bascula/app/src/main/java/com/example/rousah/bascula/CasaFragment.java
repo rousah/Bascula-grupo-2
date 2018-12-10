@@ -161,7 +161,10 @@ public class CasaFragment extends Fragment {
                                                          dataset.setColor(Color.parseColor("#399699"))
                                                                  .setDotsColor(Color.parseColor("#ff869b"))
                                                                  .setThickness(4)
-                                                                 .setDashed(new float[]{10f, 10f});
+                                                                 .setDashed(new float[]{10f, 10f})
+                                                                 .setFill(Color.parseColor("#3d6c73"))
+                                                                 .setGradientFill(new int[]{Color.parseColor("#364d5a"), Color.parseColor("#3f7178")},
+                                                                 null);
 
                                                         /* mBaseAction = action;
                                                          Runnable chartAction = new Runnable() {

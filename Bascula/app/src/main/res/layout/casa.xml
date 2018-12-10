@@ -279,7 +279,8 @@
                 android:id="@+id/linechart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_margin="10dp" />
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="15dp" />
 
         </LinearLayout>
 
