@@ -1,10 +1,12 @@
 package com.example.rousah.bascula;
 
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -18,13 +20,19 @@ import android.widget.TextView;
 import com.db.chart.animation.Animation;
 import com.db.chart.model.LineSet;
 import com.db.chart.model.Point;
+import com.db.chart.tooltip.Tooltip;
+import com.db.chart.util.Tools;
 import com.db.chart.view.LineChartView;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DecimalFormat;
 
@@ -40,22 +48,16 @@ import static android.view.KeyCharacterMap.FULL;
  * create an instance of this fragment.
  */
 public class CasaFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
+    int i = 0;
+
     private LineChartView grafica;
-    private Runnable mBaseAction;
 
     public CasaFragment() {
         // Required empty public constructor
@@ -73,8 +75,6 @@ public class CasaFragment extends Fragment {
     public static CasaFragment newInstance(String param1, String param2) {
         CasaFragment fragment = new CasaFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,10 +82,6 @@ public class CasaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -113,32 +109,74 @@ public class CasaFragment extends Fragment {
                     }
                 });
 
-        String[] labels = new String[2];
-        labels[0] = "12:00";
-        labels[1] = "13:00";
-        float[] values = new float[2];
-        values[0] = 20.0f;
-        values[1] = 30.0f;
 
-        LineSet dataset = new LineSet(labels, values);
-        dataset.addPoint(new Point("14:00", 40.0f));
 
-        dataset.setColor(Color.parseColor("#399699"))
-                .setDotsColor(Color.parseColor("#ff869b"))
-                .setThickness(4)
-                .setDashed(new float[]{10f, 10f});
 
-        DecimalFormat formato = new DecimalFormat();
-        formato.applyPattern("#0.00");
+       /* final String[] labels = new String[3];
+        final float[] values = new float[3];
+        final Tooltip mTip = new Tooltip(getContext(), R.layout.tooltip, R.id.value);
 
-        grafica = view.findViewById(R.id.linechart);
-        grafica.addData(dataset);
-        grafica.setAxisColor(Color.parseColor("#399699"))
-                .setTypeface(Typeface.createFromAsset(getContext().getAssets(), "OpenSans-Semibold.ttf"))
-                .setLabelsFormat(formato);
+        db.collection("usuarios")
+                .document(usuario.getUid())
+                .collection("mediciones")
+                .orderBy("fecha", Query.Direction.DESCENDING)
+                .limit(3)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                 @Override
+                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                     if (task.isSuccessful()) {
+                                                         int i = 0;
+                                                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                                             Log.d("mediciones", documentSnapshot.getData().get("fecha").toString());
+                                                             Log.d("mediciones", documentSnapshot.getData().get("peso").toString());
+                                                             float peso = Float.parseFloat(documentSnapshot.getData().get("peso").toString());
+                                                             String fecha = documentSnapshot.getData().get("fecha").toString();
+                                                             fecha = fecha.substring(4, 10);
+                                                             labels[i] = fecha;
+                                                             values[i] = peso;
+                                                             i++;
+                                                         }
+                                                         ((TextView) mTip.findViewById(R.id.value)).setTypeface(
+                                                                 Typeface.createFromAsset(getContext().getAssets(), "OpenSans-Semibold.ttf"));
 
-        grafica.show();
+                                                         mTip.setVerticalAlignment(Tooltip.Alignment.BOTTOM_TOP);
+                                                         mTip.setDimensions((int) Tools.fromDpToPx(58), (int) Tools.fromDpToPx(25));
+                                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 
+                                                             mTip.setEnterAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 1),
+                                                                     PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f),
+                                                                     PropertyValuesHolder.ofFloat(View.SCALE_X, 1f)).setDuration(200);
+
+                                                             mTip.setExitAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 0),
+                                                                     PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f),
+                                                                     PropertyValuesHolder.ofFloat(View.SCALE_X, 0f)).setDuration(200);
+
+                                                             mTip.setPivotX(Tools.fromDpToPx(65) / 2);
+                                                             mTip.setPivotY(Tools.fromDpToPx(25));
+                                                         }
+
+                                                         LineSet dataset = new LineSet(labels, values);
+
+                                                         dataset.setColor(Color.parseColor("#399699"))
+                                                                 .setDotsColor(Color.parseColor("#ff869b"))
+                                                                 .setThickness(4)
+                                                                 .setDashed(new float[]{10f, 10f});
+
+                                                         DecimalFormat formato = new DecimalFormat();
+                                                         formato.applyPattern("#0.0");
+                                                         grafica = view.findViewById(R.id.linechart);
+                                                         grafica.addData(dataset);
+                                                         grafica.setAxisColor(Color.parseColor("#399699"))
+                                                                 .setAxisBorderValues(0, 100)
+                                                                 .setTypeface(Typeface.createFromAsset(getContext().getAssets(), "OpenSans-Semibold.ttf"))
+                                                                 .setLabelsFormat(formato)
+                                                                 .setTooltips(mTip);
+
+                                                         grafica.show();
+                                                     }
+                                                 }
+                                             });
+        */
 
         // Inflate the layout for this fragment
         return view;
