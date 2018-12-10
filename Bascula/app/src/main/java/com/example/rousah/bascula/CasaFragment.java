@@ -4,6 +4,7 @@ import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.db.chart.animation.Animation;
 import com.db.chart.model.LineSet;
 import com.db.chart.model.Point;
+import com.db.chart.renderer.AxisRenderer;
 import com.db.chart.tooltip.Tooltip;
 import com.db.chart.util.Tools;
 import com.db.chart.view.LineChartView;
@@ -112,8 +114,9 @@ public class CasaFragment extends Fragment {
 
 
 
-       /* final String[] labels = new String[3];
+        final String[] labels = new String[3];
         final float[] values = new float[3];
+        final Runnable mBaseAction;
         final Tooltip mTip = new Tooltip(getContext(), R.layout.tooltip, R.id.value);
 
         db.collection("usuarios")
@@ -127,8 +130,6 @@ public class CasaFragment extends Fragment {
                                                      if (task.isSuccessful()) {
                                                          int i = 0;
                                                          for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                                             Log.d("mediciones", documentSnapshot.getData().get("fecha").toString());
-                                                             Log.d("mediciones", documentSnapshot.getData().get("peso").toString());
                                                              float peso = Float.parseFloat(documentSnapshot.getData().get("peso").toString());
                                                              String fecha = documentSnapshot.getData().get("fecha").toString();
                                                              fecha = fecha.substring(4, 10);
@@ -162,21 +163,41 @@ public class CasaFragment extends Fragment {
                                                                  .setThickness(4)
                                                                  .setDashed(new float[]{10f, 10f});
 
+                                                        /* mBaseAction = action;
+                                                         Runnable chartAction = new Runnable() {
+                                                             @Override
+                                                             public void run() {
+
+                                                                 mBaseAction.run();
+                                                                 mTip.prepare(mChart.getEntriesArea(0).get(3), mValues[0][3]);
+                                                                 mChart.showTooltip(mTip, true);
+                                                             }
+                                                         };
+
+                                                         */
+
+                                                         Paint paint = new Paint();
+                                                         paint.setColor(Color.parseColor("#E3E3E3"));
                                                          DecimalFormat formato = new DecimalFormat();
                                                          formato.applyPattern("#0.0");
                                                          grafica = view.findViewById(R.id.linechart);
                                                          grafica.addData(dataset);
                                                          grafica.setAxisColor(Color.parseColor("#399699"))
+                                                                 .setYAxis(false)
+                                                                 .setYLabels(AxisRenderer.LabelPosition.NONE)
+                                                                 .setGrid(10, 20, paint)
                                                                  .setAxisBorderValues(0, 100)
                                                                  .setTypeface(Typeface.createFromAsset(getContext().getAssets(), "OpenSans-Semibold.ttf"))
                                                                  .setLabelsFormat(formato)
-                                                                 .setTooltips(mTip);
+                                                                 .setTooltips(mTip)
+                                                                 .show(new Animation().setInterpolator(new BounceInterpolator())
+                                                                         .fromAlpha(0));
 
                                                          grafica.show();
                                                      }
                                                  }
                                              });
-        */
+
 
         // Inflate the layout for this fragment
         return view;
@@ -205,6 +226,8 @@ public class CasaFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
