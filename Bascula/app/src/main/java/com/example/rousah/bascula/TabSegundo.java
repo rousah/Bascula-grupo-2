@@ -196,14 +196,47 @@ public class TabSegundo extends Fragment {
     }
 
     /**
-     * Lanzar recyclerview datos de la semana
-     * visualizando el layout de semana.
+     * Lanzar recyclerview datos de la semana visualizando gráfica con el intervalo
+     * del mes.
      * @param view
      */
     public void lanzarSemanal(View view)
     {
-        Intent i = new Intent(getContext(), SemanalActivity.class);
-        startActivity(i);
+        Intent s = new Intent(getContext(), SemanalActivity.class);
+        startActivity(s);
+    }
+
+    /**
+     * Lanzar recyclerview datos del mes visualizando gráfica con el intervalo
+     * del mes.
+     * @param view
+     */
+    public void lanzarMensual(View view)
+    {
+        Intent m = new Intent(getContext(), MensualActivity.class);
+        startActivity(m);
+    }
+
+    /**
+     * Lanzar recyclerview datos del trimestre visualizando gráfica con el intervalo
+     * del trimestre.
+     * @param view
+     */
+    public void lanzarTrimestral(View view)
+    {
+        Intent t = new Intent(getContext(), TrimesActivity.class);
+        startActivity(t);
+    }
+
+    /**
+     * Lanzar recyclerview datos del año visualizando gráfica con el intervalo
+     * del año.
+     * @param view
+     */
+    public void lanzarAnual(View view)
+    {
+        Intent a = new Intent(getContext(), AnualActivity.class);
+        startActivity(a);
     }
 
     @Override
@@ -214,20 +247,30 @@ public class TabSegundo extends Fragment {
 
     @SuppressLint("WrongConstant")
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
 
-        String message = "You click fragment ";
+        int itemId = item.getItemId();
 
         if(itemId == R.id.faboptions_seven)
         {
             Toast.makeText(getContext(), "SEMANAL", 0).show();
+            lanzarSemanal(null);
         }else if(itemId == R.id.faboptions_mes)
         {
-
+            Toast.makeText(getContext(), "MENSUAL", 0).show();
+           // lanzarMensual(null);
         }else if(itemId == R.id.faboptions_trimestral)
         {
-            message += "Trimestral";
+            Toast.makeText(getContext(), "TRIMESTRAL", 0).show();
+           // lanzarTrimestral(null);
+        }else if(itemId == R.id.faboptions_anual)
+        {
+            Toast.makeText(getContext(), "ANUAL", 0).show();
+           // lanzarAnual(null);
+        }else
+        {
+            Toast.makeText(getContext(), "ERROR NO LLEVA A NINGÚN SITIO", 0).show();
         }
 
         return super.onOptionsItemSelected(item);

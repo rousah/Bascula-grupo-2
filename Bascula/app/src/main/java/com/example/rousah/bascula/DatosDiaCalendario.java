@@ -2,12 +2,13 @@ package com.example.rousah.bascula;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class DatosDiaCalendario extends Activity {
+public class DatosDiaCalendario extends Activity{
 
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
@@ -16,7 +17,9 @@ public class DatosDiaCalendario extends Activity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.datos_un_dia_cal);
+        //setContentView(R.layout.datos_un_dia_cal);
+
+        //new Dialogo().show(getFragmentManager(), "RecyclerView");
 
         mRecyclerView = findViewById(R.id.recycler_view_measurement);
 
