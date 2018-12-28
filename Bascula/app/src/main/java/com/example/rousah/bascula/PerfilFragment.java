@@ -182,8 +182,12 @@ public class PerfilFragment extends Fragment {
     }
 
     public void lanzarEditar(){
-        Intent i = new Intent(getContext(), CrearPerfil.class);
-        startActivity(i);
+        final Intent iFingerprint = new Intent(getContext(), Fingerprint.class);
+        iFingerprint.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+       // Intent i = new Intent(getContext(), CrearPerfil.class);
+        startActivity(iFingerprint);
     }
 
     public void comprobarImagen() {
