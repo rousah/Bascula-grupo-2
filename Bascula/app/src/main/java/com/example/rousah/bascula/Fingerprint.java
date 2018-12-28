@@ -1,6 +1,7 @@
 package com.example.rousah.bascula;
 
 import android.app.KeyguardManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.Manifest;
@@ -12,6 +13,7 @@ import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.widget.TextView;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -44,10 +46,12 @@ public class Fingerprint extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fingerprint);
+        Log.e("finger", "clase fingerprint");
 
         // If you’ve set your app’s minSdkVersion to anything lower than 23, then you’ll need to verify that the device is running Marshmallow
         // or higher before executing any fingerprint-related code
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Log.e("finger", "mayor que marshmallow");
             //Get an instance of KeyguardManager and FingerprintManager//
             keyguardManager =
                     (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
@@ -59,25 +63,31 @@ public class Fingerprint extends AppCompatActivity {
             //Check whether the device has a fingerprint sensor//
             if (!fingerprintManager.isHardwareDetected()) {
                 // If a fingerprint sensor isn’t available, then inform the user that they’ll be unable to use your app’s fingerprint functionality//
-                textView.setText("Your device doesn't support fingerprint authentication");
+                Log.e("finger", "no hay finger");
+                Intent i = new Intent(this, CrearPerfil.class);
+                startActivity(i);
             }
             //Check whether the user has granted your app the USE_FINGERPRINT permission//
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
                 // If your app doesn't have this permission, then display the following text//
-                textView.setText("Please enable the fingerprint permission");
+                textView.setText("Ceda permisos de fingerprint a la aplicación");
             }
 
             //Check that the user has registered at least one fingerprint//
             if (!fingerprintManager.hasEnrolledFingerprints()) {
                 // If the user hasn’t configured any fingerprints, then display the following message//
-                textView.setText("No fingerprint configured. Please register at least one fingerprint in your device's Settings");
+                textView.setText("No tiene ninguna huella configurada");
+                Log.e("finger", "no hay fingerprints");
             }
 
             //Check that the lockscreen is secured//
             if (!keyguardManager.isKeyguardSecure()) {
                 // If the user hasn’t secured their lockscreen with a PIN password or pattern, then display the following text//
-                textView.setText("Please enable lockscreen security in your device's Settings");
+                textView.setText("Su teléfono no tiene ningún tipo de seguridad");
+                Log.e("finger", "no hay seguridad");
             } else {
+                Log.e("finger", "else");
+
                 try {
                     generateKey();
                 } catch (FingerprintException e) {
@@ -94,6 +104,15 @@ public class Fingerprint extends AppCompatActivity {
                     helper.startAuth(fingerprintManager, cryptoObject);
                 }
             }
+        }
+        else {
+            Intent i = new Intent(this, CrearPerfil.class);
+   /*     final Intent iMain = new Intent(context, MainActivity.class);
+        iMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show(); */
+            startActivity(i);
         }
     }
 
