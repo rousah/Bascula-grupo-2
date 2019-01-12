@@ -161,7 +161,6 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:baselineAligned="false"
-                    android:text="Mujer"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -199,7 +198,6 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:baselineAligned="false"
-                    android:text="28/09/1999"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -239,42 +237,35 @@
                     android:baselineAligned="false"
                     android:text="633537044"
                     android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="32px">
+
+                <Button
+                    android:id="@+id/editar"
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Editar" />
+
+                <Button
+                    android:id="@+id/borrar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Borrar cuenta
+" />
             </LinearLayout>
 
 
-
-
-
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/guardarCancelar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/cancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:onClick="cancelarEditar"
-                android:text="Cancelar"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="Guardar"
-                android:visibility="gone"/>
-
-
-        </LinearLayout>
 
     </LinearLayout>
 

@@ -6,20 +6,31 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:foregroundGravity="center"
+    android:gravity="center|clip_horizontal"
     android:orientation="vertical"
     tools:context=".MainActivity$PlaceholderFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
-
+        android:layout_marginTop="30dp"
+        android:foregroundGravity="center_vertical|center_horizontal"
+        android:gravity="center_vertical|center">
 
         <CalendarView
             android:id="@+id/calendarView"
+<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_gravity="center"/>
+=======
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:foregroundGravity="center_vertical|center_horizontal|center" />
+>>>>>>> e14f2de6dcc1289a4b133079c09c1ec2eddf2a28
 
     </LinearLayout>
 
@@ -31,12 +42,15 @@
             android:id="@+id/fab_options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
+<<<<<<< HEAD
+=======
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+>>>>>>> e14f2de6dcc1289a4b133079c09c1ec2eddf2a28
             app:background_color="@color/colorAccent"
             app:fab_color="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"

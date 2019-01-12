@@ -3,16 +3,30 @@
 #include <TimeLib.h>
 #include <ArduinoJson.h>
 #include <DHT.h>
+#define BLANCO 0XFFFF
+#define NEGRO 0
+#define ROJO 0xF800
+#define VERDE 0x07E0
+#define AZUL 0x001F
+#include <SPI.h>
+#include <MFRC522.h>
+
 
 // --- Escucha del infrarrojo ---
 int ledPin = 5;  // LED en el Pin 5 del Arduino
 int pirPin = 21; // Input para HC-S501
 int pirValue; // Para guardar el valor del pirPin
 
+// --- Escucha del RFID ---
+#define RST_PIN  2    //Pin 9 para el reset del RC522 no es necesario conctarlo
+#define SS_PIN  21   //Pin 10 para el SS (SDA) del RC522
+MFRC522 mfrc522(SS_PIN, RST_PIN); ///Creamos el objeto para el RC522
+MFRC522::StatusCode status; //variable to get card status
+
 
 // --- Escucha del sensor hum temp ---
 // Definimos el pin digital donde se conecta el sensor DHT
-#define DHTPIN 25
+#define DHTPIN 5
 // Dependiendo del tipo de sensor
 #define DHTTYPE DHT11
 // Inicializamos el sensor DHT11
@@ -48,7 +62,7 @@ void leerInfrarrojos() {
   }
 }
 
-void leerHumTemp() {
+void leerHumTemp(float *pdatos) {
 
   // Leemos la humedad relativa
   float h = dht.readHumidity();
@@ -78,12 +92,18 @@ void leerHumTemp() {
   Serial.print("Índice de calor: ");
   Serial.print(hic);
   Serial.println(" *C");
-    
+
+  pdatos[0] = h;
+  pdatos[1] = t;
+  pdatos[2] = hic;
+      
 }
 
 void setup()
 {
     Serial.begin(115200);
+    SPI.begin();        //Iniciamos el Bus SPI
+    mfrc522.PCD_Init(); // Iniciamos el MFRC522
     // Cambiar cada vez que se tenga que subir
     setTime (20, 45, 0, 21, 10, 2018); //hora minuto segundo dia mes año
       
@@ -117,6 +137,11 @@ void setup()
   
 }
 
+byte ActualUID[7]; //almacenará el código del Tag leído
+byte Medicamento1[7]= {0x04, 0x17, 0xC0, 0x5A, 0x51, 0x59, 0x80} ; //código del usuario 1
+byte Medicamento2[7]= {0x04, 0x30, 0xC0, 0x5A, 0x51, 0x59, 0x80} ; //código del usuario 2
+byte Medicamento3[7]= {0x04, 0x1F, 0xC0, 0x5A, 0x51, 0x59, 0x80} ; //código del usuario 2
+
 
 void loop()
 {
@@ -124,9 +149,13 @@ void loop()
   StaticJsonBuffer<300> jsonBuffer;                 //tamaño maximo de los datos
   JsonObject& envio = jsonBuffer.createObject();    //creación del objeto "envio"
   char texto[300];
+  float datosDHT[3];
   
   String date = String(day())+"-"+String(month())+"-"+String(year());
   String timeNow = String(hour())+":"+String(minute())+":"+String(second());
+  float temp;
+  float hum;
+  float calor;
 
   envio["Date"] = date;
   envio["Time"] = timeNow;
@@ -136,10 +165,16 @@ void loop()
   // Se hace únicamente cuando pase el intervalo
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
-    leerHumTemp();
+    leerHumTemp(&datosDHT[0]);
+    envio["Temperatura"] = datosDHT[0];
+    envio["Humedad"] = datosDHT[1];
+    envio["Calor"] = datosDHT[2];
   }
   
   //Se hace continuamente 
   leerInfrarrojos();
-  
+
+  envio.printTo(texto);         //paso del objeto "envio" a texto para transmitirlo
+  udp.broadcastTo(texto,1234);  //se envía por el puerto 1234 el JSON 
+                                //como texto
 }

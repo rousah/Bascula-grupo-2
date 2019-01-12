@@ -1,6 +1,7 @@
 package com.example.rousah.bascula;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,15 +12,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -48,10 +55,10 @@ public class PerfilFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
 
-
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    private ImageView imagenPerfil;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -81,7 +88,7 @@ public class PerfilFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+            }
     }
 
     @Override
@@ -92,26 +99,28 @@ public class PerfilFragment extends Fragment {
         final View view = inflater.inflate(R.layout.perfil, container, false);
         final FragmentActivity fragmentActivity = getActivity();
 
+        Button editar = view.findViewById(R.id.editar);
+        editar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                lanzarEditar();
+            }
+        });
+        Button borrar = view.findViewById(R.id.borrar);
+        borrar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                lanzarBorrarUser();
+            }
+        });
+
         TextView nombre = view.findViewById(R.id.nombrePerfil);
         nombre.setText(usuario.getDisplayName());
 
         TextView email = view.findViewById(R.id.emailPerfil);
         email.setText(usuario.getEmail());
 
-        final ImageView imagenPerfil = view.findViewById(R.id.fotoPerfil);
-        String proveedor = usuario.getProviders().get(0);
-        //checkea si el proveedor es de google por si se logea con un email
-        if(proveedor.equals("google.com")) {
-            String uri = usuario.getPhotoUrl().toString();
-            //carga la foto y usa transform para hacerla circular
-            Picasso.with(getActivity().getBaseContext()).load(uri).transform(new CircleTransform()).into(imagenPerfil);
-            System.out.println("dentro de getPhoto");
-        }
-        //por si se logea con email y no tiene foto asignada
-        else {
-         //   imagenPerfil.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_account_circle_black_55dp, null));
-            Picasso.with(getActivity().getBaseContext()).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
-        }
+        imagenPerfil = view.findViewById(R.id.fotoPerfil);
+
+        comprobarImagen();
 
         db.collection("usuarios").document(usuario.getUid()).get().addOnCompleteListener(
                 new OnCompleteListener<DocumentSnapshot>() {
@@ -165,6 +174,54 @@ public class PerfilFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void lanzarBorrarUser(){
+        Intent i = new Intent(getContext(), BorrarUsuarioActivity.class);
+        startActivity(i);
+    }
+
+    public void lanzarEditar(){
+        final Intent iFingerprint = new Intent(getContext(), Fingerprint.class);
+        iFingerprint.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+       // Intent i = new Intent(getContext(), CrearPerfil.class);
+        startActivity(iFingerprint);
+    }
+
+    public void comprobarImagen() {
+        final FirebaseUser usuario;
+        usuario = FirebaseAuth.getInstance().getCurrentUser();
+
+        //variables: imagen en Storage, uid del user actual y el proveedor de google
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String proveedor = usuario.getProviders().get(0);
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        //imagenPerfil = headerLayout.findViewById(R.id.imagenNav);
+
+
+        storageReference.child("imagenesPerfil/" + uid).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(getContext()).load(uri.toString()).resize(168, 168).centerCrop()
+                        .transform(new CircleTransform())
+                        .into(imagenPerfil);
+                System.out.println("dentro de getPhoto");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                if (proveedor.equals("google.com")) {
+                    final String uri = usuario.getPhotoUrl().toString();
+                    //carga la foto y usa transform para hacerla circular
+                    Picasso.with(getContext()).load(uri).transform(new CircleTransform()).into(imagenPerfil);
+                    System.out.println("dentro de getPhoto");
+                } else {
+                    Picasso.with(getContext()).load(R.drawable.round_account_circle_black_48dp).transform(new CircleTransform()).into(imagenPerfil);
+                }
+            }
+        });
     }
 
     /**
