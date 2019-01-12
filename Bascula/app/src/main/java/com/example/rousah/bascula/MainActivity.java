@@ -81,10 +81,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
 
-    public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
 
     //----------------MQTT---------------------
     MqttClient client;
@@ -215,46 +212,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             // TextView fieldTextView = (TextView) findViewById(R.id.textView);
             // fieldTextView.setText("Resultado: " + resultado);
         }
-
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            String usuario = (String) data.getExtras().getString("usuarioremoto");
-            // String email = (String) data.getExtras().getString("email");
-
-            Intent intent = new Intent(this, RemoveRemoteCheckActivity.class);
-            intent.putExtra("usuarioremoto", usuario);
-            // startActivity(intent);
-            startActivityForResult(intent, 2);
-            finish();
-        }
-
-    }
-
-
-
-    //  BORJA
-    /*
-     * Function introduced as part of the remote user administration. It will trigger the
-     * Removal of remote users
-     */
-    public void lanzarEliminacionUsuariosRemotos(View view) {
-        Intent intent = new Intent (this, UsuariosRemotosActivity.class);
-
-        // Start activity of communication
-        startActivity(intent);
-    }
-
-    //  BORJA
-    /*
-     * Function introduced as part of the remote user administration. It will trigger the
-     * Removal of remote users
-     */
-    public void lanzarRegistroUsuariosRemotos(View view) {
-
-        Intent intent_b = new Intent (this, RegistroUsuarioRemotoActivity.class);
-
-        // Start activity of communication
-        startActivity(intent_b);   //requestCode shall be between 0=<resultCode =<65535, 1234567 was not accepted
-
     }
 
 

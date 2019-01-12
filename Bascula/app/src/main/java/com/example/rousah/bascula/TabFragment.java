@@ -11,10 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.rousah.bascula.TabPrimero;
-import com.example.rousah.bascula.TabSegundo;
-import com.example.rousah.bascula.TabTercero;
-
 public class TabFragment extends Fragment {
 
     public static TabLayout tabLayout;
@@ -61,8 +57,6 @@ public class TabFragment extends Fragment {
             switch (position){
                 case 0 : return new TabPrimero();
                 case 1 : return new TabSegundo();
-                case 2 : return new TabTercero();
-
             }
             return null;
         }
@@ -77,14 +71,11 @@ public class TabFragment extends Fragment {
         //This method returns the title of the tab according to the position.
         @Override
         public CharSequence getPageTitle(int position) {
-
             switch (position){
                 case 0 :
                     return "Inicio";
                 case 1 :
                     return "Datos";
-                case 2:
-                    return "Administrar";
             }
             return null;
         }
