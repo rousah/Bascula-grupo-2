@@ -3,6 +3,7 @@ package com.example.rousah.bascula;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.joaquimley.faboptions.FabOptions;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import static com.example.rousah.bascula.R.layout.faboptions_button;
 import static com.example.rousah.bascula.R.layout.tab_segundo;
@@ -173,8 +176,9 @@ public class TabSegundo extends Fragment {
                                         i.putExtra("peso", peso);
                                         i.putExtra("altura", altura);
                                         i.putExtra("imc", imc);
+                                        final Dialog dialog = new Dialog(getContext());
 
-                                        startActivity(i);
+                                        //startActivity(i);
                                     }
                                     //
 
