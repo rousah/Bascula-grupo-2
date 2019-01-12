@@ -63,8 +63,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     }@Override
 
     //onAuthenticationSucceeded is called when a fingerprint has been successfully matched to one of the fingerprints stored on the user’s device//
-    public void onAuthenticationSucceeded(
-            FingerprintManager.AuthenticationResult result) {
+    public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
         Intent i = new Intent(context, CrearPerfil.class);
    /*     final Intent iMain = new Intent(context, MainActivity.class);
         iMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -72,7 +71,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show(); */
         context.startActivity(i);
-
     }
 
 }
