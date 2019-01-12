@@ -1,17 +1,13 @@
 package com.example.rousah.bascula;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class DatosDiaCalendario extends Activity{
+public class DatosSemanales extends Activity {
 
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;

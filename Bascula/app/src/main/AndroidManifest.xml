@@ -37,7 +37,7 @@
         </activity>
 
         <activity
-            android:name=".SemanalActivity">
+            android:name=".DatosSemanales">
         </activity>
 
         <activity android:name=".LoginActivity">

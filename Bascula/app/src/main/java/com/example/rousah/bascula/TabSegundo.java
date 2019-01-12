@@ -206,7 +206,7 @@ public class TabSegundo extends Fragment {
      */
     public void lanzarSemanal(View view)
     {
-        Intent s = new Intent(getContext(), SemanalActivity.class);
+        Intent s = new Intent(getContext(), DatosSemanales.class);
         startActivity(s);
     }
 
