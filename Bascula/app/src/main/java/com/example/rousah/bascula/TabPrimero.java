@@ -54,6 +54,8 @@ public class TabPrimero extends Fragment implements MqttCallback {
     //----------------MQTT---------------------
 
 
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //---------------MQTT---------------------

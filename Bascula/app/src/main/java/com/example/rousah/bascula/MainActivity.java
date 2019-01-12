@@ -2,26 +2,33 @@
 
 package com.example.rousah.bascula;
 
-import android.annotation.TargetApi;
-import android.annotation.SuppressLint;
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -29,7 +36,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -58,8 +64,8 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
-
 import static com.example.comun.Mqtt.broker;
 import static com.example.comun.Mqtt.clientId;
 import static com.example.comun.Mqtt.qos;
@@ -68,7 +74,7 @@ import static com.firebase.ui.auth.AuthUI.TAG;
 
 
 
-public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, MqttCallback {
+public class MainActivity extends AppCompatActivity implements SensorEventListener, PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, MqttCallback {
 
     //--------------Drawer--------------------
     private DrawerLayout drawerLayout;
@@ -91,6 +97,12 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     //----------------MQTT---------------------
 
     private ImageView imagenPerfil;
+
+
+    // caídas
+    private List<Sensor> listaSensores;
+    private static final int SOLICITUD_PERMISO_CALL_PHONE = 0;
+
 
 
     @Override
@@ -155,6 +167,16 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
         //---------------MQTT---------------------
+
+
+        // caídas
+        SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+        listaSensores = sm.getSensorList(Sensor.TYPE_LINEAR_ACCELERATION);
+        int n = 0;
+        for (Sensor sensor : listaSensores) {
+            sm.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI);
+            n++;
+        }
 
     }
 
@@ -532,6 +554,135 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         Log.d("internet", activeNetworkInfo.toString());
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+
+    // DETECCIÓN DE CAÍDAS
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        synchronized (this) {
+            int n = 0;
+            for (Sensor sensor : listaSensores) {
+                if (event.sensor == sensor) {
+                    double mod = modulo(event.values[0], event.values[1], event.values[2]);
+                    Log.d("caida", "modulo: " + mod);
+                    if (mod > 10) {
+                        Toast.makeText(this, "Caida", Toast.LENGTH_SHORT).show();
+                        Log.d("Caida", "Se ha detectado una caída");
+                        final Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:123456789"));
+                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        // Hay que darle permisos a la aplicación desde el móvil para que tenga permisos de llamada
+                        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso"+
+                                                " llamar no puedo llamar a emergencias",
+                                        SOLICITUD_PERMISO_CALL_PHONE, this);
+                            return;
+                        }
+                        else {
+                            new AlertDialog.Builder(this)
+                                    .setTitle("Llamar a emergencias")
+                                    .setMessage("Se ha detectado una caída. ¿Quiere llamar a emergencias? Se llamará por defecto en 10 segundos si no cancela.")
+                                    .setPositiveButton("Llamar", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                            callIntent.setData(Uri.parse("tel:123456789"));
+                                            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(callIntent);
+                                            dialog.dismiss();
+                                        }})
+                                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .show();
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    startActivity(callIntent);
+                                }
+                            }, 10000);
+                            break;
+                        }
+                    }
+                }
+                n++;
+            }
+        }
+
+    }
+
+    public double modulo (float x, float y, float z) {
+        double modulo = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        return modulo;
+    }
+
+    public static void solicitarPermiso(final String permiso, String
+            justificacion, final int requestCode, final Activity actividad) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(actividad,
+                permiso)){
+            new AlertDialog.Builder(actividad)
+                    .setTitle("Solicitud de permiso")
+                    .setMessage(justificacion)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            ActivityCompat.requestPermissions(actividad,
+                                    new String[]{permiso}, requestCode);
+                        }})
+                    .show();
+        } else {
+            ActivityCompat.requestPermissions(actividad,
+                    new String[]{permiso}, requestCode);
+        }
+    }
+
+    @Override public void onRequestPermissionsResult(int requestCode,
+                                                     String[] permissions, int[] grantResults) {
+        final Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:123456789"));
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (requestCode == SOLICITUD_PERMISO_CALL_PHONE) {
+            if (grantResults.length== 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Llamar a emergencias")
+                        .setMessage("Se ha detectado una caída. ¿Quiere llamar a emergencias? Se llamará por defecto en 10 segundos si no cancela.")
+                        .setPositiveButton("Llamar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                callIntent.setData(Uri.parse("tel:123456789"));
+                                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(callIntent);
+                                dialog.dismiss();
+                            }})
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(callIntent);
+                    }
+                }, 10000);
+            }
+            else {
+                Toast.makeText(this, "Sin el permiso, no puedo realizar la " +
+                        "acción", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
     
 }
