@@ -124,8 +124,6 @@ public class TabPrimero extends Fragment implements MqttCallback {
                             @SuppressLint({"RestrictedApi", "WrongConstant"})
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task){
-                                // definimos el intent
-                                Intent i = new Intent(getContext(), DatosDiaCalendario.class);
                                 if (task.isSuccessful()) {
                                     Double peso = task.getResult().getDouble("peso");
                                     Double altura = task.getResult().getDouble("altura");

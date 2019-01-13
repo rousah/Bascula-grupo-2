@@ -3,6 +3,7 @@
 package com.example.rousah.bascula;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,8 +17,10 @@ import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -74,7 +77,7 @@ import static com.firebase.ui.auth.AuthUI.TAG;
 
 
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener, PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, MqttCallback {
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, MqttCallback {
 
     //--------------Drawer--------------------
     private DrawerLayout drawerLayout;
@@ -100,8 +103,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     // caídas
-    private List<Sensor> listaSensores;
+    public int PERMISO_CALL_PHONE = 0;
     private static final int SOLICITUD_PERMISO_CALL_PHONE = 0;
+    private static final int OVERLAY_PERMISSION_REQUEST_CODE = 2;
+    private static int FLAG_LLAMANDO = 0;
 
 
 
@@ -169,15 +174,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //---------------MQTT---------------------
 
 
-        // caídas
-        SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        listaSensores = sm.getSensorList(Sensor.TYPE_LINEAR_ACCELERATION);
-        int n = 0;
-        for (Sensor sensor : listaSensores) {
-            sm.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI);
-            n++;
+        //---------------CAÍDAS-------------------
+        _askForOverlayPermission();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            PedirPermisos.solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso"+
+                            " llamar no puedo llamar a emergencias si se detecta alguna caída.",
+                    SOLICITUD_PERMISO_CALL_PHONE, this);
+            return;
+        }
+        else {
+            crearServicio();
+        }
+        //---------------CAÍDAS-------------------
+
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private void _askForOverlayPermission() {
+        if (!BuildConfig.DEBUG || android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return;
         }
 
+        if (!Settings.canDrawOverlays(this)) {
+            Intent settingsIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getPackageName()));
+            startActivityForResult(settingsIntent, OVERLAY_PERMISSION_REQUEST_CODE);
+        }
     }
 
 
@@ -557,132 +580,63 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-    // DETECCIÓN DE CAÍDAS
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    //---------------CAÍDAS-------------------
+    public void crearServicio() {
+        Intent i = new Intent(this, ServicioCaidas.class);
+        startService(i);
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        synchronized (this) {
-            int n = 0;
-            for (Sensor sensor : listaSensores) {
-                if (event.sensor == sensor) {
-                    double mod = modulo(event.values[0], event.values[1], event.values[2]);
-                    Log.d("caida", "modulo: " + mod);
-                    if (mod > 10) {
-                        Toast.makeText(this, "Caida", Toast.LENGTH_SHORT).show();
-                        Log.d("Caida", "Se ha detectado una caída");
+    public void alerta() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog)
+                .setTitle("Llamar a emergencias")
+                .setMessage("Se ha detectado una caída. ¿Quiere llamar a emergencias? Se llamará por defecto en 10 segundos si no cancela.")
+                .setPositiveButton("Llamar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
                         final Intent callIntent = new Intent(Intent.ACTION_CALL);
                         callIntent.setData(Uri.parse("tel:123456789"));
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        // Hay que darle permisos a la aplicación desde el móvil para que tenga permisos de llamada
-                        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                                solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso"+
-                                                " llamar no puedo llamar a emergencias",
-                                        SOLICITUD_PERMISO_CALL_PHONE, this);
-                            return;
+                        startActivity(callIntent);
+                        dialog.dismiss();
+                    }})
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FLAG_LLAMANDO = 0;
+                                dialog.dismiss();
+                            }
                         }
-                        else {
-                            new AlertDialog.Builder(this)
-                                    .setTitle("Llamar a emergencias")
-                                    .setMessage("Se ha detectado una caída. ¿Quiere llamar a emergencias? Se llamará por defecto en 10 segundos si no cancela.")
-                                    .setPositiveButton("Llamar", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                            Intent callIntent = new Intent(Intent.ACTION_CALL);
-                                            callIntent.setData(Uri.parse("tel:123456789"));
-                                            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(callIntent);
-                                            dialog.dismiss();
-                                        }})
-                                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    })
-                                    .show();
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    startActivity(callIntent);
-                                }
-                            }, 10000);
-                            break;
-                        }
-                    }
+                );
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (FLAG_LLAMANDO == 1) {
+                    final Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:123456789"));
+                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(callIntent);
+                    FLAG_LLAMANDO = 0;
                 }
-                n++;
             }
-        }
-
-    }
-
-    public double modulo (float x, float y, float z) {
-        double modulo = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-        return modulo;
-    }
-
-    public static void solicitarPermiso(final String permiso, String
-            justificacion, final int requestCode, final Activity actividad) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(actividad,
-                permiso)){
-            new AlertDialog.Builder(actividad)
-                    .setTitle("Solicitud de permiso")
-                    .setMessage(justificacion)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            ActivityCompat.requestPermissions(actividad,
-                                    new String[]{permiso}, requestCode);
-                        }})
-                    .show();
-        } else {
-            ActivityCompat.requestPermissions(actividad,
-                    new String[]{permiso}, requestCode);
-        }
+        }, 10000);
     }
 
     @Override public void onRequestPermissionsResult(int requestCode,
                                                      String[] permissions, int[] grantResults) {
-        final Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:123456789"));
-        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (requestCode == SOLICITUD_PERMISO_CALL_PHONE) {
             if (grantResults.length== 1 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                new AlertDialog.Builder(this)
-                        .setTitle("Llamar a emergencias")
-                        .setMessage("Se ha detectado una caída. ¿Quiere llamar a emergencias? Se llamará por defecto en 10 segundos si no cancela.")
-                        .setPositiveButton("Llamar", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                                callIntent.setData(Uri.parse("tel:123456789"));
-                                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(callIntent);
-                                dialog.dismiss();
-                            }})
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(callIntent);
-                    }
-                }, 10000);
+                crearServicio();
             }
             else {
-                Toast.makeText(this, "Sin el permiso, no puedo realizar la " +
-                        "acción", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Sin el permiso, no se llamará a emergencias cuando se " +
+                        "detecte una caída.", Toast.LENGTH_SHORT).show();
             }
         }
     }
-    
+    //---------------CAÍDAS-------------------
+
+
 }
