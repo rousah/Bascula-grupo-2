@@ -53,6 +53,7 @@ public class Dialog extends Activity {
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(callIntent);
                         FLAG_LLAMANDO = 0;
+                        finish();
                     }
                 }
             }, 10000);
@@ -64,6 +65,7 @@ public class Dialog extends Activity {
                 Intent myService = new Intent(getBaseContext(), ServicioCaidas.class);
                 startService(myService);
                 Log.d("Servicio", "servicio resume");
+                finish();
             }
         }, 20000);
 
