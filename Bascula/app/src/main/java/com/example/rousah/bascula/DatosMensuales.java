@@ -7,11 +7,12 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class DatosSemanales extends Activity {
+public class DatosMensuales extends Activity {
 
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private String TAG = "EQUIPO2/GTI";
+
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -69,5 +70,4 @@ public class DatosSemanales extends Activity {
         mRecyclerView.setAdapter(mAdapter);
 
     }
-
 }

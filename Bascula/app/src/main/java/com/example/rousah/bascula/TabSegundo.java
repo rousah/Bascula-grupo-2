@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.joaquimley.faboptions.FabOptions;
@@ -111,6 +112,11 @@ public class TabSegundo extends Fragment {
      * Busca los datos del día seleccionado.
      * Peso, altura, IMC...
      *
+     */
+    /**
+     *
+     * @param f
+     * @param Uid
      */
     public void lanzarListaDeDatosDeUnDia(final String f, String Uid)
     {
@@ -202,12 +208,95 @@ public class TabSegundo extends Fragment {
     /**
      * Lanzar recyclerview datos de la semana visualizando gráfica con el intervalo
      * del mes.
-     * @param view
+     *
+     * @param f1
+     * @param Uid
+     *
      */
-    public void lanzarSemanal(View view)
+    public void lanzarSemanal(String f1, String Uid)
     {
-        Intent s = new Intent(getContext(), DatosSemanales.class);
-        startActivity(s);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        /*db.collection("usuarios").document(String.valueOf(Uid)).collection("mediciones").document(f1).get()
+                .addOnSuccessListener(
+                        new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                Log.w(TAG, "Se han recogido los datos.");
+                            }
+                        }
+                )
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @SuppressLint("RestrictedApi")
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, e);
+                            }
+                        }
+                )
+                .addOnCompleteListener(
+                        new OnCompleteListener<DocumentSnapshot>() {
+                            @SuppressLint({"RestrictedApi", "WrongConstant"})
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task){
+                                // definimos el intent
+                                Intent i = new Intent(getContext(), DatosDiaCalendario.class);
+                                if (task.isSuccessful()) {
+                                    Double peso = task.getResult().getDouble("peso");
+                                    Double altura = task.getResult().getDouble("altura");
+                                    Double imc = task.getResult().getDouble("imc");
+
+                                    /**
+                                     *
+                                     * Sí los datos recogidos son igual a null saldrá un TOAST
+                                     * advirtiendo de que ese día no contiene datos.
+                                     *
+                                     * Sí los datos recogidos no son null saldrá un TOAST
+                                     * advirtiendo del día seleccionado, y visualizará los datos
+                                     * recogidos.
+                                     *
+                                     */
+                                    /*if(peso == null)
+                                    {
+                                        Toast.makeText(getApplicationContext(), "No hay datos.", 0).show();// TODO Auto-generated method stub
+
+                                    }
+                                    else
+                                    {
+                                        Log.w(TAG, "Peso:" + peso);
+                                        Log.w(TAG, "Altura:" + altura);
+                                        Log.w(TAG, "IMC: "+imc);
+                                        /**
+                                         * Le mandamos a la clase MyAdapter estos datos, con un intent
+                                         * y un Bundle que los recoja
+                                         */
+                                       /* i.putExtra("peso", peso);
+                                        i.putExtra("altura", altura);
+                                        i.putExtra("imc", imc);
+                                        final Dialog dialog = new Dialog(getContext());
+
+                                        //startActivity(i);
+                                    }
+                                    //
+
+                                } else {
+                                    Log.e(TAG, "Error al leer", task.getException());
+                                }
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, e);
+                            }
+                        }
+                );*/
+        FirebaseDatabase.getInstance().getReference().child("usuarios").child(Uid).child("mediciones").
+                orderByValue().startAt(f1).limitToLast(7);
+        //Intent s = new Intent(getContext(), DatosSemanales.class);
+        //startActivity(s);
     }
 
     /**
@@ -217,7 +306,7 @@ public class TabSegundo extends Fragment {
      */
     public void lanzarMensual(View view)
     {
-        Intent m = new Intent(getContext(), MensualActivity.class);
+        Intent m = new Intent(getContext(), DatosMensuales.class);
         startActivity(m);
     }
 
@@ -228,7 +317,7 @@ public class TabSegundo extends Fragment {
      */
     public void lanzarTrimestral(View view)
     {
-        Intent t = new Intent(getContext(), TrimesActivity.class);
+        Intent t = new Intent(getContext(), DatosTrimestrales.class);
         startActivity(t);
     }
 
@@ -239,7 +328,7 @@ public class TabSegundo extends Fragment {
      */
     public void lanzarAnual(View view)
     {
-        Intent a = new Intent(getContext(), AnualActivity.class);
+        Intent a = new Intent(getContext(), DatosAnuales.class);
         startActivity(a);
     }
 
@@ -263,15 +352,15 @@ public class TabSegundo extends Fragment {
         }else if(itemId == R.id.faboptions_mes)
         {
             Toast.makeText(getContext(), "MENSUAL", 0).show();
-           // lanzarMensual(null);
+            lanzarMensual(null);
         }else if(itemId == R.id.faboptions_trimestral)
         {
             Toast.makeText(getContext(), "TRIMESTRAL", 0).show();
-           // lanzarTrimestral(null);
+            lanzarTrimestral(null);
         }else if(itemId == R.id.faboptions_anual)
         {
             Toast.makeText(getContext(), "ANUAL", 0).show();
-           // lanzarAnual(null);
+            lanzarAnual(null);
         }else
         {
             Toast.makeText(getContext(), "ERROR NO LLEVA A NINGÚN SITIO", 0).show();

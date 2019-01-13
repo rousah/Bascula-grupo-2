@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class DatosSemanales extends Activity {
+public class DatosAnuales extends Activity {
 
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
@@ -69,5 +69,4 @@ public class DatosSemanales extends Activity {
         mRecyclerView.setAdapter(mAdapter);
 
     }
-
 }
