@@ -540,6 +540,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                Log.d("RUN","LOS MENSAJES SE ESTAN RUNEANDO");
                 Switch luces = findViewById(R.id.switchluces);
                 if (luces != null) {
                     if (payload.contains("ON")) {
@@ -552,16 +553,40 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     }
                 }
 
-                if(payload.equals("PRESENCIA")){
-                    notificacionPresencia();
+                if(payload.equals("IN")){
+                    notificacionDentro();
+                }
+                if(payload.equals("OUT")){
+                    notificacionFuera();
                 }
 
 
 
             }
 
-            private void notificacionPresencia() {
+            private void notificacionFuera() {
+                manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
+                Intent intent = new Intent("com.rj.notitfications.SECACTIVITY");
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 1, intent, 0);
+
+                Notification.Builder builder = new Notification.Builder(MainActivity.this);
+
+                builder.setAutoCancel(false);
+                builder.setContentTitle("Hasta pronto");
+                builder.setContentText("Que pase un buen día");
+                builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+                builder.setContentIntent(pendingIntent);
+                builder.setOngoing(true);
+                builder.setNumber(100);
+                builder.build();
+
+                myNotication = builder.getNotification();
+                manager.notify(001, myNotication);
+            }
+
+            private void notificacionDentro() {
                 manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
                 Intent intent = new Intent("com.rj.notitfications.SECACTIVITY");
@@ -582,6 +607,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 myNotication = builder.getNotification();
                 manager.notify(001, myNotication);
             }
+
         });
     }
 
