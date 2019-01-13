@@ -54,7 +54,9 @@ public class ServicioCaidas extends Service {
         listen = new SensorListen();
 
         listaSensores = sm.getSensorList(Sensor.TYPE_LINEAR_ACCELERATION);
-        sm.registerListener(listen, listaSensores.get(0), SensorManager.SENSOR_DELAY_UI);
+        if (listaSensores.size() != 0) {
+            sm.registerListener(listen, listaSensores.get(0), SensorManager.SENSOR_DELAY_UI);
+        }
         return START_STICKY;
     }
 
