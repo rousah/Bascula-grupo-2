@@ -189,7 +189,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
 
         //---------------CAÍDAS-------------------
-        _askForOverlayPermission();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             PedirPermisos.solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso"+
                             " llamar no puedo llamar a emergencias si se detecta alguna caída.",
@@ -203,20 +202,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
 
     }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private void _askForOverlayPermission() {
-        if (!BuildConfig.DEBUG || android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return;
-        }
-
-        if (!Settings.canDrawOverlays(this)) {
-            Intent settingsIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + getPackageName()));
-            startActivityForResult(settingsIntent, OVERLAY_PERMISSION_REQUEST_CODE);
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -655,42 +640,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     public void crearServicio() {
         Intent i = new Intent(this, ServicioCaidas.class);
         startService(i);
-    }
-
-    public void alerta() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog)
-                .setTitle("Llamar a emergencias")
-                .setMessage("Se ha detectado una caída. ¿Quiere llamar a emergencias? Se llamará por defecto en 10 segundos si no cancela.")
-                .setPositiveButton("Llamar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        final Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:123456789"));
-                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(callIntent);
-                        dialog.dismiss();
-                    }})
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                FLAG_LLAMANDO = 0;
-                                dialog.dismiss();
-                            }
-                        }
-                );
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (FLAG_LLAMANDO == 1) {
-                    final Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:123456789"));
-                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(callIntent);
-                    FLAG_LLAMANDO = 0;
-                }
-            }
-        }, 10000);
     }
 
     @Override public void onRequestPermissionsResult(int requestCode,

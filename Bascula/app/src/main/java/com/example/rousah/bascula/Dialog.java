@@ -28,25 +28,26 @@ public class Dialog extends Activity {
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(callIntent);
                         dialog.dismiss();
+                        finish();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 FLAG_LLAMANDO = 0;
-                                dialog.dismiss();
+                                dialog.cancel();
+                                finish();
                             }
                         }
                 );
-        dialog = builder.create();
-
-        builder.show();
+        dialog = builder.show();
 
         final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (FLAG_LLAMANDO == 1) {
+                        dialog.dismiss();
                         final Intent callIntent = new Intent(Intent.ACTION_CALL);
                         callIntent.setData(Uri.parse("tel:123456789"));
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
