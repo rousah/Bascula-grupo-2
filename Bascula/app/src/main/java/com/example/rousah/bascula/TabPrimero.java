@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -106,7 +108,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
                         new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                //Log.w(TAG, "Se han recogido los datos.");
+                                Toast.makeText(getContext(), "Los datos de hoy son: ", 1).show();
                             }
                         }
                 )
@@ -146,9 +148,16 @@ public class TabPrimero extends Fragment implements MqttCallback {
                                     }
                                     else
                                     {
-                                        TextView pesoReal = view.findViewById(R.id.pesoValor);
-                                        pesoReal.setText(task.getResult().getDouble("peso").toString() + " Kg");
-                                        String hey = task.getResult().getDouble("peso").toString();
+                                        SharedPreferences pref =
+                                                PreferenceManager.getDefaultSharedPreferences(getContext());
+                                        if(pref.getString("peso","?") == "1"){
+                                            TextView pesoReal = view.findViewById(R.id.pesoValor);
+                                            pesoReal.setText(task.getResult().getDouble("peso").toString() + " Kg");
+                                        }else {
+                                            TextView pesoReal = view.findViewById(R.id.pesoValor);
+                                            double pesoLibras = task.getResult().getDouble("peso")*2.2;
+                                            pesoReal.setText(String.valueOf(pesoLibras) + " Libras");
+                                        }
                                         TextView alturaReal = view.findViewById(R.id.alturaValor);
                                         alturaReal.setText(task.getResult().getDouble("altura").toString() + " M");
                                         TextView imcReal = view.findViewById(R.id.imcValor);

@@ -25,6 +25,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,7 +50,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
-public class CrearPerfil extends AppCompatActivity {
+public class CrearPerfil extends Activity {
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Context context = this;
@@ -58,6 +59,8 @@ public class CrearPerfil extends AppCompatActivity {
     private RadioButton radioButtonSelected;
     int selectedId;
     private String proveedor;
+    private Toolbar toolbar;
+
 
     Calendar myCalendar = Calendar.getInstance();
 
@@ -76,6 +79,7 @@ public class CrearPerfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.crear_perfil);
+
 
         TextView nombre = findViewById(R.id.nombreCrearPerfil);
         nombre.setText(usuario.getDisplayName());
@@ -273,4 +277,5 @@ public class CrearPerfil extends AppCompatActivity {
         Intent i = new Intent(CrearPerfil.this, MainActivity.class);
         startActivity(i);
     }
+
 }
