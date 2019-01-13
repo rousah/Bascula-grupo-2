@@ -5,6 +5,9 @@ package com.example.rousah.bascula;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -90,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
 
+    NotificationManager manager;
+    Notification myNotication;
+
     public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -167,6 +173,14 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         try {
             Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"POWER");
             client.subscribe(topicRoot+"POWER", qos);
+            client.setCallback(this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+
+        try {
+            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"PRESENCIA");
+            client.subscribe(topicRoot+"PRESENCIA", qos);
             client.setCallback(this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
@@ -549,6 +563,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                Log.d("RUN","LOS MENSAJES SE ESTAN RUNEANDO");
                 Switch luces = findViewById(R.id.switchluces);
                 if (luces != null) {
                     if (payload.contains("ON")) {
@@ -560,7 +575,62 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                         Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
                     }
                 }
+
+                if(payload.equals("IN")){
+                    notificacionDentro();
+                }
+                if(payload.equals("OUT")){
+                    notificacionFuera();
+                }
+
+
+
             }
+
+            private void notificacionFuera() {
+                manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                Intent intent = new Intent("com.rj.notitfications.SECACTIVITY");
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 1, intent, 0);
+
+                Notification.Builder builder = new Notification.Builder(MainActivity.this);
+
+                builder.setAutoCancel(false);
+                builder.setContentTitle("Hasta pronto");
+                builder.setContentText("Que pase un buen día");
+                builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+                builder.setContentIntent(pendingIntent);
+                builder.setOngoing(true);
+                builder.setNumber(100);
+                builder.build();
+
+                myNotication = builder.getNotification();
+                manager.notify(001, myNotication);
+            }
+
+            private void notificacionDentro() {
+                manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                Intent intent = new Intent("com.rj.notitfications.SECACTIVITY");
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 1, intent, 0);
+
+                Notification.Builder builder = new Notification.Builder(MainActivity.this);
+
+                builder.setAutoCancel(false);
+                builder.setContentTitle("Bienvenido");
+                builder.setContentText("Bienvenido a casa");
+                builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+                builder.setContentIntent(pendingIntent);
+                builder.setOngoing(true);
+                builder.setNumber(100);
+                builder.build();
+
+                myNotication = builder.getNotification();
+                manager.notify(001, myNotication);
+            }
+
         });
     }
 
