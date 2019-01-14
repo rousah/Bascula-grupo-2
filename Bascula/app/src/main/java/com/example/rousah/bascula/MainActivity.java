@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     View headerLayout;
     // -------------RecyclerView--------------
     private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
+    private MyAdapterGlobalOptions mAdapter;
 
     public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
 

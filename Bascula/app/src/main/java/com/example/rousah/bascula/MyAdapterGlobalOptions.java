@@ -1,9 +1,5 @@
 package com.example.rousah.bascula;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class MyAdapterGlobalOptions extends RecyclerView.Adapter<MyAdapterGlobalOptions.ViewHolder> {
     private ArrayList<Double> mDataSet;
     private ArrayList<String> mUnidadesSet;
     private ArrayList<String> mTitleSet;
@@ -24,9 +20,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     /**
      * El ViewHolder obtiene referencias de los componentes visuales para
-     * cada elemento, es decir, referencias de los edtiText, textView, buttons
+     * cada elemento, es decir, referencias de los editText, textView, buttons
      * , etc...
-     * Referencia de los componentes visuales.
+     * Referéncia de los componentes visuales.
      */
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -37,10 +33,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ImageView i1;
         public ViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.cv);
-            t1 = (TextView)itemView.findViewById(R.id.titulo);
-            t2 = (TextView)itemView.findViewById(R.id.valor);
-            i1 = (ImageView)itemView.findViewById(R.id.imagen);
+            cv = itemView.findViewById(R.id.cv);
+            t1 = itemView.findViewById(R.id.titulo);
+            t2 = itemView.findViewById(R.id.valor);
+            i1 = itemView.findViewById(R.id.imagen);
         }
     }
 
@@ -49,25 +45,33 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      *
      */
     // Este es nuestro constructor (puede variar según lo que queremos mostrar)
-    public MyAdapter(ArrayList<Double> data) {
+    public MyAdapterGlobalOptions(String tipo, ArrayList<Double> data) {
 
         mDataSet = new ArrayList<Double>();
         mUnidadesSet = new ArrayList<String>();
         mTitleSet = new ArrayList<String>();
         mImageSet = new ArrayList<Integer>();
 
-        mImageSet.add(R.drawable.scale_bathroom);
-        mTitleSet.add("Peso:");
-        mDataSet.add(data.get(0));
-        mUnidadesSet.add("Kg");
-        mImageSet.add(R.drawable.ruler);
-        mTitleSet.add("Altura:");
-        mDataSet.add(data.get(1));
-        mUnidadesSet.add("m");
-        mImageSet.add(R.drawable.ic_scale_balance);
-        mTitleSet.add("IMC:");
-        mDataSet.add(data.get(2));
-        mUnidadesSet.add("Kg/cm^2");
+        if(tipo == "varios")
+        {
+            // estructuramos de distinta forma
+            // no vamos a tener imagen
+        }else
+        {
+            mImageSet.add(R.drawable.scale_bathroom);
+            mTitleSet.add("Peso:");
+            mDataSet.add(data.get(0));
+            mUnidadesSet.add("Kg");
+            mImageSet.add(R.drawable.ruler);
+            mTitleSet.add("Altura:");
+            mDataSet.add(data.get(1));
+            mUnidadesSet.add("m");
+            mImageSet.add(R.drawable.ic_scale_balance);
+            mTitleSet.add("IMC:");
+            mDataSet.add(data.get(2));
+            mUnidadesSet.add("Kg/cm^2");
+        }
+
 
     }
 
@@ -87,8 +91,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      * @return
      */
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public MyAdapterGlobalOptions.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                int viewType) {
         // Creamos una nueva vista
         CardView cv = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.dato_dia_cal, parent, false);
@@ -132,4 +136,3 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
 }
-

@@ -27,4 +27,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nombreee">Nombre:</string>
+
+    <!-- Para dialogos del filtro -->
+    <string name="title_f">Fecha</string>
+    <string name="elegir">Elige el ultimo día del que quieres visualizar los datos:</string>
+    <!-- Para los botones de los dialogos -->
+    <string name="ok">ACEPTAR</string>
+    <string name="cancel">CANCELAR</string>
 </resources>
