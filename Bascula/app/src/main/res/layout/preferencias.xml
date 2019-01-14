@@ -25,6 +25,7 @@
         android:summary="Unidad preferida para mostrar la altura"
         android:title="Unidades para la altura" />
 
+
     <EditTextPreference
         android:defaultValue="3"
         android:inputType="number"

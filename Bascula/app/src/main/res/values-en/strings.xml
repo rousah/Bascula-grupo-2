@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bascula</string>
+    <string name="inicio">Inicio</string>
+    <string name="action_settings">Settings</string>
+    <string name="preferencias">Preferencias</string>
+    <string name="datos">Datos</string>
+    <string name="acercade">Acerca de...</string>
+
+    <string name="aceptar">Aceptar</string>
+    <string name="rechazar">Rechazar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos:</string>
+    <string name="apellido_1_apellido_2">Apellido_1 Apellido_2</string>
+    <string name="correo_electr_nico">Correo Electrónico:</string>
+    <string name="guardar_datos">Guardar Datos</string>
+    <string name="email_domain_com">email@domain.com</string>
+    <string name="nombredospuntos">Nombre:</string>
+    <string name="suscribe_a_un_nuevo_usuario_remoto">Suscribe a un nuevo usuario remoto</string>
+    <string name="selecciona_un_usuario_remoto_a_neliminar">Elimina un usuario remoto</string>
+    <string name="compartir">Compartir</string>
+    <string name="perfil">Perfil</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="h"></string>
+
+    <!-- Acerca de -->
+    <string name="textoAcercaDe"> Thank you for trying out our app about IoT, developed by group numeber 2 during the first semester of 2019 as the final proyect of IoT and App in the UPV of Gandia.</string>
+    <string name="version"> Version: final sprint</string>
+    <string name="email"> Email: mamoumar@epsg.upv.es</string>
+    <string name="direccion"> Addres: Carrer del Paranimf, 1, 46730 Grau i Platja, València</string>
+    <!-- Acerca de -->
+
+    <!-- Borrar user -->
+    <string name="textview8">Are you sure you want to erase your account?</string>
+    <string name="noButton">No</string>
+    <string name="siButton">Yes</string>
+    <!-- Borrar user -->
+
+    <!-- casa -->
+    <string name="estadoActual">Current state:</string>
+    <string name="temperatura">Temperature:</string>
+    <string name="sensacionTermica">Thermal sensation:</string>
+    <string name="humedad">Humidity:</string>
+    <string name="puerta">Door:</string>
+    <string name="estadoPuerta">open:</string>
+    <string name="luces">Lights:</string>
+    <!-- casa -->
+
+    <!-- Crear perfil -->
+    <string name="textoNombre">Name:</string>
+    <string name="textoEmail">Email:</string>
+    <string name="textoFecha">Date:</string>
+    <string name="textoTelefono">Phone:</string>
+    <string name="sexo">Sex:</string>
+    <string name="mascalunino">Male</string>
+    <string name="femenino">Female</string>
+    <string name="elegirButton">Choose</string>
+    <string name="guardarButton">Safe</string>
+    <!-- Crear perfil -->
+
+    <!-- Fingerprint -->
+    <string name="autentificación">Firgerprint authentication</string>
+    <string name="howToFinger">Place your fingertip on the Home button to verify your identity</string>
+    <!-- Fingerprint -->
+
+    <!-- Fragment tratamientos -->
+    <string name="nombreMeds">Name:</string>
+    <string name="cantidadMeds">Quantity:</string>
+    <string name="Descripcion">Description:</string>
+    <!-- Fragment tratamientos -->
+
+    <!-- Perfil -->
+    <string name="botonEditar">Edit</string>
+    <string name="botonBorrarCuenta">Erase account</string>
+    <!-- Perfil -->
+
+    <!-- Preferencias -->
+
+    <!-- Preferencias -->
+
+    <!-- Tab primero -->
+    <string name="altura">Height:</string>
+    <string name="peso">Weight:</string>
+    <string name="datosRecientes">Your most recient data:</string>
+    <string name="estadoObjetivo">Objective status:</string>
+    <!-- Tab primero -->
+
+    <!-- nav drawer menu -->
+    <string name="medicionesMenu">Measurements</string>
+    <string name="casaMenu">Home</string>
+    <string name="tratamientosMenu">Treatments</string>
+    <string name="perfilMenu">Account</string>
+    <string name="cerrarSesiónMenu">End session</string>
+    <!-- nav drawer menu -->
+
+
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nombreee">Nombre:</string>
+
+</resources>

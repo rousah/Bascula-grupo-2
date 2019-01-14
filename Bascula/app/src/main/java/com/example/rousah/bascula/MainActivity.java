@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             n++;
         }
 
-        mostrarPreferencias();
+        //mostrarPreferencias();
 
     }
 
@@ -229,17 +229,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         startActivity(i);
     }
 
-    public void mostrarPreferencias(){
+    /*public void mostrarPreferencias(){
         SharedPreferences pref =
                 PreferenceManager.getDefaultSharedPreferences(this);
-        String s = "checkbox: " + pref.getBoolean("checkBox",true)
-                +", unidad de peso: " + pref.getString("peso","?")
-                +", unidad de altura: " + pref.getString("altura","?")
-
-                +", personas: " + pref.getString("personas","?");
-
-        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
-    }
+        String s = "imagen: " + pref.getString("imagen","?");
+        int value = Integer.parseInt(pref.getString("imagen","?"));
+        if(value == 2){
+            Toast.makeText(this, "ES AlTAAA", Toast.LENGTH_LONG).show();
+        }
+        if(value == 1){
+            Toast.makeText(this, "ES bajaaaa", Toast.LENGTH_LONG).show();
+        }
+        //Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

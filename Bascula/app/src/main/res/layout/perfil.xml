@@ -59,7 +59,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="2"
                     android:baselineAligned="false"
-                    android:text="Nombre:"
+                    android:text="@string/textoNombre"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -105,7 +105,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="2"
                     android:baselineAligned="false"
-                    android:text="Email:"
+                    android:text="@string/textoEmail"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -149,7 +149,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="2"
                     android:baselineAligned="false"
-                    android:text="Sexo:"
+                    android:text="@string/sexo"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -186,7 +186,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="2"
                     android:baselineAligned="false"
-                    android:text="Fecha nacimiento:"
+                    android:text="@string/textoFecha"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -223,7 +223,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="2"
                     android:baselineAligned="false"
-                    android:text="Telefono:"
+                    android:text="@string/textoTelefono"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -252,15 +252,14 @@
                     android:layout_width="96dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="Editar" />
+                    android:text="@string/botonEditar" />
 
                 <Button
                     android:id="@+id/borrar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="Borrar cuenta
-" />
+                    android:text="@string/botonBorrarCuenta" />
             </LinearLayout>
 
 

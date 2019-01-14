@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -108,7 +110,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
                         new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                Toast.makeText(getContext(), "Los datos de hoy son: ", 1).show();
+                                //Toast.makeText(getContext(), "Los datos de hoy son: ", 1).show();
                             }
                         }
                 )
@@ -151,6 +153,8 @@ public class TabPrimero extends Fragment implements MqttCallback {
                                         SharedPreferences pref =
                                                 PreferenceManager.getDefaultSharedPreferences(getContext());
                                         if(pref.getString("peso","?") == "1"){
+                                            Toast.makeText(getContext(), "Imagen subida en alta calidad", 1).show();
+
                                             TextView pesoReal = view.findViewById(R.id.pesoValor);
                                             pesoReal.setText(task.getResult().getDouble("peso").toString() + " Kg");
                                         }else {

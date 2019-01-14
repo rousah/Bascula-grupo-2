@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:layout_weight="1"
-                android:text="elegir" />
+                android:text="@string/elegirButton" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,7 +80,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="3"
                     android:baselineAligned="false"
-                    android:text="Nombre:"
+                    android:text="@string/textoNombre"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -133,7 +133,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="3"
                     android:baselineAligned="false"
-                    android:text="Email:"
+                    android:text="@string/textoEmail"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -186,7 +186,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="3"
                     android:baselineAligned="false"
-                    android:text="Fecha nacimiento:"
+                    android:text="@string/textoFecha"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -234,7 +234,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="3"
                     android:baselineAligned="false"
-                    android:text="Telefono:"
+                    android:text="@string/textoTelefono"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -275,7 +275,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="3"
                     android:baselineAligned="false"
-                    android:text="Sexo:"
+                    android:text="@string/sexo"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -296,7 +296,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:tag="masculino"
-                        android:text="Masculino"
+                        android:text="@string/mascalunino"
                         android:textColor="#ffffff"
                         android:textSize="16dp" />
 
@@ -306,7 +306,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:tag="femenino"
-                        android:text="Femenino"
+                        android:text="@string/femenino"
                         android:textColor="#ffffff"
                         android:textSize="16dp" />
 
@@ -328,7 +328,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:onClick="guardar"
-                    android:text="Guardar" />
+                    android:text="@string/guardarButton" />
 
             </LinearLayout>
 

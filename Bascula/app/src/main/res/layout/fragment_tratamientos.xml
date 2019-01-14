@@ -57,7 +57,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
-                            android:text="@string/nombreee"
+                            android:text="@string/nombreMeds"
                             android:textColor="#ffffff"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -83,7 +83,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
-                            android:text="Cápsulas:"
+                            android:text="@string/cantidadMeds"
                             android:textColor="#ffffff"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Descripción:"
+                android:text="@string/Descripcion"
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:textStyle="bold" />
