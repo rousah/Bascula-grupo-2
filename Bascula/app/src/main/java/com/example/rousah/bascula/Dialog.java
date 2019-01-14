@@ -51,6 +51,7 @@ public class Dialog extends Activity {
                             }
                         }
                 );
+
         dialog = builder.show();
 
         if (!dialog.isShowing()) {

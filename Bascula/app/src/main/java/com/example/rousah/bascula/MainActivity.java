@@ -80,7 +80,7 @@ import static com.firebase.ui.auth.AuthUI.TAG;
 
 
 
-public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, MqttCallback {
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, HospitalesFragment.OnFragmentInteractionListener, MqttCallback {
 
     //--------------Drawer--------------------
     private DrawerLayout drawerLayout;
@@ -89,9 +89,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     private ActionBarDrawerToggle drawerToggle;
     //--------------Drawer--------------------
     View headerLayout;
-    // -------------RecyclerView--------------
-    private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
 
     NotificationManager manager;
     Notification myNotication;
@@ -105,15 +102,12 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     MqttClient client;
     //----------------MQTT---------------------
 
-    private ImageView imagenPerfil;
-
 
     // caídas
-    public int PERMISO_CALL_PHONE = 0;
     private static final int SOLICITUD_PERMISO_CALL_PHONE = 0;
-    private static final int OVERLAY_PERMISSION_REQUEST_CODE = 2;
-    private static int FLAG_LLAMANDO = 0;
 
+    // mapa
+    private static final int SOLICITUD_PERMISO_ACCESS_FINE_LOCATION = 1;
 
 
     @Override
@@ -199,6 +193,16 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             crearServicio();
         }
         //---------------CAÍDAS-------------------
+
+
+        //---------------MAPA-------------------
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            PedirPermisos.solicitarPermiso(Manifest.permission.ACCESS_FINE_LOCATION, "Sin el permiso"+
+                            " llamar no puedo llamar a emergencias si se detecta alguna caída.",
+                    SOLICITUD_PERMISO_ACCESS_FINE_LOCATION, this);
+            return;
+        }
+        //---------------MAPA-------------------
 
 
     }
@@ -353,6 +357,9 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                 break;
             case R.id.nav_tratamientos:
                 fragment = new TratamientosFragment();
+                break;
+            case R.id.nav_hospitales:
+                fragment = new HospitalesFragment();
                 break;
             case R.id.log_out:
                 FirebaseAuth.getInstance().signOut(); //End user session
@@ -652,6 +659,15 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             else {
                 Toast.makeText(this, "Sin el permiso, no se llamará a emergencias cuando se " +
                         "detecte una caída.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (requestCode == SOLICITUD_PERMISO_ACCESS_FINE_LOCATION) {
+            if (grantResults.length== 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            }
+            else {
+                Toast.makeText(this, "Sin el permiso, no se mostrará el " +
+                        "mapa con hospitales.", Toast.LENGTH_SHORT).show();
             }
         }
     }

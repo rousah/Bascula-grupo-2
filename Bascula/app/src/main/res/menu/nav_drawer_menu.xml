@@ -19,6 +19,11 @@
             android:title="Tratamientos" />
 
         <item
+            android:id="@+id/nav_hospitales"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="Hospitales" />
+
+        <item
             android:id="@+id/nav_perfil"
             android:icon="@drawable/ic_round_account_circle_24px"
             android:title="Perfil" />
