@@ -3,6 +3,10 @@ package com.example.rousah.bascula;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +21,10 @@ public class Dialog extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MediaPlayer mMediaPlayer;
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        final Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        r.play();
         FLAG_LLAMANDO = 1;
         builder = new AlertDialog.Builder(this, R.style.Dialog)
                 .setTitle("Llamar a emergencias")
@@ -24,9 +32,11 @@ public class Dialog extends Activity {
                 .setPositiveButton("Llamar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         final Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:123456789"));
+                        callIntent.setData(Uri.parse("tel:" + TabPrimero.telefonoEmergencia));
+                    //    Log.i("telefono", "tel:" + TabPrimero.telefonoEmergencia);
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(callIntent);
+                        r.stop();
                         dialog.dismiss();
                         finish();
                     }
@@ -35,12 +45,18 @@ public class Dialog extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 FLAG_LLAMANDO = 0;
+                                r.stop();
                                 dialog.cancel();
                                 finish();
                             }
                         }
                 );
         dialog = builder.show();
+
+        if (!dialog.isShowing()) {
+            r.stop();
+            finish();
+        }
 
         final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -49,10 +65,11 @@ public class Dialog extends Activity {
                     if (FLAG_LLAMANDO == 1) {
                         dialog.dismiss();
                         final Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:123456789"));
+                        callIntent.setData(Uri.parse("tel:" + TabPrimero.telefonoEmergencia));
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(callIntent);
                         FLAG_LLAMANDO = 0;
+                        r.stop();
                         finish();
                     }
                 }

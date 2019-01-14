@@ -22,7 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
         <service android:name=".ServicioCaidas"></service>
-        <activity android:name=".Dialog" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name=".Dialog" android:theme="@android:style/Theme.Dialog" android:showWhenLocked="true" android:showOnLockScreen="true" android:turnScreenOn="true" android:finishOnCloseSystemDialogs="true"></activity>
         <activity android:name=".BorrarUsuarioActivity"
             android:label="Borrar usuario ..." />
         <activity android:name=".PreferenciasActivity"
@@ -38,7 +38,7 @@
 
         </activity>
         <activity
-            android:name=".CrearPerfil">
+            android:name=".CrearPerfil" android:parentActivityName=".MainActivity">
         </activity>
         <activity android:name=".LoginActivity">
             <intent-filter>

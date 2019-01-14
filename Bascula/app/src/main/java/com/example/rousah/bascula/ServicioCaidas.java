@@ -53,7 +53,7 @@ public class ServicioCaidas extends Service {
         sm = (SensorManager) getApplicationContext().getSystemService(SENSOR_SERVICE);
         listen = new SensorListen();
 
-        listaSensores = sm.getSensorList(Sensor.TYPE_LINEAR_ACCELERATION);
+        listaSensores = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);
         if (listaSensores.size() != 0) {
             sm.registerListener(listen, listaSensores.get(0), SensorManager.SENSOR_DELAY_UI);
         }
@@ -81,7 +81,7 @@ public class ServicioCaidas extends Service {
             synchronized (this) {
                 double mod = modulo(event.values[0], event.values[1], event.values[2]);
                 Log.d("caida", "modulo: " + mod);
-                if (mod > 10) {
+                if (mod > 18) {
 
                     Log.d("Caida", "Se ha detectado una caída");
 

@@ -45,12 +45,13 @@ public class Fingerprint extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fingerprint);
         Log.e("finger", "clase fingerprint");
 
         // If you’ve set your app’s minSdkVersion to anything lower than 23, then you’ll need to verify that the device is running Marshmallow
         // or higher before executing any fingerprint-related code
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            setContentView(R.layout.fingerprint);
+
             Log.e("finger", "mayor que marshmallow");
             //Get an instance of KeyguardManager and FingerprintManager//
             keyguardManager =
@@ -113,6 +114,7 @@ public class Fingerprint extends AppCompatActivity {
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show(); */
             startActivity(i);
+            finish();
         }
     }
 

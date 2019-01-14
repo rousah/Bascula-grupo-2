@@ -53,7 +53,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
     MqttClient client;
     //----------------MQTT---------------------
 
-
+    public static String telefonoEmergencia = "";
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -140,7 +140,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
                                      */
                                     if(peso == null)
                                     {
-                                        Toast.makeText(getContext(), "No hay datos.", 0).show();// TODO Auto-generated method stub
+//                                        Toast.makeText(getContext(), "No hay datos.", 0).show();// TODO Auto-generated method stub
                                     }
                                     else
                                     {
@@ -166,6 +166,20 @@ public class TabPrimero extends Fragment implements MqttCallback {
                         }
                 );
         //--------------datos reales bascula-------------
+
+        db.collection("usuarios").document(usuario.getUid()).get().addOnCompleteListener(
+                new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task){
+                        if (task.isSuccessful()) {
+
+                            telefonoEmergencia = task.getResult().getString("telefonoEm");
+
+                        } else {
+                            Log.e("Firestore", "Error al leer", task.getException());
+                        }
+                    }
+                });
         return view;
     }
 
