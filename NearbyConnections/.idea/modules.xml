@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NearbyConnections.iml" filepath="$PROJECT_DIR$/NearbyConnections.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mobile/mobile.iml" filepath="$PROJECT_DIR$/mobile/mobile.iml" />
-      <module fileurl="file://$PROJECT_DIR$/things/things.iml" filepath="$PROJECT_DIR$/things/things.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NearbyConnections.iml" filepath="$PROJECT_DIR$/.idea/modules/NearbyConnections.iml" />
     </modules>
   </component>
 </project>
