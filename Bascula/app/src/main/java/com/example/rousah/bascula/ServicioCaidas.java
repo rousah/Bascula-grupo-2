@@ -80,7 +80,7 @@ public class ServicioCaidas extends Service {
         public void onSensorChanged(SensorEvent event) {
             synchronized (this) {
                 double mod = modulo(event.values[0], event.values[1], event.values[2]);
-                Log.d("caida", "modulo: " + mod);
+              //  Log.d("caida", "modulo: " + mod);
                 if (mod > 18) {
 
                     Log.d("Caida", "Se ha detectado una caída");
