@@ -274,13 +274,16 @@ void loop()
         
         bascula["Peso"] = balanza.get_units(20);
         bascula["Altura"] = devolverAltura();
-        bascula.printTo(Serial);       //envio por el puerto serie el objeto "recibido"         
+        bascula.printTo(Serial);       //envio por el puerto serie el objeto "recibido"    
+             
        break;
      }
    }
    Serial.flush();
 
-   if (rec){
+   
+
+  if (rec){
     
     //LCD_Clear();
     //DrawMenu();
@@ -297,8 +300,6 @@ void loop()
     sensores.printTo(Serial);       //envio por el puerto serie el objeto "recibido"    
     
   }
-
-  
   
   M5.update();
   //delay(5000);

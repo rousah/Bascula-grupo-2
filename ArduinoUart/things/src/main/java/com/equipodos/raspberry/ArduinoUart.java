@@ -1,34 +1,29 @@
 package com.equipodos.raspberry;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.text.format.DateFormat;
+
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.things.pio.Gpio;
+
 import com.google.android.things.pio.PeripheralManager;
 import com.google.android.things.pio.UartDevice;
 import com.google.android.things.pio.UartDeviceCallback;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
-import java.util.logging.Handler;
 
-import static android.content.ContentValues.TAG;
 
 public class ArduinoUart {
     private static final String TAG = "MATTHEW/GTI";
@@ -37,14 +32,19 @@ public class ArduinoUart {
     private UartDevice uart;
     // If set, contains a stored exception to throw when user asks for data
     private IOException mLastException;
-    private JSONObject obj;
-    private JSONArray array;
+    private JSONObject objMedidas;
+    private JSONObject objCasa;
     private Double peso;
     private Double altura;
-    private Date fecha;
+    private Double t;
+    private Double h;
+    private Double calor;
     private String texto;
+    private String casa;
     private Map<String, Object> datos = new HashMap<>();
-
+    //Para leer del serial cada 5 segundos
+    final int duracion = 7000;
+    final Handler handler = new Handler();
 
 
     public ArduinoUart(String nombre, int baudios) {
@@ -79,15 +79,43 @@ public class ArduinoUart {
                 @Override
                 public boolean onUartDeviceDataAvailable(UartDevice uart) {
                     // Read available data from the UART device
-                    Log.d(TAG, "dentro del callback");
+                    //Log.d(TAG, "dentro del callback");
+
+                    /*Runnable runnable = new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try{
+
+                                casa = leer();
+                                Log.d(TAG, casa);
+                                objCasa = new JSONObject(casa);
+                                t = objCasa.getDouble("Temperatura");
+                                h = objCasa.getDouble("Humedad");
+                                calor = objCasa.getDouble("Calor");
+
+
+                            }
+                            catch(Exception e){
+                                // En caso de error
+                            }
+                            finally{
+                                // ejecutamos otra vez el handlers
+
+                                handler.postDelayed(this, duracion);
+                            }
+                        }
+                    };
+
+                    handler.postDelayed(runnable, duracion);*/
 
                     texto = leer();
-
-                    Log.d(TAG, texto);
-
+                    //Log.d(TAG, texto);
                     if (texto.equals("S")) {
 
-                        Log.d(TAG, "llamado recibido");
+                        //Log.d(TAG, "llamado recibido");
+
+
 
                         escribir("2");
 
@@ -102,7 +130,7 @@ public class ArduinoUart {
                         try {
 
                             Thread.sleep(1000);
-                            Log.d(TAG, "Sleep");
+                            //Log.d(TAG, "Sleep");
                         } catch (InterruptedException e) {
 
                             Log.w(TAG, "Error en sleep()", e);
@@ -110,19 +138,19 @@ public class ArduinoUart {
                         }
                         String s = leer();
 
-                        Log.d(TAG, "Datos recogidos: ");
-                        Log.d(TAG, s);
+                        //Log.d(TAG, "Datos recogidos: ");
+                        //Log.d(TAG, s);
 
                         try {
-                            obj = new JSONObject(s);
+                            objMedidas = new JSONObject(s);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
                         try {
-                            peso = obj.getDouble("Peso");
-                            altura = obj.getDouble("Altura");
-
+                            peso = objMedidas.getDouble("Peso");
+                            altura = objMedidas.getDouble("Altura");
+                            t = objMedidas.getDouble("Temperatura");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -138,9 +166,12 @@ public class ArduinoUart {
                         datos.put("fecha", fecha);
                         datos.put("peso", peso);
                         datos.put("altura", altura);
-                        datos.put("randomizer", Math.random());
+                        datos.put("temperatura", t);
+                        //datos.put("humedad", h);
+                        //datos.put("calor", calor);
 
-                        db.collection("mediciones uarto").document(date).set(datos)
+
+                        db.collection("mediciones").document(date).set(datos)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -187,8 +218,6 @@ public class ArduinoUart {
 
                 for (int i=0; i<len; i++) {
                     v += (char)buffer[i];
-                    //Log.d(TAG, String.valueOf(buffer[i]).toString());
-                    //Log.d(TAG, v);
                 }
 
             } while(len>0);
