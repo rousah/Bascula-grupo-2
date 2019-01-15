@@ -1,20 +1,20 @@
 package com.example.rousah.bascula;
 
-import android.app.AlertDialog;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.comun.Mqtt;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,8 +23,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -36,13 +36,18 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.TimeZone;
 
-import static com.example.comun.Mqtt.broker;
-import static com.example.comun.Mqtt.clientId;
-import static com.example.comun.Mqtt.qos;
-import static com.example.comun.Mqtt.topicRoot;
-import static com.firebase.ui.auth.AuthUI.TAG;
+import android.annotation.SuppressLint;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class TabPrimero extends Fragment implements MqttCallback {
 
@@ -60,21 +65,29 @@ public class TabPrimero extends Fragment implements MqttCallback {
         super.onCreate(savedInstanceState);
         //---------------MQTT---------------------
         try {
-            Log.i(Mqtt.TAG, "Conectando al broker " + broker);
-            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            Log.i(Mqtt.TAG, "Conectando al broker " + Mqtt.broker);
+            client = new MqttClient(Mqtt.broker, Mqtt.clientId, new MemoryPersistence());
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
             connOpts.setKeepAliveInterval(60);
-            connOpts.setWill(topicRoot + "WillTopic", "App desconectada".getBytes(),
-                    qos, false);
+            connOpts.setWill(Mqtt.topicRoot + "WillTopic", "App desconectada".getBytes(),
+                    Mqtt.qos, false);
             client.connect(connOpts);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al conectar.", e);
         }
 
         try {
-            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot + "alarma");
-            client.subscribe(topicRoot + "alarma", qos);
+            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot + "alarma");
+            client.subscribe(Mqtt.topicRoot + "alarma", Mqtt.qos);
+            client.setCallback((MqttCallback) this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+
+        try {
+            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot + "PRESENCIA");
+            client.subscribe(Mqtt.topicRoot + "PRESENCIA", Mqtt.qos);
             client.setCallback((MqttCallback) this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
@@ -202,13 +215,68 @@ public class TabPrimero extends Fragment implements MqttCallback {
 
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         final String payload = new String(message.getPayload());
-        Log.d(TAG, "Recibiendo: " + topic + "->" + payload);
+        Log.d(Mqtt.TAG, "Recibiendo: " + topic + "->" + payload);
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (payload.contains("ALERTA_DE_GAS")) {
                     alertaGas();
                 }
+
+                if(payload.contains("IN")){
+                    notificacionDentro();
+                }
+                if(payload.contains("OUT")){
+                    notificacionFuera();
+                }
+            }
+
+            private void notificacionFuera() {
+                NotificationManager mNotificationManager =
+                        (NotificationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.NOTIFICATION_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("default",
+                            "NOMBRE_DEL_CANAL",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+                    channel.setDescription("DESCRIPCION_DEL_CANAL");
+                    mNotificationManager.createNotificationChannel(channel);
+                }
+
+
+
+                @SuppressLint("RestrictedApi") NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                        .setContentTitle("Hasta pronto") // title for notification
+                        .setContentText("Que pase un buen dia")// message for notification
+                        .setAutoCancel(true); // clear notification after click
+                @SuppressLint("RestrictedApi") Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                @SuppressLint("RestrictedApi") PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mNotificationManager.notify(0, mBuilder.build());
+            }
+
+            private void notificacionDentro() {
+                NotificationManager mNotificationManager =
+                        (NotificationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.NOTIFICATION_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("default",
+                            "NOMBRE_DEL_CANAL",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+                    channel.setDescription("DESCRIPCION_DEL_CANAL");
+                    mNotificationManager.createNotificationChannel(channel);
+                }
+
+
+
+                @SuppressLint("RestrictedApi") NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                        .setContentTitle("Bienvenido") // title for notification
+                        .setContentText("Bienvenido a casa")// message for notification
+                        .setAutoCancel(true); // clear notification after click
+                @SuppressLint("RestrictedApi") Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                @SuppressLint("RestrictedApi") PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mNotificationManager.notify(0, mBuilder.build());
             }
 
             private void alertaGas() {
