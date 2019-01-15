@@ -193,7 +193,12 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             return;
         }
         else {
-            crearServicio();
+            SharedPreferences pref =
+                    PreferenceManager.getDefaultSharedPreferences(this);
+            if(pref.getString("llamadaEmergencia","?").equals("1")){
+            }else {
+                crearServicio();
+            }
         }
         //---------------CAÍDAS-------------------
 

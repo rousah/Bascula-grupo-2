@@ -16,4 +16,12 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="llamada12">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="llamadaSiNo">
+        <item>No</item>
+        <item>Sí</item>
+    </string-array>
 </resources>

@@ -25,9 +25,16 @@
         android:summary="Unidad preferida para mostrar la altura"
         android:title="Unidades para la altura" />
 
+    <ListPreference
+        android:key="llamadaEmergencia"
+        android:defaultValue="1"
+        android:entries="@array/llamadaSiNo"
+        android:entryValues="@array/llamada12"
+        android:summary="Llamada automática a emergencias cuando el móvil detecte una caida, debe reiniciar la app al cambiar"
+        android:title="Llamada a emergencias" />
 
     <EditTextPreference
-        android:defaultValue="3"
+        android:defaultValue="25"
         android:inputType="number"
         android:key="personas"
         android:summary=""
