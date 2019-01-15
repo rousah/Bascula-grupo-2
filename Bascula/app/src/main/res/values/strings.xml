@@ -19,4 +19,12 @@
     <string name="suscribe_a_un_nuevo_usuario_remoto">Suscribe a un nuevo usuario remoto</string>
     <string name="selecciona_un_usuario_remoto_a_neliminar">Elimina un usuario remoto</string>
     <string name="compartir">Compartir</string>
+    <string name="perfil">Perfil</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nombreee">Nombre:</string>
 </resources>

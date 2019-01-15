@@ -92,7 +92,8 @@ public class ArduinoUart {
                         escribir("2");
 
                         Calendar c = Calendar.getInstance();
-                        String date = c.get(Calendar.DAY_OF_MONTH)+"-"+c.get(Calendar.MONTH+1)+"-"+c.get(Calendar.YEAR);
+                        int month = c.get(Calendar.MONTH)+1;
+                        String date = c.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+c.get(Calendar.YEAR);
                         //Log.d(TAG, date);
 
                         Date fecha = new Date();

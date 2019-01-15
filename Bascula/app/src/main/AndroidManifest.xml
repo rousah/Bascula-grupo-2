@@ -2,12 +2,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rousah.bascula">
 
+    <!--<uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>-->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <permission android:name="PROCESS_OUTGOING_CALLS"></permission>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
+    <uses-feature android:name="android.hardware.fingerprint"
+        android:required="false"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAhz2D1wDCaF_xAGAsareKc4zVLUy1zBVA"/>
+        <service android:name=".ServicioCaidas"></service>
+        <activity android:name=".Dialog" android:theme="@android:style/Theme.Dialog" android:showWhenLocked="true" android:showOnLockScreen="true" android:turnScreenOn="true" android:finishOnCloseSystemDialogs="true"></activity>
+        <activity android:name=".BorrarUsuarioActivity"
+            android:label="Borrar usuario ..." />
         <activity android:name=".PreferenciasActivity"
             android:label="Preferencias ..."/>
         <activity android:name=".AcercaDeActivity"
@@ -15,7 +38,13 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+           >
+        </activity>
+        <activity android:name=".Fingerprint">
+
+        </activity>
+        <activity
+            android:name=".CrearPerfil" android:parentActivityName=".MainActivity">
         </activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -24,11 +53,6 @@
             </intent-filter>
         </activity>
 
-        <!--
-      BORJA
-      Introduced in order to implement remote user administration
-      >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    -->
         <activity
             android:name=".RemoveRemoteCheckActivity">
         </activity>
@@ -52,11 +76,9 @@
             android:name=".RegistroUsuarioRemotoActivity"
             android:label="Registro Usuario Remoto">
         </activity>
-        <!--
-            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            BORJA
-            Introduction ends here
-        -->
+
+        <activity android:name=".DatosDiaCalendario">
+        </activity>
 
     </application>
 

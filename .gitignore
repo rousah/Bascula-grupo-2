@@ -1,1 +1,10 @@
+<<<<<<< HEAD
 .DS_Files
+=======
+
+Bascula/.idea/misc.xml
+Bascula/.idea/assetWizardSettings.xml
+.DS_Store
+*.icloud
+.idea
+>>>>>>> 715a62a6846b4bafe18814b962c57ffbe7ed7f4e

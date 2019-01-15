@@ -278,7 +278,27 @@ void loop()
        break;
      }
    }
-   Serial.flush();  
+   Serial.flush();
+
+   if (rec){
+    
+    //LCD_Clear();
+    //DrawMenu();
+    // Posición del cursor de nuevo en 0,0 
+    M5.Lcd.setCursor(0, 0);
+
+    rec=0;
+    udp.broadcastTo("Recibido",1234); //Confirmación
+    udp.broadcastTo(texto,1234);      //reenvía lo recibido
+    hora=atol(texto);                 //paso de texto a int
+    
+    StaticJsonBuffer<300> jsonBufferRecv; //definición del buffer para almacenar el objero JSON, 200 máximo
+    JsonObject& sensores = jsonBufferRecv.parseObject(texto); //paso de texto a formato JSON
+    sensores.printTo(Serial);       //envio por el puerto serie el objeto "recibido"    
+    
+  }
+
+  
   
   M5.update();
   //delay(5000);

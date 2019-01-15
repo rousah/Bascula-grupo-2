@@ -1,0 +1,184 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:2:1-30:12
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:2:1-30:12
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:2:1-30:12
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:2:1-30:12
+MERGED from [com.android.support:design:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\design-28.0.0.aar\9ba8d4eafd87c9421e7b22f91e0803fe\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\appcompat-v7-28.0.0.aar\a6af1a731e961a623107fb0c3cae3de0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\3c319de27c88f7e49815599dd84fd990\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\2602a13dc3dcfa98cdd306d5dc92e3d2\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\e3256acb8a585b49feb528b1936b3c52\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-28.0.0.aar\312bc63d0922a0a714bd01ae03140a06\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\d61d79dcae8fa4f9154fd166fd6831fc\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-core-utils-28.0.0.aar\81eef91163c94279b7b8f41454c21552\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-28.0.0.aar\a25c907811ddd989f37832f71eed2382\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\transition-28.0.0.aar\74b17fa89f04a907e4bb02f2b4fd404b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\loader-28.0.0.aar\c3f6d172d646920e80519378f28de89b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\viewpager-28.0.0.aar\0c9e6768830ba35edffa6dc262b2daac\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-28.0.0.aar\0c37a78170c6c0fe017dd2ff42c71c99\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\drawerlayout-28.0.0.aar\94a0bd7462453b39caca94a5efeffd38\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-28.0.0.aar\80830b083ce7c731dc77ae6f825162f9\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\customview-28.0.0.aar\934bb48e6139928de537bb727c8a3950\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-28.0.0.aar\fd641965213dfa84a435e9e643a1814a\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-28.0.0.aar\3b524d9fbc5a440d766f123eb678e0cf\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\517fd35029b8ebb0da35fbf68a062b70\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\8415903dccff02ff89c59b0c5267e47d\AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\cursoradapter-28.0.0.aar\89c03ae80de5ab158e99df0ae7c4d8c3\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\cardview-v7-28.0.0.aar\513206d31b1e0da7d1342a7a91244077\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\8d6c0c2102f45b683c57bf8b54b87987\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\documentfile-28.0.0.aar\3f4cfcf0efa6114af9db513dfae481af\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-28.0.0.aar\9f4b1bf84fe794b3b48d271519f6352b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\print-28.0.0.aar\df676550bdf1c434c3e09f168c508c91\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\071d3eaa71cd962bf1b6d589defa1812\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\interpolator-28.0.0.aar\f90f76ff4a944850ed96f02039c584a7\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\894f63c3a3c04d361c515aed0b447c38\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\7bae8e60f4070846b7319b940ae0e62c\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\64169a9ed08e50baca1021e1e0be1dec\AndroidManifest.xml:17:1-22:12
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:2:1-30:12
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:2:1-30:12
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:2:1-30:12
+	package
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:3:5-39
+		INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:2:1-30:12
+		INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:2:1-30:12
+		INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:2:11-69
+application
+ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:5:5-28:19
+MERGED from [com.android.support:design:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\design-28.0.0.aar\9ba8d4eafd87c9421e7b22f91e0803fe\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\design-28.0.0.aar\9ba8d4eafd87c9421e7b22f91e0803fe\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\3c319de27c88f7e49815599dd84fd990\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\3c319de27c88f7e49815599dd84fd990\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\517fd35029b8ebb0da35fbf68a062b70\AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\517fd35029b8ebb0da35fbf68a062b70\AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\8415903dccff02ff89c59b0c5267e47d\AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\8415903dccff02ff89c59b0c5267e47d\AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\517fd35029b8ebb0da35fbf68a062b70\AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:10:9-35
+	android:label
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:8:9-41
+	android:roundIcon
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:9:9-54
+	android:icon
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:7:9-43
+	android:allowBackup
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:6:9-35
+	android:theme
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:11:9-40
+activity#com.example.canut.examen.MainActivity
+ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:12:9-21:20
+	android:label
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:14:13-45
+	android:theme
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:15:13-56
+	android:name
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:13:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:16:13-20:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:17:17-69
+	android:name
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:17:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:19:17-77
+	android:name
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:19:27-74
+activity#com.example.canut.examen.Main2Activity
+ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:22:9-51
+	android:name
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:22:19-48
+service#com.example.canut.examen.NuevoServicio
+ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:24:9-27:47
+	android:enabled
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:26:13-35
+	android:exported
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:27:13-36
+	android:name
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml:25:13-42
+uses-sdk
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+MERGED from [com.android.support:design:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\design-28.0.0.aar\9ba8d4eafd87c9421e7b22f91e0803fe\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\design-28.0.0.aar\9ba8d4eafd87c9421e7b22f91e0803fe\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\appcompat-v7-28.0.0.aar\a6af1a731e961a623107fb0c3cae3de0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\appcompat-v7-28.0.0.aar\a6af1a731e961a623107fb0c3cae3de0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\3c319de27c88f7e49815599dd84fd990\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\3c319de27c88f7e49815599dd84fd990\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\2602a13dc3dcfa98cdd306d5dc92e3d2\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\2602a13dc3dcfa98cdd306d5dc92e3d2\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\e3256acb8a585b49feb528b1936b3c52\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\e3256acb8a585b49feb528b1936b3c52\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-28.0.0.aar\312bc63d0922a0a714bd01ae03140a06\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-28.0.0.aar\312bc63d0922a0a714bd01ae03140a06\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\d61d79dcae8fa4f9154fd166fd6831fc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\d61d79dcae8fa4f9154fd166fd6831fc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-core-utils-28.0.0.aar\81eef91163c94279b7b8f41454c21552\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-core-utils-28.0.0.aar\81eef91163c94279b7b8f41454c21552\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-28.0.0.aar\a25c907811ddd989f37832f71eed2382\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-28.0.0.aar\a25c907811ddd989f37832f71eed2382\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\transition-28.0.0.aar\74b17fa89f04a907e4bb02f2b4fd404b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\transition-28.0.0.aar\74b17fa89f04a907e4bb02f2b4fd404b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\loader-28.0.0.aar\c3f6d172d646920e80519378f28de89b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\loader-28.0.0.aar\c3f6d172d646920e80519378f28de89b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\viewpager-28.0.0.aar\0c9e6768830ba35edffa6dc262b2daac\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\viewpager-28.0.0.aar\0c9e6768830ba35edffa6dc262b2daac\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-28.0.0.aar\0c37a78170c6c0fe017dd2ff42c71c99\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-28.0.0.aar\0c37a78170c6c0fe017dd2ff42c71c99\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\drawerlayout-28.0.0.aar\94a0bd7462453b39caca94a5efeffd38\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\drawerlayout-28.0.0.aar\94a0bd7462453b39caca94a5efeffd38\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-28.0.0.aar\80830b083ce7c731dc77ae6f825162f9\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-28.0.0.aar\80830b083ce7c731dc77ae6f825162f9\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\customview-28.0.0.aar\934bb48e6139928de537bb727c8a3950\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\customview-28.0.0.aar\934bb48e6139928de537bb727c8a3950\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-28.0.0.aar\fd641965213dfa84a435e9e643a1814a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-28.0.0.aar\fd641965213dfa84a435e9e643a1814a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-28.0.0.aar\3b524d9fbc5a440d766f123eb678e0cf\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-28.0.0.aar\3b524d9fbc5a440d766f123eb678e0cf\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\517fd35029b8ebb0da35fbf68a062b70\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\517fd35029b8ebb0da35fbf68a062b70\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\8415903dccff02ff89c59b0c5267e47d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\8415903dccff02ff89c59b0c5267e47d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\cursoradapter-28.0.0.aar\89c03ae80de5ab158e99df0ae7c4d8c3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\cursoradapter-28.0.0.aar\89c03ae80de5ab158e99df0ae7c4d8c3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\cardview-v7-28.0.0.aar\513206d31b1e0da7d1342a7a91244077\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\cardview-v7-28.0.0.aar\513206d31b1e0da7d1342a7a91244077\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\8d6c0c2102f45b683c57bf8b54b87987\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\8d6c0c2102f45b683c57bf8b54b87987\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\documentfile-28.0.0.aar\3f4cfcf0efa6114af9db513dfae481af\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\documentfile-28.0.0.aar\3f4cfcf0efa6114af9db513dfae481af\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-28.0.0.aar\9f4b1bf84fe794b3b48d271519f6352b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-28.0.0.aar\9f4b1bf84fe794b3b48d271519f6352b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\print-28.0.0.aar\df676550bdf1c434c3e09f168c508c91\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\print-28.0.0.aar\df676550bdf1c434c3e09f168c508c91\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\071d3eaa71cd962bf1b6d589defa1812\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\071d3eaa71cd962bf1b6d589defa1812\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\interpolator-28.0.0.aar\f90f76ff4a944850ed96f02039c584a7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\interpolator-28.0.0.aar\f90f76ff4a944850ed96f02039c584a7\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\894f63c3a3c04d361c515aed0b447c38\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\894f63c3a3c04d361c515aed0b447c38\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\7bae8e60f4070846b7319b940ae0e62c\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\7bae8e60f4070846b7319b940ae0e62c\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\64169a9ed08e50baca1021e1e0be1dec\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\canut\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\64169a9ed08e50baca1021e1e0be1dec\AndroidManifest.xml:20:5-44
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\canut\AndroidStudioProjects\Bascula-grupo-2\Examen\app\src\main\AndroidManifest.xml
