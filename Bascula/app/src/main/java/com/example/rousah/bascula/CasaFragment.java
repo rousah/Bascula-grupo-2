@@ -148,14 +148,23 @@ public class CasaFragment extends Fragment implements MqttCallback {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task){
                         if (task.isSuccessful()) {
 
-                            TextView temp = view.findViewById(R.id.temp);
-                            temp.setText(task.getResult().getDouble("temperatura").toString() + " ºC");
+                            Double temperatura = task.getResult().getDouble("temperatura");
+                            Double humedad = task.getResult().getDouble("humedad");
+                            Double termica = task.getResult().getDouble("sensaciontermica");
 
-                            TextView hum = view.findViewById(R.id.hum);
-                            hum.setText(task.getResult().getDouble("humedad").toString() + " %");
+                            if (temperatura != null && humedad != null && termica != null) {
 
-                            TextView termi = view.findViewById(R.id.termi);
-                            termi.setText(task.getResult().getDouble("sensaciontermica").toString() + " ºC");
+                                TextView temp = view.findViewById(R.id.temp);
+
+                                temp.setText(temperatura.toString() + " ºC");
+
+                                TextView hum = view.findViewById(R.id.hum);
+                                hum.setText(humedad.toString() + " %");
+
+                                TextView termi = view.findViewById(R.id.termi);
+                                termi.setText(termica.toString() + " ºC");
+                            }
+
                         } else {
                             Log.e("Firestore", "Error al leer", task.getException());
                         }
@@ -206,6 +215,11 @@ public class CasaFragment extends Fragment implements MqttCallback {
 
 
 
+
+
+
+       /*
+// GRAFICA
         final String[] labels = new String[3];
         final float[] values = new float[3];
         final Runnable mBaseAction;
@@ -270,6 +284,7 @@ public class CasaFragment extends Fragment implements MqttCallback {
                                                          };
 
                                                          */
+       /*
 
                                                          Paint paint = new Paint();
                                                          paint.setColor(Color.parseColor("#E3E3E3"));
@@ -293,6 +308,10 @@ public class CasaFragment extends Fragment implements MqttCallback {
                                                  }
                                              });
 
+
+// GRAFICA
+
+*/
 
         //---------------MQTT---------------------
         luces.setOnClickListener(new View.OnClickListener() {

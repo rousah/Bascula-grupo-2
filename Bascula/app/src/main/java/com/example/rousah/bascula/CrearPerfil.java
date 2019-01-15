@@ -50,6 +50,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CrearPerfil extends AppCompatActivity {
+
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Context context = this;
@@ -73,6 +74,7 @@ public class CrearPerfil extends AppCompatActivity {
     private Uri uriStorage;
 
     @Override public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.crear_perfil);
@@ -233,15 +235,16 @@ public class CrearPerfil extends AppCompatActivity {
 
     public void guardar(View view) {
 
-
         radioGroup = findViewById(R.id.radioSexo);
         EditText telefono = findViewById(R.id.telefonoCrear);
         selectedId = radioGroup.getCheckedRadioButtonId();
         radioButtonSelected = (RadioButton) findViewById(selectedId);
+        EditText telefonoEm = findViewById(R.id.telefonoCrearr);
+
 
         Log.w("perfil: fecha", fecha.getText().toString());
         Log.w("perfil: tlf", telefono.getText().toString());
-        if (telefono.getText().toString().equals("") || fecha.getText().toString().equals("dd/mm/yy") || radioButtonSelected == null) {
+        if (telefono.getText().toString().equals("") || fecha.getText().toString().equals("dd/mm/yy") || radioButtonSelected == null || telefonoEm.getText().toString().equals("")) {
             Toast.makeText(CrearPerfil.this, "Complete todos los campos", Toast.LENGTH_LONG).show();
         } else {
             selectedId = radioGroup.getCheckedRadioButtonId();
@@ -251,6 +254,8 @@ public class CrearPerfil extends AppCompatActivity {
             datos.put("telefono", telefono.getText().toString());
             datos.put("sexo", radioButtonSelected.getTag());
             datos.put("fechaNac", fecha.getText().toString());
+            datos.put("telefonoEm", telefonoEm.getText().toString());
+
 
             final DocumentReference usuarioActual = db.collection("usuarios").document(usuario.getUid());
             usuarioActual.update(datos)

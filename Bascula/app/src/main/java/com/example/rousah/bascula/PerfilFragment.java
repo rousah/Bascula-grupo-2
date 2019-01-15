@@ -131,6 +131,9 @@ public class PerfilFragment extends Fragment {
                             TextView telefono = view.findViewById(R.id.telefono);
                             telefono.setText(task.getResult().getString("telefono"));
 
+                            TextView telefonoEm = view.findViewById(R.id.telefonooo);
+                            telefonoEm.setText(task.getResult().getString("telefonoEm"));
+
                             TextView sexo = view.findViewById(R.id.textoSexo);
                             /*sexo.setText(task.getResult().getString("sexo"));*/
                            if (task.getResult().getString("sexo").equals("masculino")) {

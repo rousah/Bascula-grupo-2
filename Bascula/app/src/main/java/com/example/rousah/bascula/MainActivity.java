@@ -3,6 +3,7 @@
 package com.example.rousah.bascula;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -23,6 +24,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -81,7 +83,7 @@ import static com.firebase.ui.auth.AuthUI.TAG;
 
 
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener, PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, MqttCallback {
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, HospitalesFragment.OnFragmentInteractionListener, MqttCallback {
 
     //--------------Drawer--------------------
     private DrawerLayout drawerLayout;
@@ -90,9 +92,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private ActionBarDrawerToggle drawerToggle;
     //--------------Drawer--------------------
     View headerLayout;
-    // -------------RecyclerView--------------
-    private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
 
     NotificationManager manager;
     Notification myNotication;
@@ -106,13 +105,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     MqttClient client;
     //----------------MQTT---------------------
 
-    private ImageView imagenPerfil;
-
 
     // caídas
-    private List<Sensor> listaSensores;
     private static final int SOLICITUD_PERMISO_CALL_PHONE = 0;
 
+    // mapa
+    private static final int SOLICITUD_PERMISO_ACCESS_FINE_LOCATION = 1;
 
 
     @Override
@@ -187,17 +185,30 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //---------------MQTT---------------------
 
 
-        // caídas
-        SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        listaSensores = sm.getSensorList(Sensor.TYPE_LINEAR_ACCELERATION);
-        int n = 0;
-        for (Sensor sensor : listaSensores) {
-            sm.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI);
-            n++;
+        //---------------CAÍDAS-------------------
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            PedirPermisos.solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso"+
+                            " llamar no puedo llamar a emergencias si se detecta alguna caída.",
+                    SOLICITUD_PERMISO_CALL_PHONE, this);
+            return;
         }
+        else {
+            crearServicio();
+        }
+        //---------------CAÍDAS-------------------
+
+
+        //---------------MAPA-------------------
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            PedirPermisos.solicitarPermiso(Manifest.permission.ACCESS_FINE_LOCATION, "Sin el permiso"+
+                            " llamar no puedo llamar a emergencias si se detecta alguna caída.",
+                    SOLICITUD_PERMISO_ACCESS_FINE_LOCATION, this);
+            return;
+        }
+        //---------------MAPA-------------------
+
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -349,6 +360,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 break;
             case R.id.nav_tratamientos:
                 fragment = new TratamientosFragment();
+                break;
+            case R.id.nav_hospitales:
+                fragment = new HospitalesFragment();
                 break;
             case R.id.log_out:
                 FirebaseAuth.getInstance().signOut(); //End user session
@@ -637,132 +651,36 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-    // DETECCIÓN DE CAÍDAS
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        synchronized (this) {
-            int n = 0;
-            for (Sensor sensor : listaSensores) {
-                if (event.sensor == sensor) {
-                    double mod = modulo(event.values[0], event.values[1], event.values[2]);
-                    Log.d("caida", "modulo: " + mod);
-                    if (mod > 10) {
-                        Toast.makeText(this, "Caida", Toast.LENGTH_SHORT).show();
-                        Log.d("Caida", "Se ha detectado una caída");
-                        final Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:123456789"));
-                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        // Hay que darle permisos a la aplicación desde el móvil para que tenga permisos de llamada
-                        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                                solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso"+
-                                                " llamar no puedo llamar a emergencias",
-                                        SOLICITUD_PERMISO_CALL_PHONE, this);
-                            return;
-                        }
-                        else {
-                            new AlertDialog.Builder(this)
-                                    .setTitle("Llamar a emergencias")
-                                    .setMessage("Se ha detectado una caída. ¿Quiere llamar a emergencias? Se llamará por defecto en 10 segundos si no cancela.")
-                                    .setPositiveButton("Llamar", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                            Intent callIntent = new Intent(Intent.ACTION_CALL);
-                                            callIntent.setData(Uri.parse("tel:123456789"));
-                                            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(callIntent);
-                                            dialog.dismiss();
-                                        }})
-                                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    })
-                                    .show();
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    startActivity(callIntent);
-                                }
-                            }, 10000);
-                            break;
-                        }
-                    }
-                }
-                n++;
-            }
-        }
-
-    }
-
-    public double modulo (float x, float y, float z) {
-        double modulo = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-        return modulo;
-    }
-
-    public static void solicitarPermiso(final String permiso, String
-            justificacion, final int requestCode, final Activity actividad) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(actividad,
-                permiso)){
-            new AlertDialog.Builder(actividad)
-                    .setTitle("Solicitud de permiso")
-                    .setMessage(justificacion)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            ActivityCompat.requestPermissions(actividad,
-                                    new String[]{permiso}, requestCode);
-                        }})
-                    .show();
-        } else {
-            ActivityCompat.requestPermissions(actividad,
-                    new String[]{permiso}, requestCode);
-        }
+    //---------------CAÍDAS-------------------
+    public void crearServicio() {
+        Intent i = new Intent(this, ServicioCaidas.class);
+        startService(i);
     }
 
     @Override public void onRequestPermissionsResult(int requestCode,
                                                      String[] permissions, int[] grantResults) {
-        final Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:123456789"));
-        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (requestCode == SOLICITUD_PERMISO_CALL_PHONE) {
             if (grantResults.length== 1 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                new AlertDialog.Builder(this)
-                        .setTitle("Llamar a emergencias")
-                        .setMessage("Se ha detectado una caída. ¿Quiere llamar a emergencias? Se llamará por defecto en 10 segundos si no cancela.")
-                        .setPositiveButton("Llamar", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                                callIntent.setData(Uri.parse("tel:123456789"));
-                                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(callIntent);
-                                dialog.dismiss();
-                            }})
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(callIntent);
-                    }
-                }, 10000);
+                crearServicio();
             }
             else {
-                Toast.makeText(this, "Sin el permiso, no puedo realizar la " +
-                        "acción", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Sin el permiso, no se llamará a emergencias cuando se " +
+                        "detecte una caída.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (requestCode == SOLICITUD_PERMISO_ACCESS_FINE_LOCATION) {
+            if (grantResults.length== 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            }
+            else {
+                Toast.makeText(this, "Sin el permiso, no se mostrará el " +
+                        "mapa con hospitales.", Toast.LENGTH_SHORT).show();
             }
         }
     }
-    
+    //---------------CAÍDAS-------------------
+
+
 }
