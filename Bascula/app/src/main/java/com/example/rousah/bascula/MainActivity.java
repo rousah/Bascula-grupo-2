@@ -1,5 +1,3 @@
-
-
 package com.example.rousah.bascula;
 
 import android.Manifest;
@@ -12,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
@@ -25,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -207,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         }
         //---------------MAPA-------------------
 
+        //mostrarPreferencias();
 
     }
 
@@ -255,6 +256,20 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         Intent i = new Intent(this, PreferenciasActivity.class);
         startActivity(i);
     }
+
+    /*public void mostrarPreferencias(){
+        SharedPreferences pref =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        String s = "imagen: " + pref.getString("imagen","?");
+        int value = Integer.parseInt(pref.getString("imagen","?"));
+        if(value == 2){
+            Toast.makeText(this, "ES AlTAAA", Toast.LENGTH_LONG).show();
+        }
+        if(value == 1){
+            Toast.makeText(this, "ES bajaaaa", Toast.LENGTH_LONG).show();
+        }
+        //Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

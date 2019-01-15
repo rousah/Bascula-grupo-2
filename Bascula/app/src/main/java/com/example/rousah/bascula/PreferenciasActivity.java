@@ -11,4 +11,9 @@ public class PreferenciasActivity extends Activity {
                 .replace(android.R.id.content, new PreferenciasFragment())
                 .commit();
     }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
+    }
 }

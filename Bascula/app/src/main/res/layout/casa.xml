@@ -33,7 +33,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginRight="20dp"
-                android:text="Estado actual:"
+                android:text="@string/estadoActual"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:typeface="normal"
@@ -80,13 +80,13 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/textView5"
+                                android:id="@+id/temperatura"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:text="Temperatura:"
+                                android:text="@string/temperatura"
                                 android:textColor="#ffffff"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -110,13 +110,13 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/textView4"
+                                android:id="@+id/sensacionTermica"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:gravity="bottom"
-                                android:text="Sensación térmica:"
+                                android:text="@string/sensacionTermica"
                                 android:textColor="#ffffff"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -159,14 +159,14 @@
                     app:srcCompat="@drawable/ic_water" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/Humedad"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="4"
                     android:gravity="center_vertical"
-                    android:text="Humedad:"
+                    android:text="@string/humedad"
                     android:textColor="#ffffff"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -211,7 +211,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="4"
                     android:gravity="center_vertical|start"
-                    android:text="Puerta:"
+                    android:text="@string/puerta"
                     android:textColor="#ffffff"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -224,7 +224,7 @@
                     android:layout_weight="4"
                     android:foregroundGravity="center_vertical"
                     android:gravity="center_vertical|end"
-                    android:text="Abierta"
+                    android:text="@string/estadoPuerta"
                     android:textColor="#ffffff"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -258,7 +258,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="4"
                     android:gravity="center_vertical|start"
-                    android:text="Luces:"
+                    android:text="@string/luces"
                     android:textColor="#ffffff"
                     android:textSize="24sp"
                     android:textStyle="bold" />

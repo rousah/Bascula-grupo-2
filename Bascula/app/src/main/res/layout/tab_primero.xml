@@ -30,7 +30,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginRight="20dp"
-            android:text="Sus datos más recientes:"
+            android:text="@string/datosRecientes"
             android:textColor="#000000"
             android:textSize="18sp"
             android:typeface="normal"
@@ -92,7 +92,7 @@
                     android:layout_width="166dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Altura:"
+                    android:text="@string/altura"
                     android:textColor="#ffffff"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -124,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Peso:"
+                    android:text="@string/peso"
                     android:textColor="#ffffff"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -143,19 +143,19 @@
 
 
         <TextView
-                android:id="@+id/section2_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginRight="20dp"
-                android:text="Estado de su objetivo:"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-                tools:layout_constraintLeft_creator="1"
-                tools:layout_constraintTop_creator="1" />
+            android:id="@+id/section2_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginRight="20dp"
+            android:text="@string/estadoObjetivo"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintTop_creator="1" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
