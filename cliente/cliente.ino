@@ -26,7 +26,7 @@ MFRC522::StatusCode status; //variable to get card status
 
 // --- Escucha del sensor hum temp ---
 // Definimos el pin digital donde se conecta el sensor DHT
-#define DHTPIN 5
+#define DHTPIN 16
 // Dependiendo del tipo de sensor
 #define DHTTYPE DHT11
 // Inicializamos el sensor DHT11
@@ -167,8 +167,8 @@ void loop()
     leerHumTemp(&datosDHT[0]);
     envio["Date"] = date;
     envio["Time"] = timeNow;
-    envio["Temperatura"] = datosDHT[0];
-    envio["Humedad"] = datosDHT[1];
+    envio["Temperatura"] = datosDHT[1];
+    envio["Humedad"] = datosDHT[0];
     envio["Calor"] = datosDHT[2];
 
     envio.printTo(texto);         //paso del objeto "envio" a texto para transmitirlo
