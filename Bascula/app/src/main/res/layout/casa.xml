@@ -97,7 +97,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
                                 android:gravity="center_vertical|end"
-                                android:text="22 ºC"
+                                android:text="-- ºC"
                                 android:textColor="#ffffff"
                                 android:textSize="24sp" />
 
@@ -128,7 +128,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="2"
                                 android:gravity="center_vertical|end"
-                                android:text="22.5 ºC"
+                                android:text="-- ºC"
                                 android:textColor="#ffffff"
                                 android:textSize="24sp" />
 
@@ -177,7 +177,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:gravity="center_vertical|end"
-                    android:text="70 %"
+                    android:text="-- %"
                     android:textColor="#ffffff"
                     android:textSize="24sp" />
             </LinearLayout>
