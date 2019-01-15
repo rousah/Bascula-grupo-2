@@ -671,7 +671,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             }
         }
         if (requestCode == SOLICITUD_PERMISO_ACCESS_FINE_LOCATION) {
-            if (grantResults.length== 1 &&
+            if (permissions.length == 1 &&
+                    permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             }
             else {
