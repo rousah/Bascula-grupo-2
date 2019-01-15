@@ -131,6 +131,9 @@ public class PerfilFragment extends Fragment {
                             TextView telefono = view.findViewById(R.id.telefono);
                             telefono.setText(task.getResult().getString("telefono"));
 
+                            TextView telefonoEm = view.findViewById(R.id.telefonooo);
+                            telefonoEm.setText(task.getResult().getString("telefonoEm"));
+
                             TextView sexo = view.findViewById(R.id.textoSexo);
                             /*sexo.setText(task.getResult().getString("sexo"));*/
                            if (task.getResult().getString("sexo").equals("masculino")) {
@@ -182,8 +185,12 @@ public class PerfilFragment extends Fragment {
     }
 
     public void lanzarEditar(){
-        Intent i = new Intent(getContext(), CrearPerfil.class);
-        startActivity(i);
+        final Intent iFingerprint = new Intent(getContext(), Fingerprint.class);
+        iFingerprint.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+       // Intent i = new Intent(getContext(), CrearPerfil.class);
+        startActivity(iFingerprint);
     }
 
     public void comprobarImagen() {

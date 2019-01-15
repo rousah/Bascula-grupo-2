@@ -1,27 +1,43 @@
-
-
 package com.example.rousah.bascula;
 
+import android.Manifest;
 import android.annotation.TargetApi;
-import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -29,7 +45,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -58,8 +73,8 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
-
 import static com.example.comun.Mqtt.broker;
 import static com.example.comun.Mqtt.clientId;
 import static com.example.comun.Mqtt.qos;
@@ -68,7 +83,7 @@ import static com.firebase.ui.auth.AuthUI.TAG;
 
 
 
-public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, MqttCallback {
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, HospitalesFragment.OnFragmentInteractionListener, MqttCallback {
 
     //--------------Drawer--------------------
     private DrawerLayout drawerLayout;
@@ -77,9 +92,9 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     private ActionBarDrawerToggle drawerToggle;
     //--------------Drawer--------------------
     View headerLayout;
-    // -------------RecyclerView--------------
-    private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
+
+    NotificationManager manager;
+    Notification myNotication;
 
     public static AlmacenUsuariosRemotos almacen = new AlmacenUsuariosRemotosArray();
 
@@ -90,7 +105,12 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     MqttClient client;
     //----------------MQTT---------------------
 
-    private ImageView imagenPerfil;
+
+    // caídas
+    private static final int SOLICITUD_PERMISO_CALL_PHONE = 0;
+
+    // mapa
+    private static final int SOLICITUD_PERMISO_ACCESS_FINE_LOCATION = 1;
 
 
     @Override
@@ -135,29 +155,66 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
         //---------------MQTT---------------------
         try {
-            Log.i(Mqtt.TAG, "Conectando al broker " + broker);
-            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            Log.i(Mqtt.TAG, "Conectando al broker " + Mqtt.broker);
+            client = new MqttClient(Mqtt.broker, Mqtt.clientId, new MemoryPersistence());
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
             connOpts.setKeepAliveInterval(60);
-            connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
-                    qos, false);
+            connOpts.setWill(Mqtt.topicRoot+"WillTopic", "App desconectada".getBytes(),
+                    Mqtt.qos, false);
             client.connect(connOpts);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al conectar.", e);
         }
 
         try {
-            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"POWER");
-            client.subscribe(topicRoot+"POWER", qos);
+            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot+"POWER");
+            client.subscribe(Mqtt.topicRoot+"POWER", Mqtt.qos);
+            client.setCallback(this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+
+        try {
+            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot+"PRESENCIA");
+            client.subscribe(Mqtt.topicRoot+"PRESENCIA", Mqtt.qos);
             client.setCallback(this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
         //---------------MQTT---------------------
 
-    }
 
+        //---------------CAÍDAS-------------------
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            PedirPermisos.solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso"+
+                            " llamar no puedo llamar a emergencias si se detecta alguna caída.",
+                    SOLICITUD_PERMISO_CALL_PHONE, this);
+            return;
+        }
+        else {
+            SharedPreferences pref =
+                    PreferenceManager.getDefaultSharedPreferences(this);
+            if(pref.getString("llamadaEmergencia","?").equals("1")){
+            }else {
+                crearServicio();
+            }
+        }
+        //---------------CAÍDAS-------------------
+
+
+        //---------------MAPA-------------------
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            PedirPermisos.solicitarPermiso(Manifest.permission.ACCESS_FINE_LOCATION, "Sin el permiso"+
+                            " llamar no puedo llamar a emergencias si se detecta alguna caída.",
+                    SOLICITUD_PERMISO_ACCESS_FINE_LOCATION, this);
+            return;
+        }
+        //---------------MAPA-------------------
+
+        //mostrarPreferencias();
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -204,6 +261,20 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         Intent i = new Intent(this, PreferenciasActivity.class);
         startActivity(i);
     }
+
+    /*public void mostrarPreferencias(){
+        SharedPreferences pref =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        String s = "imagen: " + pref.getString("imagen","?");
+        int value = Integer.parseInt(pref.getString("imagen","?"));
+        if(value == 2){
+            Toast.makeText(this, "ES AlTAAA", Toast.LENGTH_LONG).show();
+        }
+        if(value == 1){
+            Toast.makeText(this, "ES bajaaaa", Toast.LENGTH_LONG).show();
+        }
+        //Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -310,6 +381,9 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             case R.id.nav_tratamientos:
                 fragment = new TratamientosFragment();
                 break;
+            case R.id.nav_hospitales:
+                fragment = new HospitalesFragment();
+                break;
             case R.id.log_out:
                 FirebaseAuth.getInstance().signOut(); //End user session
                 startActivity(new Intent(MainActivity.this, LoginActivity.class)); //Go back to home page
@@ -343,7 +417,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
     /**
      * This is to handle generally orientation changes of your device. It is mandatory to include
-     * android:configChanges="keyboardHidden|orientation|screenSize" in your activity tag of the manifest for this to work.
+     * android:configChanges="keyboardHidden|orientation|screenSize" in your activity Mqtt.TAG of the manifest for this to work.
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -459,21 +533,21 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         try {
             Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
             MqttMessage message = new MqttMessage("TOGGLE".getBytes());
-            message.setQos(qos);
+            message.setQos(Mqtt.qos);
             message.setRetained(false);
-            client.publish(topicRoot+"cmnd/POWER", message);
+            client.publish(Mqtt.topicRoot+"cmnd/POWER", message);
         } catch (MqttException e) {
-            Log.e(TAG, "Error al publicar.", e);
+            Log.e(Mqtt.TAG, "Error al publicar.", e);
         }
         Snackbar.make(view, "Publicando en MQTT by rous", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     @Override public void onDestroy() {
         try {
-            Log.i(TAG, "Desconectado");
+            Log.i(Mqtt.TAG, "Desconectado");
             client.disconnect();
         } catch (MqttException e) {
-            Log.e(TAG, "Error al desconectar.", e);
+            Log.e(Mqtt.TAG, "Error al desconectar.", e);
         }
         super.onDestroy();
     }
@@ -484,12 +558,12 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             Log.d("MQTT", "Reintentando conexión MQTT");
             try {
                 Log.i(Mqtt.TAG, "Conectando al broker " + broker);
-                client = new MqttClient(broker, clientId, new MemoryPersistence());
+                client = new MqttClient(Mqtt.broker, Mqtt.clientId, new MemoryPersistence());
                 MqttConnectOptions connOpts = new MqttConnectOptions();
                 connOpts.setCleanSession(true);
                 connOpts.setKeepAliveInterval(60);
-                connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
-                        qos, false);
+                connOpts.setWill(Mqtt.topicRoot+"WillTopic", "App desconectada".getBytes(),
+                        Mqtt.qos, false);
                 client.connect(connOpts);
             } catch (MqttException e) {
                 Log.e(Mqtt.TAG, "Error al conectar.", e);
@@ -504,6 +578,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                Log.d("RUNAPP","LOS MENSAJES SE ESTAN RUNEANDO");
                 Switch luces = findViewById(R.id.switchluces);
                 if (luces != null) {
                     if (payload.contains("ON")) {
@@ -515,7 +590,68 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                         Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
                     }
                 }
+
+                if(payload.contains("IN")){
+                    notificacionDentro();
+                }
+                if(payload.contains("OUT")){
+                    notificacionFuera();
+                }
+
+
+
             }
+
+            private void notificacionFuera() {
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("default",
+                            "NOMBRE_DEL_CANAL",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+                    channel.setDescription("DESCRIPCION_DEL_CANAL");
+                    mNotificationManager.createNotificationChannel(channel);
+                }
+
+
+
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                        .setContentTitle("Hasta pronto") // title for notification
+                        .setContentText("Que pase un buen dia")// message for notification
+                        .setAutoCancel(true); // clear notification after click
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mNotificationManager.notify(0, mBuilder.build());
+            }
+
+
+
+            private void notificacionDentro() {
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("default",
+                            "NOMBRE_DEL_CANAL",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+                    channel.setDescription("DESCRIPCION_DEL_CANAL");
+                    mNotificationManager.createNotificationChannel(channel);
+                }
+
+
+
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                        .setContentTitle("Bienvenido") // title for notification
+                        .setContentText("Bienvenido a casa")// message for notification
+                        .setAutoCancel(true); // clear notification after click
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mNotificationManager.notify(0, mBuilder.build());
+            }
+
         });
     }
 
@@ -533,5 +669,38 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         Log.d("internet", activeNetworkInfo.toString());
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-    
+
+
+
+    //---------------CAÍDAS-------------------
+    public void crearServicio() {
+        Intent i = new Intent(this, ServicioCaidas.class);
+        startService(i);
+    }
+
+    @Override public void onRequestPermissionsResult(int requestCode,
+                                                     String[] permissions, int[] grantResults) {
+        if (requestCode == SOLICITUD_PERMISO_CALL_PHONE) {
+            if (grantResults.length== 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                crearServicio();
+            }
+            else {
+                Toast.makeText(this, "Sin el permiso, no se llamará a emergencias cuando se " +
+                        "detecte una caída.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (requestCode == SOLICITUD_PERMISO_ACCESS_FINE_LOCATION) {
+            if (permissions.length == 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            }
+            else {
+                Toast.makeText(this, "Sin el permiso, no se mostrará el " +
+                        "mapa con hospitales.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    //---------------CAÍDAS-------------------
+
+
 }

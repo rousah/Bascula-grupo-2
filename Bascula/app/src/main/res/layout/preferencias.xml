@@ -10,17 +10,33 @@
         android:title="Checkbox" />
 
     <ListPreference
+        android:key="peso"
         android:defaultValue="1"
-        android:entries="@array/tiposGraficos"
-        android:entryValues="@array/tiposGraficosValores"
-        android:key="graficos"
-        android:summary="Se escoge la unidad de medida"
-        android:title="Unidades de medida" />
+        android:entries="@array/unidadesPeso"
+        android:entryValues="@array/tiposUnidadesPeso"
+        android:summary="Unidad preferida para mostrar el peso"
+        android:title="Unidades para el peso" />
+
+    <ListPreference
+        android:key="altura"
+        android:defaultValue="1"
+        android:entries="@array/unidadesAltura"
+        android:entryValues="@array/tiposUnidadesAltura"
+        android:summary="Unidad preferida para mostrar la altura"
+        android:title="Unidades para la altura" />
+
+    <ListPreference
+        android:key="llamadaEmergencia"
+        android:defaultValue="1"
+        android:entries="@array/llamadaSiNo"
+        android:entryValues="@array/llamada12"
+        android:summary="Llamada automática a emergencias cuando el móvil detecte una caida, debe reiniciar la app al cambiar"
+        android:title="Llamada a emergencias" />
 
     <EditTextPreference
-        android:defaultValue="3"
+        android:defaultValue="25"
         android:inputType="number"
-        android:key="fragmentos"
+        android:key="personas"
         android:summary=""
         android:title="Número de personas usando la bascula" />
 </PreferenceScreen>

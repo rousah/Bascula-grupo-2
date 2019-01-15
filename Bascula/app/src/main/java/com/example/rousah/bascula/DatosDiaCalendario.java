@@ -1,11 +1,16 @@
 package com.example.rousah.bascula;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import io.grpc.Context;
 
 public class DatosDiaCalendario extends Activity {
 
@@ -30,7 +35,7 @@ public class DatosDiaCalendario extends Activity {
         Double i = extras.getDouble("imc");
 
         // Llenamos una lista que pasamos al Adapter
-        ArrayList<Double> listaDatos = new ArrayList<Double>();
+        ArrayList listaDatos = new ArrayList();
         listaDatos.add(0, p);
         listaDatos.add(1, a);
         listaDatos.add(2, i);
@@ -63,7 +68,7 @@ public class DatosDiaCalendario extends Activity {
          *
          * El adapter está configurado en la clase MyAdapter
          */
-        mAdapter = new MyAdapter(listaDatos);
+        mAdapter = new MyAdapter(listaDatos, getBaseContext());
         mRecyclerView.setAdapter(mAdapter);
 
 

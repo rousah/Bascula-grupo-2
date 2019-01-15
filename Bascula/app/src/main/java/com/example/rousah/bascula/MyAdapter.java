@@ -1,5 +1,8 @@
 package com.example.rousah.bascula;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -45,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      *
      */
     // Este es nuestro constructor (puede variar según lo que queremos mostrar)
-    public MyAdapter(ArrayList<Double> data) {
+    public MyAdapter(ArrayList<Double> data, Context context) {
 
         mDataSet = new ArrayList<Double>();
         mUnidadesSet = new ArrayList<String>();
@@ -53,13 +56,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         mImageSet = new ArrayList<Integer>();
 
         mImageSet.add(R.drawable.scale_bathroom);
+
+        SharedPreferences pref =
+                PreferenceManager.getDefaultSharedPreferences(context);
+
         mTitleSet.add("Peso:");
-        mDataSet.add(data.get(0));
-        mUnidadesSet.add("Kg");
-        mImageSet.add(R.drawable.ruler);
+        if(pref.getString("peso","?").equals("1")){
+            mDataSet.add(data.get(0));
+            mUnidadesSet.add("kg");
+        }else {
+            mDataSet.add(data.get(0)*2.2);
+            mUnidadesSet.add("libras");
+        }
+
         mTitleSet.add("Altura:");
-        mDataSet.add(data.get(1));
-        mUnidadesSet.add("m");
+        if(pref.getString("altura","?").equals("1")) {
+            mDataSet.add(data.get(1));
+            mUnidadesSet.add("m");
+        }else{
+            mDataSet.add(data.get(1)*3.2);
+            mUnidadesSet.add("pies");
+        }
+
+        mImageSet.add(R.drawable.ruler);
         mImageSet.add(R.drawable.ic_scale_balance);
         mTitleSet.add("IMC:");
         mDataSet.add(data.get(2));

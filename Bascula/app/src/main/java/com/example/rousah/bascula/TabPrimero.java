@@ -1,20 +1,24 @@
 package com.example.rousah.bascula;
 
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.comun.Mqtt;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,8 +27,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -36,13 +43,18 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.TimeZone;
 
-import static com.example.comun.Mqtt.broker;
-import static com.example.comun.Mqtt.clientId;
-import static com.example.comun.Mqtt.qos;
-import static com.example.comun.Mqtt.topicRoot;
-import static com.firebase.ui.auth.AuthUI.TAG;
+import android.annotation.SuppressLint;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class TabPrimero extends Fragment implements MqttCallback {
 
@@ -53,26 +65,36 @@ public class TabPrimero extends Fragment implements MqttCallback {
     MqttClient client;
     //----------------MQTT---------------------
 
+    public static String telefonoEmergencia = "";
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //---------------MQTT---------------------
         try {
-            Log.i(Mqtt.TAG, "Conectando al broker " + broker);
-            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            Log.i(Mqtt.TAG, "Conectando al broker " + Mqtt.broker);
+            client = new MqttClient(Mqtt.broker, Mqtt.clientId, new MemoryPersistence());
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
             connOpts.setKeepAliveInterval(60);
-            connOpts.setWill(topicRoot + "WillTopic", "App desconectada".getBytes(),
-                    qos, false);
+            connOpts.setWill(Mqtt.topicRoot + "WillTopic", "App desconectada".getBytes(),
+                    Mqtt.qos, false);
             client.connect(connOpts);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al conectar.", e);
         }
 
         try {
-            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot + "alarma");
-            client.subscribe(topicRoot + "alarma", qos);
+            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot + "alarma");
+            client.subscribe(Mqtt.topicRoot + "alarma", Mqtt.qos);
+            client.setCallback((MqttCallback) this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+
+        try {
+            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot + "PRESENCIA");
+            client.subscribe(Mqtt.topicRoot + "PRESENCIA", Mqtt.qos);
             client.setCallback((MqttCallback) this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
@@ -89,7 +111,6 @@ public class TabPrimero extends Fragment implements MqttCallback {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.tab_primero,null);
         String userUid = usuario.getUid();
-
         Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
         int monthDay =calendarNow.get(Calendar.DAY_OF_MONTH);
         int month = calendarNow.get(Calendar.MONTH) + 1;
@@ -98,74 +119,98 @@ public class TabPrimero extends Fragment implements MqttCallback {
         String fecha = String.valueOf(monthDay)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+
+
+        //--------------llamada-------------
+
+        db.collection("usuarios").document(usuario.getUid()).get().addOnCompleteListener(
+                new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task){
+                        if (task.isSuccessful()) {
+
+                            telefonoEmergencia = task.getResult().getString("telefonoEm");
+
+                        } else {
+                            Log.e("Firestore", "Error al leer", task.getException());
+                        }
+                    }
+                });
+        //--------------llamada-------------
+
         //--------------datos reales bascula-------------
-        db.collection("usuarios").document(String.valueOf(userUid)).collection("mediciones").document(fecha).get()
-                .addOnSuccessListener(
-                        new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                //Log.w(TAG, "Se han recogido los datos.");
-                            }
-                        }
-                )
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @SuppressLint("RestrictedApi")
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                //Log.w(TAG, e);
-                            }
-                        }
-                )
-                .addOnCompleteListener(
-                        new OnCompleteListener<DocumentSnapshot>() {
-                            @SuppressLint({"RestrictedApi", "WrongConstant"})
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task){
-                                // definimos el intent
-                                Intent i = new Intent(getContext(), DatosDiaCalendario.class);
-                                if (task.isSuccessful()) {
-                                    Double peso = task.getResult().getDouble("peso");
-                                    Double altura = task.getResult().getDouble("altura");
-                                    Double imc = task.getResult().getDouble("imc");
-                                    /**
-                                     *
-                                     * Sí los datos recogidos son igual a null saldrá un TOAST
-                                     * advirtiendo de que ese día no contiene datos.
-                                     *
-                                     * Sí los datos recogidos no son null saldrá un TOAST
-                                     * advirtiendo del día seleccionado, y visualizará los datos
-                                     * recogidos.
-                                     *
-                                     */
-                                    if(peso == null)
-                                    {
-                                        Toast.makeText(getContext(), "No hay datos.", 0).show();// TODO Auto-generated method stub
-                                    }
-                                    else
-                                    {
-                                        TextView pesoReal = view.findViewById(R.id.pesoValor);
-                                        pesoReal.setText(task.getResult().getDouble("peso").toString() + " Kg");
-                                        String hey = task.getResult().getDouble("peso").toString();
-                                        TextView alturaReal = view.findViewById(R.id.alturaValor);
-                                        alturaReal.setText(task.getResult().getDouble("altura").toString() + " M");
-                                        TextView imcReal = view.findViewById(R.id.imcValor);
-                                        imcReal.setText(task.getResult().getDouble("imc").toString());
-                                    }
-                                } else {
-                                    //Log.e(TAG, "Error al leer", task.getException());
+        //db.collection("usuarios").document(String.valueOf(userUid)).collection("mediciones").document(fecha).get()
+        db.collection("usuarios").document(String.valueOf(userUid)).collection("mediciones")
+                .orderBy("fecha", Query.Direction.DESCENDING).limit(1).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int i = 0;
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                float peso = Float.parseFloat(documentSnapshot.getData().get("peso").toString());
+                                float altura = Float.parseFloat(documentSnapshot.getData().get("altura").toString());
+
+                                /*TextView textoPeso = view.findViewById(R.id.pesoValor);
+                                if(pref.getString("peso","?") == "1") {
+                                    textoPeso.setText(String.valueOf(peso) + " Kg");
+                                }else{
+
+                                    textoPeso.setText(String.valueOf(peso) + " Libras");
                                 }
+                                TextView textoAltura = view.findViewById(R.id.alturaValor);
+
+
+                                if(pref.getString("altura","?") == "1") {
+                                    textoAltura.setText(String.valueOf(altura) + " Metros");
+                                }else{
+
+                                    textoPeso.setText( altura + " Pies");
+                                }*/
+
+                                SharedPreferences pref =
+                                        PreferenceManager.getDefaultSharedPreferences(getContext());
+                                String s = pref.getString("peso","?");
+                                if(pref.getString("peso","?").equals("1")){
+                                    TextView pesoReal = view.findViewById(R.id.pesoValor);
+                                    pesoReal.setText(String.valueOf(peso) + " Kg");
+                                }else{
+                                    TextView pesoReal = view.findViewById(R.id.pesoValor);
+                                    Float x = 2.2f;
+                                    peso = peso * x;
+                                    String y = String.valueOf(peso);
+                                    y = String.format("%.2f", peso);
+                                    pesoReal.setText( y + " Libras");
+                                }
+
+                                if(pref.getString("altura","?").equals("1")) {
+                                    TextView alturaReal = view.findViewById(R.id.alturaValor);
+                                    alturaReal.setText(String.valueOf(altura) + " Metros");
+                                }else{
+                                    TextView alturaReal = view.findViewById(R.id.alturaValor);
+                                    Float x = 3.2f;
+                                    altura = altura * x;
+                                    String y = String.valueOf(altura);
+                                    y = String.format("%.2f", altura);
+                                    alturaReal.setText(String.valueOf(altura) + " Pies");
+                                }
+
+
+                                TextView textoImc = view.findViewById(R.id.imcValor);
+                                float imc = Float.parseFloat(documentSnapshot.getData().get("imc").toString());
+                                textoImc.setText(String.valueOf(imc));
+
+
+                                String fecha = documentSnapshot.getData().get("fecha").toString();
+                                fecha = fecha.substring(4, 10);
+                                i++;
                             }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                //Log.w(TAG, e);
-                            }
+
                         }
-                );
-        //--------------datos reales bascula-------------
+
+                    }
+                });
+    //--------------datos reales bascula-------------
         return view;
     }
 
@@ -188,27 +233,83 @@ public class TabPrimero extends Fragment implements MqttCallback {
 
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         final String payload = new String(message.getPayload());
-        Log.d(TAG, "Recibiendo: " + topic + "->" + payload);
+        Log.d(Mqtt.TAG, "Recibiendo: " + topic + "->" + payload);
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (payload.contains("ALERTA_DE_GAS")) {
                     alertaGas();
                 }
+
+                if(payload.contains("IN")){
+                    notificacionDentro();
+                }
+                if(payload.contains("OUT")){
+                    notificacionFuera();
+                }
+            }
+
+            private void notificacionFuera() {
+                NotificationManager mNotificationManager =
+                        (NotificationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.NOTIFICATION_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("default",
+                            "NOMBRE_DEL_CANAL",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+                    channel.setDescription("DESCRIPCION_DEL_CANAL");
+                    mNotificationManager.createNotificationChannel(channel);
+                }
+
+
+
+                @SuppressLint("RestrictedApi") NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                        .setContentTitle("Hasta pronto") // title for notification
+                        .setContentText("Que pase un buen dia")// message for notification
+                        .setAutoCancel(true); // clear notification after click
+                @SuppressLint("RestrictedApi") Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                @SuppressLint("RestrictedApi") PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mNotificationManager.notify(0, mBuilder.build());
+            }
+
+            private void notificacionDentro() {
+                NotificationManager mNotificationManager =
+                        (NotificationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.NOTIFICATION_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("default",
+                            "NOMBRE_DEL_CANAL",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+                    channel.setDescription("DESCRIPCION_DEL_CANAL");
+                    mNotificationManager.createNotificationChannel(channel);
+                }
+
+
+
+                @SuppressLint("RestrictedApi") NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                        .setContentTitle("Bienvenido") // title for notification
+                        .setContentText("Bienvenido a casa")// message for notification
+                        .setAutoCancel(true); // clear notification after click
+                @SuppressLint("RestrictedApi") Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                @SuppressLint("RestrictedApi") PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mNotificationManager.notify(0, mBuilder.build());
             }
 
             private void alertaGas() {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
 
                 builder.setCancelable(true);
                 builder.setTitle("ALERTA");
                 builder.setMessage("FUGA DE GAS!!");
+                builder.setIcon(R.drawable.ic_danger);
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        alertTextView.setVisibility(View.VISIBLE);
+                     //   alertTextView.setVisibility(View.VISIBLE);
                         dialog.cancel();
                     }
                 });

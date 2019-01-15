@@ -6,10 +6,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -25,6 +27,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,6 +42,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -50,6 +55,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CrearPerfil extends AppCompatActivity {
+
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Context context = this;
@@ -58,6 +64,8 @@ public class CrearPerfil extends AppCompatActivity {
     private RadioButton radioButtonSelected;
     int selectedId;
     private String proveedor;
+    private Toolbar toolbar;
+
 
     Calendar myCalendar = Calendar.getInstance();
 
@@ -73,9 +81,11 @@ public class CrearPerfil extends AppCompatActivity {
     private Uri uriStorage;
 
     @Override public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.crear_perfil);
+
 
         TextView nombre = findViewById(R.id.nombreCrearPerfil);
         nombre.setText(usuario.getDisplayName());
@@ -108,16 +118,22 @@ public class CrearPerfil extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), SOLICITUD_PERMISO_GALERIA);
     }
-    //recibimos el request del startActivityfor...
+
+    //recibimos el request del startActivityforResult...
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        SharedPreferences pref =
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
         if(requestCode == SOLICITUD_PERMISO_GALERIA && resultCode == RESULT_OK
                 && data != null && data.getData() != null )
         {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Toast.makeText(CrearPerfil.this, "Imagen subida en baja calidad", Toast.LENGTH_SHORT).show();
                 imagenPerfil.setImageBitmap(bitmap);
             }
             catch (IOException e)
@@ -126,6 +142,43 @@ public class CrearPerfil extends AppCompatActivity {
             }
         }
         guardarImagen();
+    }
+
+    private void guardarImagen() {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        if(filePath != null)
+        {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference dataRef = storageReference.child("imagenesPerfil/" + uid);
+            dataRef.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(CrearPerfil.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(CrearPerfil.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+        }
     }
 
     //comprueba si el user tiene imagen en storage, si no la tiene comprueba en google, si no pondra una por defecto
@@ -167,43 +220,6 @@ public class CrearPerfil extends AppCompatActivity {
         });
     }
 
-    private void guardarImagen() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        if(filePath != null)
-        {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-
-            StorageReference dataRef = storageReference.child("imagenesPerfil/" + uid);
-            dataRef.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(CrearPerfil.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(CrearPerfil.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
-                    });
-        }
-    }
-
     private void updateLabel() {
         String myFormat = "dd/MM/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -233,15 +249,16 @@ public class CrearPerfil extends AppCompatActivity {
 
     public void guardar(View view) {
 
-
         radioGroup = findViewById(R.id.radioSexo);
         EditText telefono = findViewById(R.id.telefonoCrear);
         selectedId = radioGroup.getCheckedRadioButtonId();
         radioButtonSelected = (RadioButton) findViewById(selectedId);
+        EditText telefonoEm = findViewById(R.id.telefonoCrearr);
+
 
         Log.w("perfil: fecha", fecha.getText().toString());
         Log.w("perfil: tlf", telefono.getText().toString());
-        if (telefono.getText().toString().equals("") || fecha.getText().toString().equals("dd/mm/yy") || radioButtonSelected == null) {
+        if (telefono.getText().toString().equals("") || fecha.getText().toString().equals("dd/mm/yy") || radioButtonSelected == null || telefonoEm.getText().toString().equals("")) {
             Toast.makeText(CrearPerfil.this, "Complete todos los campos", Toast.LENGTH_LONG).show();
         } else {
             selectedId = radioGroup.getCheckedRadioButtonId();
@@ -251,6 +268,8 @@ public class CrearPerfil extends AppCompatActivity {
             datos.put("telefono", telefono.getText().toString());
             datos.put("sexo", radioButtonSelected.getTag());
             datos.put("fechaNac", fecha.getText().toString());
+            datos.put("telefonoEm", telefonoEm.getText().toString());
+
 
             final DocumentReference usuarioActual = db.collection("usuarios").document(usuario.getUid());
             usuarioActual.update(datos)
@@ -273,4 +292,5 @@ public class CrearPerfil extends AppCompatActivity {
         Intent i = new Intent(CrearPerfil.this, MainActivity.class);
         startActivity(i);
     }
+
 }

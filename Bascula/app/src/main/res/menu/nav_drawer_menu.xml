@@ -6,26 +6,30 @@
         <item
             android:id="@+id/nav_inicio"
             android:icon="@drawable/ic_round_accessibility_24px"
-            android:title="Mediciones" />
+            android:title="@string/medicionesMenu" />
 
         <item
             android:id="@+id/nav_casa"
             android:icon="@drawable/ic_round_home_24px"
-            android:title="Casa" />
+            android:title="@string/casaMenu" />
 
         <item
             android:id="@+id/nav_tratamientos"
             android:icon="@drawable/ic_medical_kit"
-            android:title="Tratamientos" />
+            android:title="@string/tratamientosMenu" />
+
+        <item
+            android:id="@+id/nav_hospitales"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="Hospitales" />
 
         <item
             android:id="@+id/nav_perfil"
             android:icon="@drawable/ic_round_account_circle_24px"
-            android:title="Perfil" />
+            android:title="@string/perfilMenu" />
         <item
             android:id="@+id/log_out"
             android:icon="@drawable/ic_log_out"
-            android:title="Cerrar sesión"
-            />
+            android:title="@string/cerrarSesiónMenu" />
     </group>
 </menu>

@@ -24,6 +24,84 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <string name="h"></string>
+
+    <!-- Acerca de -->
+    <string name="textoAcercaDe"> Gracias por probar nuestra aplicacíon centrada en el mundo IoT, desarrollada por el grupo 2 durante el primer semestre de 2019 como proyecto final para la asignatura Proyecto IoT y App en la UPV de Gandía.</string>
+    <string name="version"> Version: sprint final</string>
+    <string name="email"> Email: mamoumar@epsg.upv.es</string>
+    <string name="direccion"> Direccion: Carrer del Paranimf, 1, 46730 Grau i Platja, València</string>
+    <!-- Acerca de -->
+
+    <!-- Borrar user -->
+    <string name="textview8">¿Está seguro de que quiere eliminar su cuenta?</string>
+    <string name="noButton">No</string>
+    <string name="siButton">Si</string>
+    <!-- Borrar user -->
+
+    <!-- casa -->
+    <string name="estadoActual">Estado actual:</string>
+    <string name="temperatura">Temperatura:</string>
+    <string name="sensacionTermica">Sensación térmica:</string>
+    <string name="humedad">Humedad:</string>
+    <string name="puerta">Puerta:</string>
+    <string name="estadoPuerta">abierta</string>
+    <string name="luces">Luces:</string>
+    <!-- casa -->
+
+    <!-- Crear perfil -->
+    <string name="textoNombre">Nombre:</string>
+    <string name="textoEmail">Email:</string>
+    <string name="textoFecha">Fecha:</string>
+    <string name="textoTelefono">Telefono:</string>
+    <string name="sexo">Sexo:</string>
+    <string name="mascalunino">Masculino</string>
+    <string name="femenino">Femenino</string>
+    <string name="elegirButton">Elegir</string>
+    <string name="guardarButton">Guardar</string>
+    <!-- Crear perfil -->
+
+    <!-- Fingerprint -->
+    <string name="autentificación">Autentificación por huella dactilar</string>
+    <string name="howToFinger">Ponga su dedo en el lector de huellas para verificar su identidad</string>
+    <!-- Fingerprint -->
+
+    <!-- Fragment tratamientos -->
+    <string name="nombreMeds">Nombre:</string>
+    <string name="cantidadMeds">Calidad:</string>
+    <string name="Descripcion">Descripción:</string>
+    <!-- Fragment tratamientos -->
+
+    <!-- Perfil -->
+    <string name="botonEditar">Editar</string>
+    <string name="botonBorrarCuenta">Borrar cuenta</string>
+    <!-- Perfil -->
+
+    <!-- Preferencias -->
+
+    <!-- Preferencias -->
+
+    <!-- Tab primero -->
+    <string name="altura">Altura:</string>
+    <string name="peso">Peso:</string>
+    <string name="datosRecientes">Sus datos mas recientes:</string>
+    <string name="pesarme">Conéctame a la báscula</string>
+    <string name="estadoObjetivo">Estado de su objetivo:</string>
+    <!-- Tab primero -->
+
+    <!-- nav drawer menu -->
+    <string name="medicionesMenu">Mediciones</string>
+    <string name="casaMenu">Casa</string>
+    <string name="tratamientosMenu">Tratamientos</string>
+    <string name="perfilMenu">Perfil</string>
+    <string name="cerrarSesiónMenu">Cerrar sesión</string>
+    <!-- nav drawer menu -->
+
+
+
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nombreee">Nombre:</string>

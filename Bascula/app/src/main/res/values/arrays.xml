@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="tiposGraficos">
+    <string-array name="unidadesPeso">
         <item>Kg</item>
         <item>Libras</item>
+    </string-array>
+    <string-array name="unidadesAltura">
         <item>Metros</item>
         <item>Pies</item>
     </string-array>
-    <string-array name="tiposGraficosValores">
+    <string-array name="tiposUnidadesPeso">
         <item>1</item>
         <item>2</item>
-        <item>3</item>
-        <item>4</item>
+    </string-array>
+    <string-array name="tiposUnidadesAltura">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="llamada12">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="llamadaSiNo">
+        <item>No</item>
+        <item>Sí</item>
     </string-array>
 </resources>
