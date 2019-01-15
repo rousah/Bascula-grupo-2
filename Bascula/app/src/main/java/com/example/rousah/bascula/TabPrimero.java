@@ -286,11 +286,12 @@ public class TabPrimero extends Fragment implements MqttCallback {
                 builder.setCancelable(true);
                 builder.setTitle("ALERTA");
                 builder.setMessage("FUGA DE GAS!!");
+                builder.setIcon(R.drawable.ic_danger);
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        alertTextView.setVisibility(View.VISIBLE);
+                     //   alertTextView.setVisibility(View.VISIBLE);
                         dialog.cancel();
                     }
                 });
