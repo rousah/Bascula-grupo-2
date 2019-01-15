@@ -23,9 +23,6 @@ long a;
 const char * ssid = "EQUIPO_2";
 const char * password = "HoLaMuNDo";
 
-//const char * ssid = "EQUIPO_5";
-//const char * password = "Gti2018E5";
-
 //const char * ssid = "MASMOVIL_2sPj";
 //const char * password = "6QSb3hZgFN22";
 
@@ -274,45 +271,14 @@ void loop()
          
         StaticJsonBuffer<300> jsonBufferRecv; //definición del buffer para almacenar el objero JSON, 200 máximo
         JsonObject& bascula = jsonBufferRecv.createObject(); //paso de texto a formato JSON
-        bascula["ID"] = "2018-11-09_3:32:00";
+        
         bascula["Peso"] = balanza.get_units(20);
         bascula["Altura"] = devolverAltura();
         bascula.printTo(Serial);       //envio por el puerto serie el objeto "recibido"         
        break;
      }
    }
-   Serial.flush();
-
-
-  /*
-   if (rec){
-    //LCD_Clear();
-    //DrawMenu();
-    // Posición del cursor de nuevo en 0,0 
-    M5.Lcd.setCursor(0, 0);
-
-    rec=0;
-    udp.broadcastTo("Recibido",1234); //Confirmación
-    udp.broadcastTo(texto,1234);      //reenvía lo recibido
-    hora=atol(texto);                 //paso de texto a int
-    
-    StaticJsonBuffer<300> jsonBufferRecv; //definición del buffer para almacenar el objero JSON, 200 máximo
-    JsonObject& recibo = jsonBufferRecv.parseObject(texto); //paso de texto a formato JSON
-    recibo.printTo(Serial);       //envio por el puerto serie el objeto "recibido"
-    recibo.printTo(M5.Lcd); //imprimir al M5                    
-    // M5
-    M5.Lcd.println();             //nueva línea
-    int segundo=recibo["Segundo"];  //extraigo el dato "Segundo" del objeto "recibido" y lo almaceno en la variable "segundo" 
-    //M5.Lcd.println(segundo);      //envio por el puerto serie la variable segundo
-    //M5.Lcd.print(recibo);
-    // Serial
-    Serial.println();             //nueva línea
-    // int segundo=recibo["Segundo"];  //extraigo el dato "Segundo" del objeto "recibido" y lo almaceno en la variable "segundo" 
-    //Serial.println(segundo);      //envio por el puerto serie la variable segundo
-    
-  }*/
-
-  
+   Serial.flush();  
   
   M5.update();
   //delay(5000);

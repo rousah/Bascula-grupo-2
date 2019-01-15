@@ -1,6 +1,7 @@
 package com.equipodos.raspberry;
 
 import android.support.annotation.NonNull;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -9,6 +10,7 @@ import com.google.android.things.pio.Gpio;
 import com.google.android.things.pio.PeripheralManager;
 import com.google.android.things.pio.UartDevice;
 import com.google.android.things.pio.UartDeviceCallback;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
@@ -37,10 +39,10 @@ public class ArduinoUart {
     private IOException mLastException;
     private JSONObject obj;
     private JSONArray array;
-    private String peso;
-    private String altura;
-    private String fecha;
-    String texto;
+    private Double peso;
+    private Double altura;
+    private Date fecha;
+    private String texto;
     private Map<String, Object> datos = new HashMap<>();
 
 
@@ -57,6 +59,7 @@ public class ArduinoUart {
             }
         }
         public void escribir(String s) {
+
             try {
                 int escritos = uart.write(s.getBytes(), s.length());
                 Log.d(TAG, escritos+" bytes escritos en UART");
@@ -83,12 +86,26 @@ public class ArduinoUart {
                     Log.d(TAG, texto);
 
                     if (texto.equals("S")) {
-                        Log.d(TAG, "llamado recbido");
+
+                        Log.d(TAG, "llamado recibido");
+
                         escribir("2");
+
+                        Calendar c = Calendar.getInstance();
+                        String date = c.get(Calendar.DAY_OF_MONTH)+"-"+c.get(Calendar.MONTH+1)+"-"+c.get(Calendar.YEAR);
+                        //Log.d(TAG, date);
+
+                        Date fecha = new Date();
+                        Timestamp fechaStamp = new Timestamp(fecha);
+
                         try {
+
                             Thread.sleep(1000);
+                            Log.d(TAG, "Sleep");
                         } catch (InterruptedException e) {
+
                             Log.w(TAG, "Error en sleep()", e);
+
                         }
                         String s = leer();
 
@@ -102,9 +119,9 @@ public class ArduinoUart {
                         }
 
                         try {
-                            peso = obj.getString("Peso");
-                            altura = obj.getString("Altura");
-                            fecha = obj.getString("ID");
+                            peso = obj.getDouble("Peso");
+                            altura = obj.getDouble("Altura");
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -115,15 +132,14 @@ public class ArduinoUart {
                             Log.w(TAG, "Error en sleep()", e);
                         }
 
-
-                        
-
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                        datos.put("fecha", fecha);
                         datos.put("peso", peso);
                         datos.put("altura", altura);
                         datos.put("randomizer", Math.random());
 
-                        db.collection("mediciones uarto").document(fecha).set(datos)
+                        db.collection("mediciones uarto").document(date).set(datos)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -156,22 +172,30 @@ public class ArduinoUart {
 
 
     public String leer() {
-        String s = "";
+        String v = "";
 
         int len;
+
         final int maxCount = 8; // Máximo de datos leídos cada vez
+
         byte[] buffer = new byte[maxCount];
+
         try {
             do {
                 len = uart.read(buffer, buffer.length);
+
                 for (int i=0; i<len; i++) {
-                    s += (char)buffer[i];
+                    v += (char)buffer[i];
+                    //Log.d(TAG, String.valueOf(buffer[i]).toString());
+                    //Log.d(TAG, v);
                 }
+
             } while(len>0);
         } catch (IOException e) {
             Log.w(TAG, "Error al leer de UART", e);
         }
-        return s;
+
+        return v;
     }
     public void cerrar() {
         if (uart != null) {
