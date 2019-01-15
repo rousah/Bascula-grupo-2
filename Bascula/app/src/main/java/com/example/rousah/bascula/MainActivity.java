@@ -155,29 +155,29 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
         //---------------MQTT---------------------
         try {
-            Log.i(Mqtt.TAG, "Conectando al broker " + broker);
-            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            Log.i(Mqtt.TAG, "Conectando al broker " + Mqtt.broker);
+            client = new MqttClient(Mqtt.broker, Mqtt.clientId, new MemoryPersistence());
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
             connOpts.setKeepAliveInterval(60);
-            connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
-                    qos, false);
+            connOpts.setWill(Mqtt.topicRoot+"WillTopic", "App desconectada".getBytes(),
+                    Mqtt.qos, false);
             client.connect(connOpts);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al conectar.", e);
         }
 
         try {
-            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"POWER");
-            client.subscribe(topicRoot+"POWER", qos);
+            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot+"POWER");
+            client.subscribe(Mqtt.topicRoot+"POWER", Mqtt.qos);
             client.setCallback(this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
 
         try {
-            Log.i(Mqtt.TAG, "Suscrito a " + topicRoot+"PRESENCIA");
-            client.subscribe(topicRoot+"PRESENCIA", qos);
+            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot+"PRESENCIA");
+            client.subscribe(Mqtt.topicRoot+"PRESENCIA", Mqtt.qos);
             client.setCallback(this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
@@ -397,7 +397,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
     /**
      * This is to handle generally orientation changes of your device. It is mandatory to include
-     * android:configChanges="keyboardHidden|orientation|screenSize" in your activity tag of the manifest for this to work.
+     * android:configChanges="keyboardHidden|orientation|screenSize" in your activity Mqtt.TAG of the manifest for this to work.
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -513,21 +513,21 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         try {
             Log.i(Mqtt.TAG, "Publicando mensaje: " + "toggle sonoff");
             MqttMessage message = new MqttMessage("TOGGLE".getBytes());
-            message.setQos(qos);
+            message.setQos(Mqtt.qos);
             message.setRetained(false);
-            client.publish(topicRoot+"cmnd/POWER", message);
+            client.publish(Mqtt.topicRoot+"cmnd/POWER", message);
         } catch (MqttException e) {
-            Log.e(TAG, "Error al publicar.", e);
+            Log.e(Mqtt.TAG, "Error al publicar.", e);
         }
         Snackbar.make(view, "Publicando en MQTT by rous", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     @Override public void onDestroy() {
         try {
-            Log.i(TAG, "Desconectado");
+            Log.i(Mqtt.TAG, "Desconectado");
             client.disconnect();
         } catch (MqttException e) {
-            Log.e(TAG, "Error al desconectar.", e);
+            Log.e(Mqtt.TAG, "Error al desconectar.", e);
         }
         super.onDestroy();
     }
@@ -538,12 +538,12 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             Log.d("MQTT", "Reintentando conexión MQTT");
             try {
                 Log.i(Mqtt.TAG, "Conectando al broker " + broker);
-                client = new MqttClient(broker, clientId, new MemoryPersistence());
+                client = new MqttClient(Mqtt.broker, Mqtt.clientId, new MemoryPersistence());
                 MqttConnectOptions connOpts = new MqttConnectOptions();
                 connOpts.setCleanSession(true);
                 connOpts.setKeepAliveInterval(60);
-                connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),
-                        qos, false);
+                connOpts.setWill(Mqtt.topicRoot+"WillTopic", "App desconectada".getBytes(),
+                        Mqtt.qos, false);
                 client.connect(connOpts);
             } catch (MqttException e) {
                 Log.e(Mqtt.TAG, "Error al conectar.", e);
@@ -558,7 +558,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d("RUN","LOS MENSAJES SE ESTAN RUNEANDO");
+                Log.d("RUNAPP","LOS MENSAJES SE ESTAN RUNEANDO");
                 Switch luces = findViewById(R.id.switchluces);
                 if (luces != null) {
                     if (payload.contains("ON")) {
@@ -571,10 +571,10 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                     }
                 }
 
-                if(payload.equals("IN")){
+                if(payload.contains("IN")){
                     notificacionDentro();
                 }
-                if(payload.equals("OUT")){
+                if(payload.contains("OUT")){
                     notificacionFuera();
                 }
 
