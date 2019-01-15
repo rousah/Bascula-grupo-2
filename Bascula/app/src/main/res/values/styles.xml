@@ -73,7 +73,6 @@
         <item name="android:textColorHint">@android:color/white</item>
         <item name="android:button">@color/colorAccent</item>
     </style>
-
     <!--Estilo LogIn-->
 
 
