@@ -5,6 +5,7 @@ package com.example.rousah.bascula;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -19,6 +20,7 @@ import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -28,6 +30,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -565,47 +569,53 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
 
             private void notificacionFuera() {
-                manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("default",
+                            "NOMBRE_DEL_CANAL",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+                    channel.setDescription("DESCRIPCION_DEL_CANAL");
+                    mNotificationManager.createNotificationChannel(channel);
+                }
 
-                Intent intent = new Intent("com.rj.notitfications.SECACTIVITY");
 
-                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 1, intent, 0);
 
-                Notification.Builder builder = new Notification.Builder(MainActivity.this);
-
-                builder.setAutoCancel(false);
-                builder.setContentTitle("Hasta pronto");
-                builder.setContentText("Que pase un buen día");
-                builder.setSmallIcon(R.drawable.ic_launcher_foreground);
-                builder.setContentIntent(pendingIntent);
-                builder.setOngoing(true);
-                builder.setNumber(100);
-                builder.build();
-
-                myNotication = builder.getNotification();
-                manager.notify(001, myNotication);
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                        .setContentTitle("Hasta pronto") // title for notification
+                        .setContentText("Que pase un buen dia")// message for notification
+                        .setAutoCancel(true); // clear notification after click
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mNotificationManager.notify(0, mBuilder.build());
             }
 
+
+
             private void notificacionDentro() {
-                manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("default",
+                            "NOMBRE_DEL_CANAL",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+                    channel.setDescription("DESCRIPCION_DEL_CANAL");
+                    mNotificationManager.createNotificationChannel(channel);
+                }
 
-                Intent intent = new Intent("com.rj.notitfications.SECACTIVITY");
 
-                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 1, intent, 0);
 
-                Notification.Builder builder = new Notification.Builder(MainActivity.this);
-
-                builder.setAutoCancel(false);
-                builder.setContentTitle("Bienvenido");
-                builder.setContentText("Bienvenido a casa");
-                builder.setSmallIcon(R.drawable.ic_launcher_foreground);
-                builder.setContentIntent(pendingIntent);
-                builder.setOngoing(true);
-                builder.setNumber(100);
-                builder.build();
-
-                myNotication = builder.getNotification();
-                manager.notify(001, myNotication);
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                        .setContentTitle("Bienvenido") // title for notification
+                        .setContentText("Bienvenido a casa")// message for notification
+                        .setAutoCancel(true); // clear notification after click
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mNotificationManager.notify(0, mBuilder.build());
             }
 
         });
