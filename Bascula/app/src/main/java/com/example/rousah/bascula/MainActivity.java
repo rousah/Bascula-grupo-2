@@ -17,6 +17,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     //----------------MQTT---------------------
     MqttClient client;
     //----------------MQTT---------------------
+
 
 
     // caídas

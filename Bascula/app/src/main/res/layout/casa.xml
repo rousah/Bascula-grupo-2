@@ -275,12 +275,48 @@
                     android:textOn="Encedidas" />
             </LinearLayout>
 
-            <com.db.chart.view.LineChartView xmlns:chart="http://schemas.android.com/apk/res-auto"
+            <com.db.chart.view.LineChartView
                 android:id="@+id/linechart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="15dp" />
+                android:layout_margin="15dp" >
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="0dp"
+                    android:src="@drawable/plano_casa" />
+
+                <ImageView
+                    android:id="@+id/person_icon_3"
+                    android:layout_width="143dp"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="165dp"
+                    android:layout_marginTop="75dp"
+                    android:src="@drawable/person_icon"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/person_icon_2"
+                    android:layout_width="143dp"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginTop="140dp"
+                    android:src="@drawable/person_icon"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/person_icon_1"
+                    android:layout_width="143dp"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/person_icon"
+                    android:visibility="invisible" />
+            </com.db.chart.view.LineChartView>
 
         </LinearLayout>
 
