@@ -28,7 +28,9 @@ dependencies {
     compileOnly 'com.google.android.things:androidthings:+'
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
-    //implementation 'com.google.android.gms:play-services-nearby:16.0.0
+    implementation 'com.google.android.gms:play-services-nearby:11.8.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
 
 }
 

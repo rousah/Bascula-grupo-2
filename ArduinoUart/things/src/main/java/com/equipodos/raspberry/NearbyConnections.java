@@ -1,5 +1,7 @@
 package com.equipodos.raspberry;
 
+//package com.equipodos.nearbyconnections;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,14 +45,14 @@ import java.io.IOException;
 public class NearbyConnections extends Activity {
 
     // Consejo: utiliza como SERVICE_ID el nombre de tu paquete
-    private static final String SERVICE_ID = "com.example.mipaquete";
+    private static final String SERVICE_ID = "com.equipodos.nearbyconnections";
     private static final String TAG = "Things:";
     private final String PIN_LED = "BCM18";
     public Gpio mLedGpio;
     private Boolean ledStatus;
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Configuración del LED
+    // Configuración del LED
         ledStatus = false;
         PeripheralManager service = PeripheralManager.getInstance();try {
             mLedGpio = service.openGpio(PIN_LED);
@@ -58,7 +60,7 @@ public class NearbyConnections extends Activity {
         } catch (IOException e) {
             Log.e(TAG, "Error en el API PeripheralIO", e);
         }
-        // Arrancamos modo anunciante
+    // Arrancamos modo anunciante
         startAdvertising();
     }
     private void startAdvertising() {
@@ -128,7 +130,8 @@ public class NearbyConnections extends Activity {
                     break;
             }
         }
-        @Override public void onPayloadTransferUpdate(String endpointId,PayloadTransferUpdate update) {
+        @Override public void onPayloadTransferUpdate(String endpointId,
+                                                      PayloadTransferUpdate update) {
             // Actualizaciones sobre el proceso de transferencia
         }
     };

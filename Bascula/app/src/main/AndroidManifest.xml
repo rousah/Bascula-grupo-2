@@ -86,7 +86,8 @@
 
         <activity android:name=".DatosDiaCalendario">
         </activity>
-
+        <activity android:name=".NearbyConnections">
+        </activity>
     </application>
 
 </manifest>

@@ -86,6 +86,7 @@ import static com.firebase.ui.auth.AuthUI.TAG;
 public class MainActivity extends AppCompatActivity implements PerfilFragment.OnFragmentInteractionListener, CasaFragment.OnFragmentInteractionListener, TratamientosFragment.OnFragmentInteractionListener, HospitalesFragment.OnFragmentInteractionListener, MqttCallback {
 
     //--------------Drawer--------------------
+    private String[] permisos = {Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN};
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
@@ -187,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
         //---------------CAÍDAS-------------------
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            PedirPermisos.solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso"+
+            PedirPermisos.solicitarPermiso(permisos, "Sin el permiso"+
                             " llamar no puedo llamar a emergencias si se detecta alguna caída.",
                     SOLICITUD_PERMISO_CALL_PHONE, this);
             return;
@@ -205,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
         //---------------MAPA-------------------
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            PedirPermisos.solicitarPermiso(Manifest.permission.ACCESS_FINE_LOCATION, "Sin el permiso"+
+            PedirPermisos.solicitarPermiso(permisos, "Sin el permiso"+
                             " llamar no puedo llamar a emergencias si se detecta alguna caída.",
                     SOLICITUD_PERMISO_ACCESS_FINE_LOCATION, this);
             return;
