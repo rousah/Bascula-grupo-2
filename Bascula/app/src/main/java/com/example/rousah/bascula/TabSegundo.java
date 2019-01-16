@@ -72,6 +72,12 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
     AlertDialog.Builder builder2;
     Dialog dialogo2;
 
+
+    public static AlertDialog.Builder builderAnual;
+    public static AlertDialog dialogAnual;
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -108,7 +114,7 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
 
         fabOptions.setButtonColor(R.id.faboptions_seven, R.color.white);
         fabOptions.setButtonColor(R.id.faboptions_mes, R.color.white);
-//        fabOptions.setButtonColor(R.id.faboptions_trimestral, R.color.white);
+        fabOptions.setButtonColor(R.id.faboptions_trimestral, R.color.white);
         fabOptions.setButtonColor(R.id.faboptions_anual, R.color.white);
 
         fabOptions.setOnClickListener(this);
@@ -297,7 +303,7 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
 
             switch (v.getId()) {
                 case R.id.faboptions_anual:
-                    builder3 = new AlertDialog.Builder(getActivity());
+                    builder3 = new AlertDialog.Builder(getContext());
                     final Dialog dialogo3;
 
                     builder3.setMessage(R.string.elegir).setTitle(R.string.title_f);
@@ -308,13 +314,14 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                             // User click OK button
                             lanzarGrafica(fecha, userUid, 365);
                             Toast.makeText(getContext(), "Anual desde " + fecha, Toast.LENGTH_SHORT);
+                            onDestroyDialog();
                         }
                     });
 
                     builder3.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // User click CANCEL button
+                            onDestroyDialog();
                         }
                     });
 
@@ -336,21 +343,15 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                         public void onClick(DialogInterface dialog, int which) {
                             // User click OK button
                             lanzarGrafica(fecha, userUid, 7);
-                            dialog.cancel();
                             Toast.makeText(getContext(), "Semanal desde " + fecha, Toast.LENGTH_SHORT);
-                            try {
-                                finalize();
-                            }
-                            catch (Throwable e) {
-                                Log.d("eeeee", e.getMessage());
-                            }
+                            onDestroyDialog();
                         }
                     });
 
                     builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // User click CANCEL button
+                            onDestroyDialog();
                         }
                     });
 
@@ -373,21 +374,15 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                         public void onClick(DialogInterface dialog, int which) {
                             // User click OK button
                             lanzarGrafica(fecha, userUid, 30);
-                            dialog.cancel();
                             Toast.makeText(getContext(), "Mensual desde " + fecha, Toast.LENGTH_SHORT);
-                            try {
-                                finalize();
-                            }
-                            catch (Throwable e) {
-                                Log.d("eeeee", e.getMessage());
-                            }
+                            onDestroyDialog();
                         }
                     });
 
                     builder2.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // User click CANCEL button
+                            onDestroyDialog();
                         }
                     });
 
@@ -408,7 +403,7 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                         public void onClick(DialogInterface dialog, int which) {
                             // User click OK button
                             lanzarGrafica(fecha, userUid, 90);
-                            dialog.cancel();
+                            onDestroyDialog();
                             Toast.makeText(getContext(), "Trimestral desde " + fecha, Toast.LENGTH_SHORT);
                         }
                     });
@@ -416,7 +411,7 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                     builder4.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // User click CANCEL button
+                            onDestroyDialog();
                         }
                     });
 
@@ -428,16 +423,14 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
             }
 
         }
-
-        @Override public void onDestroyView() {
-          super.onDestroyView();
-
-          if (view != null) {
-             ViewGroup parent = (ViewGroup) view.getParent();
-             if (parent != null) {
-                 parent.removeAllViews();
-             }
-         }
+    public void onDestroyDialog() {
+        super.onDestroy();
+        if (dialogView != null) {
+            ViewGroup parent = (ViewGroup) dialogView.getParent();
+            if (parent != null) {
+                parent.removeAllViews();
+            }
+        }
     }
 
 }

@@ -84,7 +84,7 @@ public class Grafica extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful() && task.getResult().size() != 0) {
                             int i = task.getResult().size()-1;
                             final String[] labels = new String[task.getResult().size()];
                             final float[] values = new float[task.getResult().size()];
@@ -150,7 +150,7 @@ public class Grafica extends AppCompatActivity {
                             .setYAxis(false)
                             .setYLabels(AxisRenderer.LabelPosition.NONE)
                             .setGrid(10, 20, paint)
-                            .setAxisBorderValues(0, 100)
+                            .setAxisBorderValues(0, 150)
                             .setTypeface(Typeface.createFromAsset(esto.getAssets(), "OpenSans-Semibold.ttf"))
                             .setLabelsFormat(formato)
                             .setTooltips(mTip)
