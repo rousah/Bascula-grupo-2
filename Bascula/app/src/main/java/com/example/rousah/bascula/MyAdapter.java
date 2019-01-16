@@ -60,10 +60,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         SharedPreferences pref =
                 PreferenceManager.getDefaultSharedPreferences(context);
 
-        mTitleSet.add("Peso:");
+        mTitleSet.add(context.getResources().getString(R.string.peso));
         if(pref.getString("peso","?").equals("1")){
             mDataSet.add(data.get(0));
-            mUnidadesSet.add("kg");
+            mUnidadesSet.add(context.getResources().getString(R.string.Kg));
         }else {
             /*
             Double n = data.get(0)*2.2;
@@ -76,13 +76,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             y = String.format("%.2f", peso);
             Double z = Double.parseDouble(y);
             mDataSet.add(z);
-            mUnidadesSet.add("libras");
+            mUnidadesSet.add(context.getResources().getString(R.string.Libras));
         }
 
-        mTitleSet.add("Altura:");
+        mTitleSet.add(context.getResources().getString(R.string.altura));
         if(pref.getString("altura","?").equals("1")) {
             mDataSet.add(data.get(1));
-            mUnidadesSet.add("m");
+            mUnidadesSet.add(context.getResources().getString(R.string.Metros));
         }else{
             Double x = 3.2;
             Double altura = data.get(1) * x;
@@ -90,7 +90,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             y = String.format("%.2f", altura);
             Double z = Double.parseDouble(y);
             mDataSet.add(z);
-            mUnidadesSet.add("pies");
+            mUnidadesSet.add(context.getResources().getString(R.string.Pies));
         }
         mImageSet.add(R.drawable.ruler);
         mImageSet.add(R.drawable.ic_scale_balance);

@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Bascula</string>
-    <string name="inicio">Inicio</string>
     <string name="action_settings">Settings</string>
     <string name="preferencias">Preferencias</string>
-    <string name="datos">Datos</string>
     <string name="acercade">Acerca de...</string>
 
     <string name="aceptar">Aceptar</string>
@@ -53,6 +51,7 @@
     <string name="textoEmail">Email:</string>
     <string name="textoFecha">Fecha:</string>
     <string name="textoTelefono">Telefono:</string>
+    <string name="textoTelefonoEmergencia">Telefono de emergencia:</string>
     <string name="sexo">Sexo:</string>
     <string name="mascalunino">Masculino</string>
     <string name="femenino">Femenino</string>
@@ -107,6 +106,8 @@
     <string name="bienvenido">Bienvenido</string>
     <string name="bienvenidoCasa">Bienvenido a casa</string>
     <string name="solicitudPermisoLlamada">Without the phone permission the app won´t be able to call in case of an accidental fall.</string>
+    <string name="mediciones">Mediciones</string>
+
     <!-- Main activity -->
 
     <!-- Hospital fragment -->
@@ -136,6 +137,11 @@
     <string name="pesoT">Unidades para el peso</string>
     <string name="pesoS">Unidad preferida para mostrar la altura</string>
     <!-- Preferencias xml -->
+
+    <!-- Tab fragment -->
+    <string name="inicio">Inicio</string>
+    <string name="datos">Datos</string>
+    <!-- Tab fragment -->
 
 
     <string name="base"></string>
