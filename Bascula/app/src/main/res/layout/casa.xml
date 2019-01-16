@@ -294,7 +294,7 @@
                     android:id="@+id/person_icon_3"
                     android:layout_width="143dp"
                     android:layout_height="37dp"
-                    android:layout_marginLeft="165dp"
+                    android:layout_marginLeft="155dp"
                     android:layout_marginTop="75dp"
                     android:src="@drawable/person_icon"
                     android:visibility="invisible" />

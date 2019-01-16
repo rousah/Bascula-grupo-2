@@ -18,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.comun.Mqtt;
@@ -92,13 +93,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
 
-        try {
-            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot + "PRESENCIA");
-            client.subscribe(Mqtt.topicRoot + "PRESENCIA", Mqtt.qos);
-            client.setCallback((MqttCallback) this);
-        } catch (MqttException e) {
-            Log.e(Mqtt.TAG, "Error al suscribir.", e);
-        }
+
         //---------------MQTT---------------------
     }
 
@@ -240,61 +235,6 @@ public class TabPrimero extends Fragment implements MqttCallback {
                 if (payload.contains("ALERTA_DE_GAS")) {
                     alertaGas();
                 }
-
-                if(payload.contains("IN")){
-                    notificacionDentro();
-                }
-                if(payload.contains("OUT")){
-                    notificacionFuera();
-                }
-            }
-
-            private void notificacionFuera() {
-                NotificationManager mNotificationManager =
-                        (NotificationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.NOTIFICATION_SERVICE);
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    NotificationChannel channel = new NotificationChannel("default",
-                            "NOMBRE_DEL_CANAL",
-                            NotificationManager.IMPORTANCE_DEFAULT);
-                    channel.setDescription("DESCRIPCION_DEL_CANAL");
-                    mNotificationManager.createNotificationChannel(channel);
-                }
-
-
-
-                @SuppressLint("RestrictedApi") NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
-                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                        .setContentTitle("Hasta pronto") // title for notification
-                        .setContentText("Que pase un buen dia")// message for notification
-                        .setAutoCancel(true); // clear notification after click
-                @SuppressLint("RestrictedApi") Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                @SuppressLint("RestrictedApi") PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setContentIntent(pi);
-                mNotificationManager.notify(0, mBuilder.build());
-            }
-
-            private void notificacionDentro() {
-                NotificationManager mNotificationManager =
-                        (NotificationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.NOTIFICATION_SERVICE);
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    NotificationChannel channel = new NotificationChannel("default",
-                            "NOMBRE_DEL_CANAL",
-                            NotificationManager.IMPORTANCE_DEFAULT);
-                    channel.setDescription("DESCRIPCION_DEL_CANAL");
-                    mNotificationManager.createNotificationChannel(channel);
-                }
-
-
-
-                @SuppressLint("RestrictedApi") NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
-                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                        .setContentTitle("Bienvenido") // title for notification
-                        .setContentText("Bienvenido a casa")// message for notification
-                        .setAutoCancel(true); // clear notification after click
-                @SuppressLint("RestrictedApi") Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                @SuppressLint("RestrictedApi") PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setContentIntent(pi);
-                mNotificationManager.notify(0, mBuilder.build());
             }
 
             private void alertaGas() {
