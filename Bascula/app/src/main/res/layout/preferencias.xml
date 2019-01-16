@@ -31,9 +31,9 @@
     <EditTextPreference
         android:defaultValue="25"
         android:inputType="number"
-        android:key="personas"
-        android:summary=""
-        android:title="Número de personas usando la bascula" />
+        android:key="umbralLlamada"
+        android:summary="Cambiando este valor el dispositivo detectará la caida más o menos facílmente, recomendamos valores entre 25 y 50"
+        android:title="Umbral para detectar la caida" />
 
     <ListPreference
         android:key="localizacion"
