@@ -54,7 +54,8 @@ public class NearbyConnections extends Activity {
         super.onCreate(savedInstanceState);
     // Configuración del LED
         ledStatus = false;
-        PeripheralManager service = PeripheralManager.getInstance();try {
+        PeripheralManager service = PeripheralManager.getInstance();
+        try {
             mLedGpio = service.openGpio(PIN_LED);
             mLedGpio.setDirection(Gpio.DIRECTION_OUT_INITIALLY_LOW);
         } catch (IOException e) {

@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    public static Activity me;
+
 
     //----------------MQTT---------------------
     MqttClient client;
@@ -117,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        me = this;
 
         setContentView(R.layout.activity_main);
 
@@ -196,7 +200,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         else {
             SharedPreferences pref =
                     PreferenceManager.getDefaultSharedPreferences(this);
-            if(pref.getString("llamadaEmergencia","?").equals("1")){
+            String s = pref.getString("llamadaEmergencia","?");
+            if(s.equals("1")){
             }else {
                 crearServicio();
             }
