@@ -64,10 +64,13 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
     private Button ok;
     private FirebaseUser usuario;
     private Calendar myCalendar;
-    private EditText fLabel;
+    private Button fLabel;
     private LayoutInflater inflater;
     private View dialogView;
     Fragment esto;
+    AlertDialog.Builder builder3;
+    AlertDialog.Builder builder2;
+    Dialog dialogo2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -232,13 +235,11 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
 
     }
 
-        public void lanzarSemanal (String f, String user)
+        public void lanzarGrafica (String f, String user, int numero)
         {
-            FirebaseDatabase.getInstance().getReference().child("usuarios").child(user).child("mediciones").
-                    orderByValue().startAt(f).limitToLast(7);
             Intent s = new Intent(getContext(), Grafica.class);
             s.putExtra("fecha", f);
-            s.putExtra("numDatos", 7);
+            s.putExtra("numDatos", numero);
             startActivity(s);
         }
 
@@ -255,8 +256,8 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
             String myFormat = "dd/MM/yy"; //In which you need put here
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             Log.d(TAG, sdf.format(myCalendar.getTime()));
-            //fLabel.setText(sdf.format(myCalendar.getTime()));
             fLabel.setText(sdf.format(myCalendar.getTime()));
+
         }
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -290,147 +291,39 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                     myCalendar.get(Calendar.DAY_OF_MONTH)).show();
         }
 
- /*   @SuppressLint("WrongConstant")
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int itemId = item.getItemId();
-
-        if(itemId == R.id.faboptions_seven)
-        {
-
-            Intent i = new Intent(getContext(), DatosDiaCalendario.class);
-
-            //Toast.makeText(getContext(), "SEMANAL", 0).show();
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-            builder.setMessage(R.string.elegir).setTitle(R.string.title_f);
-
-            builder.setView(dialogView);
-
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // User click OK button
-                    lanzarSemanal(fecha, userUid);
-
-                }
-            });
-
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // User click CANCEL button
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-
-            dialog.show();
-
-        }else if(itemId == R.id.faboptions_mes)
-        {
-            Toast.makeText(getContext(), "MENSUAL", 0).show();
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-            builder.setMessage(R.string.elegir).setTitle(R.string.title_f);
-
-            builder.setView(R.layout.dialog_fecha);
-
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // User click OK button
-                    lanzarMensual(fecha, userUid);
-                }
-            });
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // User click CANCEL button
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-
-            dialog.show();
-
-        }else if(itemId == R.id.faboptions_trimestral)
-        {
-            Toast.makeText(getContext(), "TRIMESTRAL", 0).show();
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-            builder.setMessage(R.string.elegir).setTitle(R.string.title_f);
-
-            builder.setView(R.layout.dialog_fecha);
-
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // User click OK button
-                    lanzarTrimestral(fecha, userUid);
-                }
-            });
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // User click CANCEL button
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-
-            dialog.show();
-
-        }else if(itemId == R.id.faboptions_anual)
-        {
-            Toast.makeText(getContext(), "ANUAL", 0).show();
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-            builder.setMessage(R.string.elegir).setTitle(R.string.title_f);
-
-            builder.setView(R.layout.dialog_fecha);
-
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // User click OK button
-                    lanzarAnual(fecha, userUid);
-                }
-            });
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // User click CANCEL button
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-
-            dialog.show();
-
-        }else
-        {
-            Toast.makeText(getContext(), "ERROR, NO LLEVA A NINGÚN SITIO", 0).show();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-*/
 
         @Override
         public void onClick (View v){
 
             switch (v.getId()) {
                 case R.id.faboptions_anual:
-                    Toast.makeText(getContext(), "ANUAL", Toast.LENGTH_SHORT).show();
+                    builder3 = new AlertDialog.Builder(getActivity());
+                    final Dialog dialogo3;
+
+                    builder3.setMessage(R.string.elegir).setTitle(R.string.title_f);
+                    builder3.setView(dialogView);
+                    builder3.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User click OK button
+                            lanzarGrafica(fecha, userUid, 365);
+                            Toast.makeText(getContext(), "Anual desde " + fecha, Toast.LENGTH_SHORT);
+                        }
+                    });
+
+                    builder3.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User click CANCEL button
+                        }
+                    });
+
+                    dialogo3 = builder3.create();
+
+                    dialogo3.show();
+
                     break;
                 case R.id.faboptions_seven:
-                    //Toast.makeText(getContext(), "SEMANAL", 0).show();
-
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     final Dialog dialogo;
 
@@ -442,8 +335,9 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // User click OK button
-                            lanzarSemanal(fecha, userUid);
+                            lanzarGrafica(fecha, userUid, 7);
                             dialog.cancel();
+                            Toast.makeText(getContext(), "Semanal desde " + fecha, Toast.LENGTH_SHORT);
                             try {
                                 finalize();
                             }
@@ -467,24 +361,83 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                     break;
                 case R.id.faboptions_mes:
                     Toast.makeText(getContext(), "MENSUAL", Toast.LENGTH_SHORT).show();
+                    final AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
+                    final Dialog dialogo2;
+
+                    builder2.setMessage(R.string.elegir).setTitle(R.string.title_f);
+
+                    builder2.setView(dialogView);
+
+                    builder2.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User click OK button
+                            lanzarGrafica(fecha, userUid, 30);
+                            dialog.cancel();
+                            Toast.makeText(getContext(), "Mensual desde " + fecha, Toast.LENGTH_SHORT);
+                            try {
+                                finalize();
+                            }
+                            catch (Throwable e) {
+                                Log.d("eeeee", e.getMessage());
+                            }
+                        }
+                    });
+
+                    builder2.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User click CANCEL button
+                        }
+                    });
+
+                    dialogo2 = builder2.create();
+
+                    dialogo2.show();
                     break;
                 case R.id.faboptions_trimestral:
-                    Toast.makeText(getContext(), "TRIMESTRAL", Toast.LENGTH_SHORT).show();
+                    final AlertDialog.Builder builder4 = new AlertDialog.Builder(getActivity());
+                    final Dialog dialogo4;
+
+                    builder4.setMessage(R.string.elegir).setTitle(R.string.title_f);
+
+                    builder4.setView(dialogView);
+
+                    builder4.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User click OK button
+                            lanzarGrafica(fecha, userUid, 90);
+                            dialog.cancel();
+                            Toast.makeText(getContext(), "Trimestral desde " + fecha, Toast.LENGTH_SHORT);
+                        }
+                    });
+
+                    builder4.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User click CANCEL button
+                        }
+                    });
+
+                    dialogo4 = builder4.create();
+                    dialogo4.show();
+
                     break;
                 default:
             }
 
         }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (view != null) {
-            ViewGroup parent = (ViewGroup) view.getParent();
-            if (parent != null) {
-                parent.removeAllViews();
-            }
-        }
+        @Override public void onDestroyView() {
+          super.onDestroyView();
+
+          if (view != null) {
+             ViewGroup parent = (ViewGroup) view.getParent();
+             if (parent != null) {
+                 parent.removeAllViews();
+             }
+         }
     }
 
 }
