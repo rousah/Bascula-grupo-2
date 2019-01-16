@@ -50,7 +50,8 @@ public class Dialog extends Activity {
                                 finish();
                             }
                         }
-                );
+                )
+                .setCancelable(false);
 
         dialog = builder.show();
 

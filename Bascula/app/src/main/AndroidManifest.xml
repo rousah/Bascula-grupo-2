@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
@@ -24,12 +26,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
+        <receiver android:name="ReceptorWifi" >
+            <intent-filter >
+                <action android:name="android.net.wifi.STATE_CHANGE"/>
+            </intent-filter>
+        </receiver>
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAhz2D1wDCaF_xAGAsareKc4zVLUy1zBVA"/>
         <service android:name=".ServicioCaidas"></service>
         <activity android:name=".Dialog" android:theme="@android:style/Theme.Dialog" android:showWhenLocked="true" android:showOnLockScreen="true" android:turnScreenOn="true" android:finishOnCloseSystemDialogs="true"></activity>
+        <activity android:name=".DialogWifi" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name=".BorrarUsuarioActivity"
             android:label="Borrar usuario ..." />
         <activity android:name=".PreferenciasActivity"
@@ -38,8 +46,7 @@
             android:label="Acerca de ..."/>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-           >
+            android:label="@string/app_name">
         </activity>
         <activity android:name=".Fingerprint">
 
