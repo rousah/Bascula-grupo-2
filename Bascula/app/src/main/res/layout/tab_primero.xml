@@ -18,155 +18,258 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/section_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="20dp"
-            android:text="@string/datosRecientes"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:typeface="normal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintTop_creator="1" />
-
-        <LinearLayout
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="4dp">
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/hello"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="7dp"
-                android:background="@drawable/rounded"
-                android:orientation="horizontal"
-                android:padding="15dp">
+                android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/imctexto"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="IMC:"
-                    android:textColor="#ffffff"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/datosRecientes"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:typeface="normal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    card_view:layout_constraintBottom_toTopOf="@+id/cardView4"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    tools:layout_constraintLeft_creator="1"
+                    tools:layout_constraintTop_creator="1" />
 
-                <TextView
-                    android:id="@+id/imcValor"
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/cardView4"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:text="20.2"
-                    android:textColor="#ffffff"
-                    android:textSize="24sp" />
-            </LinearLayout>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardCornerRadius="4dp"
+                    card_view:cardElevation="4dp"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toBottomOf="@+id/textView">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="7dp"
-                android:background="@drawable/rounded"
-                android:orientation="horizontal"
-                android:padding="15dp">
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/background2">
 
-                <TextView
-                    android:id="@+id/alturaTexto"
-                    android:layout_width="166dp"
+                        <TextView
+                            android:id="@+id/imctexto"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:gravity="start"
+                            android:text="IMC:"
+                            android:textColor="@color/black80"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            card_view:layout_constraintBottom_toBottomOf="parent"
+                            card_view:layout_constraintEnd_toStartOf="@+id/imcValor"
+                            card_view:layout_constraintStart_toStartOf="parent"
+                            card_view:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/imcValor"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center"
+                            android:text="20.2"
+                            android:textColor="@color/black80"
+                            android:textSize="24sp"
+                            card_view:layout_constraintBottom_toBottomOf="parent"
+                            card_view:layout_constraintEnd_toEndOf="parent"
+                            card_view:layout_constraintStart_toEndOf="@+id/imctexto"
+                            card_view:layout_constraintTop_toTopOf="parent" />
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+
+
+                <!-- A CardView that contains a TextView -->
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/cardView5"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/altura"
-                    android:textColor="#ffffff"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardCornerRadius="8dp"
+                    card_view:cardElevation="4dp"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toBottomOf="@+id/cardView4">
 
-                <TextView
-                    android:id="@+id/alturaValor"
-                    android:layout_width="wrap_content"
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/background2">
+
+                        <TextView
+                            android:id="@+id/alturaTexto"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="start"
+                            android:text="@string/altura"
+                            android:textColor="@color/black80"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            card_view:layout_constraintBottom_toBottomOf="parent"
+                            card_view:layout_constraintEnd_toStartOf="@+id/alturaValor"
+                            card_view:layout_constraintStart_toStartOf="parent"
+                            card_view:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/alturaValor"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center"
+                            android:text="180 cm"
+                            android:textColor="@color/black80"
+                            android:textSize="24sp"
+                            card_view:layout_constraintBottom_toBottomOf="parent"
+                            card_view:layout_constraintEnd_toEndOf="parent"
+                            card_view:layout_constraintStart_toEndOf="@+id/alturaTexto"
+                            card_view:layout_constraintTop_toTopOf="parent"
+                            card_view:layout_constraintVertical_bias="0.0" />
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/cardView6"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:text="180 cm"
-                    android:textColor="#ffffff"
-                    android:textSize="24sp" />
-            </LinearLayout>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    card_view:cardCornerRadius="8dp"
+                    card_view:cardElevation="4dp"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintHorizontal_bias="0.0"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toBottomOf="@+id/cardView5">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="7dp"
-                android:background="@drawable/rounded"
-                android:orientation="horizontal"
-                android:padding="15dp">
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background2">
 
-                <TextView
-                    android:id="@+id/Peso"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/peso"
-                    android:textColor="#ffffff"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/Peso"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/peso"
+                            android:textColor="@color/black80"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            card_view:layout_constraintBottom_toBottomOf="parent"
+                            card_view:layout_constraintEnd_toStartOf="@+id/pesoValor"
+                            card_view:layout_constraintStart_toStartOf="parent"
+                            card_view:layout_constraintTop_toTopOf="parent"
+                            card_view:layout_constraintVertical_bias="1.0" />
 
-                <TextView
-                    android:id="@+id/pesoValor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:text="65 kg"
-                    android:textColor="#ffffff"
-                    android:textSize="24sp" />
-            </LinearLayout>
-        </LinearLayout>
+                        <TextView
+                            android:id="@+id/pesoValor"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center"
+                            android:text="65 kg"
+                            android:textColor="@color/black80"
+                            android:textSize="24sp"
+                            card_view:layout_constraintBottom_toBottomOf="parent"
+                            card_view:layout_constraintEnd_toEndOf="parent"
+                            card_view:layout_constraintStart_toEndOf="@+id/Peso"
+                            card_view:layout_constraintTop_toTopOf="parent"
+                            card_view:layout_constraintVertical_bias="0.0" />
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
 
         <Button
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="14dp"
+            android:layout_margin="8dp"
             android:text="@string/pesarme" />
 
-        <TextView
-            android:id="@+id/section2_label"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="20dp"
-            android:text="@string/estadoObjetivo"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintTop_creator="1" />
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="4dp">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/section2_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/estadoObjetivo"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    card_view:layout_constraintBottom_toTopOf="@+id/progressBar"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    tools:layout_constraintLeft_creator="1"
+                    tools:layout_constraintTop_creator="1" />
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -175,12 +278,6 @@
                     android:layout_height="250dp"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
                     android:indeterminate="false"
                     android:max="100"
                     android:progress="60"
@@ -190,7 +287,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintTop_toBottomOf="@+id/section2_label" />
 
                 <TextView
                     android:id="@+id/cincuenta"
@@ -240,8 +338,8 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="25%"
                     android:layout_marginRight="8dp"
+                    android:text="25%"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBar"
                     app:layout_constraintEnd_toStartOf="@+id/txtProgress"
                     app:layout_constraintHorizontal_bias="0.13"
@@ -264,6 +362,7 @@
 
             </android.support.constraint.ConstraintLayout>
 
+        </android.support.v7.widget.CardView>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

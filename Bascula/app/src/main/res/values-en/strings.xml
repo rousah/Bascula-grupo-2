@@ -84,9 +84,9 @@
     <!-- Tab primero -->
     <string name="altura">Height:</string>
     <string name="peso">Weight:</string>
-    <string name="datosRecientes">Your most recent data:</string>
+    <string name="datosRecientes">Your most recent data</string>
     <string name="pesarme">Connect to scale</string>
-    <string name="estadoObjetivo">Objective status:</string>
+    <string name="estadoObjetivo">Objective status</string>
     <!-- Tab primero -->
 
     <!-- nav drawer menu -->
