@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frameContent, new TabFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_inicio);
-        setTitle("Mediciones");
+        setTitle(getResources().getString(R.string.mediciones));
         //--------------Drawer--------------------
 
 

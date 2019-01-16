@@ -80,9 +80,9 @@ public class TabFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Inicio";
+                    return getResources().getString(R.string.inicio);
                 case 1 :
-                    return "Datos";
+                    return getResources().getString(R.string.datos);
                 case 2:
                     return "Administrar";
             }

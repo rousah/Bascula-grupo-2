@@ -275,6 +275,7 @@
                     app:srcCompat="@drawable/ic_danger" />
 
                 <TextView
+                    android:id="@+id/emergencia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -282,7 +283,7 @@
                     android:layout_weight="3"
                     android:baselineAligned="false"
                     android:gravity="center_vertical"
-                    android:text="Teléfono de emergencia:"
+                    android:text="@string/textoTelefonoEmergencia"
                     android:textColor="#ffffff"
                     android:textSize="14sp"
                     android:textStyle="bold" />
