@@ -56,6 +56,7 @@ public class MyAdapterGlobalOptions extends RecyclerView.Adapter<MyAdapterGlobal
         {
             // estructuramos de distinta forma
             // no vamos a tener imagen
+
         }else
         {
             mImageSet.add(R.drawable.scale_bathroom);
