@@ -195,7 +195,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         else {
             SharedPreferences pref =
                     PreferenceManager.getDefaultSharedPreferences(this);
-            if(pref.getString("llamadaEmergencia","?").equals("1")){
+            String s = pref.getString("llamadaEmergencia","?");
+            if(s.equals("1")){
             }else {
                 crearServicio();
             }

@@ -21,7 +21,15 @@
         <item>2</item>
     </string-array>
     <string-array name="llamadaSiNo">
-        <item>No</item>
-        <item>Sí</item>
+        <item>No permitir</item>
+        <item>Permitir</item>
+    </string-array>
+    <string-array name="loaclizacionNombre">
+        <item>Hospitales</item>
+        <item>Farmacias</item>
+    </string-array>
+    <string-array name="localizacion12">
+        <item>1</item>
+        <item>2</item>
     </string-array>
 </resources>

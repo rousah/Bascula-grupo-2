@@ -92,7 +92,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mDataSet.add(z);
             mUnidadesSet.add("pies");
         }
-
         mImageSet.add(R.drawable.ruler);
         mImageSet.add(R.drawable.ic_scale_balance);
         mTitleSet.add("IMC:");

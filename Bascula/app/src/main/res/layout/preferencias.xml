@@ -4,11 +4,6 @@
     android:layout_height="match_parent"
     android:key="preferencias_principal">
 
-    <CheckBoxPreference
-        android:key="musica"
-        android:summary="Checkbox provisional"
-        android:title="Checkbox" />
-
     <ListPreference
         android:key="peso"
         android:defaultValue="1"
@@ -39,4 +34,12 @@
         android:key="personas"
         android:summary=""
         android:title="Número de personas usando la bascula" />
+
+    <ListPreference
+        android:key="localizacion"
+        android:defaultValue="1"
+        android:entries="@array/loaclizacionNombre"
+        android:entryValues="@array/localizacion12"
+        android:summary="Permite elegir entre distintos lugares de interes"
+        android:title="Elija localizacion a mostrar" />
 </PreferenceScreen>
