@@ -3,6 +3,7 @@ package com.example.rousah.bascula;
 import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,6 +11,7 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
@@ -81,7 +83,11 @@ public class ServicioCaidas extends Service {
             synchronized (this) {
                 double mod = modulo(event.values[0], event.values[1], event.values[2]);
                 Log.d("caida", "modulo: " + mod);
-                if (mod > 25) {
+                SharedPreferences pref =
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String s = pref.getString("umbralLlamada","?");
+                double d = Double.parseDouble(s);
+                if (mod > d) {
 
                     Log.d("Caida", "Se ha detectado una caída");
 

@@ -65,7 +65,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mDataSet.add(data.get(0));
             mUnidadesSet.add("kg");
         }else {
-            mDataSet.add(data.get(0)*2.2);
+            /*
+            Double n = data.get(0)*2.2;
+            String s = n.toString();
+            s = String.format("%.2f", s);
+            */
+            Double x = 2.2;
+            Double peso = data.get(0) * x;
+            String y = String.valueOf(peso);
+            y = String.format("%.2f", peso);
+            Double z = Double.parseDouble(y);
+            mDataSet.add(z);
             mUnidadesSet.add("libras");
         }
 
@@ -74,10 +84,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mDataSet.add(data.get(1));
             mUnidadesSet.add("m");
         }else{
-            mDataSet.add(data.get(1)*3.2);
+            Double x = 3.2;
+            Double altura = data.get(1) * x;
+            String y = String.valueOf(altura);
+            y = String.format("%.2f", altura);
+            Double z = Double.parseDouble(y);
+            mDataSet.add(z);
             mUnidadesSet.add("pies");
         }
-
         mImageSet.add(R.drawable.ruler);
         mImageSet.add(R.drawable.ic_scale_balance);
         mTitleSet.add("IMC:");

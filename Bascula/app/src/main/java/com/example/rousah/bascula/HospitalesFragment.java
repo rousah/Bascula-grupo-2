@@ -2,6 +2,7 @@ package com.example.rousah.bascula;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -9,6 +10,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -150,13 +152,23 @@ public class HospitalesFragment extends Fragment {
 
     public StringBuilder sbMethod() {
 
+         SharedPreferences pref =
+                 PreferenceManager.getDefaultSharedPreferences(getContext());
+         String placeToLookFor;
+         if(pref.getString("localizacion","?").equals("1")) {
+             placeToLookFor = "hospital";
+         }else{
+             placeToLookFor = "pharmacy";
+         }
+
+
         double mLatitude = latitud;
         double mLongitude = longitud;
 
         StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         sb.append("location=" + mLatitude + "," + mLongitude);
         sb.append("&radius=5000");
-        sb.append("&types=" + "hospital");
+        sb.append("&types=" + placeToLookFor);
         sb.append("&sensor=true");
         sb.append("&key=AIzaSyDXWcRvjtT6v6ElStSAsAOB_Bav6TAlhjQ");
 
