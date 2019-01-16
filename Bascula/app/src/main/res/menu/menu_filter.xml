@@ -5,21 +5,25 @@
     <item
         android:id="@+id/faboptions_seven"
         android:icon="@drawable/ic_semanal"
-        android:title="Semanal" />
+        android:title="Semanal"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/faboptions_mes"
         android:icon="@drawable/ic_mensual"
-        android:title="Mensual" />
+        android:title="Mensual"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/faboptions_trimestral"
         android:icon="@drawable/ic_trimestral"
-        android:title="Trimestral" />
+        android:title="Trimestral"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/faboptions_anual"
         android:icon="@drawable/ic_anual"
-        android:title="Anual" />
+        android:title="Anual"
+        app:showAsAction="never"/>
 
 </menu>

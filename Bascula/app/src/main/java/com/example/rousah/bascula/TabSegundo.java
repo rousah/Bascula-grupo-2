@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatViewInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -48,7 +50,7 @@ import static com.example.rousah.bascula.R.layout.semanal;
 import static com.example.rousah.bascula.R.layout.tab_segundo;
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
-public class TabSegundo extends Fragment {
+public class TabSegundo extends Fragment implements View.OnClickListener{
     private View view;
     private String TAG = "MATTHEW/GTI";
     private String fecha;
@@ -65,28 +67,28 @@ public class TabSegundo extends Fragment {
 
     }
 
-    @SuppressLint({"ResourceAsColor", "ResourceType"})
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(tab_segundo, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.tab_segundo, null);
 
         FabOptions fabOptions = view.findViewById(R.id.fab_options);
         fabOptions.setButtonsMenu(R.menu.menu_filter);
 
-        fabOptions.setBackgroundColor(R.color.colorPrimaryDark);
+        fabOptions.setBackgroundColor(getContext(), getResources().getColor(R.color.colorPrimaryDark));
         fabOptions.setFabColor(R.color.colorAccent);
 
         fabOptions.setButtonColor(R.id.faboptions_seven, R.color.white);
         fabOptions.setButtonColor(R.id.faboptions_mes, R.color.white);
-        fabOptions.setButtonColor(R.id.faboptions_trimestral, R.color.white);
+//        fabOptions.setButtonColor(R.id.faboptions_trimestral, R.color.white);
         fabOptions.setButtonColor(R.id.faboptions_anual, R.color.white);
 
+        fabOptions.setOnClickListener(this);
 
         /**
          * Recoge el ID del calendario en el que interactuamos
          */
-        CalendarView calendarView =(CalendarView) view.findViewById(R.id.calendarView);
+        CalendarView calendarView = (CalendarView) view.findViewById(R.id.calendarView);
         /**
          *
          */
@@ -99,8 +101,8 @@ public class TabSegundo extends Fragment {
              */
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
-                month = month+1;
-                fecha = String.valueOf(dayOfMonth)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
+                month = month + 1;
+                fecha = String.valueOf(dayOfMonth) + "-" + String.valueOf(month) + "-" + String.valueOf(year);
 
                 //Toast.makeText(getApplicationContext(), ""+fecha, 0).show();// TODO Auto-generated method stub
 
@@ -119,12 +121,10 @@ public class TabSegundo extends Fragment {
      *
      */
     /**
-     *
      * @param f
      * @param Uid
      */
-    public void lanzarListaDeDatosDeUnDia(final String f, String Uid)
-    {
+    public void lanzarListaDeDatosDeUnDia(final String f, String Uid) {
 
         //Log.w(TAG,"Usuario: "+Uid);
         //Log.w(TAG,"Fecha: "+f);
@@ -152,7 +152,7 @@ public class TabSegundo extends Fragment {
                         new OnCompleteListener<DocumentSnapshot>() {
                             @SuppressLint({"RestrictedApi", "WrongConstant"})
                             @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task){
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 // definimos el intent
                                 Intent i = new Intent(getContext(), DatosDiaCalendario.class);
                                 if (task.isSuccessful()) {
@@ -170,16 +170,13 @@ public class TabSegundo extends Fragment {
                                      * recogidos.
                                      *
                                      */
-                                    if(peso == null)
-                                    {
+                                    if (peso == null) {
                                         Toast.makeText(getApplicationContext(), "No hay datos.", 0).show();// TODO Auto-generated method stub
 
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Log.w(TAG, "Peso:" + peso);
                                         Log.w(TAG, "Altura:" + altura);
-                                        Log.w(TAG, "IMC: "+imc);
+                                        Log.w(TAG, "IMC: " + imc);
                                         /**
                                          * Le mandamos a la clase MyAdapterGlobalOptions estos datos, con un intent
                                          * y un Bundle que los recoja
@@ -216,10 +213,8 @@ public class TabSegundo extends Fragment {
      *
      * @param f1
      * @param Uid
-     *
      */
-    public void lanzarSemanal(String f1, String Uid)
-    {
+    public void lanzarSemanal(String f1, String Uid) {
 
         FirebaseDatabase.getInstance().getReference().child("usuarios").child(Uid).child("mediciones").
                 orderByValue().startAt(f1).limitToLast(7);
@@ -230,10 +225,10 @@ public class TabSegundo extends Fragment {
     /**
      * Lanzar recyclerview datos del mes visualizando gráfica con el intervalo
      * del mes.
+     *
      * @param view
      */
-    public void lanzarMensual(View view)
-    {
+    public void lanzarMensual(View view) {
         Intent m = new Intent(getContext(), MyAdapterGlobalOptions.class);
         startActivity(m);
     }
@@ -241,10 +236,10 @@ public class TabSegundo extends Fragment {
     /**
      * Lanzar recyclerview datos del trimestre visualizando gráfica con el intervalo
      * del trimestre.
+     *
      * @param view
      */
-    public void lanzarTrimestral(View view)
-    {
+    public void lanzarTrimestral(View view) {
         Intent t = new Intent(getContext(), MyAdapterGlobalOptions.class);
         startActivity(t);
     }
@@ -252,13 +247,17 @@ public class TabSegundo extends Fragment {
     /**
      * Lanzar recyclerview datos del año visualizando gráfica con el intervalo
      * del año.
+     *
      * @param view
      */
-    public void lanzarAnual(View view)
-    {
-        Intent a = new Intent(getContext(), MyAdapterGlobalOptions.class);
+    public void lanzarAnual(View view) {
+        Intent a = new Intent(getContext(), Anual.class);
         startActivity(a);
     }
+
+
+
+    /*
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -320,4 +319,53 @@ public class TabSegundo extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+*/
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.faboptions_anual:
+                Toast.makeText(getContext(), "ANUAL", Toast.LENGTH_SHORT).show();
+                lanzarAnual(null);
+                break;
+            case R.id.faboptions_seven:
+                Toast.makeText(getContext(), "SEMANAL", Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setMessage(R.string.elegir).setTitle(R.string.title_f);
+
+                builder.setView(R.layout.dialog_fecha);
+
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User click OK button
+                        //lanzarSemanal(fecha, Uid);
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User click CANCEL button
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+                break;
+            case R.id.faboptions_mes:
+                Toast.makeText(getContext(), "MENSUAL", Toast.LENGTH_SHORT).show();
+                lanzarMensual(null);
+                break;
+            case R.id.faboptions_trimestral:
+                Toast.makeText(getContext(), "TRIMESTRAL", Toast.LENGTH_SHORT).show();
+                lanzarTrimestral(null);
+                break;
+            default:
+        }
+
+    }
 }

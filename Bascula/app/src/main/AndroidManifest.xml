@@ -70,6 +70,8 @@
         <activity android:name=".DatosDiaCalendario">
         </activity>
 
+        <activity android:name=".Anual"></activity>
+
     </application>
 
 </manifest>
