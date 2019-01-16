@@ -159,8 +159,6 @@ public class TabPrimero extends Fragment implements MqttCallback {
         // Botón conexión
         botonConnect = view.findViewById(R.id.button3);
         botonConnect.setOnClickListener(new View.OnClickListener(){
-
-            @SuppressLint("RestrictedApi")
             public void onClick(View v){
                 // Iniciamos la conexión con al anunciante "Nearby LED"
                 Log.i(TAG, "Conectando...");
@@ -346,8 +344,6 @@ public class TabPrimero extends Fragment implements MqttCallback {
             };
     private final ConnectionLifecycleCallback mConnectionLifecycleCallback =
             new ConnectionLifecycleCallback() {
-
-                @SuppressLint("RestrictedApi")
                 @Override public void onConnectionInitiated(
                         String endpointId, ConnectionInfo connectionInfo) {
                     // Aceptamos la conexión automáticamente en ambos lados.

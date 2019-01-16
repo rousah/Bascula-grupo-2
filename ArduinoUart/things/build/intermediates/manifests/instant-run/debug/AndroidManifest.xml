@@ -35,7 +35,7 @@
         android:testOnly="true" >
         <uses-library android:name="com.google.android.things" />
 
-        <activity android:name="com.equipodos.raspberry.NearbyConnections" >
+        <activity android:name="com.equipodos.raspberry.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

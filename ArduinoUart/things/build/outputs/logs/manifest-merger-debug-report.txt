@@ -141,10 +141,10 @@ uses-library#com.google.android.things
 ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:17:5-62
 	android:name
 		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:17:19-59
-activity#com.equipodos.raspberry.NearbyConnections
+activity#com.equipodos.raspberry.MainActivity
 ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:18:5-25:16
 	android:name
-		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:18:15-48
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:18:15-43
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:20:9-24:25
 action#android.intent.action.MAIN
