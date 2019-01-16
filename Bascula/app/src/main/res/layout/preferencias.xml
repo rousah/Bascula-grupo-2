@@ -9,37 +9,37 @@
         android:defaultValue="1"
         android:entries="@array/unidadesPeso"
         android:entryValues="@array/tiposUnidadesPeso"
-        android:summary="Unidad preferida para mostrar el peso"
-        android:title="Unidades para el peso" />
+        android:summary="@string/pesoS"
+        android:title="@string/pesoT" />
 
     <ListPreference
         android:key="altura"
         android:defaultValue="1"
         android:entries="@array/unidadesAltura"
         android:entryValues="@array/tiposUnidadesAltura"
-        android:summary="Unidad preferida para mostrar la altura"
-        android:title="Unidades para la altura" />
+        android:summary="@string/alturaS"
+        android:title="@string/alturaT" />
 
     <ListPreference
         android:key="llamadaEmergencia"
         android:defaultValue="1"
         android:entries="@array/llamadaSiNo"
         android:entryValues="@array/llamada12"
-        android:summary="Llamada automática a emergencias cuando el móvil detecte una caida, debe reiniciar la app al cambiar"
-        android:title="Llamada a emergencias" />
+        android:summary="@string/llamadaEmergenciasS"
+        android:title="@string/llamadaEmergenciasT" />
 
     <EditTextPreference
         android:defaultValue="25"
         android:inputType="number"
         android:key="umbralLlamada"
-        android:summary="Cambiando este valor el dispositivo detectará la caida más o menos facílmente, recomendamos valores entre 25 y 50"
-        android:title="Umbral para detectar la caida" />
+        android:summary="@string/umbralLlamadaS"
+        android:title="@string/umbralLlamadaT" />
 
     <ListPreference
         android:key="localizacion"
         android:defaultValue="1"
-        android:entries="@array/loaclizacionNombre"
+        android:entries="@array/localizacionNombre"
         android:entryValues="@array/localizacion12"
-        android:summary="Permite elegir entre distintos lugares de interes"
-        android:title="Elija localizacion a mostrar" />
+        android:summary="@string/localizacionS"
+        android:title="@string/localizacionT" />
 </PreferenceScreen>

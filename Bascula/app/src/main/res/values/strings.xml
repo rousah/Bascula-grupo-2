@@ -24,7 +24,6 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-    <string name="h"></string>
 
     <!-- Acerca de -->
     <string name="textoAcercaDe"> Gracias por probar nuestra aplicacíon centrada en el mundo IoT, desarrollada por el grupo 2 durante el primer semestre de 2019 como proyecto final para la asignatura Proyecto IoT y App en la UPV de Gandía.</string>
@@ -95,9 +94,55 @@
     <string name="tratamientosMenu">Tratamientos</string>
     <string name="perfilMenu">Perfil</string>
     <string name="cerrarSesiónMenu">Cerrar sesión</string>
+    <string name="mapaMenu">Mapa</string>
     <!-- nav drawer menu -->
 
+    <!-- Main activity -->
+    <string name="lucesEncendidas">Luces encendidas</string>
+    <string name="lucesApagadas">Luces apagadas</string>
+    <string name="permisoCaida">Sin el permiso, no se llamará a emergencias cuando se detecte una caída.</string>
+    <string name="permisoMapa">Sin el permiso, no se mostrará el mapa con lugares de interes.</string>
+    <string name="hastaP">Hasta pronto</string>
+    <string name="haveAneatDay">Que tenga un buen día</string>
+    <string name="bienvenido">Bienvenido</string>
+    <string name="bienvenidoCasa">Bienvenido a casa</string>
+    <string name="solicitudPermisoLlamada">Without the phone permission the app won´t be able to call in case of an accidental fall.</string>
+    <!-- Main activity -->
 
+    <!-- Hospital fragment -->
+    <string name="solicitudPermisoMapa">Without the location permission the app won´t be able to show the map and it´s important landmarks.</string>
+    <!-- Hospital fragment -->
+
+    <!-- arrays -->
+    <string name="Metros">Metros</string>
+    <string name="Pies">Pies</string>
+    <string name="Kg">Kg</string>
+    <string name="Libras">Libras</string>
+    <string name="Hospitales">Hospitales</string>
+    <string name="Farmacias">Farmacias</string>
+    <string name="permitir">Permitir</string>
+    <string name="noPermitir">No permitir</string>
+    <!-- arrays -->
+
+    <!-- Preferencias xml -->
+    <string name="umbralLlamadaT">Umbral para detectar la caida</string>
+    <string name="umbralLlamadaS">Recomendamos valores entre 25 y 50</string>
+    <string name="localizacionT">Localización a mostrar</string>
+    <string name="localizacionS">Permite elegir entre distintos lugares de interes</string>
+    <string name="llamadaEmergenciasT">Llamada a emergencias</string>
+    <string name="llamadaEmergenciasS">Llamada automática a emergencias al detectar una caida, debe reiniciar la app al cambiar</string>
+    <string name="alturaT">Unidades para la altura</string>
+    <string name="alturaS">Unidad preferida para mostrar el peso</string>
+    <string name="pesoT">Unidades para el peso</string>
+    <string name="pesoS">Unidad preferida para mostrar la altura</string>
+    <!-- Preferencias xml -->
+
+
+    <string name="base"></string>
+
+    <!--
+    getResources().getString(R.string.)
+    -->
 
 
 

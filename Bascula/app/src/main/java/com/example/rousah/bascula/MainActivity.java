@@ -107,11 +107,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
 
     // caídas
-    private static final int SOLICITUD_PERMISO_CALL_PHONE = 0;
-
-    // mapa
-    private static final int SOLICITUD_PERMISO_ACCESS_FINE_LOCATION = 1;
-
+    private static final int SOLICITUD_PERMISO_GLOBAL = 0;
+    private String[] permisos = {Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,33 +182,25 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         //---------------MQTT---------------------
 
 
-        //---------------CAÍDAS-------------------
+        //---------------PERMISOS-------------------
+        /**
+         * Caídas y mapa
+         */
+
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            PedirPermisos.solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso"+
-                            " llamar no puedo llamar a emergencias si se detecta alguna caída.",
-                    SOLICITUD_PERMISO_CALL_PHONE, this);
+            PedirPermisos.solicitarPermiso(permisos, "Sin el permiso llamar no puedo llamar a emergencias si se detecta alguna caída.",
+                    SOLICITUD_PERMISO_GLOBAL, this);
             return;
         }
         else {
             SharedPreferences pref =
                     PreferenceManager.getDefaultSharedPreferences(this);
-            String s = pref.getString("llamadaEmergencia","?");
-            if(s.equals("1")){
+            if(pref.getString("llamadaEmergencia","?").equals("1")){
             }else {
                 crearServicio();
             }
         }
-        //---------------CAÍDAS-------------------
-
-
-        //---------------MAPA-------------------
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            PedirPermisos.solicitarPermiso(Manifest.permission.ACCESS_FINE_LOCATION, "Sin el permiso"+
-                            " llamar no puedo llamar a emergencias si se detecta alguna caída.",
-                    SOLICITUD_PERMISO_ACCESS_FINE_LOCATION, this);
-            return;
-        }
-        //---------------MAPA-------------------
 
         //mostrarPreferencias();
 
@@ -263,19 +252,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         startActivity(i);
     }
 
-    /*public void mostrarPreferencias(){
-        SharedPreferences pref =
-                PreferenceManager.getDefaultSharedPreferences(this);
-        String s = "imagen: " + pref.getString("imagen","?");
-        int value = Integer.parseInt(pref.getString("imagen","?"));
-        if(value == 2){
-            Toast.makeText(this, "ES AlTAAA", Toast.LENGTH_LONG).show();
-        }
-        if(value == 1){
-            Toast.makeText(this, "ES bajaaaa", Toast.LENGTH_LONG).show();
-        }
-        //Toast.makeText(this, s, Toast.LENGTH_LONG).show();
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -584,11 +560,11 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                 if (luces != null) {
                     if (payload.contains("ON")) {
                         luces.setChecked(true);
-                        Toast.makeText(getBaseContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.lucesEncendidas), Toast.LENGTH_SHORT).show();
                     }
                     if (payload.contains("OFF")) {
                         luces.setChecked(false);
-                        Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.lucesApagadas), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -618,8 +594,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
                         .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                        .setContentTitle("Hasta pronto") // title for notification
-                        .setContentText("Que pase un buen dia")// message for notification
+                        .setContentTitle(getResources().getString(R.string.hastaP)) // title for notification
+                        .setContentText(getResources().getString(R.string.haveAneatDay))// message for notification
                         .setAutoCancel(true); // clear notification after click
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -644,8 +620,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
                         .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                        .setContentTitle("Bienvenido") // title for notification
-                        .setContentText("Bienvenido a casa")// message for notification
+                        .setContentTitle(getResources().getString(R.string.bienvenido)) // title for notification
+                        .setContentText(getResources().getString(R.string.bienvenidoCasa))// message for notification
                         .setAutoCancel(true); // clear notification after click
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -679,7 +655,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         startService(i);
     }
 
-    @Override public void onRequestPermissionsResult(int requestCode,
+    /*@Override public void onRequestPermissionsResult(int requestCode,
                                                      String[] permissions, int[] grantResults) {
         if (requestCode == SOLICITUD_PERMISO_CALL_PHONE) {
             if (grantResults.length== 1 &&
@@ -687,8 +663,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                 crearServicio();
             }
             else {
-                Toast.makeText(this, "Sin el permiso, no se llamará a emergencias cuando se " +
-                        "detecte una caída.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.permisoCaida), Toast.LENGTH_SHORT).show();
             }
         }
         if (requestCode == SOLICITUD_PERMISO_ACCESS_FINE_LOCATION) {
@@ -696,11 +671,10 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             }
             else {
-                Toast.makeText(this, "Sin el permiso, no se mostrará el " +
-                        "mapa con hospitales.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.permisoMapa), Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
     //---------------CAÍDAS-------------------
 
 
