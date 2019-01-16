@@ -37,7 +37,7 @@
     <!-- Borrar user -->
 
     <!-- casa -->
-    <string name="estadoActual">Estado actual:</string>
+    <string name="estadoActual">Estado actual</string>
     <string name="temperatura">Temperatura:</string>
     <string name="sensacionTermica">Sensación térmica:</string>
     <string name="humedad">Humedad:</string>
