@@ -29,9 +29,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import static com.example.rousah.bascula.Usuarios.guardarUsuario;
 
 
 /**

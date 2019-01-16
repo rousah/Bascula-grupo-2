@@ -67,6 +67,7 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
     private EditText fLabel;
     private LayoutInflater inflater;
     private View dialogView;
+    Fragment esto;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
         usuario = FirebaseAuth.getInstance().getCurrentUser();
         userUid = usuario.getUid();
         setHasOptionsMenu(true);
+        esto = this;
 
 
         //Asignación variables para la view del dialogo de filtros
@@ -93,7 +95,7 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab_segundo, null);
+        view = inflater.inflate(R.layout.tab_segundo, null, false);
 
         FabOptions fabOptions = view.findViewById(R.id.fab_options);
         fabOptions.setButtonsMenu(R.menu.menu_filter);
@@ -234,8 +236,10 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
         {
             FirebaseDatabase.getInstance().getReference().child("usuarios").child(user).child("mediciones").
                     orderByValue().startAt(f).limitToLast(7);
-            //Intent s = new Intent(getContext(), MyAdapterGlobalOptions.class);
-            //startActivity(s);
+            Intent s = new Intent(getContext(), Grafica.class);
+            s.putExtra("fecha", f);
+            s.putExtra("numDatos", 7);
+            startActivity(s);
         }
 
 
@@ -267,6 +271,10 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 int month = monthOfYear + 1;
                 Log.d(TAG, "Fecha: " + dayOfMonth + "-" + String.valueOf(month).toString() + "-" + year);
+
+                String myFormat = "dd/MM/yy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                fecha = sdf.format(myCalendar.getTime());
 
                 updateLabel();
             }
@@ -421,11 +429,10 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                     Toast.makeText(getContext(), "ANUAL", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.faboptions_seven:
-                    Intent i = new Intent(getContext(), DatosDiaCalendario.class);
-
                     //Toast.makeText(getContext(), "SEMANAL", 0).show();
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    final Dialog dialogo;
 
                     builder.setMessage(R.string.elegir).setTitle(R.string.title_f);
 
@@ -436,7 +443,13 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                         public void onClick(DialogInterface dialog, int which) {
                             // User click OK button
                             lanzarSemanal(fecha, userUid);
-
+                            dialog.cancel();
+                            try {
+                                finalize();
+                            }
+                            catch (Throwable e) {
+                                Log.d("eeeee", e.getMessage());
+                            }
                         }
                     });
 
@@ -447,9 +460,10 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
                         }
                     });
 
-                    AlertDialog dialog = builder.create();
+                    dialogo = builder.create();
 
-                    dialog.show();
+                    dialogo.show();
+
                     break;
                 case R.id.faboptions_mes:
                     Toast.makeText(getContext(), "MENSUAL", Toast.LENGTH_SHORT).show();
@@ -461,4 +475,16 @@ public class TabSegundo extends Fragment implements View.OnClickListener {
             }
 
         }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent != null) {
+                parent.removeAllViews();
+            }
+        }
     }
+
+}

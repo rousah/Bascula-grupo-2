@@ -57,6 +57,7 @@
             android:label="Usuario Remoto">
         </activity>
 
+        <activity android:name=".Grafica" android:launchMode="singleTask"></activity>
         <activity
             android:name=".DoneActivity"
             android:label="Hecho">

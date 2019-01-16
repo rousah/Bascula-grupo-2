@@ -3,7 +3,6 @@ package com.example.rousah.bascula;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -123,7 +122,6 @@ public class TabPrimero extends Fragment implements MqttCallback {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task){
                                 // definimos el intent
-                                Intent i = new Intent(getContext(), DatosDiaCalendario.class);
                                 if (task.isSuccessful()) {
                                     Double peso = task.getResult().getDouble("peso");
                                     Double altura = task.getResult().getDouble("altura");
