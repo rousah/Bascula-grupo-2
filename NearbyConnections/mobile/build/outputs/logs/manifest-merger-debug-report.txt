@@ -1,0 +1,194 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:2:1-29:12
+MERGED from [com.android.support:appcompat-v7:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.0.aar\d80d3e7f126b06eca7e83d3cf416b1f6\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-nearby:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-11.8.0.aar\a50c3ec96c4fae3b9d7b115537be82c0\AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-11.8.0.aar\6f4c7b460b00e60c9cf8ea7561855d1e\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-tasks-11.8.0.aar\1e9542f1961e0e54884c8873c52d17eb\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-11.8.0.aar\17d24f20cb6eb1ebe762d8bcd1f2a736\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:25.2.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-v4-25.2.0.aar\652b5f5c3301eb4a62ebe3eed7c1a4f0\AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:support-media-compat:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.0.aar\edf682dfef7de3259cf99d2f59e6d67f\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\2a0456a7ce4405f33b43d10ad2e8c074\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:animated-vector-drawable:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.0.aar\0e99241335ff40b56d0c9691b4a561df\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.0.aar\57f1cdb1760a0ebcb567ff8eeb46982b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.0.aar\ced915fdef6141b992425170b8a3aefb\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.0.aar\1fd794fd8d77edd3a2ff7d2d213fe4b6\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.0.aar\a389bd41d1df8612ff8a65ea3541c904\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.0.aar\c1c45693b2459b32a24f43b2b41e22e7\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-nearby-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-license-11.8.0.aar\de4076fb1712c79863acd80edf0553a9\AndroidManifest.xml:2:1-6:12
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\d737c51317eb00549eb67442a95c29e9\AndroidManifest.xml:17:1-30:12
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-license-11.8.0.aar\f43a94b6f9069cae7f7b3dca2602e356\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-11.8.0.aar\3fddd48df221a020626b1c426c33c7b4\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-11.8.0.aar\54cae18dfa3c18de07f443916a6ec62e\AndroidManifest.xml:2:1-6:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:2:1-29:12
+	package
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:3:5-46
+		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:2:1-29:12
+		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:2:1-29:12
+		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.BLUETOOTH
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:5:5-68
+	android:name
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:5:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:6:5-74
+	android:name
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:6:22-71
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:7:5-76
+	android:name
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:7:22-73
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:8:5-76
+	android:name
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:8:22-73
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:9:5-10:11
+	android:name
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:9:22-78
+uses-permission#com.google.android.things.permission.USE_PERIPHERAL_IO
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:12:5-94
+	android:name
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:12:22-91
+application
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:13:5-27:19
+MERGED from [com.google.android.gms:play-services-nearby:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-11.8.0.aar\a50c3ec96c4fae3b9d7b115537be82c0\AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-nearby:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-11.8.0.aar\a50c3ec96c4fae3b9d7b115537be82c0\AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-11.8.0.aar\6f4c7b460b00e60c9cf8ea7561855d1e\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-11.8.0.aar\6f4c7b460b00e60c9cf8ea7561855d1e\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-tasks-11.8.0.aar\1e9542f1961e0e54884c8873c52d17eb\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-tasks-11.8.0.aar\1e9542f1961e0e54884c8873c52d17eb\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-11.8.0.aar\17d24f20cb6eb1ebe762d8bcd1f2a736\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-11.8.0.aar\17d24f20cb6eb1ebe762d8bcd1f2a736\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-v4:25.2.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-v4-25.2.0.aar\652b5f5c3301eb4a62ebe3eed7c1a4f0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:25.2.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-v4-25.2.0.aar\652b5f5c3301eb4a62ebe3eed7c1a4f0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\2a0456a7ce4405f33b43d10ad2e8c074\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\2a0456a7ce4405f33b43d10ad2e8c074\AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-nearby-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-license-11.8.0.aar\de4076fb1712c79863acd80edf0553a9\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-nearby-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-license-11.8.0.aar\de4076fb1712c79863acd80edf0553a9\AndroidManifest.xml:5:5-20
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\d737c51317eb00549eb67442a95c29e9\AndroidManifest.xml:24:5-28:19
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\d737c51317eb00549eb67442a95c29e9\AndroidManifest.xml:24:5-28:19
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-license-11.8.0.aar\f43a94b6f9069cae7f7b3dca2602e356\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-license-11.8.0.aar\f43a94b6f9069cae7f7b3dca2602e356\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-11.8.0.aar\3fddd48df221a020626b1c426c33c7b4\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-11.8.0.aar\3fddd48df221a020626b1c426c33c7b4\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-11.8.0.aar\54cae18dfa3c18de07f443916a6ec62e\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-11.8.0.aar\54cae18dfa3c18de07f443916a6ec62e\AndroidManifest.xml:5:5-20
+	android:supportsRtl
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:18:9-35
+	android:label
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:16:9-41
+	android:roundIcon
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:17:9-54
+	android:icon
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:15:9-43
+	android:allowBackup
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:14:9-35
+	android:theme
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:19:9-65
+activity#com.equipodos.nearbyconnections.MainActivity
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:20:9-26:20
+	android:name
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:20:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:21:13-25:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:22:17-69
+	android:name
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:22:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:24:17-77
+	android:name
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml:24:27-74
+uses-sdk
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+MERGED from [com.android.support:appcompat-v7:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.0.aar\d80d3e7f126b06eca7e83d3cf416b1f6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.0.aar\d80d3e7f126b06eca7e83d3cf416b1f6\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-nearby:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-11.8.0.aar\a50c3ec96c4fae3b9d7b115537be82c0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-nearby:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-11.8.0.aar\a50c3ec96c4fae3b9d7b115537be82c0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-11.8.0.aar\6f4c7b460b00e60c9cf8ea7561855d1e\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-11.8.0.aar\6f4c7b460b00e60c9cf8ea7561855d1e\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-tasks-11.8.0.aar\1e9542f1961e0e54884c8873c52d17eb\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-tasks-11.8.0.aar\1e9542f1961e0e54884c8873c52d17eb\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-11.8.0.aar\17d24f20cb6eb1ebe762d8bcd1f2a736\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-11.8.0.aar\17d24f20cb6eb1ebe762d8bcd1f2a736\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:25.2.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-v4-25.2.0.aar\652b5f5c3301eb4a62ebe3eed7c1a4f0\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:25.2.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-v4-25.2.0.aar\652b5f5c3301eb4a62ebe3eed7c1a4f0\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-media-compat:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.0.aar\edf682dfef7de3259cf99d2f59e6d67f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.0.aar\edf682dfef7de3259cf99d2f59e6d67f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\2a0456a7ce4405f33b43d10ad2e8c074\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\2a0456a7ce4405f33b43d10ad2e8c074\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:animated-vector-drawable:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.0.aar\0e99241335ff40b56d0c9691b4a561df\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.0.aar\0e99241335ff40b56d0c9691b4a561df\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.0.aar\57f1cdb1760a0ebcb567ff8eeb46982b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.0.aar\57f1cdb1760a0ebcb567ff8eeb46982b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.0.aar\ced915fdef6141b992425170b8a3aefb\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.0.aar\ced915fdef6141b992425170b8a3aefb\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.0.aar\1fd794fd8d77edd3a2ff7d2d213fe4b6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.0.aar\1fd794fd8d77edd3a2ff7d2d213fe4b6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.0.aar\a389bd41d1df8612ff8a65ea3541c904\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.0.aar\a389bd41d1df8612ff8a65ea3541c904\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.0.aar\c1c45693b2459b32a24f43b2b41e22e7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.0.aar\c1c45693b2459b32a24f43b2b41e22e7\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-nearby-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-license-11.8.0.aar\de4076fb1712c79863acd80edf0553a9\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-nearby-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-license-11.8.0.aar\de4076fb1712c79863acd80edf0553a9\AndroidManifest.xml:4:5-43
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\d737c51317eb00549eb67442a95c29e9\AndroidManifest.xml:20:5-22:41
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\d737c51317eb00549eb67442a95c29e9\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-license-11.8.0.aar\f43a94b6f9069cae7f7b3dca2602e356\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-license-11.8.0.aar\f43a94b6f9069cae7f7b3dca2602e356\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-11.8.0.aar\3fddd48df221a020626b1c426c33c7b4\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-11.8.0.aar\3fddd48df221a020626b1c426c33c7b4\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-11.8.0.aar\54cae18dfa3c18de07f443916a6ec62e\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-11.8.0.aar\54cae18dfa3c18de07f443916a6ec62e\AndroidManifest.xml:4:5-43
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:support-v4:25.2.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\support-v4-25.2.0.aar\652b5f5c3301eb4a62ebe3eed7c1a4f0\AndroidManifest.xml:23:9-51
+	android:targetSdkVersion
+		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\NearbyConnections\mobile\src\main\AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.android.gms:play-services-nearby:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-11.8.0.aar\a50c3ec96c4fae3b9d7b115537be82c0\AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from [com.google.android.gms:play-services-nearby:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-11.8.0.aar\a50c3ec96c4fae3b9d7b115537be82c0\AndroidManifest.xml:7:22-76
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-11.8.0.aar\6f4c7b460b00e60c9cf8ea7561855d1e\AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-11.8.0.aar\6f4c7b460b00e60c9cf8ea7561855d1e\AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-11.8.0.aar\6f4c7b460b00e60c9cf8ea7561855d1e\AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-base-11.8.0.aar\6f4c7b460b00e60c9cf8ea7561855d1e\AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-11.8.0.aar\17d24f20cb6eb1ebe762d8bcd1f2a736\AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-11.8.0.aar\17d24f20cb6eb1ebe762d8bcd1f2a736\AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-basement-11.8.0.aar\17d24f20cb6eb1ebe762d8bcd1f2a736\AndroidManifest.xml:24:13-58
+meta-data#android.arch.lifecycle.VERSION
+ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\d737c51317eb00549eb67442a95c29e9\AndroidManifest.xml:25:9-27:47
+	android:value
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\d737c51317eb00549eb67442a95c29e9\AndroidManifest.xml:27:13-44
+	android:name
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\d737c51317eb00549eb67442a95c29e9\AndroidManifest.xml:26:13-58

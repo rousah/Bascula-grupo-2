@@ -1,6 +1,7 @@
 package com.example.rousah.bascula;
 
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,18 +10,33 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.comun.Mqtt;
+import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.connection.ConnectionInfo;
+import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
+import com.google.android.gms.nearby.connection.ConnectionResolution;
+import com.google.android.gms.nearby.connection.ConnectionsStatusCodes;
+import com.google.android.gms.nearby.connection.DiscoveredEndpointInfo;
+import com.google.android.gms.nearby.connection.DiscoveryOptions;
+import com.google.android.gms.nearby.connection.EndpointDiscoveryCallback;
+import com.google.android.gms.nearby.connection.Payload;
+import com.google.android.gms.nearby.connection.PayloadCallback;
+import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
+import com.google.android.gms.nearby.connection.Strategy;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,6 +57,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
@@ -60,7 +77,20 @@ public class TabPrimero extends Fragment implements MqttCallback {
 
     private Button alertButton;
     private TextView alertTextView;
-
+    /**
+     *  ---------------------- NEARBY CONNECTIONS
+     *  ---------------------- PARAMETERS
+     *
+     */
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION=1;
+    // Consejo: utiliza como SERVICE_ID el nombre de tu paquete
+    private static final String SERVICE_ID = "com.example.mipaquete";
+    private static final String TAG = "Mobile:";
+    private Button botonLED;
+    /**
+     * --------------------------------------------------------------------
+     */
+    //private TextView textview;
     //----------------MQTT---------------------
     MqttClient client;
     //----------------MQTT---------------------
@@ -100,6 +130,8 @@ public class TabPrimero extends Fragment implements MqttCallback {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
         //---------------MQTT---------------------
+
+
     }
 
 
@@ -118,6 +150,31 @@ public class TabPrimero extends Fragment implements MqttCallback {
 
         String fecha = String.valueOf(monthDay)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        /**
+         * ------------------------ NEARBY CONNECTIONS -----------------------
+         * -------------------------------------------------------------------
+         */
+        botonLED = view.findViewById(R.id.button3);
+        botonLED.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i(TAG, "Boton presionado");
+                startDiscovery();
+
+            }
+        });
+        // Comprobación de permisos peligrosos
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+        }
+
+        /**
+         * --------------------------------------------------------------------------------
+         */
 
 
 
@@ -214,7 +271,36 @@ public class TabPrimero extends Fragment implements MqttCallback {
         return view;
     }
 
-
+    /**
+     * Función para pedir los permisos. --> NEARBY CONNECTIONS
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    // Gestión de permisos
+    @Override public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "Permisos concedidos");
+                } else {
+                    Log.i(TAG, "Permisos denegados");
+                    Log.d(TAG, "Debe aceptar los permisos para comenzar");
+                    botonLED.setEnabled(false);
+                }
+                return;
+            }
+        }
+    }
+    /**
+     * -----------------------------------------------------------------------------------------
+     */
+    /**
+     *
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
@@ -226,6 +312,138 @@ public class TabPrimero extends Fragment implements MqttCallback {
 
     }
 
+    /**
+     * Funciones para NEARBY CONNECTIONS --> Start y stop
+     */
+    private void startDiscovery() {
+        Nearby.getConnectionsClient(getContext()).startDiscovery(SERVICE_ID,
+                mEndpointDiscoveryCallback, new DiscoveryOptions(Strategy.P2P_STAR))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override public void onSuccess(Void unusedResult) {
+                        Log.i(TAG, "Estamos en modo descubrimiento!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Modo descubrimiento no iniciado.", e);
+                    }
+                });
+    }
+    private void stopDiscovery() {
+        Nearby.getConnectionsClient(getContext()).stopDiscovery();
+        Log.i(TAG, "Se ha detenido el modo descubrimiento.");
+    }
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+    /**
+     * Función NEARBY CONNECTIONS
+     */
+    private final EndpointDiscoveryCallback mEndpointDiscoveryCallback =
+            new EndpointDiscoveryCallback() {
+                @Override public void onEndpointFound(String endpointId,
+                                                      DiscoveredEndpointInfo discoveredEndpointInfo) {
+                    Log.i(TAG, "Descubierto dispositivo con Id: " + endpointId);
+
+                    stopDiscovery();
+                    // Iniciamos la conexión con al anunciante "Nearby LED"
+                    Log.i(TAG, "Conectando...");
+                    Nearby.getConnectionsClient(getApplicationContext())
+                            .requestConnection("Nearby LED",endpointId,
+                                    mConnectionLifecycleCallback)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override public void onSuccess(Void unusedResult) {
+                                    Log.i(TAG, "Solicitud lanzada, falta que ambos " +"lados acepten");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override public void onFailure(@NonNull Exception e) {
+                                    Log.e(TAG, "Error en solicitud de conexión", e);
+                                    Log.d(TAG, "Desconectado");
+                                }
+                            });
+                }
+                @Override public void onEndpointLost(String endpointId) {}
+            };
+    /**
+     * ----------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Función NEARBY CONNECTIONS
+     */
+    private final ConnectionLifecycleCallback mConnectionLifecycleCallback =
+            new ConnectionLifecycleCallback() {
+                @Override public void onConnectionInitiated(
+                        String endpointId, ConnectionInfo connectionInfo) {
+                    // Aceptamos la conexión automáticamente en ambos lados.
+                    Log.i(TAG, "Aceptando conexión entrante sin autenticación");
+                    Nearby.getConnectionsClient(getApplicationContext())
+                            .acceptConnection(endpointId, mPayloadCallback);
+                }
+                @Override public void onConnectionResult(String endpointId,
+                                                         ConnectionResolution result) {
+                    switch (result.getStatus().getStatusCode()) {
+                        case ConnectionsStatusCodes.STATUS_OK:
+                            Log.i(TAG, "Estamos conectados!");
+                            Log.d(TAG, "Conectado");
+                            sendData(endpointId, "SWITCH");
+                            break;
+                        case ConnectionsStatusCodes.STATUS_CONNECTION_REJECTED:
+                            Log.i(TAG, "Conexión rechazada por uno o ambos lados");
+                            Log.d(TAG, "Desconectado");
+                            break;
+                        case ConnectionsStatusCodes.STATUS_ERROR:
+                            Log.i(TAG, "Conexión perdida antes de poder ser " +
+                                    "aceptada");
+                            Log.d(TAG, "Desconectado");
+                            break;
+                    }
+                }
+                @Override public void onDisconnected(String endpointId) {
+                    Log.i(TAG, "Desconexión del endpoint, no se pueden " +
+                            "intercambiar más datos.");
+                    Log.d(TAG,  "Desconectado");
+                }
+            };
+    /**
+     * -------------------------------------------------------------------------------------------
+     */
+    /**
+     * Función NEARBY CONNECTIONS
+     */
+    private final PayloadCallback mPayloadCallback = new PayloadCallback() {
+        // En este ejemplo, el móvil no recibirá transmisiones de la RP3
+        @Override public void onPayloadReceived(String endpointId,
+                                                Payload payload) {
+        // Payload recibido
+        }
+        @Override public void onPayloadTransferUpdate(String endpointId,
+                                                      PayloadTransferUpdate update) {
+        // Actualizaciones sobre el proceso de transferencia
+        }
+    };
+
+    /**
+     * --------------------------------------------------------------------------------------
+     */
+    /**
+     * Función NEARBY CONNECTIONS
+     */
+    private void sendData(String endpointId, String mensaje) {
+        Log.d(TAG, "Transfiriendo...");
+        Payload data = null;
+        try {
+            data = Payload.fromBytes(mensaje.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, "Error en la codificación del mensaje.", e);
+        }
+        Nearby.getConnectionsClient(getContext()).sendPayload(endpointId, data);
+        Log.i(TAG, "Mensaje enviado.");
+    }
+    /**
+     *
+     * @param cause
+     */
     @Override
     public void connectionLost(Throwable cause) {
 
