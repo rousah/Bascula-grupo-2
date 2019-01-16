@@ -159,6 +159,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
         // Botón conexión
         botonConnect = view.findViewById(R.id.button3);
         botonConnect.setOnClickListener(new View.OnClickListener(){
+
             public void onClick(View v){
                 // Iniciamos la conexión con al anunciante "Nearby LED"
                 Log.i(TAG, "Conectando...");

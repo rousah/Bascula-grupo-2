@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.equipodos.raspberry">
-
+    package="com.equipodos.raspberry">
     <!--Necesario para Nearby Connections -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -10,19 +9,26 @@ package="com.equipodos.raspberry">
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"
         />
     <!--Necesario para usar las GPIO de la RP3 -->
-    <uses-permission android:name="com.google.android.things.permission.USE_PERIPHERAL_IO"/>
+    <uses-permission android:name="com.google.android.things.permission.USE_PERIPHERAL_IO" />
     <uses-permission android:name="com.google.android.things.permission.MANAGE_INPUT_DRIVERS" />
+    <application>
+        <uses-library android:name="com.google.android.things" />
 
-<application>
-    <uses-library android:name="com.google.android.things" />
-    <activity android:name=".MainActivity">
+        <activity android:name=".NearbyConnections">
+            <meta-data
+                android:name="com.google.android.nearby.messages.API_KEY"
+                android:value="AIzaSyDSUNBPEa8D5VDlqkhsPVSnP_ogb3r06gk" />
 
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-</application>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>

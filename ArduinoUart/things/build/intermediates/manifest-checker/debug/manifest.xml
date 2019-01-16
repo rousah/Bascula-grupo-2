@@ -7,7 +7,6 @@
     <uses-sdk
         android:minSdkVersion="27"
         android:targetSdkVersion="28" />
-
     <!-- Necesario para Nearby Connections -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -35,11 +34,21 @@
         android:testOnly="true" >
         <uses-library android:name="com.google.android.things" />
 
-        <activity android:name="com.equipodos.raspberry.MainActivity" >
+        <activity android:name="com.equipodos.raspberry.NearbyConnections" >
+            <meta-data
+                android:name="com.google.android.nearby.messages.API_KEY"
+                android:value="AIzaSyDSUNBPEa8D5VDlqkhsPVSnP_ogb3r06gk" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
