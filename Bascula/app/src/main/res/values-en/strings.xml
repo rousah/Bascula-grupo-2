@@ -39,7 +39,7 @@
     <!-- Borrar user -->
 
     <!-- casa -->
-    <string name="estadoActual">Current state</string>
+    <string name="estadoActual">Current state:</string>
     <string name="temperatura">Temperature:</string>
     <string name="sensacionTermica">Thermal sensation:</string>
     <string name="humedad">Humidity:</string>
@@ -117,7 +117,7 @@
 
     <!-- arrays -->
     <string name="Metros">Meters</string>
-    <string name="Pies">Feet</string>
+    <string name="Pies">Feets</string>
     <string name="Kg">Kg</string>
     <string name="Libras">Pounds</string>
     <string name="Hospitales">Hospitals</string>

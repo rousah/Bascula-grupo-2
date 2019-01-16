@@ -12,31 +12,21 @@
     android:orientation="vertical"
     tools:context=".MainActivity$PlaceholderFragment">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="8dp"
-        card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="4dp"
-        >
+        android:layout_marginTop="30dp"
+        android:foregroundGravity="center_vertical|center_horizontal"
+        android:gravity="center_vertical|center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="center_vertical|center_horizontal"
-            android:gravity="center_vertical|center">
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:foregroundGravity="center_vertical|center_horizontal|center" />
 
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:foregroundGravity="center_vertical|center_horizontal|center" />
-
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
+    </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
