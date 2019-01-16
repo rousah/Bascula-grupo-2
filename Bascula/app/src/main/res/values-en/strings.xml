@@ -31,7 +31,7 @@
     <string name="textoAcercaDe"> Thank you for trying out our app about IoT, developed by group numeber 2 during the first semester of 2019 as the final proyect of IoT and App in the UPV of Gandia.</string>
     <string name="version"> Version: final sprint</string>
     <string name="email"> Email: mamoumar@epsg.upv.es</string>
-    <string name="direccion"> Addres: Carrer del Paranimf, 1, 46730 Grau i Platja, València</string>
+    <string name="direccion"> Address: Carrer del Paranimf, 1, 46730 Grau i Platja, València</string>
     <!-- Acerca de -->
 
     <!-- Borrar user -->
@@ -46,7 +46,7 @@
     <string name="sensacionTermica">Thermal sensation:</string>
     <string name="humedad">Humidity:</string>
     <string name="puerta">Door:</string>
-    <string name="estadoPuerta">open:</string>
+    <string name="estadoPuerta">Open</string>
     <string name="luces">Lights:</string>
     <!-- casa -->
 
@@ -59,7 +59,7 @@
     <string name="mascalunino">Male</string>
     <string name="femenino">Female</string>
     <string name="elegirButton">Choose</string>
-    <string name="guardarButton">Safe</string>
+    <string name="guardarButton">Save</string>
     <!-- Crear perfil -->
 
     <!-- Fingerprint -->

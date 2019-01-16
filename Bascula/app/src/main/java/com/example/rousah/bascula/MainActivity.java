@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    public static Activity me;
+
 
     //----------------MQTT---------------------
     MqttClient client;
@@ -113,6 +115,8 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        me = this;
 
         setContentView(R.layout.activity_main);
 

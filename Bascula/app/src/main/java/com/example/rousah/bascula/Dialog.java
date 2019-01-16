@@ -50,7 +50,9 @@ public class Dialog extends Activity {
                                 finish();
                             }
                         }
-                );
+                )
+                .setCancelable(false)
+                .setIcon(R.drawable.ic_danger);
 
         dialog = builder.show();
 
