@@ -86,6 +86,8 @@ public class CasaFragment extends Fragment implements MqttCallback {
     public ImageView icono_habitacion3;
     int entrada = 1;
 
+    public TextView textoPuerta;
+
 
 
 
@@ -177,6 +179,7 @@ public class CasaFragment extends Fragment implements MqttCallback {
         icono_entrada = view.findViewById(R.id.person_icon_3);
         icono_habitacion2 = view.findViewById(R.id.person_icon_1);
         icono_habitacion3 = view.findViewById(R.id.person_icon_2);
+        textoPuerta = view.findViewById(R.id.textinfopuerta);
         // ----------------------------------------
         luces = view.findViewById(R.id.switchluces);
         db.collection("usuarios").document(usuario.getUid()).get().addOnCompleteListener(
@@ -479,6 +482,13 @@ public class CasaFragment extends Fragment implements MqttCallback {
                     icono_habitacion2.setVisibility(View.INVISIBLE);
                     icono_habitacion3.setVisibility(View.INVISIBLE);
                     entrada = 1;
+                }
+
+                if(payload.contains(("PUERTA_ABIERTA"))){
+                    textoPuerta.setText(R.string.estadoPuertaAbierto);
+                }
+                if(payload.contains(("PUERTA_CERRADA"))){
+                    textoPuerta.setText(R.string.estadoPuertaCerrado);
                 }
                 
             }

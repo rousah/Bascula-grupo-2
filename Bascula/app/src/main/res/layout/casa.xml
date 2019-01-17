@@ -224,7 +224,7 @@
                     android:layout_weight="4"
                     android:foregroundGravity="center_vertical"
                     android:gravity="center_vertical|end"
-                    android:text="@string/estadoPuerta"
+                    android:text="@string/estadoPuertaCerrado"
                     android:textColor="#ffffff"
                     android:textSize="24sp" />
             </LinearLayout>
