@@ -103,6 +103,8 @@
         </activity>
         <activity android:name=".NearbyConnections">
         </activity>
+        <activity android:name=".Grafica" android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>

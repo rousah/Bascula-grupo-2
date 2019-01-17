@@ -153,6 +153,12 @@
     -->
 
 
+    <!-- Para dialogos del filtro -->
+    <string name="title_f">Fecha</string>
+    <string name="elegir">Elige el ultimo día del que quieres visualizar los datos:</string>
+    <!-- Para los botones de los dialogos -->
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

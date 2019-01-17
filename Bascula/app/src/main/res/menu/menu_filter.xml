@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/faboptions_seven"
         android:icon="@drawable/ic_semanal"
-        android:title="Favorite" />
+        android:title="Semanal"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/faboptions_mes"
         android:icon="@drawable/ic_mensual"
-        android:title="Message" />
+        android:title="Mensual"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/faboptions_trimestral"
         android:icon="@drawable/ic_trimestral"
-        android:title="Download" />
-
+        android:title="Trimestral"
+        app:showAsAction="never"/>
 
     <item
-        android:id="@+id/faboptions_share"
+        android:id="@+id/faboptions_anual"
         android:icon="@drawable/ic_anual"
-        android:title="Share" />
+        android:title="Anual"
+        app:showAsAction="never"/>
+
 </menu>

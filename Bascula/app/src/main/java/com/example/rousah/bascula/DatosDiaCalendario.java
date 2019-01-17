@@ -1,21 +1,21 @@
 package com.example.rousah.bascula;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
-import io.grpc.Context;
-
-public class DatosDiaCalendario extends Activity {
+public class DatosDiaCalendario extends Activity{
 
     private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
+    private MyAdapterGlobalOptions mAdapter;
+    private String tipo;
+    private Button cerrar;
     private String TAG = "EQUIPO2/GTI";
     public void onCreate(Bundle savedInstanceState) {
 
@@ -23,26 +23,51 @@ public class DatosDiaCalendario extends Activity {
 
         setContentView(R.layout.datos_un_dia_cal);
 
+        cerrar = findViewById(R.id.cerrar);
+
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         mRecyclerView = findViewById(R.id.recycler_view_measurement);
 
         /**
          * Recogemos los datos de la clase TabSegundo
-         * @params peso, altura
+         * @params fecha, peso, altura, imc
          */
-        Bundle extras = getIntent().getExtras();
-        Double p = extras.getDouble("peso");
-        Double a = extras.getDouble("altura");
-        Double i = extras.getDouble("imc");
 
         // Llenamos una lista que pasamos al Adapter
-        ArrayList listaDatos = new ArrayList();
-        listaDatos.add(0, p);
-        listaDatos.add(1, a);
-        listaDatos.add(2, i);
+        ArrayList<Double> listaDatos = new ArrayList<Double>();
+        Bundle extras = getIntent().getExtras();
+        tipo = extras.getString("tipo");
 
+        if(tipo == "varios")
+        {
+            Double f = extras.getDouble("fecha");
+            Double p = extras.getDouble("peso");
+            Double a = extras.getDouble("altura");
+            Double i = extras.getDouble("imc");
 
+            //listaDatos.add(0, tipo);
+            listaDatos.add(0, f);
+            listaDatos.add(1, p);
+            listaDatos.add(2, a);
+            listaDatos.add(3, i);
+        }else
+        {
+            Double p = extras.getDouble("peso");
+            Double a = extras.getDouble("altura");
+            Double i = extras.getDouble("imc");
+            Log.d(TAG, "peso"+p);
 
-        //Log.w(TAG, "peso"+s);
+            //listaDatos.add(0, tipo);
+            listaDatos.add(0, p);
+            listaDatos.add(1, a);
+            listaDatos.add(2, i);
+        }
 
         /**
          * Usar esta línea para mejorar el rendimiento si
@@ -68,21 +93,8 @@ public class DatosDiaCalendario extends Activity {
          *
          * El adapter está configurado en la clase MyAdapter
          */
-        mAdapter = new MyAdapter(listaDatos, getBaseContext());
+        mAdapter = new MyAdapterGlobalOptions(tipo, listaDatos);
         mRecyclerView.setAdapter(mAdapter);
 
-
-        /*Button next = (Button) findViewById(R.id.volverAlCalendario);
-        next.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-
-        });*/
-
-
     }
-
 }

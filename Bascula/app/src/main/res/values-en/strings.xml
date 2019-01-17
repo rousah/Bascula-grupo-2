@@ -145,6 +145,13 @@
     <string name="datos">Data</string>
     <!-- Tab fragment -->
 
+    <!-- Para dialogos del filtro -->
+    <string name="title_f">Date</string>
+    <string name="elegir">Choose the last date:</string>
+    <!-- Para los botones de los dialogos -->
+    <string name="ok">Accept</string>
+    <string name="cancel">Cancel</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
