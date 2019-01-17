@@ -62,7 +62,9 @@ public class MainActivity extends Activity {
         Log.i(TAG, "Lista de UART disponibles: " + ArduinoUart.disponibles());
         ArduinoUart uart = new ArduinoUart("UART0", 115200);
 
-
+        Bundle extras = getIntent().getExtras();
+        String user = extras.getString("usuario");
+        Log.d(TAG, user+" Visualizado desde MainActivity");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

@@ -359,7 +359,8 @@ public class TabPrimero extends Fragment implements MqttCallback {
                             Log.i(TAG, "Estamos conectados!");
                             //textview.setText("Conectado");
                             Log.i(TAG,"Conectado");
-                            sendData(endpointId, "SWITCH");
+                            String Uid = usuario.getUid() ;
+                            sendData(endpointId, Uid);
                             break;
                         case ConnectionsStatusCodes.STATUS_CONNECTION_REJECTED:
                             Log.i(TAG, "Conexión rechazada por uno o ambos lados");

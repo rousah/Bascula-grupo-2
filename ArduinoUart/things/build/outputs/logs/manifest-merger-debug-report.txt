@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-34:12
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-35:12
 MERGED from [com.google.firebase:firebase-firestore:17.0.2] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\firebase-firestore-17.0.2.aar\f0e1ddf595a7d5c84dbdbebf5e855204\AndroidManifest.xml:2:1-18:12
 MERGED from [com.google.firebase:firebase-database:16.0.1] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\firebase-database-16.0.1.aar\4aec6454e92b21bbe33993e86e677756\AndroidManifest.xml:2:1-8:12
 MERGED from [com.google.android.gms:play-services-nearby:15.0.1] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-15.0.1.aar\87b4675440436aff6e07e154d0864aa3\AndroidManifest.xml:2:1-11:12
@@ -49,20 +49,20 @@ MERGED from [com.android.support:interpolator:28.0.0] C:\Users\Matthew\.gradle\c
 MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\cursoradapter-28.0.0.aar\14ea113774fc096402bf55390ac2c450\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\feeae8e7a8bdecf282644690f305a2ce\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\98e2573480cb66b33032cc2d708adb1f\AndroidManifest.xml:17:1-24:12
-INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-34:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-35:12
 	package
 		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:3:5-38
 		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-34:12
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-35:12
 		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-34:12
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:1-35:12
 		INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:2:11-69
@@ -95,7 +95,7 @@ ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\
 	android:name
 		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:13:22-94
 application
-ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:14:5-32:19
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:14:5-33:19
 MERGED from [com.google.firebase:firebase-firestore:17.0.2] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\firebase-firestore-17.0.2.aar\f0e1ddf595a7d5c84dbdbebf5e855204\AndroidManifest.xml:10:5-16:19
 MERGED from [com.google.firebase:firebase-firestore:17.0.2] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\firebase-firestore-17.0.2.aar\f0e1ddf595a7d5c84dbdbebf5e855204\AndroidManifest.xml:10:5-16:19
 MERGED from [com.google.android.gms:play-services-nearby:15.0.1] C:\Users\Matthew\.gradle\caches\transforms-1\files-1.1\play-services-nearby-15.0.1.aar\87b4675440436aff6e07e154d0864aa3\AndroidManifest.xml:9:5-20
@@ -138,36 +138,40 @@ uses-library#com.google.android.things
 ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:15:9-66
 	android:name
 		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:15:23-63
+activity#com.equipodos.raspberry.MainActivity
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:17:9-59
+	android:name
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:17:19-47
 activity#com.equipodos.raspberry.NearbyConnections
-ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:17:9-31:20
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:18:9-32:20
 	android:name
-		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:17:19-52
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:18:19-52
 meta-data#com.google.android.nearby.messages.API_KEY
-ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:18:13-20:75
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:19:13-21:75
 	android:value
-		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:20:17-72
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:21:17-72
 	android:name
-		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:19:17-74
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:20:17-74
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:22:13-25:29
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:23:13-26:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:23:17-69
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:24:17-69
 	android:name
-		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:23:25-66
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:24:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:24:17-77
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:25:17-77
 	android:name
-		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:24:27-74
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:25:27-74
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT+category:name:android.intent.category.HOME
-ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:26:13-30:29
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:27:13-31:29
 category#android.intent.category.HOME
-ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:28:17-72
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:29:17-72
 	android:name
-		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:28:27-70
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:29:27-70
 category#android.intent.category.DEFAULT
-ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:29:17-76
+ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:30:17-76
 	android:name
-		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:29:27-73
+		ADDED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml:30:27-73
 uses-sdk
 INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Matthew\Desktop\Bascula-grupo-2\ArduinoUart\things\src\main\AndroidManifest.xml

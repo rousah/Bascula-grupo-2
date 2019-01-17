@@ -1,6 +1,7 @@
 package com.equipodos.raspberry;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -117,7 +118,14 @@ public class NearbyConnections extends Activity {
             String message = new String(payload.asBytes());
             Log.i(TAG, "Se ha recibido una transferencia desde (" +
                     endpointId + ") con el siguiente contenido: " + message);
+
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("usuario", message);
+
             disconnect(endpointId);
+
+            startActivity(intent);
+
             switch (message) {
                 case "SWITCH":
                     switchLED();

@@ -34,6 +34,7 @@
         android:testOnly="true" >
         <uses-library android:name="com.google.android.things" />
 
+        <activity android:name="com.equipodos.raspberry.MainActivity" />
         <activity android:name="com.equipodos.raspberry.NearbyConnections" >
             <meta-data
                 android:name="com.google.android.nearby.messages.API_KEY"

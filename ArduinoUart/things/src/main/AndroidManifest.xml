@@ -14,6 +14,7 @@
     <application>
         <uses-library android:name="com.google.android.things" />
 
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".NearbyConnections">
             <meta-data
                 android:name="com.google.android.nearby.messages.API_KEY"
