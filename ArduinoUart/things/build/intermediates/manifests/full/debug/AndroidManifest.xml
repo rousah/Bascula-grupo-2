@@ -35,10 +35,11 @@
         <uses-library android:name="com.google.android.things" />
 
         <activity android:name="com.equipodos.raspberry.MainActivity" />
+        <activity android:name="com.equipodos.raspberry.ArduinoUart" />
         <activity android:name="com.equipodos.raspberry.NearbyConnections" >
             <meta-data
                 android:name="com.google.android.nearby.messages.API_KEY"
-                android:value="AIzaSyDSUNBPEa8D5VDlqkhsPVSnP_ogb3r06gk" />
+                android:value="AIzaSyB23Lem2AHTajvsiJ4uMzEg7jg62bZXKwA" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -15,10 +15,12 @@
         <uses-library android:name="com.google.android.things" />
 
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ArduinoUart"></activity>
+
         <activity android:name=".NearbyConnections">
             <meta-data
                 android:name="com.google.android.nearby.messages.API_KEY"
-                android:value="AIzaSyDSUNBPEa8D5VDlqkhsPVSnP_ogb3r06gk" />
+                android:value="AIzaSyB23Lem2AHTajvsiJ4uMzEg7jg62bZXKwA" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

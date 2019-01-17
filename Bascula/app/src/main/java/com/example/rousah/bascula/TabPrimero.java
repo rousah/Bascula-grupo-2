@@ -158,6 +158,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
             public void onClick(View v){
                 // Iniciamos la conexión con al anunciante "Nearby LED"
                 Log.i(TAG, "Conectando...");
+                startDiscovery();
                 Toast.makeText(getApplicationContext(), "Conectando...", Toast.LENGTH_SHORT).show();
                 Nearby.getConnectionsClient(getApplicationContext())
                         .requestConnection("Nearby LED",endpointId,
@@ -334,7 +335,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
                     //.getEndpointName());
                     Log.i(TAG, "Descubierto:"+ discoveredEndpointInfo.getEndpointName());
                     endpointId = deviceId;
-                    stopDiscovery();
+                    //stopDiscovery();
                 }
                 @Override public void onEndpointLost(String endpointId) {}
             };
@@ -398,6 +399,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
         }
         Nearby.getConnectionsClient(getContext()).sendPayload(endpointId, data);
         Log.i(TAG, "Mensaje enviado.");
+        stopDiscovery();
     }
     /**
      * NEARBY CONNECTIONS -----------------------------------------------------

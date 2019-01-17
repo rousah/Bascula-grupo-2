@@ -95,7 +95,7 @@ public class NearbyConnections extends Activity {
                     switch (result.getStatus().getStatusCode()) {
                         case ConnectionsStatusCodes.STATUS_OK:
                             Log.i(TAG, "Estamos conectados!");
-                            stopAdvertising();
+                            //stopAdvertising();
                             break;
                         case ConnectionsStatusCodes.STATUS_CONNECTION_REJECTED:
                             Log.i(TAG, "Conexión rechazada por uno o ambos lados");
@@ -119,43 +119,21 @@ public class NearbyConnections extends Activity {
             Log.i(TAG, "Se ha recibido una transferencia desde (" +
                     endpointId + ") con el siguiente contenido: " + message);
 
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("usuario", message);
+                //disconect(endpointId);
+                Intent intent = new Intent(getApplicationContext(), ArduinoUart.class);
 
-            disconnect(endpointId);
+                intent.putExtra("usuario", message);
 
-            startActivity(intent);
+                startActivity(intent);
 
-            switch (message) {
-                case "SWITCH":
-                    switchLED();
-                    break;
-                default:
-                    Log.w(TAG, "No existe una acción asociada a este " +
-                            "mensaje.");
-                    break;
-            }
+
         }
         @Override public void onPayloadTransferUpdate(String endpointId,
                                                       PayloadTransferUpdate update) {
             // Actualizaciones sobre el proceso de transferencia
         }
     };
-    public void switchLED() {
-        try {
-            if (ledStatus) {
-                mLedGpio.setValue(false);
-                ledStatus = false;
-                Log.i(TAG, "LED OFF");
-            } else {
-                mLedGpio.setValue(true);
-                ledStatus = true;
-                Log.i(TAG, "LED ON");
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "Error en el API PeripheralIO", e);
-        }
-    }
+
     protected void disconnect(String endpointId) {
         Nearby.getConnectionsClient(this)
                 .disconnectFromEndpoint(endpointId);
