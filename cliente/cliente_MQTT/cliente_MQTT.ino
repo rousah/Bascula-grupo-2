@@ -11,13 +11,13 @@ int medidaGasVoltios;
 int controladorAlertaGas = 0;
 // ------------------------
 
+uint8_t PinGPIOPresencia = 12;
+int8_t presencia = 0;
 
-uint8_t PinGPIOMagnetic_1 = 2;
-uint8_t PinGPIOMagnetic_2 = 4;
-uint8_t lectura_1;
-uint8_t lectura_2;
-uint8_t entrada_1 = 1;
-uint8_t entrada_2 = 1;
+
+uint8_t PinGPIOMagnetic = 2;
+uint8_t lectura;
+uint8_t entrada = 1;
 
 
 // ----------------- Conexión con eclipse ---------------------------
@@ -72,8 +72,8 @@ void setup() {
 // -----------------------------------------------------------------
   
   
-  pinMode(PinGPIOMagnetic_1, INPUT);
-  pinMode(PinGPIOMagnetic_2, INPUT);
+  pinMode(PinGPIOMagnetic, INPUT);
+  pinMode(PinGPIOPresencia,INPUT);
 }
 
 
@@ -113,36 +113,16 @@ void loop() {
 
 
   
-lectura_1 = touchRead(PinGPIOMagnetic_1);
-  if(lectura_1 == 0){
-
-    if(entrada_1 == 1){
-    client.publish("equipo2/bascula/PRESENCIA", "IN_1");
-    entrada_1 = 2;
-    return;
-    }
-    if(entrada_1 == 2){
-      client.publish("equipo2/bascula/PRESENCIA", "OUT");
-      entrada_1 = 1;
-      return;
-      }
-    }
+if(touchRead(PinGPIOMagnetic != 0)){
+  client.publish("equipo2/bascula/PRESENCIA", "PUERTA_ON");
+  }else{
+    client.publish("equipo2/bascula/PRESENCIA", "PUERTA_OFF");
+  }
 
 
-    lectura_2 = touchRead(PinGPIOMagnetic_2);
-  if(lectura_2 == 0){
 
-    if(entrada_2 == 1){
-    client.publish("equipo2/bascula/PRESENCIA", "IN_2");
-    entrada_2 = 2;
-    return;
-    }
-    if(entrada_2 == 2){
-      client.publish("equipo2/bascula/PRESENCIA", "IN_1");
-      entrada_2 = 1;
-      return;
-      }
-    }
+    leerInfrarrojos();
+
 
     
 
@@ -151,7 +131,53 @@ lectura_1 = touchRead(PinGPIOMagnetic_1);
 }
 
 
-// ------------- Funciones alarma sensor magneto -------------------
+// --------------- Función sensor presencia ------------------------
+
+void leerInfrarrojos() {
+
+if(digitalRead(PinGPIOPresencia)== HIGH) {
+  if(presencia == 0){
+    Serial.println("Detectado movimiento en la entrada");
+   client.publish("equipo2/bascula/PRESENCIA", "IN_1");
+    presencia = 1;
+    return;
+    }
+
+    if(presencia == 1){
+    Serial.println("Detectado movimiento en la sala 1");
+   client.publish("equipo2/bascula/PRESENCIA", "IN_2");
+   delay(500);
+    presencia = 2;
+    return;
+    }
+
+    if(presencia == 2){
+    Serial.println("Detectado movimiento en la sala 3");
+   client.publish("equipo2/bascula/PRESENCIA", "IN_3");
+    presencia = 3;
+    return;
+    }
+
+    if(presencia == 3){
+    Serial.println("Detectado movimiento en la sala 2");
+   client.publish("equipo2/bascula/PRESENCIA", "IN_2");
+    presencia = 0;
+    return;
+    }
+}
+
+  if(digitalRead(PinGPIOPresencia)== HIGH) {
+   Serial.println("Detectado movimiento por el sensor pir");
+   client.publish("equipo2/bascula/PRESENCIA", "IN_1");
+   return;
+  }
+  
+}
+// -----------------------------------------------------------------
+
+
+
+// ------------- Funciones sensor magnetico -------------------
 
 
 String touchRead(int pin) {
