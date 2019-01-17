@@ -4,12 +4,13 @@
     tools:context=".MainActivity">
     <item android:id="@+id/action_settings"
          android:title="@string/preferencias"
-         android:icon="@android:drawable/ic_menu_preferences"
+         android:icon="@drawable/ic_settings_work_tool"
          android:orderInCategory="300"
          app:showAsAction="ifRoom"/>
-    <item android:title="@string/acercade"
+    <item
         android:id="@+id/acercaDe"
-        android:icon="@android:drawable/ic_menu_info_details"
+        android:icon="@drawable/ic_about_us_icon"
         android:orderInCategory="200"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/acercade"
+        app:showAsAction="ifRoom" />
 </menu>

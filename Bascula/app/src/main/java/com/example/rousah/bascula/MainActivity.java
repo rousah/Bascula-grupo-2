@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
 
         setContentView(R.layout.activity_main);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             }
 
 
-        });
+        });*/
         //--------------Drawer--------------------
         initializeStuff();
 

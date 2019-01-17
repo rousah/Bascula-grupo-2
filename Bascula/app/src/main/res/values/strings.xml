@@ -37,7 +37,7 @@
     <!-- Borrar user -->
 
     <!-- casa -->
-    <string name="estadoActual">Estado actual:</string>
+    <string name="estadoActual">Estado actual</string>
     <string name="temperatura">Temperatura:</string>
     <string name="sensacionTermica">Sensación térmica:</string>
     <string name="humedad">Humedad:</string>
@@ -84,9 +84,9 @@
     <!-- Tab primero -->
     <string name="altura">Altura:</string>
     <string name="peso">Peso:</string>
-    <string name="datosRecientes">Sus datos mas recientes:</string>
+    <string name="datosRecientes">Sus datos mas recientes</string>
     <string name="pesarme">Conéctame a la báscula</string>
-    <string name="estadoObjetivo">Estado de su objetivo:</string>
+    <string name="estadoObjetivo">Estado de su objetivo</string>
     <!-- Tab primero -->
 
     <!-- nav drawer menu -->
