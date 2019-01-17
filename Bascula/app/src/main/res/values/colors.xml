@@ -13,5 +13,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="black80">#CC000000</color>
+    <color name="black65">#A6000000</color>
+
     <color name="verde">#93C294</color>
 </resources>

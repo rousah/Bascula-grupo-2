@@ -259,7 +259,7 @@ public class CrearPerfil extends AppCompatActivity {
         Log.w("perfil: fecha", fecha.getText().toString());
         Log.w("perfil: tlf", telefono.getText().toString());
         if (telefono.getText().toString().equals("") || fecha.getText().toString().equals("dd/mm/yy") || radioButtonSelected == null || telefonoEm.getText().toString().equals("")) {
-            //Toast.makeText(CrearPerfil.this, "Complete todos los campos", Toast.LENGTH_LONG).show();
+            Toast.makeText(CrearPerfil.this, "Complete todos los campos", Toast.LENGTH_LONG).show();
         } else {
             selectedId = radioGroup.getCheckedRadioButtonId();
             radioButtonSelected = (RadioButton) findViewById(selectedId);
