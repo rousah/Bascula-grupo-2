@@ -14,6 +14,14 @@
     <color name="black">#000000</color>
     <color name="black80">#CC000000</color>
     <color name="black65">#A6000000</color>
+    <color name="black35">#59000000</color>
+    <color name="black20">#33000000</color>
+
+    <color name="white80">#CCFFFFFF</color>
+    <color name="white65">#A6FFFFFF</color>
+    <color name="white35">#59FFFFFF</color>
+    <color name="white20">#33FFFFFF</color>
+
 
     <color name="verde">#93C294</color>
 </resources>
