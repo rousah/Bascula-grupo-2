@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class DatosDiaCalendario extends Activity{
 
     private RecyclerView mRecyclerView;
-    private MyAdapterGlobalOptions mAdapter;
+    private MyAdapter mAdapter;
     private String tipo;
     private Button cerrar;
     private String TAG = "EQUIPO2/GTI";
@@ -93,7 +93,7 @@ public class DatosDiaCalendario extends Activity{
          *
          * El adapter está configurado en la clase MyAdapter
          */
-        mAdapter = new MyAdapterGlobalOptions(tipo, listaDatos);
+        mAdapter = new MyAdapter(listaDatos, getBaseContext());
         mRecyclerView.setAdapter(mAdapter);
 
     }
