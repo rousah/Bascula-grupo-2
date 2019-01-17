@@ -1,7 +1,12 @@
 package com.example.rousah.bascula;
 
 import android.animation.PropertyValuesHolder;
+import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,12 +17,14 @@ import android.os.Bundle;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.animation.BounceInterpolator;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +63,9 @@ import static com.example.comun.Mqtt.clientId;
 import static com.example.comun.Mqtt.qos;
 import static com.example.comun.Mqtt.topicRoot;
 import static com.firebase.ui.auth.AuthUI.TAG;
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+
+
 
 
 /**
@@ -67,7 +77,18 @@ import static com.firebase.ui.auth.AuthUI.TAG;
  * create an instance of this fragment.
  */
 
+
 public class CasaFragment extends Fragment implements MqttCallback {
+
+
+    public ImageView icono_entrada;
+    public ImageView icono_habitacion2;
+    public ImageView icono_habitacion3;
+    int entrada = 1;
+
+
+
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -132,7 +153,17 @@ public class CasaFragment extends Fragment implements MqttCallback {
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
+
+        try {
+            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot + "PRESENCIA");
+            client.subscribe(Mqtt.topicRoot + "PRESENCIA", Mqtt.qos);
+            client.setCallback((MqttCallback) this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
         //---------------MQTT---------------------
+
+
 
     }
 
@@ -141,6 +172,12 @@ public class CasaFragment extends Fragment implements MqttCallback {
                              Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.casa, container, false);
+
+        // -------------- Plano Casa --------------
+        icono_entrada = view.findViewById(R.id.person_icon_3);
+        icono_habitacion2 = view.findViewById(R.id.person_icon_1);
+        icono_habitacion3 = view.findViewById(R.id.person_icon_2);
+        // ----------------------------------------
         luces = view.findViewById(R.id.switchluces);
         db.collection("usuarios").document(usuario.getUid()).get().addOnCompleteListener(
                 new OnCompleteListener<DocumentSnapshot>() {
@@ -410,6 +447,88 @@ public class CasaFragment extends Fragment implements MqttCallback {
                     Toast.makeText(getContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
                     Log.d(Mqtt.TAG, "apagando");
                 }
+
+                if(payload.contains("IN_1")){
+                    notificacionDentro();
+                        icono_entrada.setVisibility(View.VISIBLE);
+                        icono_habitacion2.setVisibility(View.INVISIBLE);
+                        icono_habitacion3.setVisibility(View.INVISIBLE);
+                        entrada = 2;
+
+
+                }
+
+                if(payload.contains("IN_2")){
+                    icono_entrada.setVisibility(View.INVISIBLE);
+                    icono_habitacion2.setVisibility(View.VISIBLE);
+                    icono_habitacion3.setVisibility(View.INVISIBLE);
+                    entrada = 3;
+                }
+
+                if(payload.contains("IN_3")){
+                    icono_entrada.setVisibility(View.INVISIBLE);
+                    icono_habitacion2.setVisibility(View.INVISIBLE);
+                    icono_habitacion3.setVisibility(View.VISIBLE);
+                    entrada = 1;
+                }
+
+
+                if(payload.contains("OUT")){
+                    notificacionFuera();
+                    icono_entrada.setVisibility(View.INVISIBLE);
+                    icono_habitacion2.setVisibility(View.INVISIBLE);
+                    icono_habitacion3.setVisibility(View.INVISIBLE);
+                    entrada = 1;
+                }
+                
+            }
+
+            private void notificacionFuera() {
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("default",
+                            "NOMBRE_DEL_CANAL",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+                    channel.setDescription("DESCRIPCION_DEL_CANAL");
+                    mNotificationManager.createNotificationChannel(channel);
+                }
+
+
+
+                @SuppressLint("RestrictedApi") NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                        .setContentTitle("Hasta pronto") // title for notification
+                        .setContentText("Que pase un buen dia")// message for notification
+                        .setAutoCancel(true); // clear notification after click
+                @SuppressLint("RestrictedApi") Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                @SuppressLint("RestrictedApi") PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mNotificationManager.notify(0, mBuilder.build());
+            }
+
+            private void notificacionDentro() {
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel("default",
+                            "NOMBRE_DEL_CANAL",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+                    channel.setDescription("DESCRIPCION_DEL_CANAL");
+                    mNotificationManager.createNotificationChannel(channel);
+                }
+
+
+
+                @SuppressLint("RestrictedApi") NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                        .setContentTitle("Bienvenido") // title for notification
+                        .setContentText("Bienvenido a casa")// message for notification
+                        .setAutoCancel(true); // clear notification after click
+                @SuppressLint("RestrictedApi") Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                @SuppressLint("RestrictedApi") PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mNotificationManager.notify(0, mBuilder.build());
             }
         });
     }

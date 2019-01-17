@@ -21,7 +21,7 @@
         <item
             android:id="@+id/nav_hospitales"
             android:icon="@android:drawable/ic_dialog_map"
-            android:title="Hospitales" />
+            android:title="@string/mapaMenu" />
 
         <item
             android:id="@+id/nav_perfil"

@@ -80,7 +80,7 @@ public class HospitalesFragment extends Fragment {
                 googleMap = mMap;
 
                 if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getContext(), "No ha cedido permisos de localización", Toast.LENGTH_SHORT);
+                    Toast.makeText(getContext(),     getResources().getString(R.string.solicitudPermisoMapa), Toast.LENGTH_SHORT);
                     Intent i = new Intent(getContext(), MainActivity.class);
                     startActivity(i);
                     return;

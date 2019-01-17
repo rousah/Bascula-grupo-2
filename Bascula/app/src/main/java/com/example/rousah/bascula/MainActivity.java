@@ -17,6 +17,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -75,6 +76,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
+
+import static android.app.PendingIntent.getActivity;
 import static com.example.comun.Mqtt.broker;
 import static com.example.comun.Mqtt.clientId;
 import static com.example.comun.Mqtt.qos;
@@ -109,12 +112,12 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
     //----------------MQTT---------------------
 
 
+
+
+
     // caídas
-    private static final int SOLICITUD_PERMISO_CALL_PHONE = 0;
-
-    // mapa
-    private static final int SOLICITUD_PERMISO_ACCESS_FINE_LOCATION = 1;
-
+    private static final int SOLICITUD_PERMISO_GLOBAL = 0;
+    private static final int SOLICITUD_PERMISO_ACCESS_FINE_LOCATION = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frameContent, new TabFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_inicio);
-        setTitle("Mediciones");
+        setTitle(getResources().getString(R.string.mediciones));
         //--------------Drawer--------------------
 
 
@@ -180,34 +183,37 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
 
+
         try {
-            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot+"PRESENCIA");
-            client.subscribe(Mqtt.topicRoot+"PRESENCIA", Mqtt.qos);
-            client.setCallback(this);
+            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot + "alarma");
+            client.subscribe(Mqtt.topicRoot + "alarma", Mqtt.qos);
+            client.setCallback((MqttCallback) this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
+
+
+
+
         //---------------MQTT---------------------
 
 
-        //---------------CAÍDAS-------------------
+        //---------------PERMISOS-------------------
+
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            PedirPermisos.solicitarPermiso(permisos, "Sin el permiso"+
-                            " llamar no puedo llamar a emergencias si se detecta alguna caída.",
-                    SOLICITUD_PERMISO_CALL_PHONE, this);
+            PedirPermisos.solicitarPermiso(permisos, "Sin el permiso llamar no puedo llamar a emergencias si se detecta alguna caída.",
+                    SOLICITUD_PERMISO_GLOBAL, this);
             return;
         }
         else {
             SharedPreferences pref =
                     PreferenceManager.getDefaultSharedPreferences(this);
-            String s = pref.getString("llamadaEmergencia","?");
-            if(s.equals("1")){
+            if(pref.getString("llamadaEmergencia","?").equals("1")){
             }else {
                 crearServicio();
             }
         }
-        //---------------CAÍDAS-------------------
-
 
         //---------------MAPA-------------------
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -216,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                     SOLICITUD_PERMISO_ACCESS_FINE_LOCATION, this);
             return;
         }
-        //---------------MAPA-------------------
 
         //mostrarPreferencias();
 
@@ -268,19 +273,6 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         startActivity(i);
     }
 
-    /*public void mostrarPreferencias(){
-        SharedPreferences pref =
-                PreferenceManager.getDefaultSharedPreferences(this);
-        String s = "imagen: " + pref.getString("imagen","?");
-        int value = Integer.parseInt(pref.getString("imagen","?"));
-        if(value == 2){
-            Toast.makeText(this, "ES AlTAAA", Toast.LENGTH_LONG).show();
-        }
-        if(value == 1){
-            Toast.makeText(this, "ES bajaaaa", Toast.LENGTH_LONG).show();
-        }
-        //Toast.makeText(this, s, Toast.LENGTH_LONG).show();
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -584,78 +576,45 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d("RUNAPP","LOS MENSAJES SE ESTAN RUNEANDO");
                 Switch luces = findViewById(R.id.switchluces);
                 if (luces != null) {
                     if (payload.contains("ON")) {
                         luces.setChecked(true);
-                        Toast.makeText(getBaseContext(), "Luces encendidas", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.lucesEncendidas), Toast.LENGTH_SHORT).show();
                     }
                     if (payload.contains("OFF")) {
                         luces.setChecked(false);
-                        Toast.makeText(getBaseContext(), "Luces apagadas", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.lucesApagadas), Toast.LENGTH_SHORT).show();
                     }
                 }
 
-                if(payload.contains("IN")){
-                    notificacionDentro();
-                }
-                if(payload.contains("OUT")){
-                    notificacionFuera();
+                if (payload.contains("ALERTA_DE_GAS")) {
+                    alertaGas();
                 }
 
 
 
             }
 
-            private void notificacionFuera() {
-                NotificationManager mNotificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    NotificationChannel channel = new NotificationChannel("default",
-                            "NOMBRE_DEL_CANAL",
-                            NotificationManager.IMPORTANCE_DEFAULT);
-                    channel.setDescription("DESCRIPCION_DEL_CANAL");
-                    mNotificationManager.createNotificationChannel(channel);
-                }
+            private void alertaGas() {
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                // android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
 
+                builder.setCancelable(true);
+                builder.setTitle("ALERTA");
+                builder.setMessage("FUGA DE GAS!!");
+                builder.setIcon(R.drawable.ic_danger);
 
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
-                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                        .setContentTitle("Hasta pronto") // title for notification
-                        .setContentText("Que pase un buen dia")// message for notification
-                        .setAutoCancel(true); // clear notification after click
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setContentIntent(pi);
-                mNotificationManager.notify(0, mBuilder.build());
-            }
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //   alertTextView.setVisibility(View.VISIBLE);
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
 
-
-
-            private void notificacionDentro() {
-                NotificationManager mNotificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    NotificationChannel channel = new NotificationChannel("default",
-                            "NOMBRE_DEL_CANAL",
-                            NotificationManager.IMPORTANCE_DEFAULT);
-                    channel.setDescription("DESCRIPCION_DEL_CANAL");
-                    mNotificationManager.createNotificationChannel(channel);
-                }
-
-
-
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
-                        .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                        .setContentTitle("Bienvenido") // title for notification
-                        .setContentText("Bienvenido a casa")// message for notification
-                        .setAutoCancel(true); // clear notification after click
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setContentIntent(pi);
-                mNotificationManager.notify(0, mBuilder.build());
             }
 
         });
@@ -684,7 +643,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
         startService(i);
     }
 
-    @Override public void onRequestPermissionsResult(int requestCode,
+    /*@Override public void onRequestPermissionsResult(int requestCode,
                                                      String[] permissions, int[] grantResults) {
         if (requestCode == SOLICITUD_PERMISO_CALL_PHONE) {
             if (grantResults.length== 1 &&
@@ -692,8 +651,7 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                 crearServicio();
             }
             else {
-                Toast.makeText(this, "Sin el permiso, no se llamará a emergencias cuando se " +
-                        "detecte una caída.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.permisoCaida), Toast.LENGTH_SHORT).show();
             }
         }
         if (requestCode == SOLICITUD_PERMISO_ACCESS_FINE_LOCATION) {
@@ -701,11 +659,10 @@ public class MainActivity extends AppCompatActivity implements PerfilFragment.On
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             }
             else {
-                Toast.makeText(this, "Sin el permiso, no se mostrará el " +
-                        "mapa con hospitales.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.permisoMapa), Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
     //---------------CAÍDAS-------------------
 
 

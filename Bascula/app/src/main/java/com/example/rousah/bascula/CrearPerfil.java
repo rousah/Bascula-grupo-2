@@ -133,7 +133,7 @@ public class CrearPerfil extends AppCompatActivity {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                Toast.makeText(CrearPerfil.this, "Imagen subida en baja calidad", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CrearPerfil.this, "Imagen subida en baja calidad", Toast.LENGTH_SHORT).show();
                 imagenPerfil.setImageBitmap(bitmap);
             }
             catch (IOException e)
@@ -259,7 +259,7 @@ public class CrearPerfil extends AppCompatActivity {
         Log.w("perfil: fecha", fecha.getText().toString());
         Log.w("perfil: tlf", telefono.getText().toString());
         if (telefono.getText().toString().equals("") || fecha.getText().toString().equals("dd/mm/yy") || radioButtonSelected == null || telefonoEm.getText().toString().equals("")) {
-            Toast.makeText(CrearPerfil.this, "Complete todos los campos", Toast.LENGTH_LONG).show();
+            //Toast.makeText(CrearPerfil.this, "Complete todos los campos", Toast.LENGTH_LONG).show();
         } else {
             selectedId = radioGroup.getCheckedRadioButtonId();
             radioButtonSelected = (RadioButton) findViewById(selectedId);

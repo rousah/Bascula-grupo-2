@@ -23,6 +23,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.comun.Mqtt;
@@ -127,13 +128,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
 
-        try {
-            Log.i(Mqtt.TAG, "Suscrito a " + Mqtt.topicRoot + "PRESENCIA");
-            client.subscribe(Mqtt.topicRoot + "PRESENCIA", Mqtt.qos);
-            client.setCallback((MqttCallback) this);
-        } catch (MqttException e) {
-            Log.e(Mqtt.TAG, "Error al suscribir.", e);
-        }
+
         //---------------MQTT---------------------
 
 
@@ -250,26 +245,26 @@ public class TabPrimero extends Fragment implements MqttCallback {
                                 String s = pref.getString("peso","?");
                                 if(pref.getString("peso","?").equals("1")){
                                     TextView pesoReal = view.findViewById(R.id.pesoValor);
-                                    pesoReal.setText(String.valueOf(peso) + " Kg");
+                                    pesoReal.setText(String.valueOf(peso) + " " + getResources().getString(R.string.Kg));
                                 }else{
                                     TextView pesoReal = view.findViewById(R.id.pesoValor);
                                     Float x = 2.2f;
                                     peso = peso * x;
                                     String y = String.valueOf(peso);
                                     y = String.format("%.2f", peso);
-                                    pesoReal.setText( y + " Libras");
+                                    pesoReal.setText( y + " " + getResources().getString(R.string.Libras));
                                 }
 
                                 if(pref.getString("altura","?").equals("1")) {
                                     TextView alturaReal = view.findViewById(R.id.alturaValor);
-                                    alturaReal.setText(String.valueOf(altura) + " Metros");
+                                    alturaReal.setText(String.valueOf(altura) + " " + getResources().getString(R.string.Metros));
                                 }else{
                                     TextView alturaReal = view.findViewById(R.id.alturaValor);
                                     Float x = 3.2f;
                                     altura = altura * x;
                                     String y = String.valueOf(altura);
                                     y = String.format("%.2f", altura);
-                                    alturaReal.setText(String.valueOf(altura) + " Pies");
+                                    alturaReal.setText(String.valueOf(altura) + " " + getResources().getString(R.string.Pies));
                                 }
 
 
@@ -443,7 +438,6 @@ public class TabPrimero extends Fragment implements MqttCallback {
                 if (payload.contains("ALERTA_DE_GAS")) {
                     alertaGas();
                 }
-
                 if(payload.contains("IN")){
                     notificacionDentro();
                 }

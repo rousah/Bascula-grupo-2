@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="unidadesPeso">
-        <item>Kg</item>
-        <item>Libras</item>
+        <item>@string/Kg</item>
+        <item>@string/Libras</item>
     </string-array>
     <string-array name="unidadesAltura">
-        <item>Metros</item>
-        <item>Pies</item>
+        <item>@string/Metros</item>
+        <item>@string/Pies</item>
     </string-array>
     <string-array name="tiposUnidadesPeso">
         <item>1</item>
@@ -21,12 +21,12 @@
         <item>2</item>
     </string-array>
     <string-array name="llamadaSiNo">
-        <item>No permitir</item>
-        <item>Permitir</item>
+        <item>@string/noPermitir</item>
+        <item>@string/permitir</item>
     </string-array>
-    <string-array name="loaclizacionNombre">
-        <item>Hospitales</item>
-        <item>Farmacias</item>
+    <string-array name="localizacionNombre">
+        <item>@string/Hospitales</item>
+        <item>@string/Farmacias</item>
     </string-array>
     <string-array name="localizacion12">
         <item>1</item>

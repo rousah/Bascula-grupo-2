@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Bascula</string>
-    <string name="inicio">Inicio</string>
     <string name="action_settings">Settings</string>
     <string name="preferencias">Preferencias</string>
-    <string name="datos">Datos</string>
     <string name="acercade">Acerca de...</string>
 
     <string name="aceptar">Aceptar</string>
@@ -25,7 +23,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-    <string name="h"></string>
+    <string name="base"></string>
 
     <!-- Acerca de -->
     <string name="textoAcercaDe"> Thank you for trying out our app about IoT, developed by group numeber 2 during the first semester of 2019 as the final proyect of IoT and App in the UPV of Gandia.</string>
@@ -55,6 +53,7 @@
     <string name="textoEmail">Email:</string>
     <string name="textoFecha">Date:</string>
     <string name="textoTelefono">Phone:</string>
+    <string name="textoTelefonoEmergencia">Emergency phone:</string>
     <string name="sexo">Sex:</string>
     <string name="mascalunino">Male</string>
     <string name="femenino">Female</string>
@@ -92,14 +91,58 @@
 
     <!-- nav drawer menu -->
     <string name="medicionesMenu">Measurements</string>
-    <string name="casaMenu">Home</string>
+    <string name="casaMenu">My home</string>
     <string name="tratamientosMenu">Treatments</string>
     <string name="perfilMenu">Account</string>
     <string name="cerrarSesiónMenu">End session</string>
+    <string name="mapaMenu">Map</string>
     <!-- nav drawer menu -->
 
+    <!-- Main activity -->
+    <string name="lucesEncendidas">Lights on</string>
+    <string name="lucesApagadas">Lights off</string>
+    <string name="permisoCaida">Without permissions the app won´t be able to call in case of an accidental fall.</string>
+    <string name="permisoMapa">Without permissions the app won´t be able to show the map with important landmarks.</string>
+    <string name="hastaP">See you soon</string>
+    <string name="haveAneatDay">Have a nice day</string>
+    <string name="bienvenido">Welcome</string>
+    <string name="bienvenidoCasa">Welcome home</string>
+    <string name="solicitudPermisoLlamada">Without the phone permission the app won´t be able to call in case of an accidental fall.</string>
+    <string name="mediciones">Measurements</string>
+    <!-- Main activity -->
 
+    <!-- Hospital fragment -->
+    <string name="solicitudPermisoMapa">Without the location permission the app won´t be able to show the map and it´s important landmarks.</string>
+    <!-- Hospital fragment -->
 
+    <!-- arrays -->
+    <string name="Metros">Meters</string>
+    <string name="Pies">Feets</string>
+    <string name="Kg">Kg</string>
+    <string name="Libras">Pounds</string>
+    <string name="Hospitales">Hospitals</string>
+    <string name="Farmacias">Pharmacies</string>
+    <string name="permitir">Allow</string>
+    <string name="noPermitir">Don´t allow</string>
+    <!-- arrays -->
+
+    <!-- Preferencias xml -->
+    <string name="umbralLlamadaT">Threshold to detect a fall</string>
+    <string name="umbralLlamadaS">We reccomend to type a value between 25 and 50</string>
+    <string name="localizacionT">Location to show</string>
+    <string name="localizacionS">Allows to see different landmarks in the map</string>
+    <string name="llamadaEmergenciasT">Emergency call</string>
+    <string name="llamadaEmergenciasS">Automatycally calls emergency services if the phone detects a fall</string>
+    <string name="alturaT">Units for height</string>
+    <string name="alturaS">Prefered unit to show height</string>
+    <string name="pesoT">Units for weight</string>
+    <string name="pesoS">Prefered unit to show weight</string>
+    <!-- Preferencias xml -->
+
+    <!-- Tab fragment -->
+    <string name="inicio">Home</string>
+    <string name="datos">Data</string>
+    <!-- Tab fragment -->
 
 
     <!-- TODO: Remove or change this placeholder text -->
