@@ -114,9 +114,9 @@ void loop() {
 
   
 if(touchRead(PinGPIOMagnetic != 0)){
-  client.publish("equipo2/bascula/PRESENCIA", "PUERTA_ON");
+  client.publish("equipo2/bascula/PRESENCIA", "PUERTA_ABIERTA");
   }else{
-    client.publish("equipo2/bascula/PRESENCIA", "PUERTA_OFF");
+    client.publish("equipo2/bascula/PRESENCIA", "PUERTA_CERRADA");
   }
 
 

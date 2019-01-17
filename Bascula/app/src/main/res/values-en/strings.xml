@@ -44,7 +44,8 @@
     <string name="sensacionTermica">Thermal sensation:</string>
     <string name="humedad">Humidity:</string>
     <string name="puerta">Door:</string>
-    <string name="estadoPuerta">Open</string>
+    <string name="estadoPuertaAbierto">Open</string>
+    <string name="estadoPuertaCerrado">Closed</string>
     <string name="luces">Lights:</string>
     <!-- casa -->
 
