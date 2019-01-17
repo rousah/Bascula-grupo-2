@@ -42,41 +42,6 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
 
-
-  /*       FirebaseFirestore db = FirebaseFirestore.getInstance();
- //       Map<String, Object> datos = new HashMap<>();
-        datos.put("peso", 53);
-        datos.put("altura", 1.67);
-        Log.w(TAG, "BUSCANDO");
-
-
-        db.collection("medicion").document("Adios").set(datos)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.w(TAG, "FUCIONA");
-
-                    }
-                })
-                .addOnCompleteListener(
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.w(TAG, task.toString());
-                    }
-
-                }).addOnFailureListener(
-                new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, e.toString());
-
-                    }
-                }
-        );
-
-        */
-
         Log.i(TAG, "Lista de UART disponibles: " + ArduinoUart.disponibles());
         uart = new ArduinoUart("UART0", 115200);
 

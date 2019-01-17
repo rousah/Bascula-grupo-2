@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 .DS_Files
+<<<<<<< HEAD
 =======
 
 Bascula/.idea/misc.xml
@@ -8,3 +9,6 @@ Bascula/.idea/assetWizardSettings.xml
 *.icloud
 .idea
 >>>>>>> 715a62a6846b4bafe18814b962c57ffbe7ed7f4e
+=======
+.idea
+>>>>>>> 7ca49cd81bd334e9d38722f57e8e28d69fe5b430

@@ -26,6 +26,9 @@ const char * password = "HoLaMuNDo";
 //const char * ssid = "MASMOVIL_2sPj";
 //const char * password = "6QSb3hZgFN22";
 
+//const char * ssid = "Equipo3";
+//const char * password = "IvRaCarDi03";
+
 char texto[300];    //array para recibir los datos como texto
 int hora;
 boolean rec=0;

@@ -26,18 +26,30 @@ MFRC522::StatusCode status; //variable to get card status
 
 // --- Escucha del sensor hum temp ---
 // Definimos el pin digital donde se conecta el sensor DHT
+<<<<<<< HEAD
 #define DHTPIN 16
+=======
+#define DHTPIN 5
+>>>>>>> 7ca49cd81bd334e9d38722f57e8e28d69fe5b430
 // Dependiendo del tipo de sensor
 #define DHTTYPE DHT11
 // Inicializamos el sensor DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
 // --- Info Router ---
+<<<<<<< HEAD
 const char * ssid = "EQUIPO_2";
 const char * password = "HoLaMuNDo";
+=======
+//const char * ssid = "EQUIPO_2";
+//const char * password = "HoLaMuNDo";
+>>>>>>> 7ca49cd81bd334e9d38722f57e8e28d69fe5b430
 
 //const char * ssid = "MASMOVIL_2sPj";
 //const char * password = "6QSb3hZgFN22";
+
+const char * ssid = "Equipo3";
+const char * password = "IvRaCarDi03";
 
 
 AsyncUDP udp;
@@ -165,6 +177,7 @@ void loop()
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
     leerHumTemp(&datosDHT[0]);
+<<<<<<< HEAD
     envio["Date"] = date;
     envio["Time"] = timeNow;
     envio["Temperatura"] = datosDHT[1];
@@ -174,10 +187,21 @@ void loop()
     envio.printTo(texto);         //paso del objeto "envio" a texto para transmitirlo
     udp.broadcastTo(texto,1234);  //se envía por el puerto 1234 el JSON 
                                 //como texto
+=======
+    envio["Temperatura"] = datosDHT[0];
+    envio["Humedad"] = datosDHT[1];
+    envio["Calor"] = datosDHT[2];
+>>>>>>> 7ca49cd81bd334e9d38722f57e8e28d69fe5b430
   }
   
   //Se hace continuamente 
   leerInfrarrojos();
 
+<<<<<<< HEAD
   
+=======
+  envio.printTo(texto);         //paso del objeto "envio" a texto para transmitirlo
+  udp.broadcastTo(texto,1234);  //se envía por el puerto 1234 el JSON 
+                                //como texto
+>>>>>>> 7ca49cd81bd334e9d38722f57e8e28d69fe5b430
 }
