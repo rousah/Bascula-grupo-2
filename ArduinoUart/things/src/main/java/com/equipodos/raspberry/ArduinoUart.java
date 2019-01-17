@@ -20,9 +20,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 
 public class ArduinoUart {
@@ -79,7 +81,7 @@ public class ArduinoUart {
                 @Override
                 public boolean onUartDeviceDataAvailable(UartDevice uart) {
                     // Read available data from the UART device
-                    //Log.d(TAG, "dentro del callback");
+                    Log.d(TAG, "dentro del callback");
 
                     /*Runnable runnable = new Runnable() {
 
@@ -110,19 +112,16 @@ public class ArduinoUart {
                     handler.postDelayed(runnable, duracion);*/
 
                     texto = leer();
-                    //Log.d(TAG, texto);
+                    Log.d(TAG, texto);
                     if (texto.equals("S")) {
 
-                        //Log.d(TAG, "llamado recibido");
-
-
-
+                        Log.d(TAG, "llamado recibido");
                         escribir("2");
 
                         Calendar c = Calendar.getInstance();
                         int month = c.get(Calendar.MONTH)+1;
                         String date = c.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+c.get(Calendar.YEAR);
-                        //Log.d(TAG, date);
+                        Log.d(TAG, date);
 
                         Date fecha = new Date();
                         Timestamp fechaStamp = new Timestamp(fecha);
@@ -136,10 +135,11 @@ public class ArduinoUart {
                             Log.w(TAG, "Error en sleep()", e);
 
                         }
+
                         String s = leer();
 
-                        //Log.d(TAG, "Datos recogidos: ");
-                        //Log.d(TAG, s);
+                        Log.d(TAG, "Datos recogidos: ");
+                        Log.d(TAG, s);
 
                         try {
                             objMedidas = new JSONObject(s);
@@ -150,7 +150,7 @@ public class ArduinoUart {
                         try {
                             peso = objMedidas.getDouble("Peso");
                             altura = objMedidas.getDouble("Altura");
-                            t = objMedidas.getDouble("Temperatura");
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -161,30 +161,16 @@ public class ArduinoUart {
                             Log.w(TAG, "Error en sleep()", e);
                         }
 
-                        Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
-                        int monthDay =calendarNow.get(Calendar.DAY_OF_MONTH);
-                        int month = calendarNow.get(Calendar.MONTH);
-                        int year = calendarNow.get(Calendar.YEAR);
-
-                        Log.d(TAG, String.valueOf(monthDay)+"-"+String.valueOf(month)+"-"+String.valueOf(year));
-                        fecha = String.valueOf(monthDay)+"-"+String.valueOf(month)+"-"+String.valueOf(year);
+                        datos.put("fecha", fechaStamp);
+                        datos.put("peso", peso);
+                        datos.put("altura", altura);
+                        datos.put("temperatura", t);
+                        datos.put("humedad", h);
+                        datos.put("calor", calor);
 
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                        datos.put("fecha", fecha);
-                        datos.put("peso", peso);
-                        datos.put("altura", altura);
-<<<<<<< HEAD
-                        datos.put("temperatura", t);
-                        //datos.put("humedad", h);
-                        //datos.put("calor", calor);
-
-
-                        db.collection("mediciones").document(date).set(datos)
-=======
-
-                        db.collection("mediciones").document(fecha).set(datos)
->>>>>>> 7ca49cd81bd334e9d38722f57e8e28d69fe5b430
+                        db.collection("usuarios").document("prueba").collection("mediciones").document(date).set(datos)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -197,7 +183,7 @@ public class ArduinoUart {
                                 Log.d(TAG, "fail");
                             }
                         });
-                       // Log.d(TAG, "Subiendo datos...");
+                        Log.d(TAG, "Subiendo datos...");
                     }
 
                     // Continue listening for more interrupts
