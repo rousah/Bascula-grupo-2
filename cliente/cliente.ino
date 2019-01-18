@@ -26,7 +26,7 @@ MFRC522::StatusCode status; //variable to get card status
 
 // --- Escucha del sensor hum temp ---
 // Definimos el pin digital donde se conecta el sensor DHT
-#define DHTPIN 5
+#define DHTPIN 35
 // Dependiendo del tipo de sensor
 #define DHTTYPE DHT11
 // Inicializamos el sensor DHT11
@@ -137,11 +137,6 @@ void setup()
   
 }
 
-byte ActualUID[7]; //almacenará el código del Tag leído
-byte Medicamento1[7]= {0x04, 0x17, 0xC0, 0x5A, 0x51, 0x59, 0x80} ; //código del usuario 1
-byte Medicamento2[7]= {0x04, 0x30, 0xC0, 0x5A, 0x51, 0x59, 0x80} ; //código del usuario 2
-byte Medicamento3[7]= {0x04, 0x1F, 0xC0, 0x5A, 0x51, 0x59, 0x80} ; //código del usuario 2
-
 
 void loop()
 {
@@ -157,8 +152,7 @@ void loop()
   float hum;
   float calor;
 
-  envio["Date"] = date;
-  envio["Time"] = timeNow;
+  
 
   
   unsigned long currentMillis = millis();
@@ -166,13 +160,15 @@ void loop()
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
     leerHumTemp(&datosDHT[0]);
+    envio["Date"] = date;
+    envio["Time"] = timeNow;
     envio["Temperatura"] = datosDHT[0];
     envio["Humedad"] = datosDHT[1];
     envio["Calor"] = datosDHT[2];
   }
   
   //Se hace continuamente 
-  leerInfrarrojos();
+  //leerInfrarrojos();
 
   envio.printTo(texto);         //paso del objeto "envio" a texto para transmitirlo
   udp.broadcastTo(texto,1234);  //se envía por el puerto 1234 el JSON 

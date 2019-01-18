@@ -3,7 +3,7 @@
 
 
 // Sensor de Gas Pines
-const int MQ_PIN = 36;
+const int MQ_PIN = 39;
 const int MQ_DELAY = 2000;
 
 int medidaGasRaw;
@@ -61,7 +61,7 @@ void setup() {
 
 // ------------------- Conexión eclipse ----------------------------
   Serial.begin(115200);
-  //WiFi.begin(ssid, pass);
+  WiFi.begin(ssid, pass);
 
   
   client.begin(broker, net);
@@ -102,7 +102,7 @@ void loop() {
   
 
   if((medidaGasVoltios >= 2) && (controladorAlertaGas == 0)){
-      client.publish("equipo2/bascula/alarma", "¡¡¡ALERTA SENSOR DE GAS!!!: ");
+      client.publish("equipo2/bascula/alarma", "ALERTA_DE_GAS");
       controladorAlertaGas = 1;
     } 
   if((medidaGasVoltios <= 1) && (controladorAlertaGas == 1)){
@@ -113,20 +113,15 @@ void loop() {
 
 
   
-if(touchRead(PinGPIOMagnetic != 0)){
+if(touchRead(PinGPIOMagnetic) != 0){
   client.publish("equipo2/bascula/PRESENCIA", "PUERTA_ABIERTA");
-  }else{
+  }
+ 
+if(touchRead(PinGPIOMagnetic) == 0){
     client.publish("equipo2/bascula/PRESENCIA", "PUERTA_CERRADA");
   }
-
-
-
-    leerInfrarrojos();
-
-
-    
-
   
+  leerInfrarrojos();
   delay(500);
 }
 
@@ -165,12 +160,6 @@ if(digitalRead(PinGPIOPresencia)== HIGH) {
     return;
     }
 }
-
-  if(digitalRead(PinGPIOPresencia)== HIGH) {
-   Serial.println("Detectado movimiento por el sensor pir");
-   client.publish("equipo2/bascula/PRESENCIA", "IN_1");
-   return;
-  }
   
 }
 // -----------------------------------------------------------------
@@ -180,12 +169,12 @@ if(digitalRead(PinGPIOPresencia)== HIGH) {
 // ------------- Funciones sensor magnetico -------------------
 
 
-String touchRead(int pin) {
+bool touchRead(int pin) {
   bool toca = digitalRead(pin);
   if (toca) {
-    return "ON";
+    return 1;
     }
-    return "OFF";
+    return 0;
 }
 
 // -----------------------------------------------------------------
