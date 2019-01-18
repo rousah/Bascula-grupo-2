@@ -223,7 +223,7 @@ public class TabPrimero extends Fragment implements MqttCallback {
                             for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                                 float peso = Float.parseFloat(documentSnapshot.getData().get("peso").toString());
                                 float altura = Float.parseFloat(documentSnapshot.getData().get("altura").toString());
-
+                                altura = altura / 100;
                                 /*TextView textoPeso = view.findViewById(R.id.pesoValor);
                                 if(pref.getString("peso","?") == "1") {
                                     textoPeso.setText(String.valueOf(peso) + " Kg");

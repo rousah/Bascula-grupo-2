@@ -81,11 +81,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         mTitleSet.add(context.getResources().getString(R.string.altura));
         if(pref.getString("altura","?").equals("1")) {
-            mDataSet.add(data.get(1));
+            mDataSet.add(data.get(1)/100);
             mUnidadesSet.add(context.getResources().getString(R.string.Metros));
         }else{
             Double x = 3.2;
-            Double altura = data.get(1) * x;
+            Double altura = data.get(1)/100 * x;
             String y = String.valueOf(altura);
             y = String.format("%.2f", altura);
             Double z = Double.parseDouble(y);
