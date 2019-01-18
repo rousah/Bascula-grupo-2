@@ -26,7 +26,7 @@ MFRC522::StatusCode status; //variable to get card status
 
 // --- Escucha del sensor hum temp ---
 // Definimos el pin digital donde se conecta el sensor DHT
-#define DHTPIN 35
+#define DHTPIN 3
 // Dependiendo del tipo de sensor
 #define DHTTYPE DHT11
 // Inicializamos el sensor DHT11
